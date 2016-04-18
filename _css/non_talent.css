@@ -1,0 +1,6 @@
+#container_nontalent{width:990px;margin:0 auto;min-height:300px;}
+#melu_list_left{float:left;width:300px;}
+#melu_list_left ul li{list-style:none;color:#CCCC00;}
+#melu_list_left li a{color:#6666CC;}
+#melu_list_left ul li a:hover{color:#FF9900;}
+#right_part{float:right;width:650px;}

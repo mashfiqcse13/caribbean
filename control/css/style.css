@@ -1,0 +1,347 @@
+/* CSS Document */
+body{
+    padding:0;margin:0;
+    font-family:Verdana, Arial, Helvetica, sans-serif;
+    font-size:12px;
+}
+table.TabMain{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.TRHeader{
+    border-bottom:10px solid #444444;
+
+}
+.TRHeader{background-image:url(../images/back_img.png);}
+.TDMenu{
+    background-color:#444444;
+    color:#FFF;
+    width:250px;
+    vertical-align:top;
+    font-size:11x;
+    height:300px;
+}
+#cms{width:600px;margin-top:10px;margin-bottom:15px;}
+#cms label.error{float:right;margin-right:-8px;}
+#cms h1{color:#775E52;margin-left:20px;font-size:15px;margin-top:12px;font-weight:bold;text-transform:uppercase;}
+#cms p,label{color:#775E52;}
+#cms_heading h1{color:#775E52;margin:50px 0px 60px 60px;font-size:11px;}
+ul.ULMenu{float:left; margin:0px; padding:0px; width:100%;}
+ul.ULMenu li{
+    margin:0px;list-style:none;font-size:15px;width:99%;padding:5px 0px 8px 0px;font-family:Arial, Helvetica, sans-serif;float:left;
+
+}
+ul.ULMenu li a{		
+    list-style:none;text-decoration:none; margin:6px 5px 5px 25px; display:block;color:#FFFFFF;
+}
+ul.ULMenu li a:hover{
+    color:#FFFFFF;	
+}
+ul.ULMenu li:hover{background-color:#FF9900;}
+
+.TDContent{
+    margin:0 auto;
+    margin:10px 0px 10px 10px;
+    border-collapse:collapse;
+}
+textarea{width:370px; height:120px;}
+.TDContent a{text-decoration:none;color:#775E52;}
+
+.TDContent h1{color:#775E52;font-family:Arial, Helvetica, sans-serif;font-size:15px;margin-left:10px;}
+.TDContent a:hover{/*border-bottom:1px solid #775E52;*/}
+.TDContent th{color:#775E52;font-size:15px; font-weight:bold;background-color:#FFCC00;}
+.TDContent tabel td{}
+#login_check{margin-left:20px;}
+label{width:10em; display:inline-block;font-size:13px;font-family:Arial, Helvetica, sans-serif;}
+legend h1{font-size:15px;font-family:Arial, Helvetica, sans-serif;}
+fieldset{margin:0 auto;margin-left:50px;margin-top:40px;margin-bottom:40px;}
+.TRFooter{
+    border-top:10px solid #444444;
+    /*background-color:#F6AB20;*/
+    background:url("../images/back_img.png");
+    height:50px;
+    color:black;
+    text-align:center;
+}
+#cke_txtContent{margin-left:130px;width:700px; }
+.TRFooter a{color:#FFFFFF;}
+
+#add_image{float:right;}
+#add_image a{color:#FF66FF;font-size:11px;text-decoration:none;}
+#pagination{float:left;margin-left:230px;}
+#message{float:left;text-align:center;color:#FF9900;margin-left:40px;}
+
+#cg_password{margin:20px 0px 20px 20px;width:600px;}
+#cg_password h2{font-family:Arial, Helvetica, sans-serif;color:#775E52;font-size:15px;text-transform:uppercase;}
+label.error{color:#FF0000; width:300px; padding-left: 10px; float: none;}
+
+
+
+/*############# manage music ###############*/
+div.add_site_mp3{
+    padding:0px;
+    margin:0px;
+    /*border:1px solid #FF0000;*/
+    margin-left:100px;
+    margin-top:20px;
+
+}
+
+p .button{
+    background:#807f7f;
+    border:none;
+    padding:5px 7px 5px 7px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+    color:#FFFFFF;
+    /*margin:0px 0px 0px 100px;*/
+    margin-left:138px;
+}
+.button:hover{
+    background:#F9B121;
+}
+
+div.add_site_mp3 p label{
+    font-weight:bold;
+}
+div.add_site_mp3 p input[type=text]{
+    padding:5px;
+    border:thin solid #999999;
+    background:#FFFFFF;
+    width:200px;
+}
+.msg{
+    font-size:12px;
+    color:#FFF;
+    text-align:center;
+    background:#339933;
+    border:1px solid #FFF;
+    padding:0px;
+    margin:0px;
+    line-height:25px;
+}
+.err{
+    font-size:12px;
+    color:#FFF;
+    text-align:center;
+    background:#990000;
+    border:1px solid #FFF;
+    padding:0px;
+    margin:0px;
+    line-height:25px;
+}
+.active{
+    color:#339933;
+    font-size:12px;
+    text-align:center;
+    border:1px solid #FFF;
+    padding:0px;
+    margin:0px;
+    line-height:25px;
+}
+.inactive{
+    color:#FF0033;
+    font-size:12px;
+    text-align:center;
+    border:1px solid #FFF;
+    padding:0px;
+    margin:0px;
+    line-height:25px;
+}
+
+/********************************************************************************************
+                                                                                                        VIEW_ORDER_MANAGE PAGE STYLE
+*********************************************************************************************/
+.view_order_manage{
+    /*border:2px solid #6600FF;*/
+    width:990px;
+    min-height:400px;
+    float:left;
+    margin:0px 10px 0px 10px;
+}
+
+.view_order_manage p{width:96%;height:25px; /*border:thin solid #0033FF;*/ }
+
+
+.product_history{width:98%;/*border:2px solid #CC0000;*/min-height:300px;padding-top:20px;}
+
+.product_history img{width:300px;float:left;/*border:2px solid #3333FF;*/ height:300px; margin:0px 10px 0px 0px;}
+
+.product_history p{/*margin-left:330px;*/}
+
+.product_detailss{
+    float:right;
+    border:2px solid #FF0000;
+    text-align:justify;
+    width:67%;
+    height:300px;
+}
+.product_details{font-family:Arial, Helvetica, sans-serif; font-size:14px;text-align:justify;/*border:1px solid #CC3300;*/ }
+
+.product_name{color:#FF9900;font-family:Arial, Helvetica, sans-serif;font-size:16px;/*border:2px solid #FF0000;*/margin-top:-1px;}
+
+h2.order{
+    border-bottom:3px solid #666699;
+    padding-bottom:15px;
+}
+
+.seller_details{  width:990px;height:130px; }
+.seller_details_left{width:540px;clear:both; float:left;}
+.seller_details_right{ float:right; width:430px; }
+
+.btnsearch{
+    background-image:url(../images/search.jpg);
+    background-repeat:no-repeat;
+    background-position:center;
+    width:20px;
+    height:21px;
+    border:0px;
+    cursor:pointer;
+}
+#textbox{
+    width:225px;
+    padding:5px 5px 5px 5px;
+    border:thin solid #ccc;
+    background:#FFFFFF;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin:6px 0px 0px 10px;
+    clear:both;
+    overflow:hidden;
+}
+#search{
+    width:190px;
+    margin:0px;
+    padding:0px;
+    border:none;
+    outline:none;
+    margin-top:2px;
+}
+input[type=text],input[type=password]{
+    padding:5px;
+    border:thin solid #999999;
+    background:#FFFFFF;
+}
+
+.b_image{
+    float:left;
+    margin-top:25px;
+    margin-left:5px;
+    margin-bottom:15px;
+    height:240px;
+    border:1px solid #ccc;
+    list-style:none;
+}
+.b_image:first-child{
+    margin-left:0px;
+}
+.b_image:last-child{
+    margin-left:0px;
+}
+/*#show_search_user{
+border:1px solid #FF0000;
+min-width:990px;
+margin-left:10px;
+}*/
+
+/*###### pagination css on forum page ######*/
+#pagination{
+    text-align:center;
+    color:#660000;
+    padding-top:30px;
+    float:right;
+    margin-top:10px;
+    width:310px;
+    margin-bottom: 20px;
+    position: relative;
+}
+#pagination a{
+    border:1px solid #F6AB20;
+    background-color:#660000;
+    color:#FFFFFF;
+    padding:5px 8px;
+    margin:1px;
+}
+#pagination a:hover{
+    border:1px solid #660000;
+    background-color:#F6AB20;
+
+    text-decoration:none;
+    color:#000;
+}
+#pagination .disabled{
+    border:1px solid #F6AB20;
+    background-color:#660000;
+    color:#FFFFFF;
+    padding:5px;
+    margin:1px;
+}
+#pagination .current{
+    border:1px solid #660000;
+    background-color:#F6AB20;
+
+    text-decoration:none;
+    color:#000;
+    padding:5px;
+    margin:1px;
+}
+#member{
+    display:block;
+    /*border:1px solid #FF0000;*/
+}
+
+
+p.delete_user_account{
+    /*border:1px solid #FF0033;*/
+    line-height:2;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+    color:#BB0000;
+    margin-left:200px; 
+    width:600px;
+    text-align:justify;
+}
+.button2{
+
+    background:#B8071A;
+    border:none;
+    padding:5px 7px 5px 7px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+    color:#FFFFFF;
+    margin:0px 0px 10px 50px;
+    float:left;
+
+}
+.button3{
+
+    background:#808080;
+    border:none;
+    padding:5px 7px 5px 7px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:14px;
+    color:#FFFFFF;
+    margin:0px 0px 10px 50px;
+    float:left;
+
+}
+
+
+.Tabforumtopic img {
+    max-height: 300px !important;
+}
+.img_warning
+{
+    color: #FF0000;
+    float: left;
+    font-weight: bold;
+    margin: 30px auto;
+    text-align: center;
+    width: 100%;
+}
+/*For editor image Css*/
+
+/*
+.cke_editable img {border: 1px solid red !important;width: 100px !important;}*/

@@ -1,0 +1,119 @@
+#message{
+    color:#FF0000;
+}
+#message_r{
+    color:#00CC00;
+}
+#m_profile{
+    padding:0px;
+    margin:0px;
+    width:100%;
+
+}
+.check_box{
+    display:inline;
+}
+
+#m_profile_left{
+    padding:0px;
+    margin:0px;
+    float:left;
+    width:30%;
+
+}
+
+#profile_photo_m{
+    padding:0px;
+    margin:0px;
+    background-image:url(../_images/dummy-user-medium.png);
+    width:200px;
+    height:auto;
+    margin-left:40px;
+    /*border:1px solid #CC0033;*/
+}
+#profile_photo_f{
+    padding:0px;
+    margin:0px;
+    background-image:url(../_images/dummy-user_04.jpg);
+    width:200px;
+    height:auto;
+    margin-left:40px;
+    /*border:1px solid #CC0033;*/
+}
+#m_profile_right{
+    padding:0px;
+    margin:0px;
+    width:68%;
+    float:right;
+    height:auto;
+    /*border:1px solid #666633;*/
+}
+a{
+    text-decoration:none;
+}
+a:hover{
+    color:#CC33CC;
+}
+.profile_setup_left{
+    padding:0px;
+    margin:0px;
+    height:auto;
+    width:49%;
+    float:left;
+    border:1px solid #FF0033;
+}
+.profile_setup_left h1{
+    margin-left:30px;
+    text-align:left;
+}
+.profile_setup_left_main_im{
+    padding:0px;
+    margin:0px;
+    margin-left:30px;
+}
+#pro_foot_img{
+    padding:0px;
+}
+.profile_setup_left_mine_im{
+    margin:0px;
+    padding:0px;
+    float:left;
+    height:200px;
+    width:20%;
+}
+.profile_setup_right{
+    padding:0px;
+    margin:0px;
+    height:auto;
+    width:50%;
+    float:left;
+    border:1px solid #FF0033;
+}
+#you_tube{
+    display:none;
+}
+/**************
+USER UPLOAD IMAGE
+***************/
+#right_part{float:right;width:650px;}
+#right_part p a{color:#FF6600;float:right;margin-right:15px;margin-top:6px;}
+#right_part p a:hover{color:#666666;}
+
+/**************
+PROFILE PHOTO STYLE
+***************/
+#a_image{padding:0px; margin:0px; }
+
+#a_image ul{ padding:0px;margin:0px;list-style:none;position:relative;}
+
+#a_image ul li {float:left;height:180px;padding:10px 10px 10px 10px;font-family:Verdana, Arial, Helvetica, sans-serif;font-size:12px;color:#000066; list-style:none;}
+
+/**************
+TEXT AREA
+***************/	
+#add_comment textarea{width:370px; height:120px;}
+
+/**************
+COMMENDS STYLE
+***************/	
+#commends{float:left;width:400px;height:200px;}
