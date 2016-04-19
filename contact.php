@@ -1,6 +1,5 @@
 <?php
 include('_includes/application-top.php');
-session_start();
 //require_once('contact.php'); 
 ?>
 
@@ -147,9 +146,10 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
 
             // Send the completed message
 
-            $envs = array("HTTP_USER_AGENT", "REMOTE_ADDR", "REMOTE_HOST");
-            foreach ($envs as $env)
+            $envs = array("HTTP_USER_AGENT", "REMOTE_ADDR");
+            foreach ($envs as $env){
                 $message .= "$env: $_SERVER[$env]\n";
+            }
 
             //if($subject==''){
 //						$subject="Expression regarding sexual assault";
@@ -261,7 +261,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             </p>
             <p>
                 <label for="city">Job title:</label>
-                <select name="country" id="location" class="required" onchange="correct_number()">
+                <select name="job_title" id="location" class="required" onchange="correct_number()">
                     <option value="">-- Select Job--</option>
                     <option value="actor/actress">Actor/Actress</option>
                     <option value="Advertisers">Advertisers</option>
@@ -289,11 +289,11 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             </p>
             <p>
                 <label for="city">Artist Name:</label>
-                <input type="text" name="aname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }   ?>"/>
+                <input type="text" name="aname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }    ?>"/>
             </p>
             <p>
                 <label for="city">Title Of Work:</label>
-                <input type="text" name="towork" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }   ?>"/>
+                <input type="text" name="towork" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }    ?>"/>
             </p>
 
             <p>
@@ -330,10 +330,10 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             <p>
                 <label for="city">Query Subject:</label>
                 <input type="text" name="query_sub" value="<?php
-                    if (isset($city) AND ( $city <> "")) {
-                        echo $city;
-                    }
-                    ?>"/>
+                if (isset($city) AND ( $city <> "")) {
+                    echo $city;
+                }
+                ?>"/>
             </p>
             <p>
                 <label for="country">Query:</label>

@@ -24,7 +24,7 @@ define('SITE_NAME', 'CCS');
 define('SITE_URL', 'http://localhost/caribiean/');
 
 define('FROM_EMAIL', 'donotreply@caribbeancirclestars.com');
-define('TO_ADMIN', 'faisalnabbasi@hotmail.com');
+define('TO_ADMIN', 'mashfiqnahid@gmail.com');
 //define('TO_ADMIN', 'admin@caribbeancirclestars.com');
 
 
