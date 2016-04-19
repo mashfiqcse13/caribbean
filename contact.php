@@ -42,12 +42,12 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
 
         $contents = "<br /><br />Dear Admin,<br /><br />
 		          		Below Details are submitted by " . $name . "<br /><br />
-									Name : " . $name . "<br />
-									Email : " . $email . "<br />
-									Company : " . $company . "<br />
-									Job title : " . $job_title . "<br />
-									Query Subject : " . $query_sub . "<br />
-									Query : " . $query . "<br />";
+                                        Name : " . $name . "<br />
+                                        Email : " . $email . "<br />
+                                        Company : " . $company . "<br />
+                                        Job title : " . $job_title . "<br />
+                                        Query Subject : " . $query_sub . "<br />
+                                        Query : " . $query . "<br />";
         $contents.="Sincerely,<br />
 							  		The " . SITE_NAME . " Team" . "<br />";
 
@@ -147,7 +147,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             // Send the completed message
 
             $envs = array("HTTP_USER_AGENT", "REMOTE_ADDR");
-            foreach ($envs as $env){
+            foreach ($envs as $env) {
                 $message .= "$env: $_SERVER[$env]\n";
             }
 
@@ -160,6 +160,54 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             if (!mail($to, $subject, $message, $headers)) {
                 exit("Mail could not be sent. Sorry! An error has occurred, please report this to the website administrator.\n");
             } else {
+
+                $info = pathinfo($_FILES['attachment']['name']);
+                $ext = $info['extension']; // get the extension of the file
+                $newname = "newname" . date('Y-m-d-H-i-s') . "." . $ext;
+                $target = 'uploadcontact/' . $newname;
+                if (!empty($_FILES['attachment']['name'])) {
+                    if (move_uploaded_file($_FILES['attachment']['tmp_name'], $target)) {
+                        // echo "jjjj";
+                    } else {
+                        //echo "iiii";
+                    }
+                } else {
+                    $target = "";
+                }
+
+                $Query = "INSERT INTO `tbl_contact`
+                                                    (`first_name`,
+                                                     `last_name`,
+                                                     `artistbandname`,
+                                                     `type_of_file`,
+                                                     `title_of_work`,
+                                                     `genre`,
+                                                     `email`,
+                                                     `company`,
+                                                     `job_title`,
+                                                     `query_subject`,
+                                                     `query`,
+                                                     `file_attached`,
+                                                     `join_date`,
+                                                     `join_time`,
+                                                     `created`)
+                                        VALUES ('" . $first_name . "',
+                                                '" . $last_name . "',
+                                                '" . $artistbandname . "',
+                                                '" . $type_of_file . "',
+                                                '" . $title_of_work . "',
+                                                '" . $genre . "',
+                                                '" . $email . "',
+                                                '" . $company . "',
+                                                '" . $job_title . "',
+                                                '" . $query_sub . "',
+                                                '" . $query . "',
+                                                '" . $target . "',
+                                                '" . date("Y-m-d") . "',
+                                                '" . date("h:i:s A") . "',
+                                                '" . (date("Y-m-d h:i:s A")) . "');";
+
+                mysql_query($Query);
                 mail($sendCc, $subject, $message, $headers);
                 //echo '<div id="formfeedback"><h3>Thank You!</h3><p>'. $thanksmessage .'</p></div>';
             } // end of if !mail
@@ -289,11 +337,11 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             </p>
             <p>
                 <label for="city">Artist Name:</label>
-                <input type="text" name="aname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }    ?>"/>
+                <input type="text" name="aname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }      ?>"/>
             </p>
             <p>
                 <label for="city">Title Of Work:</label>
-                <input type="text" name="towork" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }    ?>"/>
+                <input type="text" name="towork" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }      ?>"/>
             </p>
 
             <p>

@@ -124,9 +124,9 @@ if (!$result) {
             }
             ?>
             <li class="one_third">
-                <div class="<?php echo $classcss; ?>">
-                    <?php
-                    if (!empty($row['file_attached'])) {
+                <?php if (!empty($row['file_attached'])) { ?>
+                    <div class="<?php echo $classcss; ?>">
+                        <?php
                         $stripslash = explode('/', $row['file_attached']);
                         $file = explode('.', $stripslash['1']);
 
@@ -156,7 +156,7 @@ if (!$result) {
                     <a href="#" onclick="Popup.showModal('modal_<?php echo $row['id']; ?>');return false;" class="contentinner">Share</a>
                     <a href="<?php echo "http://" . $_SERVER['HTTP_HOST']; ?>/uploadcontact/filedownload.php?file=<?php echo $stripslash['1']; ?>" title="Download this !" style="float: left; margin: 5px 13px 7px 15px;">Download</a>
                     <a href="#" style="float: right; margin: 5px 244px 3px 5px;" onclick="Popup.showModal('modal_<?php echo $row['id']; ?>');
-                                    return false;">Repost</a>
+                            return false;">Repost</a>
                     <a style="margin:-18px;position: relative;top: 5px;color: #fff;background-color: #FB0707;display: inline-block;font-size: 11.844px;font-weight: bold;line-height: 14px;text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);vertical-align: baseline;white-space: nowrap;left:255px;" href="<?php echo "javascript:ConfrimMessage_Delete('media.php?id=" . $row["id"] . "&action=delete')"; ?>">Delete</a>
                 </li>
             <?php }
