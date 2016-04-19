@@ -11,7 +11,7 @@
                 <td style="float:left;border:0px;">
                     <a href="<?php echo SITE_URL; ?>"><img src="<?php echo SITE_URL ?>images/logo.png"/></a> </td>
                 <td style="float:right;border:0px; margin-right:30px; margin-top:7px;">
-                    <a href="<?php echo SITE_URL; ?>" target="_blank"
+                    <a href="<?php echo SITE_URL1; ?>" target="_blank"
                        style="font-family:Arial, Helvetica, sans-serif;
                        font-size:30px;
                        color:#000000;

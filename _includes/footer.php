@@ -12,8 +12,8 @@
                 <li><a href="<?php echo SITE_URL ?>donate.php">Donate</a></li>
                 <li><a href="<?php echo SITE_URL ?>contact.php">Contact</a></li>
                 <li><a href="<?php echo SITE_URL ?>faq.php">Faq</a></li>
-               <!-- <li><a href="<?php echo SITE_URL ?>privacy-policy.php">Privacy policy</a></li>-->
-                <li><a href="<?php echo SITE_URL ?>terms-of-use.php">Terms of use</a></li>          
+                <li><a href="<?php echo SITE_URL ?>terms-of-use.php">Terms of use</a></li>      
+                <li><a href="<?php echo SITE_URL ?>control">control</a></li>    
             </ul><br /><br /><br /><br />
             &copy; Copyright Caribbean Circle Stars 2013, all right reserved.  
         </div>
