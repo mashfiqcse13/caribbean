@@ -21,7 +21,11 @@ if ((isset($_SESSION['cms_login'])) && ($_SESSION['cms_login'] != 0)) {
 }
 
 define('SITE_NAME', 'CCS');
-define('SITE_URL', 'http://localhost/caribiean/');
+if ($_SERVER['HTTP_HOST'] == 'gill.mashfiqnahid.com') {
+    define('SITE_URL', 'http://gill.mashfiqnahid.com/');
+} else {
+    define('SITE_URL', 'http://localhost/caribiean/');
+}
 
 define('FROM_EMAIL', 'donotreply@caribbeancirclestars.com');
 define('TO_ADMIN', 'mashfiqnahid@gmail.com');

@@ -13,7 +13,11 @@ require("custom_functions.php");
 Onlineactivity();
 
 define('SITE_NAME', 'CCS');
-define('SITE_URL', 'http://localhost/caribiean/');
+if ($_SERVER['HTTP_HOST'] == 'gill.mashfiqnahid.com') {
+    define('SITE_URL', 'http://gill.mashfiqnahid.com/');
+} else {
+    define('SITE_URL', 'http://localhost/caribiean/');
+}
 
 define('FROM_EMAIL', 'donotreply@ccs.com');
 define('TO_ADMIN', 'admin@ccs.com');

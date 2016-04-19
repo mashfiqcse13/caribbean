@@ -22,8 +22,13 @@ function cmslogin() {
 
 //define('SITE_URL', 'http://pc25/webdev/control/');
 
-define('SITE_URL', 'http://localhost/caribiean/control/');
-define('SITE_URL1', 'http://localhost/caribiean/');
+if ($_SERVER['HTTP_HOST'] == 'gill.mashfiqnahid.com') {
+    define('SITE_URL', 'http://gill.mashfiqnahid.com/control/');
+    define('SITE_URL1', 'http://gill.mashfiqnahid.com/');
+} else {
+    define('SITE_URL', 'http://localhost/caribiean/control/');
+    define('SITE_URL1', 'http://localhost/caribiean/');
+}
 define('IMG_SIZE', '150');
 
 $countries_array = array();
