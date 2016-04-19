@@ -9,6 +9,10 @@ cmslogin();
 //3.perform database query
 
 if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "delete") {
+    $db_rslt_file_name = mysql_query("SELECT * FROM tbl_contact WHERE `id` = '" . mysql_real_escape_string($_REQUEST['id']) . "'");
+    $file_name_4_dlt = mysql_fetch_array($db_rslt_file_name);
+    $file_name_4_dlt = '../' . $file_name_4_dlt['file_attached'];
+    unlink($file_name_4_dlt);
     mysql_query("DELETE FROM `tbl_contact` WHERE `id` = '" . mysql_real_escape_string($_REQUEST['id']) . "';");
     echo "<h3 style='padding: 9px;text-align: center;color: #ffffff;background: #008000;'>Record Successfully Deleted,</h1>";
 }

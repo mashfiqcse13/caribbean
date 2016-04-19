@@ -6,8 +6,14 @@ cmslogin();
 include('include/header.php');
 
 if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "delete") {
-    mysql_query("DELETE FROM `tbl_contact` WHERE `id` = '" . mysql_real_escape_string($_REQUEST['id']) . "';");
-    echo "<div id='afterpostingajax'>Record Successfully Deleted</div>";
+    $db_rslt_file_name = mysql_query("SELECT * FROM tbl_contact WHERE `id` = '" . mysql_real_escape_string($_REQUEST['id']) . "'");
+    $file_name_4_dlt = mysql_fetch_array($db_rslt_file_name);
+    $file_name_4_dlt =  '../'.$file_name_4_dlt['file_attached'];
+    unlink($file_name_4_dlt);
+//    die($file_name_4_dlt);
+    
+    mysql_query("UPDATE `tbl_contact` SET `file_attached`='' WHERE `id` = '" . mysql_real_escape_string($_REQUEST['id']) . "';");
+    echo "<div id='afterpostingajax'>File Successfully Deleted</div>";
 }
 
 $result = mysql_query("SELECT * FROM tbl_contact");

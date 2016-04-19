@@ -178,6 +178,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                 $Query = "INSERT INTO `tbl_contact`
                                                     (`first_name`,
                                                      `last_name`,
+                                                     `name`,
                                                      `artistbandname`,
                                                      `type_of_file`,
                                                      `title_of_work`,
@@ -193,6 +194,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                                                      `created`)
                                         VALUES ('" . $first_name . "',
                                                 '" . $last_name . "',
+                                                '" . $name . "',
                                                 '" . $artistbandname . "',
                                                 '" . $type_of_file . "',
                                                 '" . $title_of_work . "',
@@ -208,7 +210,6 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                                                 '" . (date("Y-m-d h:i:s A")) . "');";
 
                 mysql_query($Query);
-                mail($sendCc, $subject, $message, $headers);
                 //echo '<div id="formfeedback"><h3>Thank You!</h3><p>'. $thanksmessage .'</p></div>';
             } // end of if !mail
         } else { //report the errors
