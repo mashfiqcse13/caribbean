@@ -10,5 +10,7 @@ if (!empty($_REQUEST['pg']) && !empty($_REQUEST['cnt'])) {
 
     if ($result)
         echo 'true';
+}else{
+    echo "failed";
 }
 ?>
