@@ -25,6 +25,9 @@ function cmslogin() {
 if ($_SERVER['HTTP_HOST'] == 'gill.mashfiqnahid.com') {
     define('SITE_URL', 'http://gill.mashfiqnahid.com/control/');
     define('SITE_URL1', 'http://gill.mashfiqnahid.com/');
+} else if ($_SERVER['HTTP_HOST'] == 'mashfiq.caribbeancirclestars.com') {
+    define('SITE_URL', 'http://mashfiq.caribbeancirclestars.com/control/');
+    define('SITE_URL1', 'http://mashfiq.caribbeancirclestars.com/');
 } else {
     define('SITE_URL', 'http://localhost/caribiean/control/');
     define('SITE_URL1', 'http://localhost/caribiean/');

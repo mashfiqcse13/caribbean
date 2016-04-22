@@ -15,6 +15,8 @@ Onlineactivity();
 define('SITE_NAME', 'CCS');
 if ($_SERVER['HTTP_HOST'] == 'gill.mashfiqnahid.com') {
     define('SITE_URL', 'http://gill.mashfiqnahid.com/');
+} else if ($_SERVER['HTTP_HOST'] == 'mashfiq.caribbeancirclestars.com') {
+    define('SITE_URL', 'http://mashfiq.caribbeancirclestars.com/');
 } else {
     define('SITE_URL', 'http://localhost/caribiean/');
 }
