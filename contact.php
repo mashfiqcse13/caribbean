@@ -91,7 +91,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             //		// check the size of each file
             //		} else
             if ($filesize > $max_bytes) {
-                $errors[] = "Your file: <strong>" . $filename . "</strong> is to big. Max file size is " . $max_file_size . "kb.";
+                $errors[] = "Your file: <strong>" . $filename . "</strong> is too big. Max file size is " . $max_file_size . "kb.";
             }
         } // if !empty FILES
 
@@ -158,7 +158,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             $subject = SITE_NAME . "Contact";
 
             if (!mail($to, $subject, $message, $headers)) {
-                exit("Mail could not be sent. Sorry! An error has occurred, please report this to the website administrator.\n");
+                die("Mail could not be sent. Sorry! An error has occurred, please report this to the website administrator.\n");
             } else {
 
                 $info = pathinfo($_FILES['attachment']['name']);
@@ -176,8 +176,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                 }
 
                 $Query = "INSERT INTO `tbl_contact`
-                                                    (`first_name`,
-                                                     `last_name`,
+                                                    (
                                                      `name`,
                                                      `artistbandname`,
                                                      `type_of_file`,
@@ -192,8 +191,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                                                      `join_date`,
                                                      `join_time`,
                                                      `created`)
-                                        VALUES ('" . $first_name . "',
-                                                '" . $last_name . "',
+                                        VALUES (
                                                 '" . $name . "',
                                                 '" . $artistbandname . "',
                                                 '" . $type_of_file . "',
@@ -338,16 +336,16 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             </p>
             <p>
                 <label for="city">Artist Name:</label>
-                <input type="text" name="aname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }      ?>"/>
+                <input type="text" name="artistbandname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }       ?>"/>
             </p>
             <p>
                 <label for="city">Title Of Work:</label>
-                <input type="text" name="towork" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }      ?>"/>
+                <input type="text" name="title_of_work" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }       ?>"/>
             </p>
 
             <p>
                 <label for="city">Genre:</label>
-                <select name="country" id="location" class="required" >
+                <select name="genre" id="location" class="required" >
                     <option value="">-- Select Genre--</option>
                     <option value="Dancehall">Dancehall</option>
                     <option value="Deejays">Deejays</option>
@@ -392,15 +390,10 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                     }
                     ?></textarea>
             </p>
-            <p>
-                <label for="country">Attachment:</label>
-                <input name="attachment" id="attachment" type="file" tabindex="5"/>(1 file only, max file size 1024kb.)
-
-            </p>
 
             <p>
-                <label for="country">Mp3/Video/Image:</label>
-                <input name="attachment" id="attachment" type="file" tabindex="5"/>(1 file only, max file size 1024kb.)
+                <label for="country">Attachments :</label>
+                <input name="attachment" id="attachment" type="file" tabindex="5"/>(1 file only, max file size 1024kb.) (Mp3/Video/Image/Docs allowed)
 
             </p>
 

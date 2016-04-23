@@ -24,9 +24,9 @@
     <h1><?php echo GetPageHeading('SPOTLIGHT'); ?></h1>
 
     <table cellpadding="10" cellspacing="0" class="Tabforumtopic" width="100%">
-        <tr>
+        <tr  style="vertical-align: top">
             <td width="70%"><p><?php echo GetPageText('SPOTLIGHT'); ?></p></td>
-            <td  style="vertical-align: top">
+            <td>
                 <?php
                 $sql = 'SELECT tbl_contact.*,tbl_contactrecords.`page_name` 
                     FROM tbl_contact 
@@ -69,6 +69,11 @@
                                 ?>
                                 <table class="item_info">
                                     <tr>
+                                        <td>Title</td>
+                                        <td>:</td>
+                                        <td><?php echo $row['title_of_work'] ?></td>
+                                    </tr>
+                                    <tr>
                                         <td>Artist</td>
                                         <td>:</td>
                                         <td><?php echo $row['artistbandname'] ?></td>
@@ -77,21 +82,6 @@
                                         <td>Genre</td>
                                         <td>:</td>
                                         <td><?php echo $row['genre'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Posted by</td>
-                                        <td>:</td>
-                                        <td><?php echo $row['name'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Email</td>
-                                        <td>:</td>
-                                        <td><?php echo $row['email'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Created On</td>
-                                        <td>:</td>
-                                        <td><?php echo "{$row['join_date']} {$row['join_time']}" ?></td>
                                     </tr>
                                 </table>
 

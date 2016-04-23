@@ -159,21 +159,22 @@ if (!$result) {
                             <audio width="100%" id="player" src="<?php echo SITE_URL1 . $row['file_attached']; ?>" type="audio/mp3" controls="controls"></audio>
                             <a href="add_site_music.php?id=<?php echo $row["id"]; ?>&action=add" style="top:12px;position: relative;top: 3px;color: #000;background-color: #C5F9AE;">ADD TO MUSIC</a>
                             <?php
-                        }
-
-                        if ($file['1'] == 'jpg' || $file['1'] == 'jpeg' || $file['1'] == 'png') {
+                        } else if ($file['1'] == 'jpg' || $file['1'] == 'jpeg' || $file['1'] == 'png') {
                             ?>
 
                             <img id="player" src="<?php echo SITE_URL1 . $row['file_attached']; ?>" />
                             <?php
-                        }
-
-                        if ($file['1'] == 'mp4') {
+                        } else if ($file['1'] == 'mp4') {
                             ?> 
                             <video width="100%">
                                 <source src="<?php echo SITE_URL1 . $row['file_attached']; ?>" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video> 
+                            <?php
+                        } else {
+                            ?>
+
+                            <img id="player" width="15px" style="text-align: center" src="http://downloadicons.net/sites/default/files/folder-files-icon-14281.png" />
                             <?php
                         }
                         ?>
@@ -207,12 +208,12 @@ if (!$result) {
 
                     </div>
                     <a href="#" onclick="Popup.showModal('modal_<?php echo $row['id']; ?>');
-                                    return false;" 
+                            return false;" 
                        class="contentinner">Share</a>
                     <a href="<?php echo "http://" . $_SERVER['HTTP_HOST']; ?>/uploadcontact/filedownload.php?file=<?php echo $stripslash['1']; ?>" 
                        title="Download this !" class="contentinner">Download</a>
                     <a href="#" onclick="Popup.showModal('modal_<?php echo $row['id']; ?>');
-                                    return false;"
+                            return false;"
                        class="contentinner">Repost</a>
                     <a  href="<?php echo "javascript:ConfrimMessage_Delete('media.php?id=" . $row["id"] . "&action=delete')"; ?>"
                         class="contentinner btn_dlt">Delete</a>
