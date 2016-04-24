@@ -16,7 +16,16 @@ if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "delete") {
     echo "<div id='afterpostingajax'>File Successfully Deleted</div>";
 }
 
-$result = mysql_query("SELECT * FROM tbl_contact");
+
+if (isset($_GET['filetype'])) {
+    $supported_file_type = array('Video', 'Photo', 'Music', 'Document', 'Archive');
+    $selected_file_type = $supported_file_type[$_GET['filetype']];
+    $sql = "SELECT * FROM tbl_contact where `type_of_file` = '$selected_file_type'";
+    $result = mysql_query($sql);
+} else {
+    $sql = "SELECT * FROM tbl_contact";
+    $result = mysql_query($sql);
+}
 
 if (!$result) {
     die("Retrieving records from contact table's query faild:" . mysql_query());
@@ -89,8 +98,11 @@ if (!$result) {
         padding: 0;
         vertical-align: baseline;
     } 
-
-    .prodlist { list-style: none; margin: 20px; text-align: center;}
+    .prodlist {
+        list-style: outside none none;
+        margin: 20px;
+        min-width: 900px;
+    }
 
     .prodlist li {
         color: #000;
@@ -103,9 +115,8 @@ if (!$result) {
     }
     .prodlist li a { color: #FB9337; }
     .prodlist li .thumb { padding: 5px; border: 3px solid #ddd; }
-    .prodlist li .thumb img { width: 100%; }
+    .prodlist li .thumb img { max-width: 100%; max-height: 215px; }
     .prodlist li .select { padding: 5px; border: 3px solid #FF9900; }
-    .prodlist li .select img { width: 100%; }
     .prodlist li .content { position: absolute; top: 5px; left: 5px; width: 225px; height: 163px; overflow: hidden; }
     .prodlist li .contentinner { background: url(bg.png); padding: 5px 7px;float:left;}
     .prodlist li .title { color: #fff; font-family:Arial,Helvetica,sans-serif; font-size: 13px; }
@@ -122,6 +133,19 @@ if (!$result) {
         text-align: left;
         font-weight: bold;
     }
+    .file_sorter {
+        list-style: outside none none;
+    }
+    .file_sorter > li {
+        border-left: 2px solid #444444;
+        color: #FF9900;
+        display: inline-block;
+        margin: 0 5px;
+        padding: 0 20px;
+    }
+    .file_sorter > li:first-child {
+        border-left: none;
+    }
     /*body { font-size: 62.5%; }
     label, input { display:block; }
     input.text { margin-bottom:12px; width:95%; padding: .4em; }
@@ -136,6 +160,40 @@ if (!$result) {
 </style>
 <div style="margin:50px auto; width:97%; padding:1px; background:#fff;" id="content_body">
     <div id="afterpostingajax"></div>
+    <ul class="file_sorter">
+        <?php
+        // file separation buttons
+        $links = array(
+            array(
+                'url' => 0,
+                'text' => 'Video'
+            ),
+            array(
+                'url' => 1,
+                'text' => 'Photo'
+            ),
+            array(
+                'url' => 2,
+                'text' => 'Music'
+            ),
+            array(
+                'url' => 3,
+                'text' => 'Document'
+            ),
+            array(
+                'url' => 4,
+                'text' => 'Archive'
+            ),
+        );
+        foreach ($links as $link) {
+            if (isset($_GET['filetype']) && $_GET['filetype'] == $link['url']) {
+                echo '<li>' . $link['text'] . '</li>';
+            } else {
+                echo '<li><a href="' . basename(__FILE__) . "?filetype=" . $link['url'] . '">' . $link['text'] . '</a></li>';
+            }
+        }
+        ?>
+    </ul>
     <ul class="prodlist">
         <?php
         while ($row = mysql_fetch_array($result)) {
@@ -143,16 +201,17 @@ if (!$result) {
             if ($row['id'] == $_GET['id']) {
                 $classcss = "select";
             } else {
-                $classcss = "thumb";
+                $classcss = "";
             }
             ?>
-            <?php if (!empty($row['file_attached'])) { ?>
+            <?php
+            if (!empty($row['file_attached'])) {
+                $stripslash = explode('/', $row['file_attached']);
+                $file = explode('.', $stripslash['1']);
+                ?>
                 <li class="one_third">
-                    <div class="<?php echo $classcss; ?>">
+                    <div class="thumb <?php echo $classcss; ?>">
                         <?php
-                        $stripslash = explode('/', $row['file_attached']);
-                        $file = explode('.', $stripslash['1']);
-
                         if ($file['1'] == 'mp3' || $file['1'] == 'wav') {
                             ?>
 
@@ -174,11 +233,16 @@ if (!$result) {
                         } else {
                             ?>
 
-                            <img id="player" width="15px" style="text-align: center" src="http://downloadicons.net/sites/default/files/folder-files-icon-14281.png" />
+                            <img id="player" style="width: 70px;text-align: center" src="http://downloadicons.net/sites/default/files/folder-files-icon-14281.png" />
                             <?php
                         }
                         ?>
                         <table>
+                            <tr>
+                                <td>Title Of Work</td>
+                                <td>:</td>
+                                <td><?php echo $row['title_of_work'] ?></td>
+                            </tr>
                             <tr>
                                 <td>Artist</td>
                                 <td>:</td>
@@ -193,6 +257,11 @@ if (!$result) {
                                 <td>Posted by</td>
                                 <td>:</td>
                                 <td><?php echo $row['name'] ?></td>
+                            </tr>
+                            <tr>
+                                <td>Company</td>
+                                <td>:</td>
+                                <td><?php echo $row['company'] ?></td>
                             </tr>
                             <tr>
                                 <td>Email</td>
@@ -215,7 +284,7 @@ if (!$result) {
                     <a href="#" onclick="Popup.showModal('modal_<?php echo $row['id']; ?>');
                             return false;"
                        class="contentinner">Repost</a>
-                    <a  href="<?php echo "javascript:ConfrimMessage_Delete('media.php?id=" . $row["id"] . "&action=delete')"; ?>"
+                    <a  href="<?php echo "javascript:ConfrimMessage_Delete('" . basename(__FILE__) . "?id=" . $row["id"] . "&action=delete')"; ?>"
                         class="contentinner btn_dlt">Delete</a>
                 </li>
                 <div id="modal_<?php echo $row['id']; ?>" style="border:3px solid black; background-color:#9999ff; padding:25px; font-size:150%; text-align:center; display:none;">
@@ -235,6 +304,7 @@ if (!$result) {
                         <input type="button" value="Cancel" onClick="Popup.hide('modal_<?php echo $row['id']; ?>')"/>
                     </form>
                 </div>
+                </li>
             <?php }
             ?>
 

@@ -60,9 +60,16 @@ if (isset($_GET['op']) AND ( $_GET['op'] == "U")) {
 
                 <?php
                 if (!empty($row['file_attached'])) {
-                    ?>
-                    <a href="<?php echo "http://" . $_SERVER['HTTP_HOST'] . "/control/media.php?id=" . $row['id']; ?>" >View It !!</a>
-                    <?php
+                    // file separation buttons
+                    $file_type_id = array(
+                        'Video' => 0,
+                        'Photo' => 1,
+                        'Music' => 2,
+                        'Document' => 3,
+                        'Archive' => 4,
+                    );
+                    $file_type_id = $file_type_id[$row['type_of_file']];
+                    echo '<a href="'.SITE_URL.'media.php?id=' . $row['id'].'&filetype='.$file_type_id.'" >View It !!</a>';
                 } else {
                     echo "No File found";
                 }

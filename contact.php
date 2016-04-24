@@ -21,7 +21,12 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
         //$emailfrom = trim($_POST['emailfrom']);
         //$comments = trim($_POST['comments']);
         // Allowed file types. add file extensions WITHOUT the dot.
-        $allowtypes = array("zip", "rar", "doc", "pdf", "docx", "ppt", "pptx", "jpg", "jpeg", "gif");
+        $allowedVideo = array("mp4", "webm" . 'ogg');
+        $allowedMusic = array("mp3", "wav");
+        $allowedPhoto = array("jpg", "jpeg", "gif", "png");
+        $allowedDocs = array("doc", "pdf", "docx", "ppt", "pptx");
+        $allowedArchive = array("zip", "rar", 'tar', 'gz');
+        $allowtypes = array_merge($allowedVideo, $allowedMusic, $allowedPhoto, $allowedDocs, $allowedArchive);
 
         // Require a file to be attached: false = Do not allow attachments true = allow only 1 file to be attached
         $requirefile = "true";
@@ -85,12 +90,9 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             $max_bytes = $max_file_size * 1024;
 
             //Check if the file type uploaded is a valid file type. 
-            //if (!in_array($ext, $allowtypes)) {
-            //				$errors[]="Invalid extension for your file: <strong>".$filename."</strong>";
-            //				
-            //		// check the size of each file
-            //		} else
-            if ($filesize > $max_bytes) {
+            if (!in_array($ext, $allowtypes)) {
+                $errors[] = "Invalid extension for your file: <strong>" . $filename . "</strong>";
+            } else if ($filesize > $max_bytes) {    // check the size of each file
                 $errors[] = "Your file: <strong>" . $filename . "</strong> is too big. Max file size is " . $max_file_size . "kb.";
             }
         } // if !empty FILES
@@ -167,6 +169,20 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                 $target = 'uploadcontact/' . $newname;
                 if (!empty($_FILES['attachment']['name'])) {
                     if (move_uploaded_file($_FILES['attachment']['tmp_name'], $target)) {
+                        //determining file type
+                        if(in_array($ext, $allowedVideo)){
+                            $type_of_file = "Video";
+                        }else if(in_array($ext, $allowedPhoto)){
+                            $type_of_file = "Photo";
+                        }else if(in_array($ext, $allowedMusic)){
+                            $type_of_file = "Music";
+                        }else if(in_array($ext, $allowedDocs)){
+                            $type_of_file = "Document";
+                        }else if(in_array($ext, $allowedArchive)){
+                            $type_of_file = "Archive";
+                        }else {
+                            $type_of_file = "unknown";
+                        }
                         // echo "jjjj";
                     } else {
                         //echo "iiii";
@@ -336,11 +352,11 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             </p>
             <p>
                 <label for="city">Artist Name:</label>
-                <input type="text" name="artistbandname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }       ?>"/>
+                <input type="text" name="artistbandname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }                ?>"/>
             </p>
             <p>
                 <label for="city">Title Of Work:</label>
-                <input type="text" name="title_of_work" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }       ?>"/>
+                <input type="text" name="title_of_work" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }                ?>"/>
             </p>
 
             <p>
