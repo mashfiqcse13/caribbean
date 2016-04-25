@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-require('include/dbconnect.php');
+require_once '../_includes/common_config.php';
+require('dbconnect.php');
 require("sol_functions.php");
 require("ps_pagination.php");
 
@@ -14,19 +15,10 @@ function cmslogin() {
     }
 }
 
-if ($_SERVER['HTTP_HOST'] == 'gill.mashfiqnahid.com') {
-    define('SITE_URL', 'http://gill.mashfiqnahid.com/control/');
-    define('SITE_URL1', 'http://gill.mashfiqnahid.com/');
-    define('SITE_URL2', 'http://gill.mashfiqnahid.com/');
-} else if ($_SERVER['HTTP_HOST'] == 'mashfiq.caribbeancirclestars.com') {
-    define('SITE_URL', 'http://mashfiq.caribbeancirclestars.com/control/');
-    define('SITE_URL1', 'http://mashfiq.caribbeancirclestars.com/');
-    define('SITE_URL2', 'http://mashfiq.caribbeancirclestars.com/');
-} else {
-    define('SITE_URL', 'http://localhost/caribiean/control/');
-    define('SITE_URL1', 'http://localhost/caribiean/');
-    define('SITE_URL2', 'http://localhost/caribiean/');
-}
+define('SITE_URL', $BASE_URL . 'control/');
+define('SITE_URL1', $BASE_URL);
+define('SITE_URL2', $BASE_URL);
+\
 
 define('IMG_SIZE', '150');
 

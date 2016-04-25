@@ -9,6 +9,7 @@ date_default_timezone_set('America/New_York');
 
 session_start();
 //require('contact.php'); 
+require_once 'common_config.php';
 require("db.inc.php");
 require("ps_pagination.php");
 require("sol_functions.php");
@@ -21,13 +22,8 @@ if ((isset($_SESSION['cms_login'])) && ($_SESSION['cms_login'] != 0)) {
 }
 
 define('SITE_NAME', 'CCS');
-if ($_SERVER['HTTP_HOST'] == 'gill.mashfiqnahid.com') {
-    define('SITE_URL', 'http://gill.mashfiqnahid.com/');
-} else if ($_SERVER['HTTP_HOST'] == 'mashfiq.caribbeancirclestars.com') {
-    define('SITE_URL', 'http://mashfiq.caribbeancirclestars.com/');
-} else {
-    define('SITE_URL', 'http://localhost/caribiean/');
-}
+
+define('SITE_URL', $BASE_URL);
 
 define('FROM_EMAIL', 'donotreply@caribbeancirclestars.com');
 define('TO_ADMIN', 'mashfiqnahid@gmail.com');
