@@ -14,6 +14,11 @@ if ($_SERVER['HTTP_HOST'] == 'gill.mashfiqnahid.com') {
     $db_passward = 'c@r!663@9';
     $db_name = 'caribbea_new';
     $db_host = 'localhost';
+} else if ($_SERVER['HTTP_HOST'] == 'caribbeancirclestars.com') {
+    $db_username = 'caribbea_new';
+    $db_passward = 'c@r!663@9';
+    $db_name = 'caribbea_new';
+    $db_host = 'localhost';
 } else {
     $db_username = 'root';
     $db_passward = '';
@@ -27,6 +32,8 @@ if ($_SERVER['HTTP_HOST'] == 'gill.mashfiqnahid.com') {
     $BASE_URL = 'http://gill.mashfiqnahid.com/';
 } else if ($_SERVER['HTTP_HOST'] == 'mashfiq.caribbeancirclestars.com') {
     $BASE_URL = 'http://mashfiq.caribbeancirclestars.com/';
+} else if ($_SERVER['HTTP_HOST'] == 'caribbeancirclestars.com') {
+    $BASE_URL = 'http://caribbeancirclestars.com/';
 } else {
     $BASE_URL = 'http://localhost/caribiean/';
 }
