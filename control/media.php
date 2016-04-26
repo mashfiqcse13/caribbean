@@ -198,7 +198,7 @@ if (!$result) {
         <?php
         while ($row = mysql_fetch_array($result)) {
 
-            if ($row['id'] == $_GET['id']) {
+            if (isset($_GET['id']) && $row['id'] == $_GET['id']) {
                 $classcss = "select";
             } else {
                 $classcss = "";
@@ -280,6 +280,15 @@ if (!$result) {
                         <a href="#" onclick="Popup.showModal('modal_<?php echo $row['id']; ?>');
                                 return false;" 
                            class="contentinner">Share</a>
+                           <?php
+                       }
+                       // adding cropping link
+                       if (in_array($row['type_of_file'], array('Photo'))) {
+                           ?>
+                        <a href="<?php echo SITE_URL . "media_img_cropper.php?pic_id={$row['id']}" ?>"  
+                           class="contentinner">Resize</a>
+                        <a href="<?php echo SITE_URL . "media_img_cropper.php?pic_id={$row['id']}&img_reset=1" ?>"  
+                           class="contentinner">Reset img</a>
                        <?php } ?>
 
                     <a href="<?php echo "http://" . $_SERVER['HTTP_HOST']; ?>/uploadcontact/filedownload.php?file=<?php echo $stripslash['1']; ?>" 

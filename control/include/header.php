@@ -22,7 +22,7 @@
             </tr>
             <tr>
                 <td>
-                    <table border="0" style="border-collapse:collapse;" cellpadding="0" cellspacing="0">
+                    <table border="0" style="border-collapse:collapse; width: 100%;" cellpadding="0" cellspacing="0">
                         <tr>
                             <td class="TDMenu">
                                 <?php
