@@ -119,8 +119,8 @@ if (!empty($_REQUEST['photoid']) && ($_REQUEST['action'] == 'delimage')) {
     header("Location:update_profile_photo.php");
 }
 
-header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
-header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
+//header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
+//header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 ?>
 <script type="text/javascript">
     function back()
@@ -281,7 +281,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
         </div>
     </div>
 </div>
-
+<script>showonlyone('newboxes1');</script>
 <?php
 include('../_includes/footer.php');
 ?>

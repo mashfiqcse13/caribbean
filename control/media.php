@@ -288,7 +288,7 @@ if (!$result) {
                         <a href="<?php echo SITE_URL . "media_img_cropper.php?pic_id={$row['id']}" ?>"  
                            class="contentinner">Resize</a>
                         <a href="<?php echo SITE_URL . "media_img_cropper.php?pic_id={$row['id']}&img_reset=1" ?>"  
-                           class="contentinner">Reset img</a>
+                           class="contentinner">Uncrop</a>
                        <?php } ?>
 
                     <a href="<?php echo "http://" . $_SERVER['HTTP_HOST']; ?>/uploadcontact/filedownload.php?file=<?php echo $stripslash['1']; ?>" 
