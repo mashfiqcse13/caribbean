@@ -18,7 +18,7 @@ if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "delete") {
 
 
 if (isset($_GET['filetype'])) {
-    $supported_file_type = array('Video', 'Photo', 'Music', 'Document', 'Archive');
+    $supported_file_type = array('Video', 'Photo', 'Music', 'Document', 'Others');
     $selected_file_type = $supported_file_type[$_GET['filetype']];
     $sql = "SELECT * FROM tbl_contact where `type_of_file` = '$selected_file_type'";
     $result = mysql_query($sql);
@@ -225,7 +225,7 @@ if (!$result) {
                             <?php
                         } else if ($file['1'] == 'mp4') {
                             ?> 
-                            <video width="100%">
+                            <video width="300" height="200">
                                 <source src="<?php echo SITE_URL1 . $row['file_attached']; ?>" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video> 

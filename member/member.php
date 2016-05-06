@@ -57,7 +57,7 @@ include('../_includes/header.php');
                     <p>
                     <ul>
                         <li>
-                            <a href="upload-image.php<?php echo $user_idd; ?>">Update Profile Photo</a>
+                            <a href="update_profile_photo.php<?php echo $user_idd; ?>">Update Profile Photo</a>
                         </li>
                     </ul>
                     </p>
@@ -66,7 +66,7 @@ include('../_includes/header.php');
                     <p>
                     <ul>
                         <li>						
-                            <a href="upload-image.php<?php echo $user_idd; ?>">Add Profile  Photo</a>
+                            <a href="update_profile_photo.php<?php echo $user_idd; ?>">Add Profile  Photo</a>
                         </li>
                     </ul>
                     </p>		

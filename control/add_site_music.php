@@ -1,6 +1,8 @@
 <?php
 include('include/application_top.php');
 cmslogin();
+include '../_includes/class.database.php';
+$db = new DBClass(db_host, db_username, db_passward, db_name);
 
 if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
 
@@ -61,6 +63,11 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
                 echo "failed to copy from media to music...";
             }
             rename($newfile1, $newfile11);
+            die('
+            <script>
+                window.location = "manage_music.php?op=add_music_success_4rm_media";
+            </script>
+            ');
         }
         header("location:add_site_music.php?op=a ");
     }
@@ -96,7 +103,18 @@ if (isset($MSG)) {
         }
         ?>
     </p>
-<?php } ?>
+    <?php
+}
+// requested form media
+if (!empty($_GET['id']) && $_GET['action'] == "add") {
+    $row = $db->db_select_as_array('tbl_contact', "id=" . $_GET['id']);
+    if (!empty($row[0])) {
+        $audio = $row[0]['file_attached'];
+        $title_of_work = $row[0]['title_of_work'];
+        $artistbandname = $row[0]['artistbandname'];
+    }
+}
+?>
 <h1>ADD MUSIC</h1>
 <p style=""><a href="#" onclick="goBack()" class="button" style=" margin:10px 0px 0px 15px; color:#FFFFFF;">Back</a></p>
 
@@ -106,15 +124,26 @@ if (isset($MSG)) {
         <input type="hidden" value="<?php echo $_REQUEST['action']; ?>" name="action">
         <p>
             <label>Name:</label>
-            <input type="text" name="name" value="" placeholder="Enter Song Name" onblur="if (this.value == '')
-                        this.placeholder = 'Enter Song Name';" onfocus="if (this.value == 'Enter Song Name')
-                                    this.value = '';" class="required">
+            <input type="text" name="name" 
+                   value="<?php
+                   if (!empty($title_of_work)) {
+                       echo $title_of_work;
+                   }
+                   ?>" 
+                   placeholder="Enter Song Name" onblur="if (this.value == '')
+                               this.placeholder = 'Enter Song Name';" onfocus="if (this.value == 'Enter Song Name')
+                                           this.value = '';" class="required">
         </p>
         <p>
             <label>Artist:</label>
-            <input type="text" name="artist" value="" class="required" placeholder="Enter Artist Name" onblur="if (this.value == '')
-                        this.placeholder = 'Enter Artist Name';" onfocus="if (this.value == 'Enter Artist Name')
-                                    this.value = '';">
+            <input type="text" name="artist" 
+                   value="<?php
+                   if (!empty($artistbandname)) {
+                       echo $artistbandname;
+                   }
+                   ?>" class="required" placeholder="Enter Artist Name" onblur="if (this.value == '')
+                               this.placeholder = 'Enter Artist Name';" onfocus="if (this.value == 'Enter Artist Name')
+                                           this.value = '';">
         </p>
         <p>
             <label>

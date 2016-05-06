@@ -49,7 +49,14 @@ if (isset($_GET['op'])) {
         <?php
         if (isset($_GET['op']) AND ( $_GET['op'] == "u")) {
             echo "Music Record Edit sucessfully.";
+        }else if (isset($_GET['op']) AND ( $_GET['op'] == "add_music_success_4rm_media")) {
+            echo "Music added to the playlist successfully.";
         }
+        ?>
+    </p>
+    <p class="msg">
+        <?php
+        
         ?>
     </p>
 <?php } ?>

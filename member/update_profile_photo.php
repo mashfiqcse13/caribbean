@@ -1,7 +1,7 @@
 
 <?php
 include('../_includes/application-top.php');
-ChecktalentLogin();
+ChecknontalentLogin();
 
 include('../_includes/header.php');
 include('../_includes/class.database.php');
@@ -9,7 +9,7 @@ include('../_includes/class.Profile_pic.php');
 
 $db = new DBClass(db_host, db_username, db_passward, db_name);
 
-$profile_pic = new Profile_pic($_SESSION["talent_id"], "talent");
+$profile_pic = new Profile_pic($_SESSION["user_id"], "talent");
 ?>
 <style>
     ul.grid.cs-style-3 {
@@ -75,12 +75,12 @@ if (!empty($_REQUEST['uncrop_photoid'])) {
                     <li>
                         <div class="current_profile_pic">
                             <?php
-                            $filename = "../_uploads/user_photo/" . $_SESSION["talent_id"] . ".jpg";
+                            $filename = "../_uploads/user_photo/" . $_SESSION["user_id"] . ".jpg";
                             if (file_exists($filename)) {
                                 ?>
                                 <p style="margin: 26px 0 12px;font-size: 14px;font-weight: bold;">Current Profile Photo</p>
-                                <a href="../_uploads/user_photo/<?php echo $_SESSION["talent_id"] ?>.jpg" class="fancybox">
-                                    <img width="100%" height="auto" src="../_uploads/user_photo/<?php echo $_SESSION["talent_id"] ?>.jpg"/>
+                                <a href="../_uploads/user_photo/<?php echo $_SESSION["user_id"] ?>.jpg" class="fancybox">
+                                    <img width="100%" height="auto" src="../_uploads/user_photo/<?php echo $_SESSION["user_id"] ?>.jpg"/>
                                 </a>
                                 <br>
                                 <a href="<?php echo "javascript:Confrim_Delete('update_profile_photo.php?action=delete')"; ?>" title="Delete This Photo">Delete</a>
@@ -91,10 +91,9 @@ if (!empty($_REQUEST['uncrop_photoid'])) {
                             ?>
                         </div>
                     </li>
-                    <li><a href="change_password.php">Change Password</a></li>
-                    <li><a href="edit_profile.php">Edit Profile</a></li>
-                    <li><a href="profile_setup.php">Profile Setup</a></li>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="member.php">Member Area</a></li>
+                    <li><a href="change-password.php">Change password</a></li>
+                    <li><a href="log-out.php">Logout</a></li>
                 </ul>
             </div>
             <div id="m_profile_right">
