@@ -1,6 +1,27 @@
 <?php
 include('_includes/application-top.php');
 
+function show_video($video_type, $video_id) {
+
+    if ($video_type == 1) {     // means it is a file type
+        $src = '_uploads/profile_video/' . $video_id . '.mp4';
+        echo $src;
+        $output = '<video  width="315" height="220" controls>
+                    <source src="' . $src . '" type="video/mp4">
+                    <source src="movie.ogg" type="video/ogg">
+                  Your browser does not support the video tag.
+                  </video>';
+    } else if (!empty($video_id)) {        // there is a video code
+        global $connt, $selt;
+        $result = mysql_query("SELECT * FROM  tbl_profile_videos WHERE id='" . $video_id . "' ");
+        $data = mysql_fetch_assoc($result);
+        //print_r($data);
+        $output = preg_replace('/width=("|\')(\d+|\d+px|)("|\')/i', 'width="315"', $data['video_code']);
+        $output = preg_replace('/height=("|\')(\d+|\d+px|)("|\')/i', 'height="220"', $output);
+    }
+    return $output;
+}
+
 $query = mysql_query("SELECT * FROM tbl_profile_videos WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_videos.status='1' ORDER BY tbl_profile_videos.id DESC");
 //$treu=mysql_fetch_assoc($query);
 //print_r($treu);
@@ -85,13 +106,12 @@ include('_includes/header.php');
             <li class="b_image">
 
                 <p class="title"><label><?php echo $row["video_name"]; ?></label></p>		
-                <a id="video" <?php if ($row["video_type"] == 1) { ?>href="talents/video_play.php?filename=_uploads/profile_video/<?php echo $row["id"]; ?>.mp4" <?php } else {
-                ?> href="talents/video_play.php?id=<?php echo $row["id"];
-           }
-            ?>" >
-                    <div class="video_ply_btn"><img src="_images/vido_play_btn.png" border="0"/></div>               
-                </a> 									
-                <img src="_uploads/video_photo/<?php echo $row["id"]; ?>.jpg" width="315" height="220"/>
+    <!--                <a id="video" <?php if ($row["video_type"] == 1) { ?>href="talents/video_play.php?filename=_uploads/profile_video/<?php echo $row["id"]; ?>.mp4" <?php } else {
+                ?> href="talents/video_play.php?id=<?php
+                    echo $row["id"];
+                }
+                ?>" >-->
+                <?php echo show_video($row["video_type"], $row["id"]) ?>				
                 <?php
                 if ($data['status'] == 1) {
                     ?>			
