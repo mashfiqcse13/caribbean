@@ -4,7 +4,6 @@ function show_video($video_type, $video_id) {
 
     if ($video_type == 1) {     // means it is a file type
         $src = '_uploads/profile_video/' . $video_id . '.mp4';
-        echo $src;
         $output = '<video  width="315" height="220" controls>
                     <source src="' . $src . '" type="video/mp4">
                     <source src="movie.ogg" type="video/ogg">

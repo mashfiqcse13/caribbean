@@ -91,7 +91,19 @@ include('../_includes/header.php');
                 }
                 ?>
                 <tr>
-                        <td width="8%"><!--<a href="../_uploads/profile_photo/<?php echo $row["id"]; ?>.jpg" class="fancybox">--><img src="../_uploads/profile_photo/thumb/<?php echo $row["id"]; ?>.jpg" style="margin:10px 10px 10px 10px;" alt="my_img"/><!--</a>--></td>
+                    <td width="8%">
+                        <?php if ($row["croped"] == 1) { ?>
+                            <a href="../_uploads/profile_photo/croped/<?php echo $row["id"]; ?>.jpg" class="fancybox">
+                                <img src="../_uploads/profile_photo/croped/<?php echo $row["id"]; ?>.jpg" 
+                                     style="margin:10px 10px 10px 10px;" alt="my_img"/>
+                            </a>
+                        <?php } else { ?>
+                            <a href="../_uploads/profile_photo/<?php echo $row["id"]; ?>.jpg" class="fancybox">
+                                <img src="../_uploads/profile_photo/thumb/<?php echo $row["id"]; ?>.jpg" 
+                                     style="margin:10px 10px 10px 10px;" alt="my_img"/>
+                            </a>
+                        <?php } ?>
+                    </td>
                     <td align="left"><?php echo $row["photo_title"]; ?></td>
                     <td align="left"><?php echo substr($row["photo_details"], 0, 30); ?></td>
                     <td align="center"><?php
@@ -109,25 +121,30 @@ include('../_includes/header.php');
                         }
                         ?></td>
                     <td align="center"><?php
-                    if ($row1 == 0) {
-                        echo "_";
-                    } else {
-                        echo "$ " . $res['p_shipping'];
-                    }
-                    ?></td>
+                        if ($row1 == 0) {
+                            echo "_";
+                        } else {
+                            echo "$ " . $res['p_shipping'];
+                        }
+                        ?></td>
                     <td align="center">
                         <a href="update_gallery.php?id=<?php echo $row["id"]; ?>">
                             <img src="../_images/Edit.png" title="Update Photo">
                         </a>&nbsp;&nbsp;
                         <a href="javascript:" onclick="ConfrimMessage_Delete(<?php echo $row['id']; ?>, <?php echo $pid; ?>)">
-                <?php /* ?><a href="<?php echo "javascript:ConfrimMessage_Delete('delete_gallery.php?id=$row[id]')";?>"><?php */ ?>
+                            <?php /* ?><a href="<?php echo "javascript:ConfrimMessage_Delete('delete_gallery.php?id=$row[id]')";?>"><?php */ ?>
                             <img src="../_images/del.png" title="Delete photo">
                         </a>
+
+                        <a href="media_profile_photo_cropper.php?photoid=<?php echo $row['id']; ?>">Crop</a>
+                        <?php if ($row["croped"] == 1) { ?>
+                            <a href="media_profile_photo_cropper.php?photoid=<?php echo $row['id']; ?>&action=uncrop">Uncrop</a>
+                        <?php } ?>
                     </td>
                 </tr>				
-    <?php
-}
-?>			
+                <?php
+            }
+            ?>			
         </tbody>
     </table>
 </div>
