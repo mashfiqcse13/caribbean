@@ -1,6 +1,29 @@
 <?php
 include('include/application_top.php');
 //CheckLoginForum();
+include '../_includes/class.database.php';
+
+function show_media($media_id) {
+    $db = new DBClass(db_host, db_username, db_passward, db_name);
+    $table_name = 'tbl_contact';
+    $condition = "`id` =$media_id";
+    $result = $db->db_select_as_array($table_name, $condition);
+//    return print_r($result, TRUE);
+    $result = $result[0];
+    $output = "<div style=\"text-align: center;\">\n";
+    if ($result['type_of_file'] == 'Photo') {
+        $output .= '<img height="200" src="' . SITE_URL1 . $result['file_attached'] . '" />';
+    } else if ($result['type_of_file'] == 'Music') {
+        $output .= '<audio  width="300" id="player" src="' . SITE_URL1 . $result['file_attached'] . '" type="audio/mp3" controls="controls"></audio>';
+    } else if ($result['type_of_file'] == 'Video') {
+        $output .= '<video width="300" height="200" controls>
+                                <source src="' . SITE_URL1 . $result['file_attached'] . '" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video> ';
+    }
+    $output .= "</div>\n";
+    return $output;
+}
 
 if (isset($_GET['view'])) {
     $view_cnt = $_GET['view'];
@@ -484,7 +507,10 @@ define('PAGE_LINK_NO', 50);
                         <a href="add-topic-reply-admin.php?id=<?php echo $data['forum_id']; ?>"class="button">Reply</a>
                     </p>
                     <div style="margin-left:10px;">
-                        <?php echo stripcslashes($data['forum_details']); ?>
+                        <?php
+                        echo show_media($data['media_id']);
+                        echo stripcslashes($data['forum_details']);
+                        ?>
                     </div>
                 </td>
             </tr>
@@ -496,7 +522,7 @@ define('PAGE_LINK_NO', 50);
                     <td>
                         <div class="total_reply">
                             <div class="reply_photo_name" >
-                                <p><?php //echo date('F jS, Y h:i a', strtotime($row["post_time"]));   ?></p>
+                                <p><?php //echo date('F jS, Y h:i a', strtotime($row["post_time"]));                          ?></p>
                                 <img style="float:left; margin:15px 0px 0px 15px;" src="../_images/star.png"/>
                                 <p style="margin-left:80px; margin-top:30px;"><label>By: </label>
                                     <!--<a href="profile-details.php?username=<?php /* echo $row['username']; */ ?>">--><?php /* echo $row['username']; */ ?>

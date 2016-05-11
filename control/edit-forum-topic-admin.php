@@ -1,6 +1,8 @@
 <?php
 error_reporting(0);
 include('include/application_top.php');
+include '../_includes/class.database.php';
+include '../_includes/class.media.php';
 include('include/header.php');
 
 $result = mysql_query("SELECT * FROM tbl_forum_topics WHERE id=" . $_GET["t_id"] . " ");
@@ -77,6 +79,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Topic')) {
                 <label for="email">Topic:</label>
                 <input  type="text" name="forum_topic" value="<?php echo $forum_topic; ?>" maxlength="100" class="required" />
             </p>
+            <a href="#media" id="add_media_button" class="button">Select Media</a>
+            <br>
 
             <label style="vertical-align:top;">Details:</label>
             <textarea name="forum_details" id="editor" class="required"><?php echo stripcslashes($forum_details); ?></textarea>
@@ -88,10 +92,14 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Topic')) {
                 // instance, using default configurations.
                 CKEDITOR.replace('editor');
             </script><br/><br/>
+            <input type="hidden" name="media_id"/>
             <input type="submit" name="submit" value="Update Topic" class="button" />   									
         </form>
     </div>
 </div>
+<?php
+include './include/media_selector.php';
+?>
 <script type="text/javascript">
     if (!String.prototype.trim) {
         String.prototype.trim = function () {
