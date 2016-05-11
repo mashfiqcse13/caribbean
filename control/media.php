@@ -23,7 +23,7 @@ if (isset($_GET['filetype'])) {
     $sql = "SELECT * FROM tbl_contact where `type_of_file` = '$selected_file_type'";
     $result = mysql_query($sql);
 } else {
-    $sql = "SELECT * FROM tbl_contact";
+    $sql = "SELECT * FROM tbl_contact where `type_of_file` = 'Video'";
     $result = mysql_query($sql);
 }
 
@@ -182,7 +182,7 @@ if (!$result) {
             ),
             array(
                 'url' => 4,
-                'text' => 'Archive'
+                'text' => 'Others'
             ),
         );
         foreach ($links as $link) {

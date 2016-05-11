@@ -83,7 +83,7 @@ if (!empty($_REQUEST['uncrop_photoid'])) {
                                     <img width="100%" height="auto" src="../_uploads/user_photo/<?php echo $_SESSION["talent_id"] ?>.jpg"/>
                                 </a>
                                 <br>
-                                <a href="<?php echo "javascript:Confrim_Delete('update_profile_photo.php?action=delete')"; ?>" title="Delete This Photo">Delete</a>
+                                <a href="<?php echo "javascript:Confrim_Delete('update_profile_photo.php?action=delete')"; ?>" title="Delete This Photo">Remove Profile Photo</a>
                                 <?php
                             } else {
                                 echo '<img width="100%" height="auto" src="../control/images/dummy.png"/>';
@@ -92,6 +92,7 @@ if (!empty($_REQUEST['uncrop_photoid'])) {
                         </div>
                     </li>
                     <li><a href="change_password.php">Change Password</a></li>
+                    <li><a href="member.php">Member Area</a></li>
                     <li><a href="edit_profile.php">Edit Profile</a></li>
                     <li><a href="profile_setup.php">Profile Setup</a></li>
                     <li><a href="logout.php">Logout</a></li>
@@ -137,7 +138,7 @@ if (!empty($_REQUEST['uncrop_photoid'])) {
                     <label style="float: unset;"></label>
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
                         <input type="file" name="img_path" value="" /><p>
-                            <input type="submit" name="submit" value="Update" class="button" style="margin: 0 0 0 188px;"/>
+                            <input type="submit" name="submit" value="Upload" class="button" style="margin: 0 0 0 188px;"/>
 
                     </form>
                 </div>

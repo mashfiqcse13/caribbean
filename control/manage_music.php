@@ -49,14 +49,13 @@ if (isset($_GET['op'])) {
         <?php
         if (isset($_GET['op']) AND ( $_GET['op'] == "u")) {
             echo "Music Record Edit sucessfully.";
-        }else if (isset($_GET['op']) AND ( $_GET['op'] == "add_music_success_4rm_media")) {
+        } else if (isset($_GET['op']) AND ( $_GET['op'] == "add_music_success_4rm_media")) {
             echo "Music added to the playlist successfully.";
         }
         ?>
     </p>
     <p class="msg">
         <?php
-        
         ?>
     </p>
 <?php } ?>
@@ -68,7 +67,16 @@ $number = mysql_num_rows($result);
 // print_r($data);
 ?>
 
-<p style="text-align:right; "><a href="add_site_music.php" class="button">Add Music</a></p>
+<p style="text-align:right; ">
+    <?php
+    if (isset($_GET['op']) AND ( $_GET['op'] == "add_music_success_4rm_media")) {
+            echo '<a style="margin: 0px; float: left;" class="button" href="media.php?filetype=2">Back</a>';
+        }else{
+            echo '<a style="margin: 0px; float: left;" class="button" href="media.php?filetype=2">Add music from Media</a>';
+        }
+    ?>
+    <a href="add_site_music.php" class="button">Add Music</a>
+</p>
 <table border="1" class="TDContent" cellpadding="10" cellspacing="0" width="760px;">
     <h1>MANAGE MUSIC</h1>
     <?php

@@ -82,7 +82,7 @@ include('../_includes/header.php');
                     <img src="../_uploads/user_photo/<?php echo $_SESSION["talent_id"] ?>.jpg"/>
                     <p>
                     <ul>
-                        <li><a href="update_profile_photo.php">Upload Profile Photo</a></li>
+                        <li><a href="update_profile_photo.php">Manage Profile Photo</a></li>
                     </ul>
                     </p>
 <?php } else { ?>

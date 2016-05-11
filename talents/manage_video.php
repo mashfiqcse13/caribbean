@@ -65,11 +65,11 @@ include('../_includes/header.php');
         $("a#video").fancybox({
             'width': 400,
             'height': 580,
-            'scrolling': 'no',
-            'autoScale': true,
-            'titlePosition': 'over',
-            'transitionIn': 'none',
-            'transitionOut': 'none'
+            'transitionIn': 'elastic',
+            'transitionOut': 'elastic',
+            'speedIn': 600,
+            'speedOut': 200,
+            'overlayShow': false
         });
     });
 </script>
@@ -145,9 +145,10 @@ include('../_includes/header.php');
                 <tr>
                     <td width="8%">
                         <a id="video" <?php if ($row["video_type"] == 1) { ?>href="video_play.php?filename=../_uploads/profile_video/<?php echo $row["id"]; ?>.mp4" <?php } else {
-                    ?> href="video_play.php?id=<?php echo $row["id"];
-                   }
-                ?>" >
+                    ?> href="video_play.php?id=<?php
+                               echo $row["id"];
+                           }
+                           ?>" >
                             <img src="../_uploads/video_photo/<?php echo $row["id"]; ?>.jpg" width="150" title="Play Video"/>
                         </a>
                     </td>
@@ -181,17 +182,18 @@ include('../_includes/header.php');
                         }
                         ?></td>
                     <td align="center"><?php
-                       if ($row['status'] == 1) {
-                           echo 'Active';
-                       } else {
-                           echo 'Inactive';
-                       }
-                       ?></td>
+                        if ($row['status'] == 1) {
+                            echo 'Active';
+                        } else {
+                            echo 'Inactive';
+                        }
+                        ?></td>
                     <td align="center">
                         <a id="video" <?php if ($row["video_type"] == 1) { ?>href="video_play.php?filename=../_uploads/profile_video/<?php echo $row["id"]; ?>.mp4" <?php } else {
-                            ?> href="video_play.php?id=<?php echo $row["id"];
-        }
-                        ?>" ><img src="../_images/play.png" title="Play Video"></a>
+                            ?> href="video_play.php?id=<?php
+                               echo $row["id"];
+                           }
+                           ?>" ><img src="../_images/play.png" title="Play Video"></a>
                         <a href="update_video.php?id=<?php echo $row["id"]; ?>">
                             <img src="../_images/Edit.png" title="Update Video">
                         </a>
@@ -200,9 +202,9 @@ include('../_includes/header.php');
                         </a>
                     </td>
                 </tr>				
-    <?php
-}
-?>
+                <?php
+            }
+            ?>
         </tbody>  	
     </table> 
 </div><!--END CLASS contant PART -->
