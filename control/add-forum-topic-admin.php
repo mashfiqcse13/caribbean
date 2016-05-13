@@ -4,6 +4,8 @@ include('../_includes/application-top.php');
 
 include '../_includes/class.database.php';
 include '../_includes/class.media.php';
+include './include/common_function.php';
+
 $db = new DBClass(db_host, db_username, db_passward, db_name);
 //CheckLoginForum();
 //echo $_SESSION['user_id'];
@@ -85,7 +87,13 @@ include('../_includes/header.php');
         </p>
     <?php }
     ?>
-    <p style="text-align:right"><a href="forum_record.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a></p><br />
+    <p style="text-align:right">
+        <?php if (!empty($_GET['media_id'])) { ?>
+            <a href="#" onclick="window.history.back();" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a>
+        <?php } else { ?>
+            <a href="forum_record.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a>
+        <?php } ?>
+    </p><br />
     <div style="width:70%;">
         <div class="form_class">
             <form name="frm" action="<?php echo $_SERVER['PHP_SELF']; ?>"method="post" id="add_forum">
@@ -95,6 +103,13 @@ include('../_includes/header.php');
                 </p>
                 <a href="#media" id="add_media_button" class="button">Select Media</a>
                 <br>
+                <div id="selected_media_preview">
+                    <?php
+                    if (!empty($_GET['media_id'])) {
+                        echo show_media($_GET['media_id']);
+                    }
+                    ?>
+                </div>
 
                 <label style="vertical-align:top;">Details:</label>
                 <textarea name="forum_details" id="editor" class="required"></textarea>
@@ -107,7 +122,7 @@ include('../_includes/header.php');
                     // instance, using default configurations.
                     CKEDITOR.replace('editor');
                 </script><br/><br/>
-                <input type="hidden" name="media_id"/>
+                <input type="hidden" name="media_id" value="<?php echo (!empty($_GET['media_id'])) ? $_GET['media_id'] : ""; ?>"/>
                 <input type="submit" name="submit" value="Add Topic" class="button" />
             </form>
         </div>

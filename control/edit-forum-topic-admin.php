@@ -3,6 +3,7 @@ error_reporting(0);
 include('include/application_top.php');
 include '../_includes/class.database.php';
 include '../_includes/class.media.php';
+include './include/common_function.php';
 include('include/header.php');
 
 $result = mysql_query("SELECT * FROM tbl_forum_topics WHERE id=" . $_GET["t_id"] . " ");
@@ -20,7 +21,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Topic')) {
         $data = array(
             "forum_topic" => mysql_real_escape_string(trim($_POST['forum_topic'])),
             "forum_details" => mysql_real_escape_string(trim($_POST['forum_details'])),
-            "post_date" => date('y-m-d h:i:s')
+            "post_date" => date('y-m-d h:i:s'),
+            'media_id' => mysql_real_escape_string(trim($_POST['media_id']))
         );
         $table = "tbl_forum_topics";
         $parameters = "id='" . $_POST["top_id"] . "'";
@@ -79,9 +81,17 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Topic')) {
                 <label for="email">Topic:</label>
                 <input  type="text" name="forum_topic" value="<?php echo $forum_topic; ?>" maxlength="100" class="required" />
             </p>
-            <a href="#media" id="add_media_button" class="button">Select Media</a>
+            <p>
+                <a href="#media" id="add_media_button" class="button" style="margin: 0px 0px 0px 132px;">Select Media</a>
+            </p>
             <br>
-
+            <div id="selected_media_preview">
+                <?php
+                if (!empty($media_id)) {
+                    echo show_media($media_id);
+                }
+                ?>
+            </div>
             <label style="vertical-align:top;">Details:</label>
             <textarea name="forum_details" id="editor" class="required"><?php echo stripcslashes($forum_details); ?></textarea>
             <script type="text/javascript">
@@ -92,7 +102,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Topic')) {
                 // instance, using default configurations.
                 CKEDITOR.replace('editor');
             </script><br/><br/>
-            <input type="hidden" name="media_id"/>
+            <input type="hidden" name="media_id" value="<?php echo $media_id ?>"/>
             <input type="submit" name="submit" value="Update Topic" class="button" />   									
         </form>
     </div>

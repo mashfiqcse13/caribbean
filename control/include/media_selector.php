@@ -16,6 +16,7 @@
             #media li{display: inline-block; margin: 10px 3px;}
             #media table { padding: 5px;}
             #media li:hover,#media li.selected{background-color:#F1F1F1;}
+            #selected_media_preview {margin: 0 0 20px 137px;}
         </style>
         <ul>
             <?php
@@ -24,26 +25,28 @@
             foreach ($media_rows as $key => $media_row) {
                 ?>
                 <li class="media_item" data-media-id="<?php echo $media_row['id'] ?>">
-                    <?php
-                    if ($media_row['type_of_file'] == 'Music') {
-                        ?>
+                    <div class="media_preview">
+                        <?php
+                        if ($media_row['type_of_file'] == 'Music') {
+                            ?>
 
-                        <audio  width="100%" src="<?php echo BASE_URL . $media_row['file_attached']; ?>" type="audio/mp3" controls="controls"></audio>
-                        <?php
-                    } else if ($media_row['type_of_file'] == 'Photo') {
-                        ?>
+                            <audio  width="100%" src="<?php echo BASE_URL . $media_row['file_attached']; ?>" type="audio/mp3" controls="controls"></audio>
+                            <?php
+                        } else if ($media_row['type_of_file'] == 'Photo') {
+                            ?>
 
-                        <img  width="300" height="200" src="<?php echo BASE_URL . $media_row['file_attached']; ?>" />
-                        <?php
-                    } else if ($media_row['type_of_file'] == 'Video') {
-                        ?> 
-                        <video width="300" height="200" controls="">
-                            <source src="<?php echo BASE_URL . $media_row['file_attached']; ?>" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video> 
-                        <?php
-                    }
-                    ?>
+                            <img  width="300" height="200" src="<?php echo BASE_URL . $media_row['file_attached']; ?>" />
+                            <?php
+                        } else if ($media_row['type_of_file'] == 'Video') {
+                            ?> 
+                            <video width="300" height="200" controls="">
+                                <source src="<?php echo BASE_URL . $media_row['file_attached']; ?>" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video> 
+                            <?php
+                        }
+                        ?>
+                    </div>>
                     <table>
                         <tr>
                             <td>Title Of Work</td>
@@ -105,6 +108,12 @@
         var selected_media_id = $(this).attr('data-media-id');
         $('[name="media_id"]').val(selected_media_id);
         $(this).addClass('selected');
+
+        var media_preview = $('[data-media-id="' + selected_media_id + '"] .media_preview').html();
+        $('#selected_media_preview').html(media_preview);
+        $('#selected_media_preview > img,#selected_media_preview > video').attr('height', 300);
+        $('#selected_media_preview > audio,#selected_media_preview > video').attr('width', 500);
+        $('#selected_media_preview > img').removeAttr('width');
     });
 
 </script>

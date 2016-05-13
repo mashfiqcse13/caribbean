@@ -30,7 +30,7 @@ $profile_pic = new Profile_pic($_SESSION["user_id"], "talent");
     }
 </style>
 <?php
-if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update')) {
+if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Upload')) {
     if (isset($_FILES['img_path'])) {
         $profile_pic->update($_FILES['img_path'], 1);
     }

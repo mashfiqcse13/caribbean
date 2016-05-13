@@ -58,6 +58,11 @@ if (!$result) {
             var cc = '#contactid' + u_id;
             page = $(pp + " option:selected").text();
             contactid = $(cc).val();
+            if (page === "Forum") {
+                window.location = "add-forum-topic-admin.php?media_id=" + u_id;
+                return true;
+            }
+
             $.ajax({
                 type: "POST",
                 url: "<?php echo SITE_URL; ?>ajaxcontact.php",
@@ -307,19 +312,17 @@ if (!$result) {
                     <div id="modal_<?php echo $row['id']; ?>" style="border:3px solid black; background-color:#9999ff; padding:25px; font-size:150%; text-align:center; display:none;">
                         <p class="validateTips">Select Page you want Share/Repost it:</p>
                         <div id="load<?php echo $row['id']; ?>" class="xxx"></div>
-                        <form action="ajaxcontact.php">
-                            <label for="name">Select Page:</label>
-                            <select id="page<?php echo $row['id']; ?>">
-                                <option value="home">Home</option>
-                                <option value="spotlight">Spotlight</option>
-                                <option value="forum">Forum</option>
-                            </select>
-                            <br>
-                            <br>
-                            <input type="hidden" id="contactid<?php echo $row['id']; ?>" value="<?php echo $row['id']; ?>">
-                            <input type="submit" id="<?php echo $row['id']; ?>" class="xxx" value="Submit"/>
-                            <input type="button" value="Cancel" onClick="Popup.hide('modal_<?php echo $row['id']; ?>')"/>
-                        </form>
+                        <label for="name">Select Page:</label>
+                        <select id="page<?php echo $row['id']; ?>">
+                            <option value="home">Home</option>
+                            <option value="spotlight">Spotlight</option>
+                            <option value="forum">Forum</option>
+                        </select>
+                        <br>
+                        <br>
+                        <input type="hidden" id="contactid<?php echo $row['id']; ?>" value="<?php echo $row['id']; ?>">
+                        <input type="submit" id="<?php echo $row['id']; ?>" class="xxx" value="Submit"/>
+                        <input type="button" value="Cancel" onClick="Popup.hide('modal_<?php echo $row['id']; ?>')"/>
                     </div>
                 <?php } ?>
 
