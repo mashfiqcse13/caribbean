@@ -208,7 +208,6 @@ fwrite($handle, $data);
                 border: 3px solid #DDDDDD;
                 padding: 5px;
                 margin: 0 0 10px;
-
             }
             .items > img {
                 width: 100%;
@@ -221,7 +220,22 @@ fwrite($handle, $data);
                 font-weight: bold;
                 text-align: left;
             }
+            .home_bottom {
+                clear: both;
+                padding: 5px 0 0;
+            }
+            .home_bottom > ul {
+                padding: 0;
+                text-align: center;
+            }
+            .home_bottom li {
+                display: inline-block;
+                width: 32%;
+            }
         </style>
+
+    </div>
+    <div class="home_bottom">
         <?php
         $sql = 'SELECT tbl_contact.*,tbl_contactrecords.`page_name` 
                     FROM tbl_contact 
@@ -231,68 +245,75 @@ fwrite($handle, $data);
         $result = mysql_query($sql);
 
         if ($result) {
-            while ($row = mysql_fetch_array($result)) {
-                if (!empty($row['file_attached'])) {
-                    ?>
-                    <aside class="items">
-                        <?php
-                        $stripslash = explode('/', $row['file_attached']);
-                        $file = explode('.', $stripslash['1']);
-
-                        if ($file['1'] == 'mp3' || $file['1'] == 'wav') {
-                            ?>
-
-                            <audio width="100%" id="player" src="<?php echo SITE_URL . $row['file_attached']; ?>" type="audio/mp3" controls="controls"></audio>
-                            <?php
-                        }
-
-                        if ($file['1'] == 'jpg' || $file['1'] == 'jpeg' || $file['1'] == 'png') {
-                            ?>
-
-                            <img id="player" src="<?php echo SITE_URL . $row['file_attached']; ?>" />
-                            <?php
-                        }
-
-                        if ($file['1'] == 'mp4') {
-                            ?> 
-                            <video width="100%" controls="">
-                                <source src="<?php echo SITE_URL . $row['file_attached']; ?>" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video> 
-                            <?php
-                        }
-                        ?>
-                        <table class="item_info">
-                            <tr>
-                                <td>Title</td>
-                                <td>:</td>
-                                <td><?php echo $row['title_of_work'] ?></td>
-                            </tr>
-                            <tr>
-                                <td>Artist</td>
-                                <td>:</td>
-                                <td><?php echo $row['artistbandname'] ?></td>
-                            </tr>
-                            <tr>
-                                <td>Genre</td>
-                                <td>:</td>
-                                <td><?php echo $row['genre'] ?></td>
-                            </tr>
-                        </table>
-
-                    </aside>
-                <?php }
-                ?>
-
+            ?>
+            <ul>
                 <?php
-            }
-        }
-        ?>
+                while ($row = mysql_fetch_array($result)) {
+                    if (!empty($row['file_attached'])) {
+                        ?>
+                        <li>
+                            <aside class="items">
+                                <?php
+                                $stripslash = explode('/', $row['file_attached']);
+                                $file = explode('.', $stripslash['1']);
+
+                                if ($file['1'] == 'mp3' || $file['1'] == 'wav') {
+                                    ?>
+
+                                    <audio width="100%" id="player" src="<?php echo SITE_URL . $row['file_attached']; ?>" type="audio/mp3" controls="controls"></audio>
+                                    <?php
+                                }
+
+                                if ($file['1'] == 'jpg' || $file['1'] == 'jpeg' || $file['1'] == 'png') {
+                                    ?>
+                                    <a href="<?php echo SITE_URL . $row['file_attached']; ?>" class="img_preview">
+                                        <img height="150" src="<?php echo SITE_URL . $row['file_attached']; ?>" />
+                                    </a>
+                                    <?php
+                                }
+
+                                if ($file['1'] == 'mp4') {
+                                    ?> 
+                                    <video width="100%" height="150" controls="">
+                                        <source src="<?php echo SITE_URL . $row['file_attached']; ?>" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video> 
+                                    <?php
+                                }
+                                ?>
+                                <table class="item_info">
+                                    <tr>
+                                        <td>Title</td>
+                                        <td>:</td>
+                                        <td><?php echo $row['title_of_work'] ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Artist</td>
+                                        <td>:</td>
+                                        <td><?php echo $row['artistbandname'] ?></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Genre</td>
+                                        <td>:</td>
+                                        <td><?php echo $row['genre'] ?></td>
+                                    </tr>
+                                </table>
+
+                            </aside>
+
+                        </li><?php }
+                            ?>
+
+                    <?php
+                }
+                ?>
+            </ul>
+        <?php } ?>
     </div>
 
     <!--<h1>WELCOME TO CARIBBEAN CIRCLE STARS</h1>-->
-                    <!--<h2><?php // echo GetPageHeading('Home');          ?></h2>-->
-  <!--<p><?php // echo GetPageText('Home');          ?></p>-->
+                    <!--<h2><?php // echo GetPageHeading('Home');                         ?></h2>-->
+  <!--<p><?php // echo GetPageText('Home');                         ?></p>-->
 
 
 
@@ -300,6 +321,9 @@ fwrite($handle, $data);
 
 </div><!--END CLASS content-->
 <script language="javascript" type="text/javascript">
+    $(document).ready(function () {
+        $('.img_preview').fancybox();
+    });
     $(window).bind('load', function () {
 
         // $("#music_content").load('music_player.php');

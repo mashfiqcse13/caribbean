@@ -299,12 +299,6 @@ if (!$result) {
                     <a href="<?php echo "http://" . $_SERVER['HTTP_HOST']; ?>/uploadcontact/filedownload.php?file=<?php echo $stripslash['1']; ?>" 
                        title="Download this !" class="contentinner">Download</a>
 
-                    <?php if (in_array($row['type_of_file'], array('Video', 'Photo', 'Music'))) { ?>
-                        <a href="#" onclick="Popup.showModal('modal_<?php echo $row['id']; ?>');
-                                return false;"
-                           class="contentinner">Repost</a>
-                       <?php } ?>
-
                     <a  href="<?php echo "javascript:ConfrimMessage_Delete('" . basename(__FILE__) . "?id=" . $row["id"] . "&action=delete')"; ?>"
                         class="contentinner btn_dlt">Delete</a>
                 </li>

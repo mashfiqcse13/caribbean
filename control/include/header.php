@@ -30,7 +30,7 @@
                                     ?>
                                     <ul class="ULMenu">
                                         <li><a href="search.php">Search</a></li>
-                                        <li><a href="caribbean.php">Home</a></li>
+                                        <li><a href="search.php">Home</a></li>
                                         <li><a href="cms.php">CMS</a></li>
                                         <li><a href="change_password.php">Change Password</a></li>
                                         <li><a href="manage_music.php">Manage Music</a></li>
