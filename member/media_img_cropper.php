@@ -23,6 +23,17 @@ if (isset($_POST['submit'])) {
 <link href="../_css/cropper/cropper.css" rel="stylesheet" type="text/css"/>
 <script src="../_script/cropper/jquery.min.js" type="text/javascript"></script>
 <script src="../_script/cropper/cropper.js" type="text/javascript"></script>
+<style>
+    .button,a.button  {
+        cursor: pointer;
+        margin: 0;
+    }
+    .button:hover {
+        background-color: #ff9900;
+        color: #ffffff;
+        text-decoration: none;
+    }
+</style>
 <div style="margin:0 auto; width:100%; padding:1px; background:#fff;" id="content_body">
     <?php
     if (isset($_GET['photoid'])) {
@@ -43,9 +54,10 @@ if (isset($_POST['submit'])) {
             <input id="rotate" type="hidden" name='crop[rotate]'/>
             <input id="scaleX" type="hidden" name='crop[scaleX]'/>
             <input id="scaleY" type="hidden" name='crop[scaleY]'/>
-            <input type="submit" name="submit" value="Save"/>
-            <input type="submit" name="sava_and_make_propic" value="Save and Make Profile Picture"/>
-            <input type="button"  onclick="window.location = 'update_profile_photo.php'" value="Cancel"/>
+            <br>
+            <input class="button" type="submit" name="submit" value="Save"/>
+            <input class="button" type="submit" name="sava_and_make_propic" value="Save and Make Profile Picture"/>
+            <a class="button" href="update_profile_photo.php">Cancel</a>
         </form>
 
         <script>

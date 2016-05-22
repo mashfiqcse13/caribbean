@@ -103,7 +103,7 @@ class Profile_pic {
         return $this->error_msg;
     }
 
-    function update($form_FILES_ARRAY, $go_to_cropping = FALSE) {
+    function update($form_FILES_ARRAY, $go_to_cropping = FALSE, $upload_and_update_propic = FALSE) {
         /* move upload photo in temp folder */
         //get the file ext
         $filename = $form_FILES_ARRAY['name'];
@@ -123,13 +123,13 @@ class Profile_pic {
             upload_my_file($source_path, $tmp_destination);
 
 
+            if ($upload_and_update_propic) {
+                /* create thumb upload photo in user_photo folder taking pic from temp folder */
+                $source = $tmp_destination;
+                $destination = $this->root_path . "_uploads/user_photo/" . $this->user_id . $file_ext;
 
-            /* create thumb upload photo in user_photo folder taking pic from temp folder */
-            $source = $tmp_destination;
-            $destination = $this->root_path . "_uploads/user_photo/" . $this->user_id . $file_ext;
-
-            $this->change_from_exsiting($source, $destination);
-
+                $this->change_from_exsiting($source, $destination);
+            }
 
             $db = $this->db;
             $next_id = $db->auto_increment_id('tbl_profile_images');

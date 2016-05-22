@@ -1,5 +1,5 @@
 <?php
-include('../_includes/application-top.php');
+include('include/application_top.php');
 
 
 include '../_includes/class.database.php';
@@ -34,9 +34,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
         /* Added Activity Below */
 
         $uname = ("admin"); // for admin
-        SaveActivity(11, $uname, mysql_real_escape_string(trim($_POST['forum_topic'])), $uid);
-
-//////////////////////////////////////////////////
+/////////////////////////////////////////////////
 
 
         $MSG = 'Your Topic Added sucessfully.';
@@ -44,7 +42,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
         $MSG1 = "Please Enter Details To Submit Your Topic !";
     }
 }
-include('../_includes/header.php');
+include('include/header.php');
 ?>
 <script type="text/javascript">
     $(document).ready(function () {
@@ -61,7 +59,11 @@ include('../_includes/header.php');
      { rules: { title: {required: true}, description: {required: true}, stuff: {required: true} } });
      });*/
 </script>
-
+<style>
+    .content {
+        padding: 0 0 25px 25px;
+    }
+</style>
 <div class="content">
     <h1>Add Topic</h1>
     <?php
@@ -164,4 +166,5 @@ include './include/media_selector.php';
     });
 </script>
 <?php
-include('../_includes/footer.php');
+include('include/footer.php')
+?>

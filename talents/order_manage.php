@@ -10,7 +10,7 @@ include('../_includes/header.php');
         <!----------------------------QUERY FRO DATABASE--------------------------------->
         <?php
         $query = mysql_query(" SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id AS prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON tbl_orders.p_id = p.id 
-			WHERE tbl_orders.seller_id ='" . $_SESSION['talent_id'] . "' AND order_status=1 ORDER BY tbl_orders.id DESC ");
+			WHERE tbl_orders.seller_id ='" . $_SESSION['talent_id'] . "' ORDER BY tbl_orders.id DESC ");
 
         $number = mysql_num_rows($query);
         ?>

@@ -470,7 +470,7 @@ define('PAGE_LINK_NO', 50);
                                 <a href="edit-forum-topic-admin.php?t_id=<?php echo $_GET['id']; ?>">
                                     <img src="../_images/Edit.png" title="Update Topic">
                                 </a>
-                                <a href="<?php echo "javascript:ConfrimMessage_Delete('http://" . $_SERVER['HTTP_HOST'] . "/delete-forum-topic.php?id=" . $_GET['id'] . "')"; ?>">
+                                <a href="<?php echo "javascript:ConfrimMessage_Delete('http://" . $_SERVER['HTTP_HOST'] . "/control/delete-forum-topic.php?id=" . $_GET['id'] . "')"; ?>">
                                     <img src="../_images/del.png" title="Delete Topic">
                                 </a>
                             </p>
