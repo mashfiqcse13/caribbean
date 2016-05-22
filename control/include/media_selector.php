@@ -17,14 +17,39 @@
             #media table { padding: 5px;}
             #media li:hover,#media li.selected{background-color:#F1F1F1;}
             #selected_media_preview {margin: 0 0 20px 137px;}
+
+            #file_sorter {list-style: outside none none;color: #FB9337;}
+            #file_sorter > a {
+                border-left: 2px solid #444444;
+                color: #FF9900;
+                margin: 0;
+                padding: 0 20px;
+                cursor: pointer;
+            }
+            #file_sorter > a:first-child {
+                border-left: none;
+            }
+            #file_sorter > a:hover,#file_sorter > a.selected{text-decoration: underline}
         </style>
+        <div id="file_sorter">
+            <a class="tab" data-media-type="Music">Music</a>
+            <a class="tab" data-media-type="Photo">Photo</a>
+            <a class="tab" data-media-type="Video">Video</a>
+        </div>
         <ul>
             <?php
             $media = new media();
             $media_rows = $media->get_all_media_as_array('pic_music_vedio');
             foreach ($media_rows as $key => $media_row) {
+
+                if (in_array($media_row['type_of_file'], array('Music', 'Photo', 'Video'))) {
+                    $item_class = $media_row['type_of_file'];
+                } else {
+                    $item_class = '';
+                }
                 ?>
-                <li class="media_item" data-media-id="<?php echo $media_row['id'] ?>">
+                <li class="media_item <?php echo 'media_type_' . $item_class ?>" data-media-id="<?php echo $media_row['id'] ?>" 
+                    data-media-type="<?php echo $item_class ?>">
                     <div class="media_preview">
                         <?php
                         if ($media_row['type_of_file'] == 'Music') {
@@ -114,6 +139,16 @@
         $('#selected_media_preview > img,#selected_media_preview > video').attr('height', 300);
         $('#selected_media_preview > audio,#selected_media_preview > video').attr('width', 500);
         $('#selected_media_preview > img').removeAttr('width');
+    });
+
+    // making a tab filter
+    $('.tab').click(function () {
+        var media_type = $(this).data('media-type');
+        $('#file_sorter > a').removeClass('selected');
+        $(this).addClass('selected');
+
+        $('.media_item').fadeOut();
+        $('.media_type_' + media_type).fadeIn();
     });
 
 </script>

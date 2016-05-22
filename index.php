@@ -179,7 +179,7 @@ fwrite($handle, $data);
                         <?php } else { ?>
 
                             <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
-                                <img src="_images/user_icon_demo.png" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+                                <img src="_images/star.png" height="35" width="35" /><?php echo $row['forum_topic']; ?>
 
 
                                 <?php
