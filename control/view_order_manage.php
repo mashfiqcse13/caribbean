@@ -4,7 +4,9 @@ cmslogin();
 $MSG = '';
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
     $data = array(
-        "order_status" => $_POST['order_status']
+        "order_status" => $_POST['order_status'],
+//        "admin_note" => mysqli_real_escape_string(mysqli_connect(db_host, db_username, db_passward, db_passward), $_POST['admin_note'])
+        "admin_note" => mysql_real_escape_string($_POST['admin_note'])
     );
     $table = "tbl_orders";
     $parameters = "id='" . $_POST['id'] . "'";
@@ -119,13 +121,19 @@ function check_status(){
                     }
                     ?>>Pending</option>
                     <option value="1" <?php
-                            if ($row['order_status'] == 1) {
-                                echo 'selected=selected';
-                            }
-                            ?>>Success</option>
-    <?php /* ?><option value="2" <?php if($row['order_status']==2){ echo 'selected=selected' ;} ?>>Completed</option><?php */ ?>
+                    if ($row['order_status'] == 1) {
+                        echo 'selected=selected';
+                    }
+                    ?>>Success</option>
+                            <?php /* ?><option value="2" <?php if($row['order_status']==2){ echo 'selected=selected' ;} ?>>Completed</option><?php */ ?>
                 </select>
+
+            </p>
+            <p style="height: inherit;">
+                <label>Admin Note</label>
+                <textarea name="admin_note"><?php echo $row['admin_note'] ?></textarea>
                 <input type="submit" name="submit" value="Update" />
+
 
             </p>
         </form>
@@ -179,10 +187,10 @@ function check_status(){
         <div class="seller_details"><!--DIV CLASS START seller_details-->
 
             <div class="seller_details_left"><!--DIV CLASS START seller_details_left-->
-    <?php
-    $tbl_user_details = mysql_query("SELECT p.id as prid,u.id,u.first_name,u.last_name,u.email,u.phone_no,u.username FROM  tbl_products as p LEFT OUTER JOIN tbl_users AS u ON 	u.id=p.uid WHERE p.id='" . $p_id . "' ");
-    $tbl_row = mysql_fetch_array($tbl_user_details);
-    ?>
+                <?php
+                $tbl_user_details = mysql_query("SELECT p.id as prid,u.id,u.first_name,u.last_name,u.email,u.phone_no,u.username FROM  tbl_products as p LEFT OUTER JOIN tbl_users AS u ON 	u.id=p.uid WHERE p.id='" . $p_id . "' ");
+                $tbl_row = mysql_fetch_array($tbl_user_details);
+                ?>
                 <p><label>Seller Username:</label><?php echo $tbl_row['username']; ?></p>
                 <p><label>Seller Name:</label><?php echo $tbl_row['first_name']; ?> <?php echo $tbl_row['last_name']; ?></p>
                 <p><label>Seller Email:</label><?php echo $tbl_row['email']; ?></p>
@@ -268,7 +276,7 @@ function check_status(){
 
                 <p>
                     <label>Shipping Country:</label>
-                <?php echo $countries_array[$tbl_row123['country']]; ?>               
+                    <?php echo $countries_array[$tbl_row123['country']]; ?>               
                 </p>
 
 
