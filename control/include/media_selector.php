@@ -135,10 +135,12 @@
         $(this).addClass('selected');
 
         var media_preview = $('[data-media-id="' + selected_media_id + '"] .media_preview').html();
+        media_preview += '<br><br><input type="button" onclick="remove_media();" value="Remove Media">';
         $('#selected_media_preview').html(media_preview);
         $('#selected_media_preview > img,#selected_media_preview > video').attr('height', 300);
         $('#selected_media_preview > audio,#selected_media_preview > video').attr('width', 500);
         $('#selected_media_preview > img').removeAttr('width');
+        $.fancybox.close();
     });
 
     // making a tab filter
@@ -150,5 +152,12 @@
         $('.media_item').fadeOut();
         $('.media_type_' + media_type).fadeIn();
     });
+
+    function remove_media() {
+        $('[name="media_id"]').val('');
+        $('#selected_media_preview').html('');
+    }
+
+    $('.tab[data-media-type="Photo"]').trigger('click');
 
 </script>

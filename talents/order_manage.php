@@ -28,9 +28,10 @@ include('../_includes/header.php');
                         <th style="text-align:left; width:10%" >Order No</th>
                         <th style="text-align:left; width:10%">Date</th>
                         <th style="text-align:left; width:20%">Product Name</th>
-                        <th style="text-align:left; width:15%">Amount </th>
-                        <th style="text-align:left; width:20%">Feedback </th>
-                        <th style="text-align:left; width:15%">Status</th>						
+                        <th style="text-align:left; width:10%">Amount </th>
+                        <th style="text-align:left;">Seller Feedback </th>
+                        <th style="text-align:left;">Buyer Feedback </th>
+                        <th style="text-align:left; width:10%">Status</th>						
                         <th style="text-align:center; width:10%">Action</th>
                     </tr>
                 </thead>
@@ -45,6 +46,7 @@ include('../_includes/header.php');
                         <td align="left"><?php echo $row["order_date"]; ?></td>
                         <td align="left"><?php echo $row["product_name"]; ?></td>
                         <td align="left">$<?php echo $row['total_amt']; ?></td>
+                        <td align="left"><?php echo $row['seller_feedback']; ?></td>
                         <td align="left"><?php echo $row['buyer_feedback']; ?></td>
                         <td align="left">
                             <?php if ($row['order_status'] == 0) { ?><p style="color:#FF0033;"><?php echo 'Pending'; ?></p><?php } ?>

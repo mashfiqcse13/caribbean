@@ -5,7 +5,6 @@ $MSG = '';
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
     $data = array(
         "order_status" => $_POST['order_status'],
-//        "admin_note" => mysqli_real_escape_string(mysqli_connect(db_host, db_username, db_passward, db_passward), $_POST['admin_note'])
         "admin_note" => mysql_real_escape_string($_POST['admin_note'])
     );
     $table = "tbl_orders";
@@ -84,6 +83,8 @@ function check_status(){
 
         <p><label>Seller Amount:</label>$<?php echo number_format(($row['p_amt'] * .75) + ($row['shipping_amt']), 2); ?></p>
 
+        <p><label>Seller Feedback:</label><?php echo $row['seller_feedback']; ?></p>
+
         <p><label>Buyer Feedback:</label><?php echo $row['buyer_feedback']; ?></p>
 
         <p><label>Order Status:</label>
@@ -133,8 +134,6 @@ function check_status(){
                 <label>Admin Note</label>
                 <textarea name="admin_note"><?php echo $row['admin_note'] ?></textarea>
                 <input type="submit" name="submit" value="Update" />
-
-
             </p>
         </form>
         <!--<br /><br /><hr style="border:2px solid #FF9900;"/><br />-->

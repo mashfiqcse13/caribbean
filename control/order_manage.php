@@ -32,13 +32,19 @@ $query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.p
     <thead>
         <tr>
 
-            <th style="text-align:left; width:10%" >Order No</th>
-            <th style="text-align:left; width:10%">Date</th>
-            <th style="text-align:left; width:20%">Product Name</th>
-            <th style="text-align:left; width:15%">Amount </th>
-            <th style="text-align:left; width:15%">Feedback </th>
-            <th style="text-align:left; width:10%">Status</th>						
-            <th style="text-align:center; width:20%">Action</th>
+            <th rowspan="2" style="text-align:left; width:10%" >Order No</th>
+            <th rowspan="2" style="text-align:left; width:10%">Date</th>
+            <th rowspan="2" style="text-align:left; width:20%">Product Name</th>
+            <th rowspan="2" style="text-align:left; width:15%">Amount </th>
+            <th colspan="3" style="text-align:center; width:15%">Feedback </th>
+            <th rowspan="2" style="text-align:left; width:10%">Status</th>						
+            <th rowspan="2" style="text-align:center; width:20%">Action</th>
+
+        </tr>
+        <tr>
+            <th style="text-align:left; width:15%">Seller </th>
+            <th style="text-align:left; width:15%">Buyer </th>
+            <th style="text-align:left; width:15%">Admin note </th>
 
         </tr>
     </thead>
@@ -57,7 +63,9 @@ $query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.p
 
                 <td> $<?php echo $row['total_amt'] ?> </td>
 
+                <td> <?php echo $row['seller_feedback'] ?> </td>
                 <td> <?php echo $row['buyer_feedback'] ?> </td>
+                <td> <?php echo $row['admin_note'] ?> </td>
 
                 <?php /* ?><td> <?php echo $row['order_status']; ?> </td><?php */ ?>
 
@@ -84,7 +92,10 @@ $query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.p
                     ?>
                 </td>
 
-                <td> <a href="view_order_manage.php?id=<?php echo $row['id']; ?>" style="color:#6666FF;"> View </a> &nbsp;|&nbsp;<a href="<?php echo "javascript:ConfrimMessage_Delete('delete_order_manage.php?id=$row[id]')"; ?>" style="color:#6666FF;"> Delete </a> </td>
+                <td> <a href="view_order_manage.php?id=<?php echo $row['id']; ?>" style="color:#6666FF;"> View </a>
+                    <br>
+                    <br>
+                    <a href="<?php echo "javascript:ConfrimMessage_Delete('delete_order_manage.php?id=$row[id]')"; ?>" style="color:#6666FF;"> Delete </a> </td>
             </tr>		
             <?php
         }

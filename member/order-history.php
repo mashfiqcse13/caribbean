@@ -39,6 +39,8 @@ include('../_includes/header.php');
                         <th style="text-align:left;">Date</th>
                         <th style="text-align:left;">Product Name</th>
                         <th style="text-align:left;">Amount </th>
+                        <th style="text-align:left;">Seller Feedback </th>
+                        <th style="text-align:left;">Buyer Feedback </th>
                         <th style="text-align:left;">Status</th>						
                         <th style="text-align:center;">Action</th>
                     </tr>
@@ -54,6 +56,8 @@ include('../_includes/header.php');
                         <td align="left"><?php echo $row["order_date"]; ?></td>
                         <td align="left"><?php echo $row["product_name"]; ?></td>
                         <td align="left">$<?php echo $row['total_amt']; ?></td>
+                        <td align="left"><?php echo $row['seller_feedback']; ?></td>
+                        <td align="left"><?php echo $row['buyer_feedback']; ?></td>
 
                         <?php /* ?>	<td align="left">
                           <?php

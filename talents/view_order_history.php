@@ -56,7 +56,8 @@ include('../_includes/header.php');
 
                     <p  class="style1"><label class="style">Total Amount:</label>$<?php echo $all_t = number_format(($row['p_amt'] + $row['shipping_amt']), 2); ?></p>
 
-                    <p  class="style1"><label class="style">Order Feedback:</label><?php echo $all_t = $row['buyer_feedback']; ?></p>
+                    <p  class="style1"><label class="style">Seller Feedback:</label><?php echo $all_t = $row['seller_feedback']; ?></p>
+                    <p  class="style1"><label class="style">Buyer Feedback:</label><?php echo $all_t = $row['buyer_feedback']; ?></p>
 
 
                     <p><label class="style">Order Status:</label>
@@ -80,7 +81,6 @@ include('../_includes/header.php');
                             <p>
                                 <label for="feedback_text" style="width:190px;">Leave a Feedback/Notes:</label>
                                 <textarea name="feedback_text" id="feedback_text" class="required" rows="4" cols="45"><?php echo $row['buyer_feedback'];
-            styl
                     ?></textarea>					
                             </p>																							
                             <input type="hidden" id="orders_id"  name="orders_id"  value="<?php echo $row['id']; ?>"  />

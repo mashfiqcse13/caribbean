@@ -3,11 +3,13 @@ include('../_includes/application-top.php');
 ChecktalentLogin();
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
     $data = array(
-        "order_status" => $_POST['order_status']
+        "seller_feedback" => mysql_real_escape_string($_POST['seller_feedback'])
     );
     $table = "tbl_orders";
-    $parameters = "id='" . $_POST["id"] . "'";
+    $parameters = "id='" . $_POST['id'] . "'";
+
     updateData($data, $table, $parameters);
+    $MSG = "Record Updated Sucessfully";
 }
 include('../_includes/header.php');
 ?> 
@@ -17,39 +19,60 @@ include('../_includes/header.php');
 
     <div class="form_class"><!--START CLASS form_class PART -->
 
-        <div class="profile_page_wraper"><!--START DIV CLASS profile_page_wraper-->				
-            <?php
-            $query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name,p.ref_id FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON p.id=tbl_orders.p_id WHERE tbl_orders.id='" . $_GET['id'] . "'");
-            while ($row = mysql_fetch_assoc($query)) {
-                ?>
+        <div class="profile_page_wraper"><!--START DIV CLASS profile_page_wraper-->
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
 
-                <h2>Order Details&nbsp;/ <?php echo $row['id']; ?></h2>
-                <p class="style1"><label class="style">Order No:</label><?php echo $row['id']; ?></p>
+                            <?php
+                            $query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name,p.ref_id FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON p.id=tbl_orders.p_id WHERE tbl_orders.id='" . $_GET['id'] . "'");
+                            while ($row = mysql_fetch_assoc($query)) {
+                                ?>
 
-                <p class="style1"><label class="style">Date:</label><?php echo $row['order_date']; ?></p>
+                                <h2>Order Details&nbsp;/ <?php echo $row['id']; ?></h2>
+                                <p class="style1"><label class="style">Order No:</label><?php echo $row['id']; ?></p>
 
-                <p class="style1"><label class="style">Product Name:</label><?php echo $row['product_name']; ?></p>
+                                <p class="style1"><label class="style">Date:</label><?php echo $row['order_date']; ?></p>
 
-                <?php /* ?><p class="style1"><label class="style">Product Amount:</label>$<?php echo $total=(number_format((($row['p_amt'])-(($row['p_amt']*25)/100)), 2)); ?></p><?php */ ?>
+                                <p class="style1"><label class="style">Product Name:</label><?php echo $row['product_name']; ?></p>
 
-                <p class="style1"><label class="style">Product Amount:</label>$<?php echo $total = number_format($row['p_amt'], 2); ?></p>
+                                <?php /* ?><p class="style1"><label class="style">Product Amount:</label>$<?php echo $total=(number_format((($row['p_amt'])-(($row['p_amt']*25)/100)), 2)); ?></p><?php */ ?>
 
-                <?php /* ?> <p class="style1"><label class="style">CCS Fees:</label>$<?php echo $amount = number_format((($row['p_amt']*25)/100), 2); ?></p><?php */ ?>
+                                <p class="style1"><label class="style">Product Amount:</label>$<?php echo $total = number_format($row['p_amt'], 2); ?></p>
+
+                                <?php /* ?> <p class="style1"><label class="style">CCS Fees:</label>$<?php echo $amount = number_format((($row['p_amt']*25)/100), 2); ?></p><?php */ ?>
 
 
-                <p class="style1"><label class="style">Shipping Amount:</label>$<?php echo $row['shipping_amt']; ?></p>
+                                <p class="style1"><label class="style">Shipping Amount:</label>$<?php echo $row['shipping_amt']; ?></p>
 
-                <?php /* ?><p class="style1"><label class="style">Total Amount:</label>$<?php echo $all_t = number_format(($total+$amount+($row['shipping_amt'])), 2); ?></p><?php */ ?>
+                                <?php /* ?><p class="style1"><label class="style">Total Amount:</label>$<?php echo $all_t = number_format(($total+$amount+($row['shipping_amt'])), 2); ?></p><?php */ ?>
 
-                <p  class="style1"><label class="style">Total Amount:</label>$<?php echo $all_t = number_format(($row['p_amt'] + $row['shipping_amt']), 2); ?></p>
+                                <p  class="style1"><label class="style">Total Amount:</label>$<?php echo $all_t = number_format(($row['p_amt'] + $row['shipping_amt']), 2); ?></p>
 
-                <p  class="style1"><label class="style">Buyer Feedback:</label><?php echo $row['buyer_feedback']; ?></p>
+                                <p  class="style1"><label class="style">Buyer Feedback:</label><?php echo $row['buyer_feedback']; ?></p>
+                    <p  class="style1"><label class="style">Seller Feedback:</label><?php echo $all_t = $row['seller_feedback']; ?></p>
 
-                <p><label class="style">Order Status:</label>
-                <?php if ($row['order_status'] == 0) { ?><p style="color:#FF0033;"><?php echo 'Pending'; ?></p><?php } ?>
-                <?php if ($row['order_status'] == 1) { ?><p style="color:#009933;"><?php echo 'Success'; ?></p><?php } ?></p>
+                                <p><label class="style">Order Status:</label>
+                                <?php if ($row['order_status'] == 0) { ?><p style="color:#FF0033;"><?php echo 'Pending'; ?></p><?php } ?>
+                                <?php if ($row['order_status'] == 1) { ?><p style="color:#009933;"><?php echo 'Success'; ?></p><?php } ?></p>
 
-                <label style="width:250px;">Amount to be recived from ccs:</label><p style="margin-top:20px;">$<?php echo number_format(($row['p_amt'] * .75) + ($row['shipping_amt']), 2); ?></p>
+                                <label style="width:250px;">Amount to be recived from ccs:</label><p style="margin-top:20px;">$<?php echo number_format(($row['p_amt'] * .75) + ($row['shipping_amt']), 2); ?></p>
+                            </td>
+                            <td style="width: 35%; vertical-align: top;">
+                                <h2>Seller Feedback</h2>
+                                <form id="order_form" action="" method="post">
+                                    <br />
+                                    <label>Send massage to buyer</label>
+                                    <input type="hidden" name="id" value="<?php echo $row['id']; ?>"  />
+                                    <textarea name="seller_feedback" style="width: 191px; height: 87px;"><?php echo $row['seller_feedback']; ?></textarea>                 
+                                    <input type="submit" name="submit" value="Update">  
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
 
                 <br /><br /><hr style="border:2px solid #FF9900;"/><br />
 
