@@ -221,7 +221,7 @@ if (!$result) {
                             ?>
 
                             <audio width="100%" id="player" src="<?php echo SITE_URL1 . $row['file_attached']; ?>" type="audio/mp3" controls="controls"></audio>
-                            <a href="add_site_music.php?id=<?php echo $row["id"]; ?>&action=add" style="top:12px;position: relative;top: 3px;color: #000;background-color: #C5F9AE;">ADD TO MUSIC</a>
+                            <a href="#" class="add_to_music" data-target-url="add_site_music.php?id=<?php echo $row["id"]; ?>&action=add" style="top:12px;position: relative;top: 3px;color: #000;background-color: #C5F9AE;">ADD TO MUSIC</a>
                             <?php
                         } else if ($file['1'] == 'jpg' || $file['1'] == 'jpeg' || $file['1'] == 'png') {
                             ?>
@@ -330,4 +330,8 @@ if (!$result) {
 </div>
 <script>
     $('audio,video').mediaelementplayer();
+    $('.add_to_music').click(function () {
+        var target_url = $(this).data('target-url');
+        $("body").load(target_url);
+    });
 </script>

@@ -116,7 +116,7 @@ if (!empty($_GET['id']) && $_GET['action'] == "add") {
 }
 ?>
 <h1>ADD MUSIC</h1>
-<p style=""><a href="#" onclick="goBack()" class="button" style=" margin:10px 0px 0px 15px; color:#FFFFFF;">Back</a></p>
+<p style=""><a href="media.php?filetype=2" class="button" style=" margin:10px 0px 0px 15px; color:#FFFFFF;">Back</a></p>
 
 <div class="add_site_mp3">
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" id="add_mp3_songs" >
