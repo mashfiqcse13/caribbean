@@ -241,5 +241,3 @@ class PS_Pagination {
     }
 
 }
-
-?>

@@ -304,4 +304,3 @@ function age_from_dob($dob) {
 
     return date('Y') - $y;
 }
-?>

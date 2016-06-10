@@ -20,5 +20,3 @@ if (!$selt) {
 
     echo "database selection faild" . mysql_error();
 }
-?>
-                            

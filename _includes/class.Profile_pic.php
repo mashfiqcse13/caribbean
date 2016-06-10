@@ -243,19 +243,10 @@ class Profile_pic {
 
     function go_to_destination($msg = FALSE) {
         if ($msg) {
-            die('
-                <script>
-                        alert("' . $msg . '");
-                        window.location = "' . $this->destination_url_after_processing . '";
-                </script>
-                ');
-        } else {
-            die('
-                <script>
-                        window.location = "' . $this->destination_url_after_processing . '";
-                </script>
-                ');
+            $data_output['msg'] = $msg;
         }
+        $data_output['destination_url'] = $this->destination_url_after_processing;
+        die(json_encode($data_output));
     }
 
     function update_photo_status_by($photo_id, $status_code) {

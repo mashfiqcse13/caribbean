@@ -357,4 +357,3 @@ define('AC14', 'has Joined CCS');
 define('PAGE_ROW_NO', 5);
 define('PAGE_LINK_NO', 50);
 ?>
-                            
