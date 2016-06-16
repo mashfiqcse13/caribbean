@@ -191,7 +191,14 @@ if (!empty($_REQUEST['uncrop_photoid'])) {
     {
         if (confirm("Are you sure you want to make this Profile Photo ?"))
         {
-            window.location = "" + url;
+            $('#m_profile .current_profile_pic').html('Loading.....');
+//            window.location = "" + url;
+            $.ajax({
+                url: url,
+                complete: function (data, text) {
+                    $('#m_profile .current_profile_pic').load('update_profile_photo.php #m_profile .current_profile_pic *');
+                }
+            });
         }
     }
 

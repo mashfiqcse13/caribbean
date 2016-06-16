@@ -1,35 +1,14 @@
-
 <?php
 include('../_includes/application-top.php');
 ChecknontalentLogin();
 
-include('../_includes/header.php');
 include('../_includes/class.database.php');
 include('../_includes/class.Profile_pic.php');
 
 $db = new DBClass(db_host, db_username, db_passward, db_name);
 
 $profile_pic = new Profile_pic($_SESSION["user_id"], "talent");
-?>
-<style>
-    ul.grid.cs-style-3 {
-        padding: 0 10px;
-    }
-    .grid li {
-        display: inline-block;
-        max-width: 210px;
-        margin: 0 0 10px;
-        vertical-align: top;
-    }
-    .grid li a{
-        padding: 0 5px;
-    }
-    .current_profile_pic {
-        border-bottom: 1px solid;
-        margin: 0 0 20px;
-    }
-</style>
-<?php
+
 if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Upload')) {
     if (isset($_FILES['img_path'])) {
         $profile_pic->update($_FILES['img_path'], 1);
@@ -54,7 +33,28 @@ if (!empty($_REQUEST['uncrop_photoid'])) {
 }
 //header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 //header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
-?><div class="content">
+include('../_includes/header.php');
+?>
+
+<style>
+    ul.grid.cs-style-3 {
+        padding: 0 10px;
+    }
+    .grid li {
+        display: inline-block;
+        max-width: 210px;
+        margin: 0 0 10px;
+        vertical-align: top;
+    }
+    .grid li a{
+        padding: 0 5px;
+    }
+    .current_profile_pic {
+        border-bottom: 1px solid;
+        margin: 0 0 20px;
+    }
+</style>
+<div class="content">
     <h1>Update profile photo</h1>
     <!-- <p style="text-align:right"><a href="javascript:void(0)" class="button" style="float:left; margin:-5px 0px 5px 0px;" onclick="return back();">Back</a></p> -->
     <?php
@@ -79,8 +79,8 @@ if (!empty($_REQUEST['uncrop_photoid'])) {
                             if (file_exists($filename)) {
                                 ?>
                                 <p style="margin: 26px 0 12px;font-size: 14px;font-weight: bold;">Current Profile Photo</p>
-                                <a href="../_uploads/user_photo/<?php echo $_SESSION["user_id"] ?>.jpg" class="fancybox">
-                                    <img width="100%" height="auto" src="../_uploads/user_photo/<?php echo $_SESSION["user_id"] ?>.jpg"/>
+                                <a href="../_uploads/user_photo/<?php echo $_SESSION["user_id"] . ".jpg?" . time() ?>" class="fancybox">
+                                    <img width="100%" height="auto" src="../_uploads/user_photo/<?php echo $_SESSION["user_id"] . ".jpg?" . time() ?>"/>
                                 </a>
                                 <br>
                                 <a href="<?php echo "javascript:Confrim_Delete('update_profile_photo.php?action=delete')"; ?>" title="Delete This Photo">Remove Profile Photo</a>
@@ -146,12 +146,9 @@ if (!empty($_REQUEST['uncrop_photoid'])) {
 </div>
 <script type="text/javascript">
     showonlyone('newboxes1');
-
-
     $(document).ready(function () {
         $(".fancybox").fancybox();
     });
-
     function back()
     {
         window.history.back();
@@ -189,7 +186,14 @@ if (!empty($_REQUEST['uncrop_photoid'])) {
     {
         if (confirm("Are you sure you want to make this Profile Photo ?"))
         {
-            window.location = "" + url;
+            $('#m_profile .current_profile_pic').html('Loading.....');
+//            window.location = "" + url;
+            $.ajax({
+                url: url,
+                complete: function (data, text) {
+                    $('#m_profile .current_profile_pic').load('update_profile_photo.php #m_profile .current_profile_pic *');
+                }
+            });
         }
     }
 
