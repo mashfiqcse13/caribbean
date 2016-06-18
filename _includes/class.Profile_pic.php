@@ -71,6 +71,9 @@ class Profile_pic {
     function get_gallery($urls_only = FALSE) {
         $db = $this->db;
         $rows = $db->db_select_as_array('tbl_profile_images', " `userid` = " . $this->user_id);
+        if (empty($rows)) {
+            return FALSE;
+        }
         $gallery_files = array();
         $urls = array();
         foreach ($rows as $index => $row) {

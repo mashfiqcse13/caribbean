@@ -42,7 +42,7 @@ include('../_includes/header.php');
     }
     .grid li {
         display: inline-block;
-        max-width: 210px;
+        width: 210px;
         margin: 0 0 10px;
         vertical-align: top;
     }
@@ -79,8 +79,8 @@ include('../_includes/header.php');
                             if (file_exists($filename)) {
                                 ?>
                                 <p style="margin: 26px 0 12px;font-size: 14px;font-weight: bold;">Current Profile Photo</p>
-                                <a href="../_uploads/user_photo/<?php echo $_SESSION["user_id"] . ".jpg?" . time() ?>" class="fancybox">
-                                    <img width="100%" height="auto" src="../_uploads/user_photo/<?php echo $_SESSION["user_id"] . ".jpg?" . time() ?>"/>
+                                <a href="<?php echo "$filename?" . time() ?>" class="fancybox">
+                                    <img width="100%" height="auto" src="<?php echo "$filename?" . time() ?>"/>
                                 </a>
                                 <br>
                                 <a href="<?php echo "javascript:Confrim_Delete('update_profile_photo.php?action=delete')"; ?>" title="Delete This Photo">Remove Profile Photo</a>
@@ -109,19 +109,19 @@ include('../_includes/header.php');
                             <?php
                             foreach ($images_details as $image_detail) {
                                 ?>
-                                <li>
+                                <li id="item_no_<?php echo $image_detail['photo_id'] ?>">
                                     <a href="<?php echo $image_detail['file_url']; ?>" class="fancybox">
-                                        <img src="<?php echo $image_detail['file_url']; ?>" alt=" " width="200" height="200"/>
+                                        <img src="<?php echo $image_detail['file_url'] . "?" . time(); ?>" alt=" " width="200" height="200"/>
                                     </a>
                                     <br>
                                     <a href="<?php echo "javascript:Confrim_Profile_Photo('update_profile_photo.php?photoid=" . $image_detail['photo_id'] . "&action=makeprofile')"; ?>">Make Profile Pic</a>
-                                    <a href="<?php echo "media_img_cropper.php?photoid=" . $image_detail['photo_id']; ?>">Crop</a>
                                     <?php
+                                    echo '<a href="javascript:crop_img(\'media_img_cropper.php?photoid=' . $image_detail['photo_id'] . '\',' . $image_detail['photo_id'] . ')">Crop</a>';
                                     if ($image_detail['status'] == 33) {
-                                        echo '<a href="update_profile_photo.php?uncrop_photoid=' . $image_detail['photo_id'] . '">Uncrop</a>';
+                                        echo '<a href="javascript:uncrop_img(\'update_profile_photo.php?uncrop_photoid=' . $image_detail['photo_id'] . '\',' . $image_detail['photo_id'] . ')">Uncrop</a>';
                                     }
                                     ?>
-                                    <a href="<?php echo "javascript:Confrim_Photo_Delete('update_profile_photo.php?photoid=" . $image_detail['photo_id'] . "&action=delimage')"; ?>" >Delete</a>
+                                    <a href="<?php echo "javascript:Confrim_Photo_Delete('update_profile_photo.php?photoid=" . $image_detail['photo_id'] . "&action=delimage',{$image_detail['photo_id'] })"; ?>" >Delete</a>
 
                                 </li>
                             <?php }
@@ -134,7 +134,7 @@ include('../_includes/header.php');
                 <div class="newboxes" id="newboxes2" style="">
                     <p style="margin: 33px 0 0;font-size: 14px;font-weight: bold;">Upload New Profile Photo:</p>
                     <label style="float: unset;"></label>
-                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+                    <form id="ajax_form" action="update_profile_photo.php" method="post" enctype="multipart/form-data">
                         <input type="file" name="img_path" value="" /><p>
                             <input type="submit" name="submit" value="Upload" class="button" style="margin: 0 0 0 188px;"/>
 
@@ -144,58 +144,106 @@ include('../_includes/header.php');
         </div>
     </div>
 </div>
+<script src="../_script/jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-    showonlyone('newboxes1');
-    $(document).ready(function () {
-        $(".fancybox").fancybox();
-    });
-    function back()
-    {
-        window.history.back();
-    }
+                    showonlyone('newboxes1');
+                    $(document).ready(function () {
+                        $(".fancybox").fancybox();
+                        $('#ajax_form').ajaxForm({
+                            dataType: 'json',
+                            beforeSubmit: function (responseText, statusText) {
+                                $('body').html('Loading........');
+                            },
+                            success: function (responseText, statusText) {
+                                if (responseText.destination_url != null) {
+                                    $('body').load(responseText.destination_url);
+                                } else {
+                                    alert("Failed to upload");
+                                    $('body').load('update_profile_photo.php');
+                                }
+                            }
+                        });
+                    });
+                    function back()
+                    {
+                        window.history.back();
+                    }
 
-    function showonlyone(thechosenone) {
-        $('.newboxes').each(function (index) {
-            if ($(this).attr("id") == thechosenone) {
-                $(this).show(200);
-            } else {
-                $(this).hide(600);
-            }
-        });
-    }
+                    function showonlyone(thechosenone) {
+                        $('.newboxes').each(function (index) {
+                            if ($(this).attr("id") == thechosenone) {
+                                $(this).show(200);
+                            } else {
+                                $(this).hide(600);
+                            }
+                        });
+                    }
 
-    function Confrim_Delete(Url) //confarming property delete
-    {
-        if (confirm("Are you sure you want to delete this Photo ?"))
-        {
-            window.location = "" + Url;
-            return false;
-        }
-    }
+                    function Confrim_Delete(Url) //confarming property delete
+                    {
+                        if (confirm("Are you sure you want to delete this Photo ?"))
+                        {
+                            var target_selector_to_update = '#m_profile .current_profile_pic';
+                            $(target_selector_to_update).html('Loading.....');
+                            $.ajax({
+                                url: Url,
+                                complete: function (data, text) {
+                                    $(target_selector_to_update).load('update_profile_photo.php ' + target_selector_to_update + ' *');
+                                }
+                            });
+                        }
+                    }
 
-    function Confrim_Photo_Delete(Url) //confarming property delete
-    {
-        if (confirm("Are you sure you want to delete this Photo ?"))
-        {
-            window.location = "" + Url;
-            return false;
-        }
-    }
+                    function Confrim_Photo_Delete(Url, photo_id) //confarming property delete
+                    {
+                        if (confirm("Are you sure you want to delete this Photo ?"))
+                        {
+                            var target_selector_to_update = '#item_no_' + photo_id;
+                            $.ajax({
+                                url: Url,
+                                complete: function (data, text) {
+                                    $(target_selector_to_update).fadeOut(1000);
+                                }
+                            });
+                        }
+                    }
 
-    function Confrim_Profile_Photo(url) //confarming property delete
-    {
-        if (confirm("Are you sure you want to make this Profile Photo ?"))
-        {
-            $('#m_profile .current_profile_pic').html('Loading.....');
-//            window.location = "" + url;
-            $.ajax({
-                url: url,
-                complete: function (data, text) {
-                    $('#m_profile .current_profile_pic').load('update_profile_photo.php #m_profile .current_profile_pic *');
-                }
-            });
-        }
-    }
+                    function uncrop_img(Url, photo_id) //confarming property delete
+                    {
+                        var target_selector_to_update = '#item_no_' + photo_id;
+                        $(target_selector_to_update).html('Loading.....');
+                        $.ajax({
+                            url: Url,
+                            complete: function (data, text) {
+                                $(target_selector_to_update).load('update_profile_photo.php ' + target_selector_to_update + ' *');
+                            }
+                        });
+                        $(".fancybox").fancybox();
+                    }
+
+
+                    function crop_img(Url, photo_id) //confarming property delete
+                    {
+                        var target_selector_to_update = 'body';
+                        $(target_selector_to_update).html('Loading.....');
+                        $(target_selector_to_update).load(Url);
+                    }
+
+                    function Confrim_Profile_Photo(Url) //confarming property delete
+                    {
+                        if (confirm("Are you sure you want to make this Profile Photo ?"))
+                        {
+                            var target_selector_to_update = '#m_profile .current_profile_pic';
+                            $(target_selector_to_update).html('Loading.....');
+                            $.ajax({
+                                url: Url,
+                                complete: function (data, text) {
+                                    $(target_selector_to_update).load('update_profile_photo.php ' + target_selector_to_update + ' *');
+                                }
+                            });
+                        }
+                        $(".fancybox").fancybox();
+                    }
 
 </script> 
 

@@ -2,7 +2,6 @@
 include('../_includes/application-top.php');
 ChecknontalentLogin();
 
-include('../_includes/header.php');
 include('../_includes/class.database.php');
 require_once '../_includes/Croper.php';
 include('../_includes/class.Profile_pic.php');
@@ -19,6 +18,7 @@ if (isset($_POST['sava_and_make_propic'])) {
 if (isset($_POST['submit'])) {
     $profile_pic->crop($_POST['photoid'], json_encode($_POST['crop']));
 }
+include('../_includes/header.php');
 ?>
 <link href="../_css/cropper/cropper.css" rel="stylesheet" type="text/css"/>
 <script src="../_script/cropper/jquery.min.js" type="text/javascript"></script>
@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
             <img id="image" src="<?php echo $target_image_url; ?>">
         </div>
 
-        <form action="" method="post">
+        <form id="ajax_form" action="media_img_cropper.php" method="post">
             <input type="hidden" name='photoid' value="<?php echo $_GET['photoid'] ?>"/>
             <input id="X" type="hidden" name='crop[x]'/>
             <input id="Y" type="hidden" name='crop[y]'/>
@@ -60,13 +60,31 @@ if (isset($_POST['submit'])) {
             <a class="button" href="update_profile_photo.php">Cancel</a>
         </form>
 
+        <script src="../_script/jquery.form.min.js" type="text/javascript"></script>
         <script>
+            $(document).ready(function () {
+                $('#ajax_form').ajaxForm({
+                    dataType: 'json',
+                    success: function (responseText, statusText) {
+                        if (responseText.msg != null) {
+                            alert(responseText.msg);
+                        }
+                        if (responseText.destination_url != null) {
+                            $('body').load(responseText.destination_url);
+                        } else {
+                            alert("Failed to upload");
+                        }
+                        cosole.log(responseText);
+                    }
+                });
+
+            });
             $('#image').cropper({
                 dragMode: 'move',
                 restore: false,
                 guides: false,
                 highlight: false,
-                aspectRatio: 4/ 5,
+                aspectRatio: 4 / 5,
                 crop: function (e) {
                     // Output the result data for cropping image.
                     console.log("X :" + e.x);
