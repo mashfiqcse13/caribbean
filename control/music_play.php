@@ -2,24 +2,12 @@
 include('include/application_top.php');
 //ChecktalentLogin();
 
-include('include/meta.php');
-
-
-if (isset($_GET['filename'])) {
-    ?>
-    <div id="audioplayer"></div>
-    <?php
-    // echo $_GET['id'];
+if (!empty($_GET['filename'])) {
     $org_song = $_GET['filename'];
     ?>
-    <script type="text/javascript">
-        jwplayer("audioplayer").setup({
-            flashplayer: "<?php echo SITE_URL; ?>include/player.swf",
-            file: "<?php echo $org_song; ?>",
-            'controlbar': 'bottom',
-            'width': '245',
-            'height': '24',
-            'autostart': 'true'
-        });
-    </script>
+    <audio controls autoplay="true">
+        <source src="horse.ogg" type="audio/ogg">
+        <source src="<?php echo $org_song; ?>" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio> 
 <?php } ?>

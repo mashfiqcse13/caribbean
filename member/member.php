@@ -10,8 +10,8 @@ if (strtolower($_SESSION['is_admin']) == "yes") {
     }
 }
 
-$lid = $_REQUEST['lid'];
-if (!empty($lid)) {
+if (!empty($_REQUEST['lid'])) {
+    $lid = $_REQUEST['lid'];
     $_SESSION['user_login'] = 1;
     $_SESSION['user_id'] = $lid;
 
