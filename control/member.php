@@ -23,13 +23,13 @@ $rs = $page->paginate();
                     <p style="text-align:center;">
                         <a href="details.php?id=<?php echo $row['id']; ?>">
 
-                            <?php
+                            <?php   
                             $image = "../_uploads/user_photo/" . $row["id"] . ".jpg";
 
                             if (file_exists($image)) {
                                 ?>
-                                <img src="<?php echo $image; ?>" height='152' width='120'/>
-        <?php } else { ?>
+                                <img src="<?php echo $image . "?" . time(); ?>" height='152' width='120'/>
+                            <?php } else { ?>
 
                                 <img src="images/dummy.png" height='152' width='120'/>
                             <?php }

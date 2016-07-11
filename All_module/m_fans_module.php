@@ -13,9 +13,15 @@
         while ($data55 = mysql_fetch_assoc($sql55)) {
             $result66 = mysql_query("SELECT username FROM  tbl_users WHERE id=" . $data55["profile_id"] . "");
             $sql66 = mysql_fetch_assoc($result66);
-            //print_r($sql6);
+
+            $friends_profile_pic_url = "_uploads/user_photo/{$data55["profile_id"]}.jpg";
+            if (file_exists("$friends_profile_pic_url")) {
+                $friends_profile_pic_url.="?" . time();
+            } else {
+                $friends_profile_pic_url = "_images/dummy.png";
+            }
             ?>
-            <li><a href="profile-details.php?username=<?php echo $sql66['username'] ?>"><img src="_uploads/user_photo/<?php echo $data55["profile_id"] ?>.jpg" style="width:60px; height:45px;"/></a></li>
+            <li><a href="profile-details.php?username=<?php echo $sql66['username'] ?>"><img src="<?php echo $friends_profile_pic_url ?>" style="width:60px; height:45px;"/></a></li>
             <?php
         }
         ?>

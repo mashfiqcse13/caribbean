@@ -53,7 +53,7 @@ include('../_includes/header.php');
                 $image = "../_uploads/user_photo/" . $_SESSION['user_id'] . ".jpg";
                 if (file_exists($image)) {
                     ?>
-                    <img src="../_uploads/user_photo/<?php echo $_SESSION["user_id"] ?>.jpg" />	
+                    <img src="<?php echo $image . "?" . time() ?>"/>	
                     <p>
                     <ul>
                         <li>

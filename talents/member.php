@@ -69,7 +69,7 @@ include('../_includes/header.php');
             }
             ?>
         </p>
-<?php } ?>
+    <?php } ?>
     <div class="form_class">
         <div id="m_profile">
             <div id="m_profile_left">
@@ -77,15 +77,15 @@ include('../_includes/header.php');
                 <?php
                 $image = "../_uploads/user_photo/" . $_SESSION['talent_id'] . ".jpg";
                 //  if(file_exists($image)) 
-                if (file_exists($image) && ! isset($_GET['op'])) {
+                if (file_exists($image) && !isset($_GET['op'])) {
                     ?>
-                    <img src="../_uploads/user_photo/<?php echo $_SESSION["talent_id"] ?>.jpg"/>
+                    <img src="<?php echo $image . "?" . time() ?>"/>
                     <p>
                     <ul>
                         <li><a href="update_profile_photo.php">Manage Profile Photo</a></li>
                     </ul>
                     </p>
-<?php } else { ?>
+                <?php } else { ?>
                     <img src="../_images/dummy.png" />	
                     <!-- <p><a href="photo_upload.php">Add Profile Photo</a></p>	-->
                     <p>
@@ -93,7 +93,7 @@ include('../_includes/header.php');
                         <li><a href="update_profile_photo.php">Add Profile Photo</a></li>
                     </ul>
                     </p>
-<?php } ?>
+                <?php } ?>
                 <!--USER IMAGE UPLOAD END HEAR-->
                 <ul>
                     <li><a href="change_password.php">Change Password</a></li>
@@ -143,7 +143,7 @@ include('../_includes/header.php');
                 </p>
                 <!--<p>
                 <label>Age:</label>
-<?php //echo $data['age']." "."years";   ?>
+                <?php //echo $data['age']." "."years";   ?>
                 </p>-->
                 <p>
                     <label>Talents:</label>

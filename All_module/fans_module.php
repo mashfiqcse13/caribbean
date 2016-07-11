@@ -20,9 +20,14 @@ if ($number <> 0) {
             while ($data5 = mysql_fetch_assoc($sql5)) {
                 $result6 = mysql_query("SELECT username FROM  tbl_users WHERE id=" . $data5["profile_id"] . "");
                 $sql6 = mysql_fetch_assoc($result6);
-                //print_r($sql6);
+                $fans_profile_pic_url = "_uploads/user_photo/{$data5["profile_id"]}.jpg";
+                if (file_exists("../$friends_profile_pic_url")) {
+                    $fans_profile_pic_url.="?" . time();
+                } else {
+                    $fans_profile_pic_url = "_images/dummy.png";
+                }
                 ?>
-                <li><a href="profile-details.php?username=<?php echo $sql6['username'] ?>"><img src="_uploads/user_photo/<?php echo $data5["profile_id"] ?>.jpg" style="width:60px; height:45px;"/></a></li>
+                <li><a href="profile-details.php?username=<?php echo $sql6['username'] ?>"><img src="<?php echo $fans_profile_pic_url ?>" style="width:60px; height:45px;"/></a></li>
                 <?php
             }
             ?>

@@ -15,11 +15,14 @@ if ((mysql_num_rows($query) > 0) && ($weq == 1)) {
 
         <div class="profile_details_bottom">
             <a href="profile-images.php?id=<?php echo $row1['UID']; ?>" title="View All Photos">
-                <?php if ($row1["Pstatus"] == 33) { ?>
-                    <img src="../_uploads/profile_photo/croped/<?php echo $row1["PID"]; ?>.jpg" width="100" />
+                <?php
+                $img_name = "{$row1["PID"]}.jpg?" . time();
+                if ($row1["Pstatus"] == 33) {
+                    ?>
+                    <img src="../_uploads/profile_photo/croped/<?php echo $img_name; ?>" width="100" />
                 <?php } else { ?>
-                    <img src="../_uploads/profile_photo/thumb/<?php echo $row1["PID"]; ?>.jpg" width="100"/>
-                <?php } ?>
+                    <img src="../_uploads/profile_photo/thumb/<?php echo $img_name; ?>" width="100"/>
+        <?php } ?>
             </a>
         </div>
 

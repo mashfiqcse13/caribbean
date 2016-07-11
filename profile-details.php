@@ -118,6 +118,12 @@ include('_includes/header.php');
         return false;
     }
 </script>
+<style>
+    .profile_details_top > img {
+        max-width: 150px;
+    }
+</style>
+
 <?php
 $result = CheckProfileView($_GET['username']);
 
@@ -332,7 +338,7 @@ if ($data['id'] != '') {
                                 //echo $image;
                                 if (file_exists($image)) {
                                     ?>
-                                    <img width="120" height="150" src="<?php echo $image; ?> " width="308px;"/>
+                                    <img src="<?php echo "$image?" . time(); ?> "/>
                                     <?php
                                 } else {
                                     ?>
@@ -457,7 +463,7 @@ if ($data['id'] != '') {
                                 //echo $image;
                                 if (file_exists($image)) {
                                     ?>
-                                    <img src="<?php echo $image; ?> " width="308px;"/>
+                                <img src="<?php echo "$image?" . time(); ?> " />
                                     <?php
                                 } else {
                                     ?>

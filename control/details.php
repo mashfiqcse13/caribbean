@@ -42,7 +42,7 @@ if (!empty($_REQUEST['task'])) {
         $image = "../_uploads/user_photo/" . $data["id"] . ".jpg";
         if (file_exists($image)) {
             ?>
-            <img src="<?php echo $image; ?>" height='150' width='120'/>
+            <img src="<?php echo $image . "?" . time(); ?>" height='150' width='120'/>
         <?php } else { ?>
             <img src="images/dummy.png" height='150' width='120'/>
         <?php } ?>

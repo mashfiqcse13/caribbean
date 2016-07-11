@@ -15,7 +15,7 @@ if (isset($_GET['id'])) {
         if (confirm("Are you sure you want to delete this Record?"))
         {
             /*self.navigate(Url);*/ //redirecting to the desired page
-            window.location = "" + Url;
+            $('body').load(Url);
         }
     }
 

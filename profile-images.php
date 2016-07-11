@@ -76,18 +76,21 @@ include('_includes/header.php');
         while ($row = mysql_fetch_assoc($query)) {
             ?>
         <div class="profile_details_bottom1">
-            <?php if ($row["croped"] == 1) { ?>
-                <a href="../_uploads/profile_photo/croped/<?php echo $row["id"]; ?>.jpg" class="fancybox">
-                    <img src="../_uploads/profile_photo/croped/<?php echo $row["id"]; ?>.jpg" 
+            <?php
+            $img_name = "{$row["id"]}.jpg?" . time();
+            if ($row["croped"] == 1) {
+                ?>
+                <a href="../_uploads/profile_photo/croped/<?php echo $img_name; ?>" class="fancybox">
+                    <img src="../_uploads/profile_photo/croped/<?php echo $img_name; ?>" 
                          width="100" alt="my_img"/>
                 </a>
-            <?php } else { ?>
-                <a href="../_uploads/profile_photo/<?php echo $row["id"]; ?>.jpg" class="fancybox">
-                    <img src="../_uploads/profile_photo/thumb/<?php echo $row["id"]; ?>.jpg" 
+    <?php } else { ?>
+                <a href="../_uploads/profile_photo/<?php echo $img_name; ?>" class="fancybox">
+                    <img src="../_uploads/profile_photo/thumb/<?php echo $img_name; ?>" 
                          width="100" alt="my_img"/>
                 </a>
             <?php } ?>
-            <?php $data = getAnyTableWhereData("tbl_products", "AND ref_id='" . $row["id"] . "' AND content_type='3' "); ?>
+    <?php $data = getAnyTableWhereData("tbl_products", "AND ref_id='" . $row["id"] . "' AND content_type='3' "); ?>
             <p><label><?php echo $row['photo_title']; ?></label><p>	
             <form action="" method="post">
 
