@@ -3,7 +3,6 @@ include('../_includes/application-top.php');
 ChecktalentLogin();
 
 include('../_includes/header.php');
-include('../_includes/class.database.php');
 require_once '../_includes/Croper.php';
 include('../_includes/class.Profile_pic.php');
 

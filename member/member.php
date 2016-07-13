@@ -1,15 +1,5 @@
 <?php
 include('../_includes/application-top.php');
-
-//Check if Admin login then dont use the user session value because values are dynamic.......
-
-if (strtolower($_SESSION['is_admin']) == "yes") {
-    if ($_REQUEST['id'] != "") {
-        $user_id = mysql_real_escape_string($_REQUEST['id']);
-        $_SESSION['user_id'] = $user_id;
-    }
-}
-
 if (!empty($_REQUEST['lid'])) {
     $lid = $_REQUEST['lid'];
     $_SESSION['user_login'] = 1;
@@ -40,9 +30,6 @@ include('../_includes/header.php');
             }
             if (isset($_GET['op']) AND ( $_GET['op'] == "u")) {
                 echo "<p class='msg'>Record Updated Sucessfully.</p>";
-            }
-            if (!empty($user_id)) {
-                $user_idd = "?id=" . $user_id;
             }
             ?>
             <div id="m_profile_left">

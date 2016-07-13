@@ -25,9 +25,9 @@ $uname = $data['username'];
             <div id="m_profile_left"><!--START ID m_profile_left PART -->
                 <ul>
                     <!--<li><a href="member.php">Back</a></li>-->
-                    <li><a href="add_profile_details.php">About Me</a></li>
+                    <li><a href="add_profile_details.php<?php echo $user_idd; ?>">About Me</a></li>
                     <!--<li><a href="profile-photo.php">Profile Photo</a></li>-->
-                    <li><a href="manage_photo.php">Manage Photo</a></li>
+                    <li><a href="manage_photo.php<?php echo $user_idd; ?>">Manage Photo</a></li>
                     <!--<li><a href="manage_music.php">Manage Music</a></li> 
                     <li><a href="manage_video.php">Manage Video</a></li>
                     <li><a href="manage_event.php">Manage Event</a></li>

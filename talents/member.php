@@ -5,13 +5,6 @@ if (isset($_REQUEST['lid'])) {
 }
 $_SESSION['talent_login'] = 1;
 
-if (strtolower($_SESSION['is_admin']) == "yes") {
-    if ($_REQUEST['id'] != "") {
-        $user_id = mysql_real_escape_string($_REQUEST['id']);
-        $_SESSION['talent_id'] = $user_id;
-    }
-}
-
 if (!empty($lid)) {
     $_SESSION['talent_id'] = $lid;
     ////////tbl_user_details INSERTED/////////

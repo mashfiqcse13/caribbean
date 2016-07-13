@@ -33,7 +33,7 @@ if (isset($_POST['delete']) and $_POST['delete'] != "") {
 
     <h1>Messages</h1>
 
-    <a href="member.php" class="button" style="float:left; margin:-5px 0px 5px 0px;">Back</a><br />
+    <a href="member.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 5px 0px;">Back</a><br />
 
     <!--<div class="form_class">DIV START form_class-->
 
@@ -69,7 +69,7 @@ if (isset($_POST['delete']) and $_POST['delete'] != "") {
                     <th style="text-align:left;">Time</th>
                     <th style="text-align:left;">View Message</th>
 
-        <!--<th align="center">Action</th>-->						
+            <!--<th align="center">Action</th>-->						
                 </tr>
             </thead>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="delete">
@@ -88,7 +88,7 @@ if (isset($_POST['delete']) and $_POST['delete'] != "") {
 
                             <td><input type="checkbox" name="check[]" class="chk" value="<?php echo $row['m_id'] ?>" class="required"/></td>
 
-        <?php /* ?><td style="" onclick="$(this).onmousedown('background-color','black')"><input type="checkbox" name="check" class="chk" value="<?php echo $row['m_id'] ?>" /></td><?php */ ?>
+                            <?php /* ?><td style="" onclick="$(this).onmousedown('background-color','black')"><input type="checkbox" name="check" class="chk" value="<?php echo $row['m_id'] ?>" /></td><?php */ ?>
 
                             <td ><a href="view_message.php?id=<?php echo $row['m_id']; ?>" style="color:#000000;"><?php echo $row['first_name'] . " " . $row['last_name']; ?></a></td>
 

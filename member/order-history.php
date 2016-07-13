@@ -8,7 +8,7 @@ include('../_includes/header.php');
 <div class="content"><!--START CLASS contant PART -->
 
     <h2>Order History</h2>
-    <p style="text-align:right"><a href="member.php" class="button" style="float:left; margin:-5px 0px 5px 0px;" >Back</a></p>
+    <p style="text-align:right"><a href="member.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 5px 0px;" >Back</a></p>
     <div class="form_class"><!--START CLASS form_class PART -->
         <?php
         //echo $sql_query="SELECT * FROM tbl_orders WHERE uid='".$_SESSION['user_id']."'";

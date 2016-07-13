@@ -3,7 +3,6 @@
 include('../_includes/application-top.php');
 ChecktalentLogin();
 
-include('../_includes/class.database.php');
 include('../_includes/class.Profile_pic.php');
 
 $db = new DBClass(db_host, db_username, db_passward, db_name);

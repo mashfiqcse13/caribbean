@@ -64,9 +64,9 @@ if (isset($_POST['update'])) {
         ?>
         <div id="m_profile_left"><!--START CLASS m_profile_left PART -->
             <ul>
-                <li><a href="member.php">Member Area</a></li>
-                <li><a href="change-password.php">Change Password</a></li>
-                <li><a href="edit-profile.php">Edit Profile</a></li>
+                <li><a href="member.php<?php echo $user_idd; ?>">Member Area</a></li>
+                <li><a href="change-password.php<?php echo $user_idd; ?>">Change Password</a></li>
+                <li><a href="edit-profile.php<?php echo $user_idd; ?>">Edit Profile</a></li>
                 <li><a href="log-out.php">Logout</a></li>
             </ul>
 

@@ -30,7 +30,7 @@ include('../_includes/header.php');
 
 <div class="content"><!--START CLASS contant PART -->
     <h1>Profile Images</h1>
-    <p style="text-align:right"><a href="profile_setup.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a><a href="add_image.php" class="button">Add Image</a></p>
+    <p style="text-align:right"><a href="profile_setup.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a><a href="add_image.php<?php echo $user_idd; ?>" class="button">Add Image</a></p>
     <?php
     if (isset($_GET['op']) AND ( $_GET['op'] == "a")) {
         echo "<p class='msg'>Your Image Uploaded  Successfully</p>";

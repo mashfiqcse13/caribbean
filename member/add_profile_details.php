@@ -42,7 +42,7 @@ include('../_includes/header.php');
         echo "<p class='msg'>$MSG</p>";
     }
     ?>
-    <p><a href="profile_setup.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a></p>
+    <p><a href="profile_setup.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a></p>
 
     <div class="form_class">
         <?php

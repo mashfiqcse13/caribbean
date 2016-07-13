@@ -11,9 +11,11 @@ session_start();
 //require('contact.php'); 
 require_once 'common_config.php';
 require("db.inc.php");
+require_once('class.database.php');
 require("ps_pagination.php");
 require("sol_functions.php");
 require("custom_functions.php");
+require_once('common_functions.php');
 //require("custom_function_username.php");
 if ((isset($_SESSION['cms_login'])) && ($_SESSION['cms_login'] != 0)) {
     
@@ -356,4 +358,16 @@ define('AC14', 'has Joined CCS');
 /* ##### ALL PAGENATION LINK HEAR ##### */
 define('PAGE_ROW_NO', 5);
 define('PAGE_LINK_NO', 50);
+
+//Check if Admin login then dont use the user session value because values are dynamic.......
+$user_id = Let_the_admin_see_the_user_dashboard();
+if ($user_id) {
+    $user_idd = "?id=" . $user_id;
+    $user_idd1 = "&id=" . $user_id;
+} else {
+    $user_idd = '';
+    $user_idd1 = '';
+}
+define('user_idd', $user_idd);
+define('user_idd1', $user_idd1);
 ?>

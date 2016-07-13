@@ -3,7 +3,7 @@ include('../_includes/application-top.php');
 ChecktalentLogin();
 
 include('../_includes/header.php');
-include('../_includes/class.database.php');
+
 require_once '../_includes/Croper.php';
 include('../_includes/class.Profile_pic.php');
 
@@ -43,7 +43,7 @@ if (!empty($_GET['photoid']) && !empty($_GET['action']) && $_GET['action'] == "u
             <input id="scaleX" type="hidden" name='crop[scaleX]'/>
             <input id="scaleY" type="hidden" name='crop[scaleY]'/>
             <input type="submit" name="submit" value="Save"/>
-            <input type="button"  onclick="window.location = 'manage_photo.php'" value="Cancel"/>
+            <input type="button"  onclick="window.location = 'manage_photo.php<?php echo "?id=" . $_SESSION['user_id']; ?>'" value="Cancel"/>
         </form>
 
         <script>
