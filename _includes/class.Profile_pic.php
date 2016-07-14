@@ -210,6 +210,11 @@ class Profile_pic {
         $destination = "../_uploads/user_photo/" . $this->user_id . ".jpg";
         $this->change_from_exsiting($file, $destination);
 
+        $data_to_insert['is_profile_picture'] = 1;
+        $this->db->db_update('tbl_profile_images', $data_to_insert, "`userid` = {$this->user_id}");
+        $data_to_insert['is_profile_picture'] = 2;
+        $this->db->db_update('tbl_profile_images', $data_to_insert, "`id` = $photo_id");
+
         $this->go_to_destination();
     }
 
@@ -236,13 +241,27 @@ class Profile_pic {
 //        die(print_r($file));
         $target = $file['file'];
         $croped_target = str_replace('profile_images/', 'profile_images/croped/', $target);
-
+        $is_profile_picture = $this->is_profile_picture($photoid);
         $this->db->db_delete('tbl_profile_images', " `id` = " . $photoid);
 
         $this->delete_file_by($target);
         $this->delete_file_by($croped_target);
 
-        $this->go_to_destination();
+        if ($is_profile_picture) {
+            $this->delete();
+        } else {
+            $this->go_to_destination();
+        }
+    }
+
+    function is_profile_picture($photoid) {
+//        $this->db = new DBClass(db_host, db_username, db_passward, db_name);
+        $result = $this->db->db_select_as_array('tbl_profile_images', "`id` = $photoid");
+        if (!empty($result[0]['is_profile_picture']) && $result[0]['is_profile_picture'] == 2) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     function go_to_destination($msg = FALSE) {

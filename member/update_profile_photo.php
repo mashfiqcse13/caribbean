@@ -204,6 +204,7 @@ include('../_includes/header.php');
                                 url: Url,
                                 complete: function (data, text) {
                                     $(target_selector_to_update).fadeOut(1000);
+                                    $('#m_profile .current_profile_pic').load('update_profile_photo.php #m_profile .current_profile_pic *');
                                 }
                             });
                         }
