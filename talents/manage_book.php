@@ -25,7 +25,10 @@ include('../_includes/header.php');
 <div class="content"><!--START DIV CLASS content-->
 
     <h1>Profile Books</h1>
-    <p style="text-align:right"><a href="profile_setup.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a><a href="add_book.php" class="button">Add Book</a></p>
+    <p style="text-align:right">
+        <a href="profile_setup.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a>
+        <a href="add_book.php<?php echo $user_idd; ?>" class="button">Add Book</a>
+    </p>
     <?php
     if (isset($_GET['op']) AND ( $_GET['op'] == "a")) {
         echo "<p class='msg'>Your Book Uploaded  Successfully</p>";
@@ -103,12 +106,12 @@ include('../_includes/header.php');
                         }
                         ?></td>
                     <td align="center"><?php
-                    if ($row1 == 0) {
-                        echo "_";
-                    } else {
-                        echo "$ " . $res['p_shipping'];
-                    }
-                    ?></td>				
+                        if ($row1 == 0) {
+                            echo "_";
+                        } else {
+                            echo "$ " . $res['p_shipping'];
+                        }
+                        ?></td>				
                     <td align="center">
                         <a href="update_book.php?id=<?php echo $row["id"]; ?>">
                             <img src="../_images/Edit.png" title="Update Book">
@@ -118,9 +121,9 @@ include('../_includes/header.php');
                         </a>
                     </td>
                 </tr>	
-    <?php
-}
-?>
+                <?php
+            }
+            ?>
         </tbody>
     </table>
 </div><!--END DIV CLASS content-->

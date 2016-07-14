@@ -41,7 +41,7 @@ include('../_includes/header.php');
         echo "<p class='msg'>$MSG</p>";
     }
     ?>
-    <p><a href="profile_setup.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a></p>
+    <p><a href="profile_setup.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a></p>
 
     <div class="form_class">
         <?php
@@ -78,10 +78,10 @@ include('../_includes/header.php');
                     </label>
                     <select name="p_photo">
                         <option <?php
-                            if ($row["p_photo"] == "0") {
-                                echo "selected='selected'";
-                            }
-                            ?>  value="0">Hide Module</option>
+                        if ($row["p_photo"] == "0") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="0">Hide Module</option>
                         <option <?php
                         if ($row["p_photo"] == "1") {
                             echo "selected='selected'";
@@ -132,10 +132,10 @@ include('../_includes/header.php');
                     </label>
                     <select name="p_music">
                         <option <?php
-                            if ($row["p_music"] == "0") {
-                                echo "selected='selected'";
-                            }
-                            ?>  value="0">Hide Module</option>
+                        if ($row["p_music"] == "0") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="0">Hide Module</option>
                         <option <?php
                         if ($row["p_music"] == "1") {
                             echo "selected='selected'";
@@ -255,10 +255,10 @@ include('../_includes/header.php');
                         }
                         ?>  value="2">Second Column</option>
                         <option <?php
-                            if ($row["p_comments"] == "3") {
-                                echo "selected='selected'";
-                            }
-                            ?>  value="3">Third Column</option>
+                        if ($row["p_comments"] == "3") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="3">Third Column</option>
                     </select>
                 </p>
                 <p>
@@ -267,25 +267,25 @@ include('../_includes/header.php');
                     </label>
                     <select name="p_event">
                         <option <?php
-                            if ($row["p_event"] == "0") {
-                                echo "selected='selected'";
-                            }
-                            ?>  value="0">Hide Module</option>
+                        if ($row["p_event"] == "0") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="0">Hide Module</option>
                         <option <?php
-                            if ($row["p_event"] == "1") {
-                                echo "selected='selected'";
-                            }
-                            ?>  value="1">First Column</option>
+                        if ($row["p_event"] == "1") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="1">First Column</option>
                         <option <?php
-                            if ($row["p_event"] == "2") {
-                                echo "selected='selected'";
-                            }
-                            ?>  value="2">Second Column</option>
+                        if ($row["p_event"] == "2") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="2">Second Column</option>
                         <option <?php
-                            if ($row["p_event"] == "3") {
-                                echo "selected='selected'";
-                            }
-                            ?>  value="3">Third Column</option>
+                        if ($row["p_event"] == "3") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="3">Third Column</option>
                     </select>
                 </p>
                 <p>
@@ -294,25 +294,25 @@ include('../_includes/header.php');
                     </label>
                     <select name="p_book">
                         <option <?php
-    if ($row["p_book"] == "0") {
-        echo "selected='selected'";
-    }
-    ?>  value="0">Hide Module</option>
+                        if ($row["p_book"] == "0") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="0">Hide Module</option>
                         <option <?php
-    if ($row["p_book"] == "1") {
-        echo "selected='selected'";
-    }
-    ?>  value="1">First Column</option>
+                        if ($row["p_book"] == "1") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="1">First Column</option>
                         <option <?php
-    if ($row["p_book"] == "2") {
-        echo "selected='selected'";
-    }
-    ?>  value="2">Second Column</option>
+                        if ($row["p_book"] == "2") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="2">Second Column</option>
                         <option <?php
-    if ($row["p_book"] == "3") {
-        echo "selected='selected'";
-    }
-    ?>  value="3">Third Column</option>
+                        if ($row["p_book"] == "3") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="3">Third Column</option>
                     </select>
                 </p>
                 <p>
@@ -321,32 +321,32 @@ include('../_includes/header.php');
                     </label>
                     <select name="p_product">
                         <option <?php
-    if ($row["p_product"] == "0") {
-        echo "selected='selected'";
-    }
-    ?>  value="0">Hide Module</option>
+                        if ($row["p_product"] == "0") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="0">Hide Module</option>
                         <option <?php
-    if ($row["p_product"] == "1") {
-        echo "selected='selected'";
-    }
-    ?>  value="1">First Column</option>
+                        if ($row["p_product"] == "1") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="1">First Column</option>
                         <option <?php
-    if ($row["p_product"] == "2") {
-        echo "selected='selected'";
-    }
-    ?>  value="2">Second Column</option>
+                        if ($row["p_product"] == "2") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="2">Second Column</option>
                         <option <?php
-    if ($row["p_product"] == "3") {
-        echo "selected='selected'";
-    }
-    ?>  value="3">Third Column</option>
+                        if ($row["p_product"] == "3") {
+                            echo "selected='selected'";
+                        }
+                        ?>  value="3">Third Column</option>
                     </select>
                 </p>
                 <input type="submit" name="submit" value="Update" class="button"></p>
             </form> 			
-    <?php
-}
-?>   
+            <?php
+        }
+        ?>   
     </div>
 </div>
 <script type="text/javascript" language="javascript">

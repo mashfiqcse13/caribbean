@@ -223,7 +223,7 @@ include('../_includes/header.php');
 
 <div class="content"><!--START DIV CLASS content-->
     <h1>Add Book</h1>
-    <p style="text-align:right"><a href="manage_book.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a><br />
+    <p style="text-align:right"><a href="manage_book.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a><br />
         <?php
         if (isset($MSG) AND ( $MSG <> "")) {
             echo "<p class='err'>" . $MSG . "</p>";

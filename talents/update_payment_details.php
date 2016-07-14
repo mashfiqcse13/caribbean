@@ -59,7 +59,9 @@ include('../_includes/header.php');
 </script>
 <div class="content"><!--START CLASS contant PART -->
     <h1>Add Payment Details</h1>
-    <p style="text-align:right"><a href="member.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a></p><br class="spacebr" />
+    <p style="text-align:right">
+        <a href="member.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a>
+    </p><br class="spacebr" />
     <div class="form_class"><!--START CLASS form_class PART -->
         <div id="m_profile"><!--START CLASS m_profile PART -->
 
@@ -97,23 +99,25 @@ include('../_includes/header.php');
                             //for ($i=0;$i<=239;$i++) {
                             foreach ($countries_array1 as $key => $value) {
                                 ?>
-                            <option value="<?php echo $key; ?>" <?php if (isset($country)) {
+                            <option value="<?php echo $key; ?>" <?php
+                            if (isset($country)) {
                                 if ($key == $country) {
-                                        ?>selected<?php }
-                    }
-                                ?>><?php echo $value; ?></option>
-        <?php
-    }
-    ?>
+                                    ?>selected<?php
+                                        }
+                                    }
+                                    ?>><?php echo $value; ?></option>
+                                    <?php
+                                }
+                                ?>
                         </select>
                         </p>
 
                         <p><label style="width:200px;">Routing Number:</label>
                             <input type="text" name="routing_number" value="<?php
-    if (isset($routing_number) AND ( $routing_number <> "")) {
-        echo $routing_number;
-    }
-    ?>" />
+                            if (isset($routing_number) AND ( $routing_number <> "")) {
+                                echo $routing_number;
+                            }
+                            ?>" />
                         </p>
 
                         <p><label style="width:200px;">*Bank  Address:</label>
@@ -142,17 +146,17 @@ include('../_includes/header.php');
 
                         <p><label style="width:200px;">Bank  State:</label>
                             <input type="text" name="bank_state" value="<?php
-                        if (isset($bank_state) AND ( $bank_state <> "")) {
-                            echo $bank_state;
-                        }
-                        ?>"  />
+                            if (isset($bank_state) AND ( $bank_state <> "")) {
+                                echo $bank_state;
+                            }
+                            ?>"  />
                         </p>
 
                         <p><label style="width:200px;">Bank  Zip Code:</label>
                             <input type="text" name="bank_zip_code" value="<?php
-                        if (isset($bank_zip_code) AND ( $bank_zip_code <> "")) {
-                            echo $bank_zip_code;
-                        }
+                            if (isset($bank_zip_code) AND ( $bank_zip_code <> "")) {
+                                echo $bank_zip_code;
+                            }
                             ?>"  />
 
                         </p><br /><br />
@@ -162,24 +166,24 @@ include('../_includes/header.php');
 
                         <p><label style="width:200px;">*Account Holder Name:</label>
                             <input type="text" name="account_holder_name" value="<?php
-                        if (isset($account_holder_name) AND ( $account_holder_name <> "")) {
-                            echo $account_holder_name;
-                        }
-                        ?>" class="required" />
+                            if (isset($account_holder_name) AND ( $account_holder_name <> "")) {
+                                echo $account_holder_name;
+                            }
+                            ?>" class="required" />
                         </p>
 
                         <p><label style="width:200px;">*Account Number&nbsp;/&nbsp;IBAN:</label>
                             <input type="text" name="accountnumber_iban" value="<?php
-                                if (isset($accountnumber_iban) AND ( $accountnumber_iban <> "")) {
-                                    echo $accountnumber_iban;
-                                }
-                                ?>" class="required" />
+                            if (isset($accountnumber_iban) AND ( $accountnumber_iban <> "")) {
+                                echo $accountnumber_iban;
+                            }
+                            ?>" class="required" />
                         </p>
                         <input type="submit" name="submit" value="Save"   class="button"> 
                     </form>
-                                <?php
-                            } else {
-                                ?>
+                    <?php
+                } else {
+                    ?>
                     <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="payment_details">
 
                         <p>Bank Information<hr /></p>
@@ -190,20 +194,20 @@ include('../_includes/header.php');
 
                         <p><label style="width:200px;">*Bank Country:</label>
                             <select name="country" id="location" class="required">
-    <?php
-    foreach ($countries_array1 as $key => $value) {
+                                <?php
+                                foreach ($countries_array1 as $key => $value) {
 
-        if ($result['country'] == $key) {
-            ?>
+                                    if ($result['country'] == $key) {
+                                        ?>
                                         <option value="<?php echo $key; ?>" selected="selected"><?php echo $value; ?></option>
-            <?php
-        } else {
-            ?>
+                                        <?php
+                                    } else {
+                                        ?>
                                         <option value="<?php echo $key; ?>"><?php echo $value; ?></option>
-            <?php
-        }
-    }
-    ?>
+                                        <?php
+                                    }
+                                }
+                                ?>
                             </select>
                         </p>
 

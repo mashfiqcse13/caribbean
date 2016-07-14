@@ -46,6 +46,7 @@ include('../_includes/header.php');
 
         <form id="ajax_form" action="media_img_cropper.php" method="post">
             <input type="hidden" name='photoid' value="<?php echo $_GET['photoid'] ?>"/>
+            <input type="hidden" name='id' value="<?php echo $_SESSION['talent_id'] ?>"/>
             <input id="X" type="hidden" name='crop[x]'/>
             <input id="Y" type="hidden" name='crop[y]'/>
             <input id="width" type="hidden" name='crop[width]'/>
@@ -56,7 +57,7 @@ include('../_includes/header.php');
             <br>
             <input class="button" type="submit" name="submit" value="Save"/>
             <input class="button" type="submit" name="sava_and_make_propic" value="Save and Make Profile Picture"/>
-            <a class="button" href="update_profile_photo.php">Cancel</a>
+            <a class="button" href="update_profile_photo.php<?php echo $user_idd; ?>">Cancel</a>
         </form>
 
         <script src="../_script/jquery.form.min.js" type="text/javascript"></script>

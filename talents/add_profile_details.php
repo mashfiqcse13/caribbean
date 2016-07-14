@@ -44,7 +44,7 @@ include('../_includes/header.php');
         echo "<p class='msg'>$MSG</p>";
     }
     ?>
-    <p><a href="profile_setup.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a></p>
+    <p><a href="profile_setup.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a></p>
 
     <div class="form_class">
         <?php
@@ -63,25 +63,25 @@ include('../_includes/header.php');
                         Biography :
                     </label>
                     <TEXTAREA NAME="biography"  class="required" id="textarea" cols="45" rows="7"><?php echo $row['biography']; ?></TEXTAREA>
-                        </p>
-        										<p>
-        								<label for="social_link1">Facebook Link :</label>
-        								<input type="text" name="social_link1" value="<?php echo $row['social_link1']; ?>" />
-        								</p>
-        								<p>
-        								<label for="social_link2">Twitter Link :</label>
-        								<input type="text" name="social_link2" value="<?php echo $row['social_link2']; ?>" />
-        								</p>
-        								<p>
-        								<label for="social_link3">Google Plus Link :</label>
-        								<input type="text" name="social_link3" value="<?php echo $row['social_link3']; ?>" />
-        								</p>
-        								<p>
-        								<label for="social_link4">Pinterest Link :</label>
-        								<input type="text" name="social_link4" value="<?php echo $row['social_link4']; ?>" />
-        								</p>
-                         <input type="submit" name="submit" value="Update" class="button"></p>
-                  </form> 			
+                            </p>
+            										<p>
+            								<label for="social_link1">Facebook Link :</label>
+            								<input type="text" name="social_link1" value="<?php echo $row['social_link1']; ?>" />
+            								</p>
+            								<p>
+            								<label for="social_link2">Twitter Link :</label>
+            								<input type="text" name="social_link2" value="<?php echo $row['social_link2']; ?>" />
+            								</p>
+            								<p>
+            								<label for="social_link3">Google Plus Link :</label>
+            								<input type="text" name="social_link3" value="<?php echo $row['social_link3']; ?>" />
+            								</p>
+            								<p>
+            								<label for="social_link4">Pinterest Link :</label>
+            								<input type="text" name="social_link4" value="<?php echo $row['social_link4']; ?>" />
+            								</p>
+                             <input type="submit" name="submit" value="Update" class="button"></p>
+                      </form> 			
             <?php
         }
         ?>   

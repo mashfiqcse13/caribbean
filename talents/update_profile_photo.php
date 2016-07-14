@@ -90,10 +90,10 @@ include('../_includes/header.php');
                             ?>
                         </div>
                     </li>
-                    <li><a href="change_password.php">Change Password</a></li>
-                    <li><a href="member.php">Member Area</a></li>
-                    <li><a href="edit_profile.php">Edit Profile</a></li>
-                    <li><a href="profile_setup.php">Profile Setup</a></li>
+                    <li><a href="change_password.php<?php echo $user_idd; ?>">Change Password</a></li>
+                    <li><a href="member.php<?php echo $user_idd; ?>">Member Area</a></li>
+                    <li><a href="edit_profile.php<?php echo $user_idd; ?>">Edit Profile</a></li>
+                    <li><a href="profile_setup.php<?php echo $user_idd; ?>">Profile Setup</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
             </div>
@@ -115,14 +115,14 @@ include('../_includes/header.php');
                                         <img src="<?php echo $image_detail['file_url'] . "?" . time(); ?>" alt=" " width="200" height="200"/>
                                     </a>
                                     <br>
-                                    <a href="<?php echo "javascript:Confrim_Profile_Photo('update_profile_photo.php?photoid=" . $image_detail['photo_id'] . "&action=makeprofile')"; ?>">Make Profile Pic</a>
+                                    <a href="<?php echo "javascript:Confrim_Profile_Photo('update_profile_photo.php?photoid=" . $image_detail['photo_id'] . "$user_idd1&action=makeprofile')"; ?>">Make Profile Pic</a>
                                     <?php
-                                    echo '<a href="javascript:crop_img(\'media_img_cropper.php?photoid=' . $image_detail['photo_id'] . '\',' . $image_detail['photo_id'] . ')">Crop</a>';
+                                    echo '<a href="javascript:crop_img(\'media_img_cropper.php?photoid=' . $image_detail['photo_id'] . $user_idd1 . '\',' . $image_detail['photo_id'] . ')">Crop</a>';
                                     if ($image_detail['status'] == 33) {
-                                        echo '<a href="javascript:uncrop_img(\'update_profile_photo.php?uncrop_photoid=' . $image_detail['photo_id'] . '\',' . $image_detail['photo_id'] . ')">Uncrop</a>';
+                                        echo '<a href="javascript:uncrop_img(\'update_profile_photo.php?uncrop_photoid=' . $image_detail['photo_id'] . $user_idd1 . '\',' . $image_detail['photo_id'] . ')">Uncrop</a>';
                                     }
                                     ?>
-                                    <a href="<?php echo "javascript:Confrim_Photo_Delete('update_profile_photo.php?photoid=" . $image_detail['photo_id'] . "&action=delimage',{$image_detail['photo_id'] })"; ?>" >Delete</a>
+                                    <a href="<?php echo "javascript:Confrim_Photo_Delete('update_profile_photo.php?photoid=" . $image_detail['photo_id'] . "$user_idd1&action=delimage',{$image_detail['photo_id'] })"; ?>" >Delete</a>
 
                                 </li>
                             <?php }
@@ -136,6 +136,7 @@ include('../_includes/header.php');
                     <p style="margin: 33px 0 0;font-size: 14px;font-weight: bold;">Upload New Profile Photo:</p>
                     <label style="float: unset;"></label>
                     <form id="ajax_form" action="update_profile_photo.php" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name='id' value="<?php echo $_SESSION['talent_id'] ?>"/>
                         <input type="file" name="img_path" value="" /><p>
                             <input type="submit" name="submit" value="Upload" class="button" style="margin: 0 0 0 188px;"/>
 
@@ -216,7 +217,7 @@ include('../_includes/header.php');
                         $.ajax({
                             url: Url,
                             complete: function (data, text) {
-                                $(target_selector_to_update).load('update_profile_photo.php ' + target_selector_to_update + ' *');
+                                $(target_selector_to_update).load("update_profile_photo.php<?php echo $user_idd; ?> " + target_selector_to_update + ' *');
                             }
                         });
                         $(".fancybox").fancybox();

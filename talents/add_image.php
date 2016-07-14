@@ -242,7 +242,7 @@ include('../_includes/header.php');
 </script>
 <div class="content"><!--START CLASS contant PART -->
     <h1>Add Image</h1>
-    <p style="text-align:right"><a href="manage_photo.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a><br />
+    <p style="text-align:right"><a href="manage_photo.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a><br />
         <?php
         if (isset($MSG) AND ( $MSG <> "")) {
             echo "<p class='err'>" . $MSG . "</p>";

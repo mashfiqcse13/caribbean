@@ -64,7 +64,7 @@ include('../_includes/header.php');
 <div class="content">
     <h1>Change Profile Password</h1>
 
-    <p style="text-align:right"><a href="member.php" class="button" style="float:left; margin:-5px 0px 5px 0px;" >Back</a></p><div class="form_class">
+    <p style="text-align:right"><a href="member.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 5px 0px;" >Back</a></p><div class="form_class">
         <?php
         if ((isset($MSG1)) || (isset($MSG)) || (isset($error))) {
             ?>
@@ -90,9 +90,9 @@ include('../_includes/header.php');
         <div id="m_profile">
             <div id="m_profile_left">
                 <ul>
-                    <li><a href="change_password.php">Change Password</a></li>
-                    <li><a href="edit_profile.php">Edit Profile</a></li>
-                    <li><a href="profile_setup.php">Profile Setup</a></li>
+                    <li><a href="change_password.php<?php echo $user_idd; ?>">Change Password</a></li>
+                    <li><a href="edit_profile.php<?php echo $user_idd; ?>">Edit Profile</a></li>
+                    <li><a href="profile_setup.php<?php echo $user_idd; ?>">Profile Setup</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
             </div>

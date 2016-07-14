@@ -34,7 +34,7 @@ if (isset($_POST['delete']) and $_POST['delete'] != "") {
 
     <h1>Messages</h1>
 
-    <a href="member.php" class="button" style="float:left; margin:-5px 0px 5px 0px;">Back</a> <br />
+    <a href="member.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 5px 0px;">Back</a> <br />
 
     <!--<div class="form_class">DIV START form_class-->
 

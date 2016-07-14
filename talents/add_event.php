@@ -88,7 +88,7 @@ include('../_includes/header.php');
         echo "<p class='err'>" . $MSG . "</p>";
     }
     ?>
-    <p style="text-align:right"><a href="manage_event.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a>
+    <p style="text-align:right"><a href="manage_event.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a>
 
     <div class="form_class"><!--START CLASS form_class PART -->
 

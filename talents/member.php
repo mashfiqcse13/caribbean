@@ -75,7 +75,7 @@ include('../_includes/header.php');
                     <img src="<?php echo $image . "?" . time() ?>"/>
                     <p>
                     <ul>
-                        <li><a href="update_profile_photo.php">Manage Profile Photo</a></li>
+                        <li><a href="update_profile_photo.php<?php echo $user_idd; ?>">Manage Profile Photo</a></li>
                     </ul>
                     </p>
                 <?php } else { ?>
@@ -83,18 +83,18 @@ include('../_includes/header.php');
                     <!-- <p><a href="photo_upload.php">Add Profile Photo</a></p>	-->
                     <p>
                     <ul>
-                        <li><a href="update_profile_photo.php">Add Profile Photo</a></li>
+                        <li><a href="update_profile_photo.php<?php echo $user_idd; ?>">Add Profile Photo</a></li>
                     </ul>
                     </p>
                 <?php } ?>
                 <!--USER IMAGE UPLOAD END HEAR-->
                 <ul>
-                    <li><a href="change_password.php">Change Password</a></li>
-                    <li><a href="edit_profile.php">Edit Profile</a></li>
-                    <li><a href="profile_setup.php">Profile Setup</a></li>
-                    <li><a href="update_payment_details.php">Payment Setup</a></li>
-                    <li><a href="order_manage.php">Order Manage</a></li>
-                    <li><a href="order-history.php">Order History</a></li>
+                    <li><a href="change_password.php<?php echo $user_idd; ?>">Change Password</a></li>
+                    <li><a href="edit_profile.php<?php echo $user_idd; ?>">Edit Profile</a></li>
+                    <li><a href="profile_setup.php<?php echo $user_idd; ?>">Profile Setup</a></li>
+                    <li><a href="update_payment_details.php<?php echo $user_idd; ?>">Payment Setup</a></li>
+                    <li><a href="order_manage.php<?php echo $user_idd; ?>">Order Manage</a></li>
+                    <li><a href="order-history.php<?php echo $user_idd; ?>">Order History</a></li>
                     <?php
                     if ((isset($_SESSION["talent_id"])) && ($_SESSION["talent_id"] != 0)) {
                         $uid = $_SESSION["talent_id"];
@@ -104,7 +104,7 @@ include('../_includes/header.php');
                     $query_row = mysql_query($query);
                     $rows = mysql_num_rows($query_row);
                     ?>
-                    <li><a href="message.php">Message&nbsp;<?php echo "(" . $rows . ")"; ?></a></li>	
+                    <li><a href="message.php<?php echo $user_idd; ?>">Message&nbsp;<?php echo "(" . $rows . ")"; ?></a></li>	
                     <li><a href="../profile-details.php?username=<?php echo $data['username']; ?>">View Public Profile</a></li>
                     <li><a href="logout.php">Logout</a></li>
                 </ul>
