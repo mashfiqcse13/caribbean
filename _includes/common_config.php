@@ -15,9 +15,9 @@ if ($_SERVER['HTTP_HOST'] == 'gill.mashfiqnahid.com') {
     define('db_name', 'caribbea_new');
     define('db_host', 'localhost');
 } else if ($_SERVER['HTTP_HOST'] == 'caribbeancirclestars.com' || $_SERVER['HTTP_HOST'] == 'www.caribbeancirclestars.com') {
-    define('db_username', 'caribbea_new');
+    define('db_username', 'caribbea_master');
     define('db_passward', 'c@r!663@9');
-    define('db_name', 'caribbea_new');
+    define('db_name', 'caribbea_carabiancirclestar');
     define('db_host', 'localhost');
 } else {
     define('db_username', 'root');

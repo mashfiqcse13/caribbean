@@ -21,7 +21,7 @@
                 $friends_profile_pic_url = "_images/dummy.png";
             }
             ?>
-            <li><a href="profile-details.php?username=<?php echo $sql66['username'] ?>"><img src="<?php echo $friends_profile_pic_url ?>" style="width:60px; height:45px;"/></a></li>
+            <li><a href="profile-details.php?username=<?php echo $sql66['username'] ?>"><img src="<?php echo $friends_profile_pic_url ?>" style="width:90px; height:120px;"/></a></li>
             <?php
         }
         ?>
