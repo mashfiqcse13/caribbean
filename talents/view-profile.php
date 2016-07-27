@@ -13,12 +13,12 @@ include('../_includes/header.php');
                     <li><a href="profile_setup.php">Back</a></li>
             </ul>-->
     <?php
-    /* $query=mysql_query("SELECT * FROM  tbl_profile_photos "); */
-    $query = mysql_query("SELECT tbl_profile_photos.*,tbl_users.username FROM tbl_profile_photos LEFT JOIN tbl_users ON tbl_profile_photos.user_id=tbl_users.id ");
+    /* $query=mysqli_query($link,"SELECT * FROM  tbl_profile_photos "); */
+    $query = mysqli_query($link,"SELECT tbl_profile_photos.*,tbl_users.username FROM tbl_profile_photos LEFT JOIN tbl_users ON tbl_profile_photos.user_id=tbl_users.id ");
     ?>
 
     <?php
-    while ($row = mysql_fetch_assoc($query)) {
+    while ($row = mysqli_fetch_assoc($query)) {
         ?>
         <!--/////ALL USER UPLOAD IMAGE/////-->
         <div id="a_image">		

@@ -2,9 +2,9 @@
 
 session_start();
 require_once '../_includes/common_config.php';
-require('dbconnect.php');
-require("sol_functions.php");
-require("ps_pagination.php");
+require('../_includes/db.inc.php');
+require("../_includes/sol_functions.php");
+require("../_includes/ps_pagination.php");
 
 //require('include/ps_pagination.php');
 function cmslogin() {

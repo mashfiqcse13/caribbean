@@ -15,8 +15,8 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
 
         $data = array(
             "user_id" => $_SESSION['user_id'],
-            "music_title" => mysql_real_escape_string(trim($_POST['music_titl'])),
-            "music_details" => mysql_real_escape_string(trim($_POST['music_details'])),
+            "music_title" => mysqli_real_escape_string( $link ,trim($_POST['music_titl'])),
+            "music_details" => mysqli_real_escape_string( $link ,trim($_POST['music_details'])),
             "status" => '1'
         );
         $table = "tbl_profile_music";

@@ -7,16 +7,16 @@ cmslogin();
 <h1> SHOW ALL Talent MEMBER'S </h1>
 <?php
 $query = "SELECT * FROM tbl_users WHERE TYPE = '1' ORDER BY id DESC";
-//$query_row = mysql_query($query);
+//$query_row = mysqli_query($link,$query);
 
-$page = new PS_Pagination($connection, $query, $rows_per_page = 32, $link_page = 200, $append = "");
+$page = new PS_Pagination($link, $query, $rows_per_page = 32, $link_page = 200, $append = "");
 $rs = $page->paginate();
 ?>
 <div id="member">
     <ul>
         <?php
-        if (mysql_num_rows($rs) > 0) {
-            while ($row = mysql_fetch_array($rs)) {
+        if (mysqli_num_rows($rs) > 0) {
+            while ($row = mysqli_fetch_array($rs)) {
                 ?>
                 <li class="b_image">
                     <p style="text-align:center;">

@@ -15,7 +15,7 @@ cmslogin();
     }
 </script>
 <?php
-$query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON p.id=tbl_orders.p_id ORDER BY tbl_orders.id DESC");
+$query = mysqli_query($link,"SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON p.id=tbl_orders.p_id ORDER BY tbl_orders.id DESC");
 
 //echo " SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON p.id=tbl_orders.p_id ORDER BY tbl_orders.id DESC";
 ?>
@@ -51,7 +51,7 @@ $query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.p
 
     <tbody>
         <?php
-        while ($row = mysql_fetch_assoc($query)) {
+        while ($row = mysqli_fetch_assoc($query)) {
             ?>
             <tr>
                 <td> <?php echo $row['id']; ?> </td>

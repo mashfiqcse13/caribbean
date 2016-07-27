@@ -136,7 +136,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                                 '" . date("Y-m-d") . "',
                                 '" . (date("h:i:s A")) . "');";
 
-                mysql_query($Query);
+                mysqli_query($link,$Query);
 
                 //echo $message;
                 //exit();

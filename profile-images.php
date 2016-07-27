@@ -13,8 +13,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
 
     if ($uid != "") {
 
-        $sql = mysql_query("SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='3'");
-        $producrt = mysql_fetch_assoc($sql);
+        $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='3'");
+        $producrt = mysqli_fetch_assoc($sql);
 
         $data = array(
             "uid" => $uid,
@@ -26,8 +26,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
         );
         $table = "tbl_shopping_cart";
 
-        $sql = mysql_query("SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
-        $num_row = mysql_num_rows($sql);
+        $sql = mysqli_query($link,"SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
+        $num_row = mysqli_num_rows($sql);
 
         if ($num_row == 0) {
             insertData($data, $table);
@@ -69,11 +69,11 @@ include('_includes/header.php');
     <?php } ?>
     <p style="text-align:right"><a href="javascript:back(0)" class="button" style="float:left; margin:-5px 0px 0px 0px;" onclick="return back();">Back</a><br />
         <?php
-        $query = mysql_query("SELECT * FROM tbl_profile_photos WHERE user_id='" . $_GET['id'] . "' ORDER BY tbl_profile_photos.id DESC");
+        $query = mysqli_query($link,"SELECT * FROM tbl_profile_photos WHERE user_id='" . $_GET['id'] . "' ORDER BY tbl_profile_photos.id DESC");
         ?>
 
         <?php
-        while ($row = mysql_fetch_assoc($query)) {
+        while ($row = mysqli_fetch_assoc($query)) {
             ?>
         <div class="profile_details_bottom1">
             <?php

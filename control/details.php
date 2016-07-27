@@ -13,8 +13,8 @@ include('include/header.php');
 </script>
 <?php
 $query = "SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'";
-$query_row = mysql_query($query);
-$data = mysql_fetch_array($query_row);
+$query_row = mysqli_query($link,$query);
+$data = mysqli_fetch_array($query_row);
 $_SESSION['ab'] = $data['first_name'];
 
 if (!empty($_REQUEST['task'])) {
@@ -79,11 +79,11 @@ if (!empty($_REQUEST['task'])) {
 
 <?php
 if ($data['new_mac_req'] == 1) {
-    $myqry2 = mysql_query("SELECT * FROM tbl_users WHERE mac_address='" . $data['mac_address'] . "'");
+    $myqry2 = mysqli_query($link,"SELECT * FROM tbl_users WHERE mac_address='" . $data['mac_address'] . "'");
     ?>
     <p style="margin-left:200px; width:600px;"><label>Connected Users:</label>
         <?php
-        while ($each1 = mysql_fetch_assoc($myqry2)) {
+        while ($each1 = mysqli_fetch_assoc($myqry2)) {
             echo $each1['first_name'] . " " . $each1['last_name'] . ", ";
         }
         ?>
@@ -116,9 +116,9 @@ if ($data['type'] == 1) {
     //session_start();
     $_SESSION['talent_login'] = 0;
     $session_query = "SELECT * FROM tbl_users WHERE username='" . $data['username'] . "' AND password='" . $data['password'] . "' AND type='1'";
-    $result = mysql_query($session_query);
-    $count = mysql_num_rows($result);
-    $data_1 = mysql_fetch_array($result);
+    $result = mysqli_query($link,$session_query);
+    $count = mysqli_num_rows($result);
+    $data_1 = mysqli_fetch_array($result);
     if ($count == 1) {
         $_SESSION['talent_login'] = 1;
         $_SESSION['talent_id'] = $data_1['id'];
@@ -162,9 +162,9 @@ if ($data['type'] == 1) {
 } else {
     $_SESSION['user_login'] = 0;
     $session_query = "SELECT * FROM tbl_users WHERE username='" . $data['username'] . "' AND password='" . $data['password'] . "' AND type='0'";
-    $result = mysql_query($session_query);
-    $count = mysql_num_rows($result);
-    $data_1 = mysql_fetch_array($result);
+    $result = mysqli_query($link,$session_query);
+    $count = mysqli_num_rows($result);
+    $data_1 = mysqli_fetch_array($result);
     if ($count == 1) {
         $_SESSION['user_login'] = 1;
         $_SESSION['user_id'] = $data_1['id'];

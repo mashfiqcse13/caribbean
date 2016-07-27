@@ -1,9 +1,9 @@
 <?php
 include('_includes/application-top.php');
 
-//$query=mysql_query("SELECT * FROM tbl_user_details WHERE user_id='".$_GET['id']."' AND tbl_user_details.profile_display_status='1' ");
-$query = mysql_query("SELECT * FROM tbl_user_details WHERE user_id='" . $_GET['id'] . "'");
-$treu = mysql_fetch_assoc($query);
+//$query=mysqli_query($link,"SELECT * FROM tbl_user_details WHERE user_id='".$_GET['id']."' AND tbl_user_details.profile_display_status='1' ");
+$query = mysqli_query($link,"SELECT * FROM tbl_user_details WHERE user_id='" . $_GET['id'] . "'");
+$treu = mysqli_fetch_assoc($query);
 //print_r($treu);
 
 include('_includes/header.php');

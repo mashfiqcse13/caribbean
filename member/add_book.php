@@ -13,9 +13,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Book')) {
 
         $data = array(
             "uid" => $_SESSION["user_id"],
-            "name" => mysql_real_escape_string(trim($_POST['name'])),
-            "author" => mysql_real_escape_string(trim($_POST['author'])),
-            "book_details" => mysql_real_escape_string(trim($_POST['book_details'])),
+            "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
+            "author" => mysqli_real_escape_string( $link ,trim($_POST['author'])),
+            "book_details" => mysqli_real_escape_string( $link ,trim($_POST['book_details'])),
             "status" => '1'
         );
         $table = "tbl_profile_books";

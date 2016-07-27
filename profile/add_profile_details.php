@@ -4,12 +4,12 @@ ChecktalentLogin();
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
     $data = array(
         "user_id" => $_SESSION['talent_id'],
-        "biography" => mysql_real_escape_string(trim($_POST['biography'])),
+        "biography" => mysqli_real_escape_string( $link ,trim($_POST['biography'])),
         "profile_display_status" => $_POST['profile_display_status'],
-        "social_link1" => mysql_real_escape_string(trim($_POST['social_link1'])),
-        "social_link2" => mysql_real_escape_string(trim($_POST['social_link2'])),
-        "social_link3" => mysql_real_escape_string(trim($_POST['social_link3'])),
-        "social_link4" => mysql_real_escape_string(trim($_POST['social_link4']))
+        "social_link1" => mysqli_real_escape_string( $link ,trim($_POST['social_link1'])),
+        "social_link2" => mysqli_real_escape_string( $link ,trim($_POST['social_link2'])),
+        "social_link3" => mysqli_real_escape_string( $link ,trim($_POST['social_link3'])),
+        "social_link4" => mysqli_real_escape_string( $link ,trim($_POST['social_link4']))
     );
 
     $table = "tbl_user_details";
@@ -41,11 +41,11 @@ include('../_includes/header.php');
     <div class="form_class">
         <?php
         //echo "SELECT * FROM ` tbl_user_details` WHERE user_id='".$_SESSION['talent_id']."' ";
-        $query = mysql_query("SELECT * FROM tbl_user_details WHERE user_id='" . $_SESSION['talent_id'] . "' ");
+        $query = mysqli_query($link,"SELECT * FROM tbl_user_details WHERE user_id='" . $_SESSION['talent_id'] . "' ");
         ?>
 
         <?php
-        while ($row = mysql_fetch_assoc($query)) {
+        while ($row = mysqli_fetch_assoc($query)) {
             ?>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="add_details" >
                 <p>

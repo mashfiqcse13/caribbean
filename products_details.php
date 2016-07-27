@@ -1,8 +1,8 @@
 <?php
 include('_includes/application-top.php');
 //CheckLoginForum();
-$query = mysql_query("SELECT * FROM  tbl_products WHERE id='" . $_GET['id'] . "'   ORDER BY tbl_products.id DESC");
-$row = mysql_fetch_assoc($query);
+$query = mysqli_query($link,"SELECT * FROM  tbl_products WHERE id='" . $_GET['id'] . "'   ORDER BY tbl_products.id DESC");
+$row = mysqli_fetch_assoc($query);
 
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
 
@@ -16,8 +16,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
 
     if ($uid != "") {
 
-        $sql = mysql_query("SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='0' ");
-        $producrt = mysql_fetch_assoc($sql);
+        $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='0' ");
+        $producrt = mysqli_fetch_assoc($sql);
         //print_r($producrt);
 
         if (isset($_SESSION['talent_id']) AND $_SESSION['talent_id'] != '') {
@@ -37,8 +37,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
         );
         $table = "tbl_shopping_cart";
 
-        $sql = mysql_query("SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
-        $num_row = mysql_num_rows($sql);
+        $sql = mysqli_query($link,"SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
+        $num_row = mysqli_num_rows($sql);
 
         if ($num_row == 0) {
             insertData($data, $table);

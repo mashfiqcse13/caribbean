@@ -24,7 +24,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
     $data = array(
         "first_name" => $_POST['first_name'],
         "last_name" => $_POST['last_name'],
-        "phone_no" => mysql_real_escape_string(trim($_POST['phone_no'])),
+        "phone_no" => mysqli_real_escape_string( $link ,trim($_POST['phone_no'])),
         "city" => $_POST['city'],
         "username" => $_POST['username'],
         "email" => $_POST['email'],
@@ -139,13 +139,13 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
 
             <div id="m_profile_right"><!--START CLASS m_profile_right PART -->
                 <?php
-                $result = mysql_query("SELECT * FROM tbl_users WHERE id='" . $_SESSION['user_id'] . "' ");
+                $result = mysqli_query($link,"SELECT * FROM tbl_users WHERE id='" . $_SESSION['user_id'] . "' ");
                 if (!$result) {
-                    die("database query faild:" . mysql_query());
+                    die("database query faild:" . mysqli_error($link));
                 }
                 ?>
                 <?php
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     ?>
 
                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"  id="update">

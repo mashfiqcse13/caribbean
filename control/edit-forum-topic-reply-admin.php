@@ -2,8 +2,8 @@
 include('include/application_top.php');
 include('include/header.php');
 if (!isset($_POST['submit'])) {
-    $result = mysql_query("SELECT * FROM tbl_forum_reply WHERE id=" . $_GET["rep_id"] . " ");
-    $rows = mysql_fetch_assoc($result);
+    $result = mysqli_query($link,"SELECT * FROM tbl_forum_reply WHERE id=" . $_GET["rep_id"] . " ");
+    $rows = mysqli_fetch_assoc($result);
     extract($rows);
 }
 //$table1="tbl_forum_topics";
@@ -15,7 +15,7 @@ if (!isset($_POST['submit'])) {
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Topic')) {
 
     if ((isset($_POST['forum_details'])) && ($_POST['forum_details'] != '')) {
-        $data = array("reply_text" => mysql_real_escape_string(trim($_POST['forum_details'])));
+        $data = array("reply_text" => mysqli_real_escape_string( $link ,trim($_POST['forum_details'])));
         $table = "tbl_forum_reply";
         $parameters = "id='" . $_POST["top_id"] . "'";
         updateData($data, $table, $parameters);

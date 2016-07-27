@@ -2,16 +2,16 @@
 include('_includes/application-top.php');
 
 if ((isset($_GET['id'])) && ($_GET['id'] != '')) {
-    $query = mysql_query("SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'");
+    $query = mysqli_query($link,"SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'");
     $whereclause = "u.id='" . $_GET['id'] . "' ORDER BY ac.id DESC";
     $_SESSION['ACT_UID'] = $_GET['id'];
 } else {
-    $query = mysql_query("SELECT * FROM tbl_users WHERE id='" . $_SESSION['ACT_UID'] . "'");
+    $query = mysqli_query($link,"SELECT * FROM tbl_users WHERE id='" . $_SESSION['ACT_UID'] . "'");
     $whereclause = "u.id='" . $_SESSION['ACT_UID'] . "' ORDER BY ac.id DESC";
     $_SESSION['ACT_UID'] = $_SESSION['ACT_UID'];
 }
 
-$rowss = mysql_fetch_assoc($query);
+$rowss = mysqli_fetch_assoc($query);
 
 $activity_query = "SELECT ac.id AS ACID,ac.user_id,ac.activity,ac.activity_time, u.id AS UID,u.first_name,u.last_name FROM  tbl_user_activity AS ac LEFT OUTER JOIN tbl_users AS u ON                 u.id=ac.user_id WHERE " . $whereclause;
 
@@ -32,7 +32,7 @@ include('_includes/header.php');
             ?>
             <ul>
                 <?php
-                while ($row_activity = mysql_fetch_assoc($rs)) {
+                while ($row_activity = mysqli_fetch_assoc($rs)) {
                     ?>
                     <li>
                         <h3><?php echo $row_activity['activity']; ?></h3>

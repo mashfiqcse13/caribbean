@@ -14,8 +14,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
     if ((isset($_POST['forum_details'])) && ($_POST['forum_details'] != '')) {
         $data = array(
             "uid" => $uid,
-            "forum_topic" => mysql_real_escape_string(trim($_POST['forum_topic'])),
-            "forum_details" => mysql_real_escape_string(trim($_POST['forum_details'])),
+            "forum_topic" => mysqli_real_escape_string( $link ,trim($_POST['forum_topic'])),
+            "forum_details" => mysqli_real_escape_string( $link ,trim($_POST['forum_details'])),
             "view_count" => '0'
         );
         $table = "tbl_forum_topics";
@@ -24,7 +24,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
         /* Added Activity Below */
 
         $uname = (GetChatUserName($uid));
-        SaveActivity(11, $uname, mysql_real_escape_string(trim($_POST['forum_topic'])), $uid);
+        SaveActivity(11, $uname, mysqli_real_escape_string( $link ,trim($_POST['forum_topic'])), $uid);
 
         //////////////////////////////////////////////////
 

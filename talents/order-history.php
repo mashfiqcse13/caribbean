@@ -9,12 +9,12 @@ include('../_includes/header.php');
     <p style="text-align:right"><a href="member.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 5px 0px;" >Back</a></p>
     <div class="form_class"><!--START CLASS form_class PART -->
         <?php
-        $query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name 
+        $query = mysqli_query($link,"SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name 
 			                    FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON
 			                    p.id=tbl_orders.p_id WHERE tbl_orders.uid='" . $_SESSION['talent_id'] . "'  
 								ORDER BY tbl_orders.id DESC");
 
-        $number = mysql_num_rows($query);
+        $number = mysqli_num_rows($query);
         ?>
 
         <?php
@@ -39,7 +39,7 @@ include('../_includes/header.php');
 
                     <?php
                 }
-                while ($row = mysql_fetch_assoc($query)) {
+                while ($row = mysqli_fetch_assoc($query)) {
                     ?>
                     <tr>
                         <td align="left"><?php echo $row["id"]; ?></td>

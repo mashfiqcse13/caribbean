@@ -9,10 +9,10 @@ include('../_includes/header.php');
     <div class="form_class"><!--START CLASS form_class PART -->
         <!----------------------------QUERY FRO DATABASE--------------------------------->
         <?php
-        $query = mysql_query(" SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id AS prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON tbl_orders.p_id = p.id 
+        $query = mysqli_query($link," SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id AS prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON tbl_orders.p_id = p.id 
 			WHERE tbl_orders.seller_id ='" . $_SESSION['talent_id'] . "' ORDER BY tbl_orders.id DESC ");
 
-        $number = mysql_num_rows($query);
+        $number = mysqli_num_rows($query);
         ?>
 
         <?php
@@ -39,7 +39,7 @@ include('../_includes/header.php');
 
                     <?php
                 }
-                while ($row = mysql_fetch_assoc($query)) {
+                while ($row = mysqli_fetch_assoc($query)) {
                     ?>
                     <tr>
                         <td align="left"><?php echo $row["id"]; ?></td>

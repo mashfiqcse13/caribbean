@@ -40,8 +40,8 @@ include('../_includes/header.php');
     ?>
 
     <?php
-    $query = mysql_query("SELECT * FROM tbl_profile_books WHERE uid='" . $_SESSION['talent_id'] . "' order by tbl_profile_books.id desc");
-    $number = mysql_num_rows($query);
+    $query = mysqli_query($link,"SELECT * FROM tbl_profile_books WHERE uid='" . $_SESSION['talent_id'] . "' order by tbl_profile_books.id desc");
+    $number = mysqli_num_rows($query);
     ?>
 
     <?php
@@ -64,7 +64,7 @@ include('../_includes/header.php');
 
                 <?php
             }
-            while ($row = mysql_fetch_assoc($query)) {
+            while ($row = mysqli_fetch_assoc($query)) {
                 ?>
 
                 <tr>

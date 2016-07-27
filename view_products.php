@@ -21,11 +21,11 @@ include('_includes/header.php');
     <h2>ALL PRODUCTS</h2>
     <p style="text-align:right"><a href="javascript:back(0)" class="button" style="float:left; margin:-5px 0px 0px 0px;" onclick="return back();">Back</a></p><br />
     <?php
-    $query = mysql_query("SELECT * FROM  tbl_products WHERE uid='" . $_GET['id'] . "' AND status=1 AND content_type=0 ORDER BY tbl_products.id DESC");
+    $query = mysqli_query($link,"SELECT * FROM  tbl_products WHERE uid='" . $_GET['id'] . "' AND status=1 AND content_type=0 ORDER BY tbl_products.id DESC");
     ?>
     <div class="profile_page_wraper"><!--START DIV CLASS profile_page_wraper-->	
         <?php
-        while ($row = mysql_fetch_assoc($query)) {
+        while ($row = mysqli_fetch_assoc($query)) {
             ?>
             <div class="mystore">
 

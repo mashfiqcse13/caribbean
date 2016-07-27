@@ -1,8 +1,8 @@
 <?php
 include('../_includes/application-top.php');
 ChecktalentLogin();
-$sql = mysql_query("SELECT * FROM  tbl_profile_music WHERE id='" . $_GET['id'] . "' order by id ");
-$result = mysql_fetch_assoc($sql);
+$sql = mysqli_query($link,"SELECT * FROM  tbl_profile_music WHERE id='" . $_GET['id'] . "' order by id ");
+$result = mysqli_fetch_assoc($sql);
 //print_r($result);
 if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Music')) {
     if ((isset($_FILES['mp3_file']['name'])) && ($_FILES['mp3_file']['name'] != '')) {
@@ -16,8 +16,8 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Music')) {
             $MSG = 'Not allowed extension,please upload mp3 only!';
         } else {
             $data = array(
-                "music_title" => mysql_real_escape_string(trim($_POST['music_titl'])),
-                "music_details" => mysql_real_escape_string(trim($_POST['music_details'])),
+                "music_title" => mysqli_real_escape_string( $link ,trim($_POST['music_titl'])),
+                "music_details" => mysqli_real_escape_string( $link ,trim($_POST['music_details'])),
                 "status" => $_POST['status'],
             );
             $table = "tbl_profile_music";
@@ -40,8 +40,8 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Music')) {
         }
     } else {
         $data = array(
-            "music_title" => mysql_real_escape_string(trim($_POST['music_titl'])),
-            "music_details" => mysql_real_escape_string(trim($_POST['music_details'])),
+            "music_title" => mysqli_real_escape_string( $link ,trim($_POST['music_titl'])),
+            "music_details" => mysqli_real_escape_string( $link ,trim($_POST['music_details'])),
             "status" => $_POST['status'],
         );
         $table = "tbl_profile_music";

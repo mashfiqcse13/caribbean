@@ -1,7 +1,7 @@
 <?php
-$query112 = mysql_query("SELECT b.id AS BID,b.*, u.id AS UID,u.type FROM  tbl_user_details AS b LEFT OUTER JOIN tbl_users AS u ON u.id=b.user_id 
+$query112 = mysqli_query($link,"SELECT b.id AS BID,b.*, u.id AS UID,u.type FROM  tbl_user_details AS b LEFT OUTER JOIN tbl_users AS u ON u.id=b.user_id 
                                                 WHERE u.username='" . $_GET['username'] . "'");
-$weq111 = mysql_fetch_assoc($query112);
+$weq111 = mysqli_fetch_assoc($query112);
 //print_r($weq111);
 
 if (($weq111["social_link1"] != '') || ($weq111["social_link2"] != '') || ($weq111["social_link3"] != '') || ($weq111["social_link4"] != '')) {

@@ -12,9 +12,9 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
     $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
 
     if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "add") {
-        $result = mysql_query("SELECT file_attached FROM tbl_contact where id='" . $_REQUEST['id'] . "'");
+        $result = mysqli_query($link,"SELECT file_attached FROM tbl_contact where id='" . $_REQUEST['id'] . "'");
 
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $audio = $row['file_attached'];
             $stripslash = explode('/', $row['file_attached']);
         }
@@ -33,8 +33,8 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
     } else {
 
         $data = array(
-            "name" => mysql_real_escape_string(trim($_POST['name'])),
-            "artist" => mysql_real_escape_string(trim($_POST['artist'])),
+            "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
+            "artist" => mysqli_real_escape_string( $link ,trim($_POST['artist'])),
             "status" => '1'
         );
         $table = "tbl_site_music";

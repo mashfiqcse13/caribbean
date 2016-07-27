@@ -5,7 +5,7 @@ CheckLoginForum();
 /* USER COMMENT SUBMIT CHECK */
 if (isset($_GET['did'])) {
     $sql = "delete from tbl_profile_comments where id='" . $_GET['did'] . "'";
-    mysql_query($sql);
+    mysqli_query($link,$sql);
     header("Location:profile-comment.php?id=" . $_GET['id'] . "&op=del");
 }
 
@@ -16,7 +16,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Submit')) {
         $data = array(
             "profile_id" => $_POST['profile_id'],
             "commenter_id" => $_POST['commenter_id'],
-            "comment_text" => mysql_real_escape_string(trim($_POST['comment_text'])),
+            "comment_text" => mysqli_real_escape_string( $link ,trim($_POST['comment_text'])),
         );
 
         insertData($data, "tbl_profile_comments");
@@ -102,8 +102,8 @@ function back()
 
 <div class="content"><!--START DIV CALSS content-->
     <?php
-    $query = mysql_query("SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'");
-    $rowss = mysql_fetch_assoc($query)
+    $query = mysqli_query($link,"SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'");
+    $rowss = mysqli_fetch_assoc($query)
     ?>
     <h2><?php echo $rowss['first_name'] . " " . $rowss['last_name']; ?> / Comments</h2>
     <?php
@@ -138,8 +138,8 @@ function back()
              <div class="comment_input">
                      <?php
                      if (((isset($_SESSION['user_id'])) || (isset($_SESSION['talent_id']))) && $_SESSION['is_admin'] != "yes") {
-                         $query2 = mysql_query("SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'");
-                         while ($row2 = mysql_fetch_assoc($query2)) {
+                         $query2 = mysqli_query($link,"SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'");
+                         while ($row2 = mysqli_fetch_assoc($query2)) {
                              ?>
                         <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post" id="comment">											
                             <p><label for="comment_text">Add Comments:</label>
@@ -172,13 +172,13 @@ function back()
 
             <div class="comment_div_profile"><!--START DIV comment_div_profile-->
                 <?php
-                $comment_query = mysql_query("SELECT tbl_profile_comments.*,tbl_users.username,tbl_users.first_name,tbl_users.last_name FROM tbl_profile_comments LEFT JOIN tbl_users ON tbl_profile_comments.commenter_id=tbl_users.id WHERE tbl_profile_comments.profile_id='" . $_GET['id'] . "' ORDER BY tbl_profile_comments.id DESC LIMIT 50");
-                //$weq=mysql_fetch_assoc($comment_query);
+                $comment_query = mysqli_query($link,"SELECT tbl_profile_comments.*,tbl_users.username,tbl_users.first_name,tbl_users.last_name FROM tbl_profile_comments LEFT JOIN tbl_users ON tbl_profile_comments.commenter_id=tbl_users.id WHERE tbl_profile_comments.profile_id='" . $_GET['id'] . "' ORDER BY tbl_profile_comments.id DESC LIMIT 50");
+                //$weq=mysqli_fetch_assoc($comment_query);
                 //print_r($weq);
                 ?>
                 <ul>
                     <?php
-                    while ($row3 = mysql_fetch_assoc($comment_query)) {
+                    while ($row3 = mysqli_fetch_assoc($comment_query)) {
                         ?>
 
 

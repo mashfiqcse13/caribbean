@@ -148,8 +148,8 @@ include('_includes/application-top.php');
                 <h2>Chat With
                     <span>
                         <?php
-                        $query = mysql_query(" SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                        $data = mysql_fetch_assoc($query);
+                        $query = mysqli_query($link," SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                        $data = mysqli_fetch_assoc($query);
                         ?>
                         <?php $image = "_uploads/user_photo/" . $data['id'] . ".jpg"; ?> 
                         <img src="<?php echo $image; ?> " width="40" height="40" style="vertical-align:top;"/> <?php echo $data['first_name']; ?> <?php echo $data['last_name']; ?>
@@ -169,29 +169,29 @@ include('_includes/application-top.php');
 
 
 
-                    $query = mysql_query(" SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                    $query = mysqli_query($link," SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
 
-                    $record = mysql_fetch_assoc($query);
+                    $record = mysqli_fetch_assoc($query);
 
-                    $query1 = mysql_query("SELECT tbl_users.id AS t_u_id,tbl_users.username,tbl_chat.* FROM tbl_users LEFT JOIN tbl_chat ON
+                    $query1 = mysqli_query($link,"SELECT tbl_users.id AS t_u_id,tbl_users.username,tbl_chat.* FROM tbl_users LEFT JOIN tbl_chat ON
 
 															from_id='" . $identity . "' OR to_id='" . $record["id"] . "' AND to_id='" . $identity . "' OR 
 
 															from_id='" . $record["id"] . "' WHERE tbl_users.id='" . $identity . "' AND tbl_chat.view_status='0'");
 
-                    mysql_query("UPDATE tbl_chat SET view_status = 1  WHERE to_id=" . $identity . " AND from_id=" . $record["id"]);
+                    mysqli_query($link,"UPDATE tbl_chat SET view_status = 1  WHERE to_id=" . $identity . " AND from_id=" . $record["id"]);
                     ?>
 
                     <?php
-                    while ($row1 = mysql_fetch_assoc($query1)) {
+                    while ($row1 = mysqli_fetch_assoc($query1)) {
                         ?>
 
                         <?php
                         $str = "SELECT username FROM tbl_users WHERE id='" . $row1['from_id'] . "'";
                         //echo "SELECT username FROM tbl_users WHERE id='".$row1['from_id']."'" ;
 
-                        $friend_query = mysql_query($str);
-                        $friend_data = mysql_fetch_assoc($friend_query);
+                        $friend_query = mysqli_query($link,$str);
+                        $friend_data = mysqli_fetch_assoc($friend_query);
 
                         $user = $friend_data['username'];
                         ?>
@@ -215,10 +215,10 @@ include('_includes/application-top.php');
                     <input type="hidden" id="from_id"  name="from_id"  value="<?php echo $identity; ?>"  />
 
                     <?php
-                    $query = mysql_query(" SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                    $query = mysqli_query($link," SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
                     ?>
                     <?php
-                    while ($row = mysql_fetch_assoc($query)) {
+                    while ($row = mysqli_fetch_assoc($query)) {
                         ?>
 
 

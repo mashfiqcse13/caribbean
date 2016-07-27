@@ -9,15 +9,15 @@ cmslogin();
 //3.perform database query
 
 if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "delete") {
-    mysql_query("DELETE FROM `tbl_donate` WHERE `id` = '" . mysql_real_escape_string($_REQUEST['id']) . "';");
+    mysqli_query($link,"DELETE FROM `tbl_donate` WHERE `id` = '" . mysqli_real_escape_string( $link ,$_REQUEST['id']) . "';");
     echo "<h3 style='padding: 20px;text-align: center;color: #ffffff;background: #008000;'>Record Successfully Deleted,</h1>";
 }
 
 
 
-$result = mysql_query("SELECT * FROM tbl_donate");
+$result = mysqli_query($link,"SELECT * FROM tbl_donate");
 if (!$result) {
-    die("database query faild:" . mysql_query());
+    die("database query faild:" . mysqli_error($link));
 }
 ?>
 <?php
@@ -40,7 +40,7 @@ if (isset($_GET['op']) AND ( $_GET['op'] == "U")) {
         <th>Action</th>
     </tr>
     <?php
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
         ?>
         <tr>
             <td><?php echo $row["name"]; ?></td>

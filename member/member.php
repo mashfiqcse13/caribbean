@@ -14,7 +14,7 @@ if (!empty($_REQUEST['lid'])) {
     insertData($data, $table);
 
     /* Added Activity Below */
-    SaveActivity(14, mysql_real_escape_string(trim($_POST['username'])), '', $l_id);
+    SaveActivity(14, mysqli_real_escape_string( $link ,trim($_POST['username'])), '', $l_id);
     //////////////////////////////////////////////////
 }
 ChecknontalentLogin();
@@ -61,11 +61,11 @@ include('../_includes/header.php');
                 <!--USER IMAGE UPLOAD END HEAR-->
                 <!--MENU START-->
                 <?php
-                $result = mysql_query("SELECT * FROM tbl_users WHERE id='" . $_SESSION['user_id'] . "'");
+                $result = mysqli_query($link,"SELECT * FROM tbl_users WHERE id='" . $_SESSION['user_id'] . "'");
                 if (!$result) {
-                    die("database query faild:" . mysql_query());
+                    die("database query faild:" . mysqli_error($link));
                 }
-                $user_row = mysql_fetch_assoc($result);
+                $user_row = mysqli_fetch_assoc($result);
                 ?>
                 <ul>
 
@@ -80,8 +80,8 @@ include('../_includes/header.php');
                     }
 
                     $query = "SELECT * FROM tbl_msg WHERE to_id='" . $uid . "' AND view_status='0'";
-                    $query_row = mysql_query($query);
-                    $rows = mysql_num_rows($query_row);
+                    $query_row = mysqli_query($link,$query);
+                    $rows = mysqli_num_rows($query_row);
                     ?>
 
                     <li><a href="message.php<?php echo $user_idd; ?>">Message&nbsp;<?php echo "(" . $rows . ")"; ?></a></li>
@@ -95,11 +95,11 @@ include('../_includes/header.php');
 
                 <!--NONTALENTS USER PROFILE UPDATE START HEAR-->
                 <?php
-                $result = mysql_query("SELECT * FROM tbl_users WHERE id='" . $_SESSION['user_id'] . "'");
+                $result = mysqli_query($link,"SELECT * FROM tbl_users WHERE id='" . $_SESSION['user_id'] . "'");
                 if (!$result) {
-                    die("database query faild:" . mysql_query());
+                    die("database query faild:" . mysqli_error($link));
                 }
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                     <p>
                         <label>Name:</label>

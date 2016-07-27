@@ -15,8 +15,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
         } else {
             $data = array(
                 "user_id" => $_SESSION["user_id"],
-                "photo_title" => mysql_real_escape_string(trim($_POST['photo_title'])),
-                "photo_details" => mysql_real_escape_string(trim($_POST['photo_details'])),
+                "photo_title" => mysqli_real_escape_string( $link ,trim($_POST['photo_title'])),
+                "photo_details" => mysqli_real_escape_string( $link ,trim($_POST['photo_details'])),
                 "status" => '1'
             );
             $table = "tbl_profile_photos";
@@ -52,8 +52,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
     } else {
         $data = array(
             "user_id" => $_SESSION["user_id"],
-            "photo_title" => mysql_real_escape_string(trim($_POST['photo_title'])),
-            "photo_details" => mysql_real_escape_string(trim($_POST['photo_details'])),
+            "photo_title" => mysqli_real_escape_string( $link ,trim($_POST['photo_title'])),
+            "photo_details" => mysqli_real_escape_string( $link ,trim($_POST['photo_details'])),
             "status" => '1'
         );
         $table = "tbl_profile_photos";
@@ -107,11 +107,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
 
             <div id="m_profile_right"><!--START CLASS m_profile_right PART -->
                 <?php
-                $result = mysql_query("SELECT * FROM tbl_profile_photos WHERE id='" . $_GET['id'] . "' ");
+                $result = mysqli_query($link,"SELECT * FROM tbl_profile_photos WHERE id='" . $_GET['id'] . "' ");
                 ?>
 
                 <?php
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                     <form action="update_gallery.php?id=<?php echo $_GET['id']; ?>" method="post" enctype="multipart/form-data" id="img_update">
                         <p><label for="photo_title">Title</label>

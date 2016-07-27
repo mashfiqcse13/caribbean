@@ -2,22 +2,22 @@
 include('../_includes/application-top.php');
 ChecktalentLogin();
 /* chacking for payment delails */
-$sql = mysql_query("SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
-//$result=mysql_fetch_assoc($sql);
-$payment_details = mysql_num_rows($sql);
+$sql = mysqli_query($link,"SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
+//$result=mysqli_fetch_assoc($sql);
+$payment_details = mysqli_num_rows($sql);
 //echo $payment_details;
 if ($payment_details == 1) {
     $url = "add_product.php";
 } else {
     $url = "update_payment_details.php";
 }
-//$num=mysql_num_rows($sql);
+//$num=mysqli_num_rows($sql);
 //echo $num;
 //print_r($result);
 
 if (isset($_GET['id'])) {
     $sql = "delete from tbl_products where id='" . $_GET['id'] . "'";
-    mysql_query($sql);
+    mysqli_query($link,$sql);
     unlink("../_uploads/profile_product/" . $_GET['id'] . ".jpg");
     unlink("../_uploads/profile_product/thumb/" . $_GET['id'] . ".jpg");
     header("Location:manage_product.php?op=del");
@@ -86,9 +86,9 @@ include('../_includes/header.php');
     <!--/////USER MUSIC UPLOAD HEAR/////-->
     <?php
     //DATABASE QUERY
-    $result = mysql_query("SELECT * FROM  tbl_products WHERE 	uid='" . $_SESSION['talent_id'] . "' AND content_type=0 ORDER BY tbl_products.id DESC ");
-    $number = mysql_num_rows($result);
-    //$data=mysql_fetch_assoc($result);
+    $result = mysqli_query($link,"SELECT * FROM  tbl_products WHERE 	uid='" . $_SESSION['talent_id'] . "' AND content_type=0 ORDER BY tbl_products.id DESC ");
+    $number = mysqli_num_rows($result);
+    //$data=mysqli_fetch_assoc($result);
     //print_r($data);
     ?>
     <table cellpadding="0" cellspacing="0" class="TabUIRecords" width="100%">
@@ -113,7 +113,7 @@ include('../_includes/header.php');
             <tbody>
                 <?php
             }
-            while ($row = mysql_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                 <tr>
                     <td width="8%">

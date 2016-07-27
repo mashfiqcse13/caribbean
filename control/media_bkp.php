@@ -6,14 +6,14 @@ cmslogin();
 include('include/header.php');
 
 if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "delete") {
-    mysql_query("DELETE FROM `tbl_contact` WHERE `id` = '" . mysql_real_escape_string($_REQUEST['id']) . "';");
+    mysqli_query($link,"DELETE FROM `tbl_contact` WHERE `id` = '" . mysqli_real_escape_string( $link ,$_REQUEST['id']) . "';");
     echo "<div id='afterpostingajax'>Record Successfully Deleted</div>";
 }
 
-$result = mysql_query("SELECT * FROM tbl_contact");
+$result = mysqli_query($link,"SELECT * FROM tbl_contact");
 
 if (!$result) {
-    die("Retrieving records from contact table's query faild:" . mysql_query());
+    die("Retrieving records from contact table's query faild:" . mysqli_error($link));
 }
 ?>
 <script type="text/javascript">
@@ -107,7 +107,7 @@ if (!$result) {
     <div id="afterpostingajax"></div>
     <ul class="prodlist">
         <?php
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
 
             if ($row['id'] == $_GET['id']) {
                 $classcss = "select";

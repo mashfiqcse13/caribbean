@@ -14,12 +14,12 @@ function show_music($music_id) {
     return $output;
 }
 
-$query3 = mysql_query("SELECT tbl_users.*, tbl_profile_music.*,tbl_profile_music.id AS music_id FROM tbl_users LEFT OUTER JOIN 
+$query3 = mysqli_query($link,"SELECT tbl_users.*, tbl_profile_music.*,tbl_profile_music.id AS music_id FROM tbl_users LEFT OUTER JOIN 
 							tbl_profile_music ON tbl_users.id=tbl_profile_music.user_id WHERE username ='" . $_GET['username'] . "' AND tbl_profile_music.status='1'  
 							ORDER BY tbl_profile_music.id DESC LIMIT 0, 4 ");
-//$de=mysql_fetch_assoc($query3);
+//$de=mysqli_fetch_assoc($query3);
 // print_r($de);
-$numrows = mysql_num_rows($query3);
+$numrows = mysqli_num_rows($query3);
 if ($numrows > 0) {
     ?>
 
@@ -33,10 +33,10 @@ if ($numrows > 0) {
         <h2>Music</h2>
         <ul>
             <?php
-            while ($row3 = mysql_fetch_assoc($query3)) {
-                $sql = mysql_query("SELECT * FROM  tbl_products WHERE ref_id='" . $row3['music_id'] . "' ");
-                $res = mysql_fetch_assoc($sql);
-                $row1 = mysql_num_rows($sql);
+            while ($row3 = mysqli_fetch_assoc($query3)) {
+                $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE ref_id='" . $row3['music_id'] . "' ");
+                $res = mysqli_fetch_assoc($sql);
+                $row1 = mysqli_num_rows($sql);
 
                 if ($res['id'] != '') {
                     $pid = $res['id'];

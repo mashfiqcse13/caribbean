@@ -17,8 +17,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Image')) {
     } else {
         $data = array(
             "user_id" => $_SESSION['user_id'],
-            "photo_title" => mysql_real_escape_string(trim($_POST['photo_title'])),
-            "photo_details" => mysql_real_escape_string(trim($_POST['photo_details'])),
+            "photo_title" => mysqli_real_escape_string( $link ,trim($_POST['photo_title'])),
+            "photo_details" => mysqli_real_escape_string( $link ,trim($_POST['photo_details'])),
             "status" => '1'
         );
         insertData($data, "tbl_profile_photos");

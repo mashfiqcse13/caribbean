@@ -13,7 +13,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Featured Artists')) 
         $MSG = 'Not allowed extension,please upload jpg,jpeg,gif,png images only!';
     } else {
         $data = array(
-            "f_artists_name" => mysql_real_escape_string(trim($_POST['f_artists_name'])),
+            "f_artists_name" => mysqli_real_escape_string( $link ,trim($_POST['f_artists_name'])),
             "status" => '1'
         );
         insertData($data, "tbl_featured_artists");

@@ -16,11 +16,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
             $event_date = $event_date['0'] . '-' . $event_date['1'] . '-' . $event_date['2'];
             $data = array(
                 "uid" => $_SESSION["user_id"],
-                "name" => mysql_real_escape_string(trim($_POST['name'])),
+                "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
                 "event_date" => $event_date,
-                "event_time" => mysql_real_escape_string(trim($_POST['event_time'])),
-                "event_details" => mysql_real_escape_string(trim($_POST['event_details'])),
-                "location" => mysql_real_escape_string(trim($_POST['location']))
+                "event_time" => mysqli_real_escape_string( $link ,trim($_POST['event_time'])),
+                "event_details" => mysqli_real_escape_string( $link ,trim($_POST['event_details'])),
+                "location" => mysqli_real_escape_string( $link ,trim($_POST['location']))
             );
             $table = "tbl_profile_events";
             $parameters = "id='" . $_GET['id'] . "'";
@@ -47,11 +47,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
         $event_date = $event_date['0'] . '-' . $event_date['1'] . '-' . $event_date['2'];
         $data = array(
             "uid" => $_SESSION["user_id"],
-            "name" => mysql_real_escape_string(trim($_POST['name'])),
+            "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
             "event_date" => $event_date,
-            "event_time" => mysql_real_escape_string(trim($_POST['event_time'])),
-            "event_details" => mysql_real_escape_string(trim($_POST['event_details'])),
-            "location" => mysql_real_escape_string(trim($_POST['location']))
+            "event_time" => mysqli_real_escape_string( $link ,trim($_POST['event_time'])),
+            "event_details" => mysqli_real_escape_string( $link ,trim($_POST['event_details'])),
+            "location" => mysqli_real_escape_string( $link ,trim($_POST['location']))
         );
         $table = "tbl_profile_events";
         $parameters = "id='" . $_GET['id'] . "'";
@@ -102,11 +102,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
         <div id="m_profile"><!--START CLASS m_profile PART -->
             <div id="m_profile_right"><!--START CLASS m_profile_right PART -->
                 <?php
-                $query = mysql_query("SELECT * FROM  tbl_profile_events WHERE id='" . $_GET['id'] . "'")
+                $query = mysqli_query($link,"SELECT * FROM  tbl_profile_events WHERE id='" . $_GET['id'] . "'")
                 ?>
 
                 <?php
-                while ($row = mysql_fetch_assoc($query)) {
+                while ($row = mysqli_fetch_assoc($query)) {
                     ?>
                     <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post" id="update_event" enctype="multipart/form-data">
                         <p>

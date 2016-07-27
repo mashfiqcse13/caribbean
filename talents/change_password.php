@@ -21,11 +21,11 @@ if (isset($_POST['submit'])) {
     }
     if ($error == '') {
         //echo "select * from reg_form where password='" .$_POST['password']."' AND id=".$_SESSION['user_id']."";
-        $sql_q = mysql_query("SELECT * FROM tbl_users WHERE password='" . mysql_real_escape_string(trim($_POST['password'])) . "' AND id=" . $_SESSION['talent_id'] . " ");
+        $sql_q = mysqli_query($link,"SELECT * FROM tbl_users WHERE password='" . mysqli_real_escape_string( $link ,trim($_POST['password'])) . "' AND id=" . $_SESSION['talent_id'] . " ");
 
-        if (mysql_num_rows($sql_q) > 0) {
-            $sql = "UPDATE tbl_users SET password='" . mysql_real_escape_string(trim($_POST['conframpassword'])) . "' WHERE id=" . $_SESSION['talent_id'] . " ";
-            $rs = mysql_query($sql);
+        if (mysqli_num_rows($sql_q) > 0) {
+            $sql = "UPDATE tbl_users SET password='" . mysqli_real_escape_string( $link ,trim($_POST['conframpassword'])) . "' WHERE id=" . $_SESSION['talent_id'] . " ";
+            $rs = mysqli_query($link,$sql);
 
             $MSG1 = "Password changed sucessfully.";
 
@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
         } else {
             $MSG = "Old Password Does Not Match Try again!";
         }
-        $row = mysql_fetch_array($sql_q);
+        $row = mysqli_fetch_array($sql_q);
         //print_r($row);
     } else {
         $error;

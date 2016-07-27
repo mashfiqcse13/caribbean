@@ -15,7 +15,7 @@ if ((isset($_GET['order'])) && ($_GET['order'] == 1)) {
             "payment_status=1 " .
             "WHERE 1=1 AND id=" . $_GET['id'] . " ";
 
-    $result = mysql_query($sql) or die(mysql_error());
+    $result = mysqli_query($link,$sql) or die(mysql_error());
 
 
 
@@ -30,9 +30,9 @@ if ((isset($_GET['order'])) && ($_GET['order'] == 1)) {
             "ON p.id=o.p_id " .
             "WHERE 1=1 AND o.uid=" . $uid . " AND o.id=" . $_GET['id'] . " ";
 
-    $result1 = mysql_query($sql1) or die(mysql_error());
+    $result1 = mysqli_query($link,$sql1) or die(mysql_error());
 
-    $row1 = mysql_fetch_array($result1);
+    $row1 = mysqli_fetch_array($result1);
 
     $from_email = " " . SITE_NAME . "<" . FROM_EMAIL . ">";
     $to_email = $data1['email'];
@@ -72,9 +72,9 @@ if ((isset($_GET['order'])) && ($_GET['order'] == 1)) {
             "ON u.id=p.uid 	 " .
             "WHERE 1=1 AND p.id=" . $row1['p_id'] . " ";
 
-    $result2 = mysql_query($sql2) or die(mysql_error());
+    $result2 = mysqli_query($link,$sql2) or die(mysql_error());
 
-    $row2 = mysql_fetch_array($result2);
+    $row2 = mysqli_fetch_array($result2);
 
     $from_email1 = " " . SITE_NAME . "<" . FROM_EMAIL . ">";
     $to_email1 = $row2['email'];
@@ -120,13 +120,13 @@ include('_includes/header.php');
 </p>
 <?php
 $sql = "SELECT * FROM tbl_orders WHERE id='" . $_GET['id'] . "'";
-$result = mysql_query($sql);
-while ($row = mysql_fetch_array($result)) {
+$result = mysqli_query($link,$sql);
+while ($row = mysqli_fetch_array($result)) {
     $price["merchant_price"] = $row['shipping_amt'] + $row['total_amt'];
     $price["total_price"] = $price["merchant_price"] + (($price["merchant_price"] * 12) / 100);
     $sql1 = "SELECT * FROM tbl_users WHERE id='" . $row['seller_id'] . "'";
-    $result1 = mysql_query($sql1);
-    while ($row1 = mysql_fetch_array($result1)) {
+    $result1 = mysqli_query($link,$sql1);
+    while ($row1 = mysqli_fetch_array($result1)) {
         $merchant_details["paypal_id"] = $row1['payment_details'];
     }
 }

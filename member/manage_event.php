@@ -40,8 +40,8 @@ include('../_includes/header.php');
     ?>
     <!-------------------------------------START QUERY FROM DATABASE USER EVENTS---------------------------------------->		
     <?php
-    $query = mysql_query("SELECT * FROM   tbl_profile_events WHERE uid='" . $_SESSION['user_id'] . "' order by  tbl_profile_events.id desc ");
-    $number = mysql_num_rows($query);
+    $query = mysqli_query($link,"SELECT * FROM   tbl_profile_events WHERE uid='" . $_SESSION['user_id'] . "' order by  tbl_profile_events.id desc ");
+    $number = mysqli_num_rows($query);
     ?>
 
     <?php
@@ -63,7 +63,7 @@ include('../_includes/header.php');
             <tbody>
                 <?php
             }
-            while ($row = mysql_fetch_assoc($query)) {
+            while ($row = mysqli_fetch_assoc($query)) {
                 ?>	
                 <tr>
                     <td width="8%"><a href="../_uploads/profile_view_event_photo/<?php echo $row["id"]; ?>.jpg" class="fancybox"><img src="../_uploads/profile_view_event_photo/thumb/<?php echo $row["id"]; ?>.jpg" style="margin:10px 10px 10px 10px;" alt="my_img"/></a></td>

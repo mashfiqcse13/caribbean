@@ -38,8 +38,8 @@ if (isset($captcha) && !empty($captcha)) {
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors == "") {
 
     $query = "SELECT * FROM tbl_users WHERE email='" . trim($_POST['email']) . "' AND status=1 ";
-    $user_exit = mysql_query($query);
-    $count = mysql_num_rows($user_exit);
+    $user_exit = mysqli_query($link,$query);
+    $count = mysqli_num_rows($user_exit);
 
 
     //$start_date=date('Y-m-d', strtotime($_POST['age']));
@@ -64,11 +64,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
 
 
 
-        $chkqry = mysql_query("SELECT * FROM tbl_users WHERE mac_address='$mac'");
+        $chkqry = mysqli_query($link,"SELECT * FROM tbl_users WHERE mac_address='$mac'");
 
-        if (mysql_num_rows($chkqry) > 0) {
-            $totl_rec = mysql_num_rows($chkqry);
-            while ($row = mysql_fetch_assoc($chkqry)) {
+        if (mysqli_num_rows($chkqry) > 0) {
+            $totl_rec = mysqli_num_rows($chkqry);
+            while ($row = mysqli_fetch_assoc($chkqry)) {
                 $mac_count = $row['allowed_mac'];
             }
 
@@ -89,14 +89,14 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
 
 
             $data = array(
-                "username" => mysql_real_escape_string(trim($_POST['username'])),
-                "password" => mysql_real_escape_string(trim($_POST['conframpassword'])),
-                "first_name" => mysql_real_escape_string(trim($_POST['first_name'])),
-                "last_name" => mysql_real_escape_string(trim($_POST['last_name'])),
-                "phone_no" => mysql_real_escape_string(trim($_POST['phone_no'])),
-                "email" => mysql_real_escape_string(trim($_POST['email'])),
+                "username" => mysqli_real_escape_string( $link ,trim($_POST['username'])),
+                "password" => mysqli_real_escape_string( $link ,trim($_POST['conframpassword'])),
+                "first_name" => mysqli_real_escape_string( $link ,trim($_POST['first_name'])),
+                "last_name" => mysqli_real_escape_string( $link ,trim($_POST['last_name'])),
+                "phone_no" => mysqli_real_escape_string( $link ,trim($_POST['phone_no'])),
+                "email" => mysqli_real_escape_string( $link ,trim($_POST['email'])),
                 "city" => $_POST['city'],
-                "country" => mysql_real_escape_string(trim($_POST['country'])),
+                "country" => mysqli_real_escape_string( $link ,trim($_POST['country'])),
                 "sex" => $_POST['sex'],
                 "age" => $age,
                 "type" => '0',
@@ -111,11 +111,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
             $l_id = mysql_insert_id();
             //////////////////////////SEND_EMAIL_TO_MEMBER_REGISTER_EMAIL_ADDRESS////////////////////////
 
-            $to = mysql_real_escape_string(trim($_POST['email']));
+            $to = mysqli_real_escape_string( $link ,trim($_POST['email']));
 
             $subject = "CCS: Registration email";
 
-            /* $msg="Welcome"."<br><br>"."Dear ".mysql_real_escape_string(trim($_POST['first_name']))." ".mysql_real_escape_string(trim($_POST['last_name']))."<br>"."
+            /* $msg="Welcome"."<br><br>"."Dear ".mysqli_real_escape_string( $link ,trim($_POST['first_name']))." ".mysqli_real_escape_string( $link ,trim($_POST['last_name']))."<br>"."
 
               Thank you for registring at ccs. At CCS you can highlight your profile as talent, sale music, videos, photos, books etc or as a member you
 
@@ -170,14 +170,14 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
         } else {
 
             $data = array(
-                "username" => mysql_real_escape_string(trim($_POST['username'])),
-                "password" => mysql_real_escape_string(trim($_POST['conframpassword'])),
-                "first_name" => mysql_real_escape_string(trim($_POST['first_name'])),
-                "last_name" => mysql_real_escape_string(trim($_POST['last_name'])),
-                "phone_no" => mysql_real_escape_string(trim($_POST['phone_no'])),
-                "email" => mysql_real_escape_string(trim($_POST['email'])),
+                "username" => mysqli_real_escape_string( $link ,trim($_POST['username'])),
+                "password" => mysqli_real_escape_string( $link ,trim($_POST['conframpassword'])),
+                "first_name" => mysqli_real_escape_string( $link ,trim($_POST['first_name'])),
+                "last_name" => mysqli_real_escape_string( $link ,trim($_POST['last_name'])),
+                "phone_no" => mysqli_real_escape_string( $link ,trim($_POST['phone_no'])),
+                "email" => mysqli_real_escape_string( $link ,trim($_POST['email'])),
                 "city" => $_POST['city'],
-                "country" => mysql_real_escape_string(trim($_POST['country'])),
+                "country" => mysqli_real_escape_string( $link ,trim($_POST['country'])),
                 "sex" => $_POST['sex'],
                 "age" => $age,
                 "type" => '0',

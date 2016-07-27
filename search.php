@@ -8,7 +8,7 @@ include('_includes/header.php');
         <?php
         if ((isset($_POST['search'])) AND ( $_POST['search']) != '') {
 
-            $string = explode(" ", mysql_real_escape_string(trim($_POST['search'])));
+            $string = explode(" ", mysqli_real_escape_string( $link ,trim($_POST['search'])));
 
             $strcount = count($string);
 
@@ -30,10 +30,10 @@ include('_includes/header.php');
                     "WHERE " . $stringar . " " .
                     "ORDER BY username ";
 
-            $result = mysql_query($qry) or die(mysql_error());
+            $result = mysqli_query($link,$qry) or die(mysql_error());
 
-            //$query=mysql_query("SELECT * FROM  tbl_users WHERE username like '".$_POST['search']."%' OR first_name like '".$_POST['search']."%' OR last_name like '".$_POST['search']."%'");
-            $number = mysql_num_rows($result);
+            //$query=mysqli_query($link,"SELECT * FROM  tbl_users WHERE username like '".$_POST['search']."%' OR first_name like '".$_POST['search']."%' OR last_name like '".$_POST['search']."%'");
+            $number = mysqli_num_rows($result);
             if ($number <= 0) {
                 echo "<p class='err'>No Record Found!</p>";
             }
@@ -41,7 +41,7 @@ include('_includes/header.php');
 
             <ul>
                 <?php
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     ?>
 
                     <li class="b_image">

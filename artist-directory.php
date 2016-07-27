@@ -1,8 +1,8 @@
 <?php
 include('_includes/application-top.php');
 $sql = "SELECT talent FROM tbl_talents WHERE ID='" . $_GET['id'] . "' ";
-$result = mysql_query($sql);
-$rows = mysql_fetch_assoc($result);
+$result = mysqli_query($link,$sql);
+$rows = mysqli_fetch_assoc($result);
 //print_r($rows);
 
 
@@ -40,14 +40,14 @@ include('_includes/header.php');
         <h2>All Arts, Crafts</h2>
         <?php
     }
-    $query = mysql_query($str);
+    $query = mysqli_query($link,$str);
     ?>
 
     <p style="text-align:right"><a href="javascript:fans(0)" class="button" style="float:left; margin:-5px 0px 0px 0px;" onclick="return back();">Back</a><br />
 
     <ul>
         <?php
-        while ($rows = mysql_fetch_assoc($query)) {
+        while ($rows = mysqli_fetch_assoc($query)) {
             ?>
             <li class="b_image">
 

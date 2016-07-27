@@ -9,7 +9,7 @@ include('../_includes/class.Profile_pic.php');
 $profile_pic = new Profile_pic($_SESSION["user_id"], "talent");
 if (isset($_GET['img_reset'])) {
     $sql = "UPDATE `tbl_contact` SET `file_attached` = '$file_attached_updated' WHERE `id` = '{$_POST['photoid']}'";
-    $result = mysql_query($sql);
+    $result = mysqli_query($link,$sql);
 }
 if (isset($_POST['sava_and_make_propic'])) {
     $profile_pic->crop($_POST['photoid'], json_encode($_POST['crop']), FALSE);

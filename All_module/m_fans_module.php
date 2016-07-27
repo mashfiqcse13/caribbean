@@ -8,11 +8,11 @@
     <ul>
         <?php
         $result55 = "SELECT * FROM  tbl_fans WHERE fan_id='" . $data['id'] . "' ORDER BY tbl_fans.id DESC";
-        $sql55 = mysql_query($result55);
-        $number5 = mysql_num_rows($sql55);
-        while ($data55 = mysql_fetch_assoc($sql55)) {
-            $result66 = mysql_query("SELECT username FROM  tbl_users WHERE id=" . $data55["profile_id"] . "");
-            $sql66 = mysql_fetch_assoc($result66);
+        $sql55 = mysqli_query($link,$result55);
+        $number5 = mysqli_num_rows($sql55);
+        while ($data55 = mysqli_fetch_assoc($sql55)) {
+            $result66 = mysqli_query($link,"SELECT username FROM  tbl_users WHERE id=" . $data55["profile_id"] . "");
+            $sql66 = mysqli_fetch_assoc($result66);
 
             $friends_profile_pic_url = "_uploads/user_photo/{$data55["profile_id"]}.jpg";
             if (file_exists("$friends_profile_pic_url")) {

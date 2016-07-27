@@ -2,10 +2,10 @@
 /* * All fans Here* */
 
 $result5 = "SELECT * FROM  tbl_fans WHERE fan_id='" . $data['id'] . "' ORDER BY tbl_fans.id DESC";
-$sql5 = mysql_query($result5);
-$number = mysql_num_rows($sql5);
+$sql5 = mysqli_query($link,$result5);
+$number = mysqli_num_rows($sql5);
 //echo $number;
-//$data5=mysql_fetch_assoc($sql5);
+//$data5=mysqli_fetch_assoc($sql5);
 //print_r($data5);
 ?>
 <div class="fan_button"><a href="add_fans.php?username=<?php echo $_GET['username']; ?>"><img src="_images/fan_btn.png" border="0"/></a></div>
@@ -17,9 +17,9 @@ if ($number <> 0) {
         <h2>Fans</h2>
         <ul>
             <?php
-            while ($data5 = mysql_fetch_assoc($sql5)) {
-                $result6 = mysql_query("SELECT username FROM  tbl_users WHERE id=" . $data5["profile_id"] . "");
-                $sql6 = mysql_fetch_assoc($result6);
+            while ($data5 = mysqli_fetch_assoc($sql5)) {
+                $result6 = mysqli_query($link,"SELECT username FROM  tbl_users WHERE id=" . $data5["profile_id"] . "");
+                $sql6 = mysqli_fetch_assoc($result6);
                 $fans_profile_pic_url = "_uploads/user_photo/{$data5["profile_id"]}.jpg";
                 if (file_exists("../$friends_profile_pic_url")) {
                     $fans_profile_pic_url.="?" . time();

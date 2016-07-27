@@ -13,8 +13,8 @@ function show_video($video_type, $video_id) {
                   </video>';
     } else if (!empty($video_id)) {        // there is a video code
         global $connt, $selt;
-        $result = mysql_query("SELECT * FROM  tbl_profile_videos WHERE id='" . $video_id . "' ");
-        $data = mysql_fetch_assoc($result);
+        $result = mysqli_query($link,"SELECT * FROM  tbl_profile_videos WHERE id='" . $video_id . "' ");
+        $data = mysqli_fetch_assoc($result);
         //print_r($data);
         $output = preg_replace('/width=("|\')(\d+|\d+px|)("|\')/i', 'width="315"', $data['video_code']);
         $output = preg_replace('/height=("|\')(\d+|\d+px|)("|\')/i', 'height="220"', $output);
@@ -22,8 +22,8 @@ function show_video($video_type, $video_id) {
     return $output;
 }
 
-$query = mysql_query("SELECT * FROM tbl_profile_videos WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_videos.status='1' ORDER BY tbl_profile_videos.id DESC");
-//$treu=mysql_fetch_assoc($query);
+$query = mysqli_query($link,"SELECT * FROM tbl_profile_videos WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_videos.status='1' ORDER BY tbl_profile_videos.id DESC");
+//$treu=mysqli_fetch_assoc($query);
 //print_r($treu);
 
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
@@ -36,8 +36,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
     }
 
     if ($uid != "") {
-        $sql = mysql_query("SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='2'");
-        $producrt = mysql_fetch_assoc($sql);
+        $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='2'");
+        $producrt = mysqli_fetch_assoc($sql);
         //print_r($producrt);
         $data = array(
             "uid" => $uid,
@@ -49,8 +49,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
         );
         $table = "tbl_shopping_cart";
 
-        $sql = mysql_query("SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
-        $num_row = mysql_num_rows($sql);
+        $sql = mysqli_query($link,"SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
+        $num_row = mysqli_num_rows($sql);
 
         if ($num_row == 0) {
             insertData($data, $table);
@@ -100,7 +100,7 @@ include('_includes/header.php');
     <p style="text-align:right"><a href="javascript:back(0)" class="button" style="float:left; margin:-5px 0px 0px 0px;" onclick="return back();">Back</a></p>
     <ul>
         <?php
-        while ($row = mysql_fetch_array($query)) {
+        while ($row = mysqli_fetch_array($query)) {
             ?>
             <?php $data = getAnyTableWhereData("tbl_products", "AND ref_id='" . $row["id"] . "' AND content_type='2' "); ?>
             <li class="b_image">

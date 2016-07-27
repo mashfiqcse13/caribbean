@@ -56,8 +56,8 @@ include('../_includes/header.php');
     <!--/////USER IMAGE UPLOAD HEAR/////-->
     <?php
     //DATABASE QUERY
-    $result = mysql_query("SELECT * FROM  tbl_profile_photos WHERE user_id='" . $_SESSION['talent_id'] . "' order by tbl_profile_photos.id DESC ");
-    $number = mysql_num_rows($result);
+    $result = mysqli_query($link,"SELECT * FROM  tbl_profile_photos WHERE user_id='" . $_SESSION['talent_id'] . "' order by tbl_profile_photos.id DESC ");
+    $number = mysqli_num_rows($result);
     ?>
     <?php
     if ($number <= 0) {
@@ -80,12 +80,12 @@ include('../_includes/header.php');
             <tbody>
                 <?php
             }
-            while ($row = mysql_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result)) {
 
-                $sql = mysql_query("SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type='3' ");
-                $res = mysql_fetch_assoc($sql);
+                $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type='3' ");
+                $res = mysqli_fetch_assoc($sql);
                 // print_r($res);
-                $row1 = mysql_num_rows($sql);
+                $row1 = mysqli_num_rows($sql);
 
                 if ($res['id'] != '') {
                     $pid = $res['id'];

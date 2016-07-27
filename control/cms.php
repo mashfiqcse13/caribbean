@@ -7,9 +7,9 @@ cmslogin();
 
 <?php
 //3.perform database query
-$result = mysql_query("SELECT * FROM tbl_cms");
+$result = mysqli_query($link,"SELECT * FROM tbl_cms");
 if (!$result) {
-    die("database query faild:" . mysql_query());
+    die("database query faild:" . mysqli_error($link));
 }
 ?>
 <?php
@@ -29,7 +29,7 @@ if (isset($_GET['op']) AND ( $_GET['op'] == "U")) {
         <th>Action</th>
     </tr>
     <?php
-    while ($row = mysql_fetch_array($result)) {
+    while ($row = mysqli_fetch_array($result)) {
         if ($row["status"] == 0) {
             $status = "<p style=color:#FF0000;>InActive</p>";
         }

@@ -2,17 +2,17 @@
 $query_product = "SELECT tbl_users.*, tbl_products.*,tbl_products.id AS p_id FROM tbl_users LEFT OUTER JOIN 
 														tbl_products ON tbl_users.id=tbl_products.uid WHERE username ='" . $_GET['username'] . "' AND tbl_products.status='1'  
 														AND content_type=0 ORDER BY tbl_products.id DESC LIMIT 0, 2 ";
-$query_product_ro = mysql_query($query_product);
-$query_product_ro_2 = mysql_query($query_product);
-$row_product1 = mysql_fetch_assoc($query_product_ro_2);
+$query_product_ro = mysqli_query($link,$query_product);
+$query_product_ro_2 = mysqli_query($link,$query_product);
+$row_product1 = mysqli_fetch_assoc($query_product_ro_2);
 //print_r($row_product);
 
-if ((mysql_num_rows($query_product_ro) > 0)) {
+if ((mysqli_num_rows($query_product_ro) > 0)) {
     ?>			
     <div class="mystore">
         <h2>Products</h2>
         <?php
-        while ($row_product = mysql_fetch_assoc($query_product_ro)) {
+        while ($row_product = mysqli_fetch_assoc($query_product_ro)) {
             ?>
             <div class="store_detail">
                 <div class="store_detail_left"> 

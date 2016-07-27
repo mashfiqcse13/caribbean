@@ -5,7 +5,7 @@ $MSG = '';
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
     $data = array(
         "order_status" => $_POST['order_status'],
-        "admin_note" => mysql_real_escape_string($_POST['admin_note'])
+        "admin_note" => mysqli_real_escape_string( $link ,$_POST['admin_note'])
     );
     $table = "tbl_orders";
     $parameters = "id='" . $_POST['id'] . "'";
@@ -28,7 +28,7 @@ function check_status(){
 <?php
 /// post order
 //if(isset($_POST) AND isset($_POST['order_status'])){
-//mysql_query("UPDATE `carabiancirclestar`.`tbl_orders` SET `order_status` = '2' WHERE `tbl_orders`.`id` =".$_POST['id']);
+//mysqli_query($link,"UPDATE `carabiancirclestar`.`tbl_orders` SET `order_status` = '2' WHERE `tbl_orders`.`id` =".$_POST['id']);
 //}
 ?>
 
@@ -41,12 +41,12 @@ function check_status(){
     <?php } ?>
 
     <?php
-    //$query=mysql_query("SELECT * FROM tbl_orders WHERE id='".$_GET['id']."'");
-    $query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name,p.ref_id,p.shipping FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON p.id=tbl_orders.p_id WHERE tbl_orders.id='" . $_GET['id'] . "'");
+    //$query=mysqli_query($link,"SELECT * FROM tbl_orders WHERE id='".$_GET['id']."'");
+    $query = mysqli_query($link,"SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name,p.ref_id,p.shipping FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON p.id=tbl_orders.p_id WHERE tbl_orders.id='" . $_GET['id'] . "'");
     ?>
 
     <?php
-    while ($row = mysql_fetch_assoc($query)) {
+    while ($row = mysqli_fetch_assoc($query)) {
         ?>
 
         <h2 class="order">Order Details&nbsp;/ <?php echo $row['id']; ?></h2>
@@ -141,8 +141,8 @@ function check_status(){
         <?php
         $p_id = $row["p_id"];
         $sql_product = "select * from  tbl_products where id='" . $p_id . "'";
-        $query_product = mysql_query($sql_product);
-        $product_row = mysql_fetch_assoc($query_product);
+        $query_product = mysqli_query($link,$sql_product);
+        $product_row = mysqli_fetch_assoc($query_product);
         ?>
 
         <h2 class="order">Product Details</h2>
@@ -187,8 +187,8 @@ function check_status(){
 
             <div class="seller_details_left"><!--DIV CLASS START seller_details_left-->
                 <?php
-                $tbl_user_details = mysql_query("SELECT p.id as prid,u.id,u.first_name,u.last_name,u.email,u.phone_no,u.username FROM  tbl_products as p LEFT OUTER JOIN tbl_users AS u ON 	u.id=p.uid WHERE p.id='" . $p_id . "' ");
-                $tbl_row = mysql_fetch_array($tbl_user_details);
+                $tbl_user_details = mysqli_query($link,"SELECT p.id as prid,u.id,u.first_name,u.last_name,u.email,u.phone_no,u.username FROM  tbl_products as p LEFT OUTER JOIN tbl_users AS u ON 	u.id=p.uid WHERE p.id='" . $p_id . "' ");
+                $tbl_row = mysqli_fetch_array($tbl_user_details);
                 ?>
                 <p><label>Seller Username:</label><?php echo $tbl_row['username']; ?></p>
                 <p><label>Seller Name:</label><?php echo $tbl_row['first_name']; ?> <?php echo $tbl_row['last_name']; ?></p>
@@ -202,12 +202,12 @@ function check_status(){
                 <p><u>Seller bank information</u></p>
 
                 <?php
-                $seller_bank_information = mysql_query("SELECT p.id as prid,tbl_seller_bank.* FROM tbl_products as p LEFT OUTER JOIN  tbl_seller_bank ON
+                $seller_bank_information = mysqli_query($link,"SELECT p.id as prid,tbl_seller_bank.* FROM tbl_products as p LEFT OUTER JOIN  tbl_seller_bank ON
  																	tbl_seller_bank.uid=p.uid WHERE p.id='" . $p_id . "'");
 
                 /* echo "SELECT p.id as prid,tbl_seller_bank.*, FROM tbl_products as p LEFT OUTER JOIN  tbl_seller_bank ON
                   tbl_seller_bank.uid=p.uid WHERE p.id='".$p_id."'"; */
-                $seller_bank_row = mysql_fetch_array($seller_bank_information);
+                $seller_bank_row = mysqli_fetch_array($seller_bank_information);
                 ?>
                 <p><label>Bank Name:</label><?php echo $seller_bank_row['bank_name']; ?></p>
 
@@ -240,9 +240,9 @@ function check_status(){
         <h2 class="order">Buyer Details</h2>
 
         <?php
-        $buyer_details = mysql_query("SELECT t_o.id AS t_o_id,t_o.uid,t_u.id AS t_u_id,t_u.first_name,t_u.last_name,t_u.phone_no,t_u.email,t_u.username FROM  tbl_orders AS t_o LEFT OUTER JOIN  tbl_users AS t_u ON t_o.uid = t_u.id WHERE t_o.id='" . $_GET['id'] . "'");
+        $buyer_details = mysqli_query($link,"SELECT t_o.id AS t_o_id,t_o.uid,t_u.id AS t_u_id,t_u.first_name,t_u.last_name,t_u.phone_no,t_u.email,t_u.username FROM  tbl_orders AS t_o LEFT OUTER JOIN  tbl_users AS t_u ON t_o.uid = t_u.id WHERE t_o.id='" . $_GET['id'] . "'");
 
-        $buyer_details_row = mysql_fetch_assoc($buyer_details);
+        $buyer_details_row = mysqli_fetch_assoc($buyer_details);
         ?>
         <p><label>Buyer Username:</label><?php echo $buyer_details_row['username']; ?></p>
         <p><label>Buyer Name:</label><?php echo $buyer_details_row['first_name']; ?> <?php echo $buyer_details_row['last_name']; ?></p>
@@ -251,9 +251,9 @@ function check_status(){
 
         <!--<br /><br /><hr style="border:2px solid #FF9900;"/><br />-->
         <?php
-        $tbl_query_shipping = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name,p.ref_id,p.shipping FROM 
+        $tbl_query_shipping = mysqli_query($link,"SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name,p.ref_id,p.shipping FROM 
 													tbl_orders LEFT OUTER JOIN tbl_products AS p ON p.id=tbl_orders.p_id WHERE tbl_orders.id='" . $_GET['id'] . "'");
-        $tbl_query_row = mysql_fetch_array($tbl_query_shipping);
+        $tbl_query_row = mysqli_fetch_array($tbl_query_shipping);
 
         if ($tbl_query_row['shipping'] != 0) {
             ?>
@@ -261,11 +261,11 @@ function check_status(){
             <h2 class="order">Shipping Details</h2>
 
             <?php
-            $tbl_query123 = mysql_query("SELECT tbl_order_shipping.*, tbl_orders.id FROM tbl_order_shipping LEFT JOIN tbl_orders ON 
+            $tbl_query123 = mysqli_query($link,"SELECT tbl_order_shipping.*, tbl_orders.id FROM tbl_order_shipping LEFT JOIN tbl_orders ON 
 											tbl_order_shipping.order_id = tbl_orders.id WHERE tbl_order_shipping.order_id='" . $_GET['id'] . "'");
 
-            if (mysql_num_rows($tbl_query123) > 0) {
-                $tbl_row123 = mysql_fetch_array($tbl_query123);
+            if (mysqli_num_rows($tbl_query123) > 0) {
+                $tbl_row123 = mysqli_fetch_array($tbl_query123);
                 ?>
 
                 <p><label>Shipping Address :</label><?php echo $tbl_row123['address']; ?></p>

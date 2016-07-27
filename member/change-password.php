@@ -20,8 +20,8 @@ if (isset($_POST['update'])) {
         $error.="Please Enter Confirm Password";
     }
     if ($error == '') {
-        $sql_q = mysql_query("SELECT * FROM  tbl_users WHERE password='" . $_POST['password'] . "' AND id=" . $_SESSION['user_id'] . " AND type='0' ");
-        if (mysql_num_rows($sql_q) > 0) {
+        $sql_q = mysqli_query($link,"SELECT * FROM  tbl_users WHERE password='" . $_POST['password'] . "' AND id=" . $_SESSION['user_id'] . " AND type='0' ");
+        if (mysqli_num_rows($sql_q) > 0) {
             $data = array("password" => $_POST['conframpassword']);
             $table = "tbl_users";
             $parameters = "id='" . $_SESSION['user_id'] . "'";
@@ -30,7 +30,7 @@ if (isset($_POST['update'])) {
         } else {
             $MSG = "<p class='err'>Old Password Does Not Match Tryagain!</p>";
         }
-        $row = mysql_fetch_array($sql_q);
+        $row = mysqli_fetch_array($sql_q);
     } else {
         $MSG = "<p class='err'>$error</p>";
     }

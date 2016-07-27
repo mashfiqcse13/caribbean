@@ -3,7 +3,7 @@ include('include/application_top.php');
 cmslogin();
 session_start();
 
-$string = explode(" ", mysql_real_escape_string(trim($_REQUEST['search'])));
+$string = explode(" ", mysqli_real_escape_string( $link ,trim($_REQUEST['search'])));
 
 $strcount = count($string);
 
@@ -27,10 +27,10 @@ $qry = "SELECT * " .
         "WHERE " . $_SESSION['search'] . " " .
         "ORDER BY username ";
 
-$result = mysql_query($qry) or die(mysql_error());
+$result = mysqli_query($link,$qry) or die(mysql_error());
 
-//$query=mysql_query("SELECT * FROM  tbl_users WHERE username like '".$_POST['search']."%' OR first_name like '".$_POST['search']."%' OR last_name like '".$_POST['search']."%'");
-$number = mysql_num_rows($result);
+//$query=mysqli_query($link,"SELECT * FROM  tbl_users WHERE username like '".$_POST['search']."%' OR first_name like '".$_POST['search']."%' OR last_name like '".$_POST['search']."%'");
+$number = mysqli_num_rows($result);
 if ($number <= 0) {
     echo "<p class='err'>No Record Found!</p>";
 }
@@ -38,7 +38,7 @@ if ($number <= 0) {
 
 <ul>
     <?php
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
         ?>
 
         <li class="b_image">

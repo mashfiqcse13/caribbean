@@ -3,8 +3,8 @@ include('../_includes/application-top.php');
 ChecktalentLogin();
 
 /* chacking for payment delails */
-$sql12 = mysql_query("SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
-$payment_details = mysql_num_rows($sql12);
+$sql12 = mysqli_query($link,"SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
+$payment_details = mysqli_num_rows($sql12);
 
 if ($payment_details > 0) {
     $pdetails = "1";
@@ -13,15 +13,15 @@ if ($payment_details > 0) {
 }
 
 if (isset($_GET['id'])) {
-    $sql = mysql_query("SELECT tp.id as tbl_products_id, tp.ref_id, tp.product_price, tp.shipping, tp.p_shipping, ve.id AS VID, ve.video_name,ve.video_code, ve.video_type, ve.status, ve.user_id FROM  tbl_products As tp LEFT OUTER JOIN tbl_profile_videos AS ve ON tp.ref_id=ve.id WHERE ve.id=" . $_GET['id'] . " AND ve.user_id=" . $_SESSION['talent_id'] . "  AND tp.content_type='2'");
+    $sql = mysqli_query($link,"SELECT tp.id as tbl_products_id, tp.ref_id, tp.product_price, tp.shipping, tp.p_shipping, ve.id AS VID, ve.video_name,ve.video_code, ve.video_type, ve.status, ve.user_id FROM  tbl_products As tp LEFT OUTER JOIN tbl_profile_videos AS ve ON tp.ref_id=ve.id WHERE ve.id=" . $_GET['id'] . " AND ve.user_id=" . $_SESSION['talent_id'] . "  AND tp.content_type='2'");
 
-    if (mysql_num_rows($sql) > 0) {
-        $result = mysql_fetch_assoc($sql);
+    if (mysqli_num_rows($sql) > 0) {
+        $result = mysqli_fetch_assoc($sql);
         $prd_id = $result['VID'];
         $product_price = $result['product_price'];
     } else {
-        $sql1 = mysql_query("SELECT ve.id AS VID, ve.video_name, ve.video_type, ve.video_code, ve.status, ve.user_id FROM  tbl_profile_videos AS ve WHERE id=" . $_GET['id'] . " AND user_id=" . $_SESSION['talent_id'] . " order by id ");
-        $result = mysql_fetch_assoc($sql1);
+        $sql1 = mysqli_query($link,"SELECT ve.id AS VID, ve.video_name, ve.video_type, ve.video_code, ve.status, ve.user_id FROM  tbl_profile_videos AS ve WHERE id=" . $_GET['id'] . " AND user_id=" . $_SESSION['talent_id'] . " order by id ");
+        $result = mysqli_fetch_assoc($sql1);
         $prd_id = 0;
         $product_price = "0.00";
     }
@@ -31,9 +31,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
     extract($_POST);
 
     $data = array(
-        "video_name" => mysql_real_escape_string(trim($video_name)),
+        "video_name" => mysqli_real_escape_string( $link ,trim($video_name)),
         "video_type" => $vtype,
-        "video_code" => mysql_real_escape_string(trim($video_code)),
+        "video_code" => mysqli_real_escape_string( $link ,trim($video_code)),
         "status" => $status
     );
     $table = "tbl_profile_videos";
@@ -43,10 +43,10 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
     if ($video_sale == '1') {
         if ($vtype == '1') {
             $sql = "SELECT * " . "FROM tbl_products " . "WHERE id=" . $vpid . " AND uid=" . $_SESSION['talent_id'] . " AND ref_id=" . $vid . " ";
-            $result = mysql_query($sql) or die(mysql_error());
-            if (mysql_num_rows($result) > 0) {
+            $result = mysqli_query($link,$sql) or die(mysql_error());
+            if (mysqli_num_rows($result) > 0) {
                 $data = array(
-                    'product_name' => mysql_real_escape_string($video_name),
+                    'product_name' => mysqli_real_escape_string( $link ,$video_name),
                     "status" => $status,
                     'product_price' => $product_price,
                     "status" => $status
@@ -69,7 +69,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
                     'uid' => $_SESSION['talent_id'],
                     'ref_id' => $vid, "status" => $status,
                     'content_type' => '2',
-                    'product_name' => mysql_real_escape_string($video_name),
+                    'product_name' => mysqli_real_escape_string( $link ,$video_name),
                     'product_price' => $product_price,
                     "status" => $status
                 );
@@ -167,10 +167,10 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
 
 
             $sql = "SELECT * " . "FROM tbl_products " . "WHERE id=" . $vpid . " AND uid=" . $_SESSION['talent_id'] . " AND ref_id=" . $vid . " ";
-            $result = mysql_query($sql) or die(mysql_error());
-            if (mysql_num_rows($result) > 0) {
+            $result = mysqli_query($link,$sql) or die(mysql_error());
+            if (mysqli_num_rows($result) > 0) {
                 $data = array(
-                    'product_name' => mysql_real_escape_string($video_name),
+                    'product_name' => mysqli_real_escape_string( $link ,$video_name),
                     "status" => $status,
                     'product_price' => $product_price,
                     "status" => $status
@@ -193,7 +193,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
                     'uid' => $_SESSION['talent_id'],
                     'ref_id' => $vid, "status" => $status,
                     'content_type' => '2',
-                    'product_name' => mysql_real_escape_string($video_name),
+                    'product_name' => mysqli_real_escape_string( $link ,$video_name),
                     'product_price' => $product_price,
                     "status" => $status
                 );
@@ -259,12 +259,12 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
     } else {
         if ($vtype == '1') {
             $sql = "SELECT * " . "FROM tbl_products " . "WHERE id=" . $vpid . " AND uid=" . $_SESSION['talent_id'] . " AND ref_id=" . $vid . " ";
-            $result = mysql_query($sql) or die(mysql_error());
-            if (mysql_num_rows($result) > 0) {
+            $result = mysqli_query($link,$sql) or die(mysql_error());
+            if (mysqli_num_rows($result) > 0) {
                 $sql = "DELETE " .
                         "FROM tbl_products " .
                         "WHERE id=" . $vpid . " AND ref_id=" . $vid . " ";
-                $result = mysql_query($sql) or die(mysql_error());
+                $result = mysqli_query($link,$sql) or die(mysql_error());
             }
 
 
@@ -325,13 +325,13 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
         } else {
 
             $sql = "SELECT * " . "FROM tbl_products " . "WHERE id=" . $vpid . " AND uid=" . $_SESSION['talent_id'] . " AND ref_id=" . $vid . " ";
-            $result = mysql_query($sql) or die(mysql_error());
-            if (mysql_num_rows($result) > 0) {
+            $result = mysqli_query($link,$sql) or die(mysql_error());
+            if (mysqli_num_rows($result) > 0) {
 
                 $sql = "DELETE " .
                         "FROM tbl_products " .
                         "WHERE id=" . $vpid . " AND ref_id=" . $vid . " ";
-                $result = mysql_query($sql) or die(mysql_error());
+                $result = mysqli_query($link,$sql) or die(mysql_error());
             }
 
             $product_img_thumb = "../_uploads/profile_product/thumb/" . $vpid . ".jpg";

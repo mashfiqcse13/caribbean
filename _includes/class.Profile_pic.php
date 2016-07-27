@@ -111,13 +111,13 @@ class Profile_pic {
         /* move upload photo in temp folder */
         //get the file ext
         $filename = $form_FILES_ARRAY['name'];
-        $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+        $file_ext = strtolower(strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.'));
 
         //$file_ext = strrchr($filename, '.');
         //check if its allowed or not:
         $whitelist = $this->allowedFileExtentions;
         if (!in_array($file_ext, $whitelist)) {
-            $this->go_to_destination('Not allowed extension,please upload images only!');
+            $this->go_to_destination('Not allowed extension,please upload images only!'."'$file_ext'");
         } else {
             /* $linkcat=$this->root_path."_temp/".$this->user_id.'.jpg';
               @copy($_FILES["img_path"]["tmp_name"],$linkcat); */

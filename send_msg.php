@@ -14,8 +14,8 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Send")) {
     $data = array(
         "from_id" => $identity,
         "to_id" => $_POST['to_id'],
-        "sub" => mysql_real_escape_string(trim($_POST['sub'])),
-        "msg" => mysql_real_escape_string(trim($_POST['msg'])),
+        "sub" => mysqli_real_escape_string( $link ,trim($_POST['sub'])),
+        "msg" => mysqli_real_escape_string( $link ,trim($_POST['msg'])),
         "view_status" => '0'
     );
 
@@ -45,8 +45,8 @@ include('_includes/header.php');
         ?>
         <?php
         $query = "SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'";
-        $query_row = mysql_query($query);
-        $data1 = mysql_fetch_array($query_row);
+        $query_row = mysqli_query($link,$query);
+        $data1 = mysqli_fetch_array($query_row);
         ?>
         <h2>Send message to <?php echo $data1['first_name'] . " " . $data1['last_name']; ?></h2>	
         <?php

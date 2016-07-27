@@ -24,13 +24,13 @@
     <h1>latast forum topics</h1>
     <?php
     $sql = "SELECT * FROM  tbl_forum_topics order by tbl_forum_topics.id desc ";
-    $result = mysql_query($sql);
-    //$row=mysql_fetch_assoc($result);
+    $result = mysqli_query($link,$sql);
+    //$row=mysqli_fetch_assoc($result);
     //print_r($row);
     <li><img src = "_images/forum_img_1.jpg" />Find out the latest talent shows around you</li>
     <li><img src = "_images/forum_img_2.jpg" />Best place to showcase and earn from your talent</li>
     <li><img src = "_images/forum_img_3.jpg" />Know how to make career out of your passion</li>
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
         ?>
         <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>&view=<?php echo $view_cnt; ?>">
             <img src="_uploads/user_photo/<?php echo $row["uid"]; ?>.jpg" height="100" width="80"/>

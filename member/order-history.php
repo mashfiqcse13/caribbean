@@ -12,17 +12,17 @@ include('../_includes/header.php');
     <div class="form_class"><!--START CLASS form_class PART -->
         <?php
         //echo $sql_query="SELECT * FROM tbl_orders WHERE uid='".$_SESSION['user_id']."'";
-        //$query=mysql_query("SELECT * FROM tbl_orders WHERE uid='".$_SESSION['user_id']."'");
-        //$query=mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON
+        //$query=mysqli_query($link,"SELECT * FROM tbl_orders WHERE uid='".$_SESSION['user_id']."'");
+        //$query=mysqli_query($link,"SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON
         //p.id=tbl_orders.p_id WHERE tbl_orders.uid='".$_SESSION['user_id']."' AND (tbl_orders.order_status='1' OR tbl_orders.order_status='2')  ORDER BY tbl_orders.id DESC");
-        $query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON
+        $query = mysqli_query($link,"SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON
 			p.id=tbl_orders.p_id WHERE tbl_orders.uid='" . $_SESSION['user_id'] . "'  ORDER BY tbl_orders.id DESC");
 
         //echo "SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON
         //p.id=tbl_orders.p_id WHERE tbl_orders.uid='".$_SESSION['user_id']."' AND  tbl_orders.order_status='1'  ORDER BY tbl_orders.id DESC";
-        //$row=mysql_fetch_assoc($query)
+        //$row=mysqli_fetch_assoc($query)
         //print_r($row);
-        $number = mysql_num_rows($query);
+        $number = mysqli_num_rows($query);
         ?>
 
         <?php
@@ -49,7 +49,7 @@ include('../_includes/header.php');
 
                     <?php
                 }
-                while ($row = mysql_fetch_assoc($query)) {
+                while ($row = mysqli_fetch_assoc($query)) {
                     ?>
                     <tr>
                         <td align="left"><?php echo $row["id"]; ?></td>
@@ -63,8 +63,8 @@ include('../_includes/header.php');
                           <?php
                           $p_id=$row["p_id"];
                           $sql_product="select product_details from  tbl_products where id='".$p_id."'";
-                          $query_product=mysql_query($sql_product);
-                          $product_row=mysql_fetch_assoc($query_product);
+                          $query_product=mysqli_query($link,$sql_product);
+                          $product_row=mysqli_fetch_assoc($query_product);
                           echo substr($product_row['product_details'],0,20);
 
                           ?>

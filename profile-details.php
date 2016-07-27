@@ -6,7 +6,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'submit')) {
     $data = array(
         "profile_id" => $_POST['profile_id'],
         "commenter_id" => $_POST['talent_id'],
-        "comment_text" => mysql_real_escape_string(trim($_POST['comment_text'])),
+        "comment_text" => mysqli_real_escape_string( $link ,trim($_POST['comment_text'])),
         "comment_time" => date('Y-m-d H:i:s')
     );
 
@@ -141,14 +141,14 @@ if ($data['id'] != '') {
         $_SESSION["user_id"] = 0;
         $uid = "";
     }
-    $query211 = mysql_query("SELECT profile_display_status FROM  tbl_user_profile_settings WHERE uid='" . $data['id'] . "'");
-    $ror211 = mysql_fetch_assoc($query211);
+    $query211 = mysqli_query($link,"SELECT profile_display_status FROM  tbl_user_profile_settings WHERE uid='" . $data['id'] . "'");
+    $ror211 = mysqli_fetch_assoc($query211);
 
 
 
-    $query111 = mysql_query("SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-    $RESULT = mysql_fetch_assoc($query111);
-    $ror111 = mysql_num_rows($query111);
+    $query111 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+    $RESULT = mysqli_fetch_assoc($query111);
+    $ror111 = mysqli_num_rows($query111);
 
     $member_profile_disply = getAnyTableWhereData("tbl_user_details", "AND user_id='" . $data['id'] . "' ");
     //echo $uid;
@@ -163,14 +163,14 @@ if ($data['id'] != '') {
                     $name = ($_GET['username']);
                     echo $name . " " . "is" . ' ' . "currently" . " ";
                     /* ###################GET VALUE FROM tbl_user_online############### */
-                    $SQL_ONLI = mysql_query("SELECT id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                    $SQL_RESULT = mysql_fetch_array($SQL_ONLI);
+                    $SQL_ONLI = mysqli_query($link,"SELECT id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                    $SQL_RESULT = mysqli_fetch_array($SQL_ONLI);
                     //print_r($SQL_RESULT);
                     $SQL_QUERY = "SELECT * FROM tbl_user_online WHERE uid='" . $SQL_RESULT['id'] . "'";
-                    $SQL_RESULT1 = mysql_query($SQL_QUERY);
-                    $SQL_fetch = mysql_fetch_array($SQL_RESULT1);
+                    $SQL_RESULT1 = mysqli_query($link,$SQL_QUERY);
+                    $SQL_fetch = mysqli_fetch_array($SQL_RESULT1);
                     //print_r($SQL_fetch);
-                    $SQL_ROWS = mysql_num_rows($SQL_RESULT1);
+                    $SQL_ROWS = mysqli_num_rows($SQL_RESULT1);
 
                     if ($SQL_ROWS == '') {
                         ?>
@@ -238,14 +238,14 @@ if ($data['id'] != '') {
                     <?php /* ?><?php 
                       $name_user = GetFullName($_GET['username']);
 
-                      $user_online=mysql_query("SELECT id FROM tbl_users WHERE username='".$_GET['username']."'");
-                      $user_online_row=mysql_fetch_array($user_online);
+                      $user_online=mysqli_query($link,"SELECT id FROM tbl_users WHERE username='".$_GET['username']."'");
+                      $user_online_row=mysqli_fetch_array($user_online);
 
                       $user_query="SELECT * FROM tbl_user_online WHERE uid='" . $user_online_row['id'] . "'";
-                      $user_query_online=mysql_query($user_query);
-                      $user_query_online_row=mysql_fetch_array($user_query_online);
+                      $user_query_online=mysqli_query($link,$user_query);
+                      $user_query_online_row=mysqli_fetch_array($user_query_online);
 
-                      $rows=mysql_num_rows($SQL_RESULT1);
+                      $rows=mysqli_num_rows($SQL_RESULT1);
 
                       if($rows=='')
 
@@ -285,8 +285,8 @@ if ($data['id'] != '') {
                     <p class="msg">
                         <?php
                         if (isset($_GET['op']) AND ( $_GET['op'] == "suc")) {
-                            $query27 = mysql_query("SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                            $row27 = mysql_fetch_assoc($query27);
+                            $query27 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                            $row27 = mysqli_fetch_assoc($query27);
 
                             echo "Congratulations,Now you are connected to " . $row27['first_name'] . " " . $row27['last_name'] . "";
                         }
@@ -302,8 +302,8 @@ if ($data['id'] != '') {
                             echo "You Can Not send Request Yourself.";
                         }
                         if (isset($_GET['op']) AND ( $_GET['op'] == "ex")) {
-                            $query26 = mysql_query("SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                            $row26 = mysql_fetch_assoc($query26);
+                            $query26 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                            $row26 = mysqli_fetch_assoc($query26);
                             echo "You are already connected to " . $row26['first_name'] . " " . $row26['last_name'] . "";
                         }
                         ?>
@@ -312,12 +312,12 @@ if ($data['id'] != '') {
 
                 <!-----FRIST-------------------------------------------------------------SATRT-CONTENT-LEFT-DIV-------------------------------------------------------------------------------------->
                 <?php
-                $p_query = mysql_query("SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                $p_result = mysql_fetch_assoc($p_query);
+                $p_query = mysqli_query($link,"SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                $p_result = mysqli_fetch_assoc($p_query);
 //echo $p_result['id']; 
                 if ($p_result['type'] == 1) {
-                    $p_query1 = mysql_query("SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
-                    $p_result1 = mysql_fetch_assoc($p_query1);
+                    $p_query1 = mysqli_query($link,"SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
+                    $p_result1 = mysqli_fetch_assoc($p_query1);
 //print_r($p_result1); 
                     ?>
                     <div class="profile_page_contnt_left"><!--START DIV CLASS profile_page_contnt_left-->
@@ -328,8 +328,8 @@ if ($data['id'] != '') {
 
                             <div class="profile_details_top"><!--START DIV CLASS profile_photo-->
                                 <?php
-                                $query1 = mysql_query("SELECT id,type FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                                $row = mysql_fetch_assoc($query1);
+                                $query1 = mysqli_query($link,"SELECT id,type FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                                $row = mysqli_fetch_assoc($query1);
                                 //echo $row['type'];
                                 $profile_id = $row['id'];
                                 //echo $row['id'];
@@ -453,8 +453,8 @@ if ($data['id'] != '') {
                         <div class="profile_details"><!--START DIV CLASS profile_details-->
                             <div class="profile_details_top"><!--START DIV CLASS profile_photo-->
                                 <?php
-                                $query1 = mysql_query("SELECT id,type FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                                $row = mysql_fetch_assoc($query1);
+                                $query1 = mysqli_query($link,"SELECT id,type FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                                $row = mysqli_fetch_assoc($query1);
                                 //echo $row['type'];
                                 $profile_id = $row['id'];
                                 //echo $row['id'];
@@ -488,12 +488,12 @@ if ($data['id'] != '') {
                 <div class="profile_page_contnt_middle"><!--START DIV CLASS profile_page_contnt_middle-->
 
                     <?php
-                    $p_query = mysql_query("SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                    $p_result = mysql_fetch_assoc($p_query);
+                    $p_query = mysqli_query($link,"SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                    $p_result = mysqli_fetch_assoc($p_query);
 //echo $p_result['id']; 
                     if ($p_result['type'] == 1) {
-                        $p_query1 = mysql_query("SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
-                        $p_result1 = mysql_fetch_assoc($p_query1);
+                        $p_query1 = mysqli_query($link,"SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
+                        $p_result1 = mysqli_fetch_assoc($p_query1);
 //print_r($p_result1); 
                         ?>
                         <div class="profile_page_contnt_left"><!--START DIV CLASS profile_page_contnt_middle-->
@@ -620,12 +620,12 @@ if ($data['id'] != '') {
                 <!--------THIRD---------------------------------------------------------------------------------START-CONTENT-RIGHT-DIV----------------------------------------------------------------------------------------->
                 <div class="profile_page_contnt_right"><!--END DIV CLASS profile_page_contnt_RIGHT-->
                     <?php
-                    $p_query = mysql_query("SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                    $p_result = mysql_fetch_assoc($p_query);
+                    $p_query = mysqli_query($link,"SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                    $p_result = mysqli_fetch_assoc($p_query);
 //echo $p_result['id']; 
                     if ($p_result['type'] == 1) {
-                        $p_query1 = mysql_query("SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
-                        $p_result1 = mysql_fetch_assoc($p_query1);
+                        $p_query1 = mysqli_query($link,"SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
+                        $p_result1 = mysqli_fetch_assoc($p_query1);
 //print_r($p_result1); 
                         ?>
                         <div class="profile_page_contnt_left"><!--START DIV CLASS profile_page_contnt_middle-->

@@ -83,27 +83,27 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
                 $order_id = $pieces[2];
 
                 $sql_p = "SELECT * FROM tbl_products WHERE `id`='$product_id'";
-                $res_p = mysql_query($sql_p);
-                $row_p = mysql_fetch_array($res_p);
+                $res_p = mysqli_query($link,$sql_p);
+                $row_p = mysqli_fetch_array($res_p);
 
                 $sql_u = "SELECT * FROM tbl_users WHERE `id`='$user_id'";
-                $res_u = mysql_query($sql_u);
-                $row_u = mysql_fetch_array($res_u);
+                $res_u = mysqli_query($link,$sql_u);
+                $row_u = mysqli_fetch_array($res_u);
 
                 $sql_o = "SELECT * FROM tbl_orders WHERE `id`='$order_id'";
-                $res_o = mysql_query($sql_o);
-                $row_o = mysql_fetch_array($res_o);
+                $res_o = mysqli_query($link,$sql_o);
+                $row_o = mysqli_fetch_array($res_o);
 
                 $sql_s = "SELECT * FROM tbl_order_shipping WHERE `order_id`='$order_id'";
-                $res_s = mysql_query($sql_s);
-                $row_s = mysql_fetch_array($res_s);
+                $res_s = mysqli_query($link,$sql_s);
+                $row_s = mysqli_fetch_array($res_s);
 
                 $sql_seller = "SELECT * FROM tbl_users WHERE `id`='" . $row_p['uid'] . "'";
-                $res_seller = mysql_query($sql_seller);
-                $row_seller = mysql_fetch_array($res_seller);
+                $res_seller = mysqli_query($link,$sql_seller);
+                $row_seller = mysqli_fetch_array($res_seller);
 
                 $sql = "UPDATE tbl_orders SET `order_status`='1',`payment_status`='1' WHERE `id`='" . $order_id . "'";
-                $res = mysql_query($sql);
+                $res = mysqli_query($link,$sql);
 
                 $from_email = " " . SITE_NAME . "<" . FROM_EMAIL . ">";
                 $to_email = $row_u['email'];

@@ -14,11 +14,11 @@ if ((isset($_POST['submit']) AND ( $_POST['submit']) == 'Add Event')) {
         $event_date = $event_date['0'] . '-' . $event_date['1'] . '-' . $event_date['2'];
         $data = array(
             "uid" => $_SESSION["user_id"],
-            "name" => mysql_real_escape_string(trim($_POST['name'])),
+            "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
             "event_date" => $event_date,
-            "event_time" => mysql_real_escape_string(trim($_POST['event_time'])),
-            "event_details" => mysql_real_escape_string(trim($_POST['event_details'])),
-            "location" => mysql_real_escape_string(trim($_POST['location']))
+            "event_time" => mysqli_real_escape_string( $link ,trim($_POST['event_time'])),
+            "event_details" => mysqli_real_escape_string( $link ,trim($_POST['event_details'])),
+            "location" => mysqli_real_escape_string( $link ,trim($_POST['location']))
         );
         $table = "tbl_profile_events";
         insertData($data, $table);

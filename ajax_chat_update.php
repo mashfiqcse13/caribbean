@@ -2,9 +2,9 @@
 include('_includes/application-top.php');
 extract($_POST);
 
-$row = mysql_query("SELECT tbl_chat.*,tbl_users.id AS t_u_id,tbl_users.username FROM tbl_chat LEFT JOIN tbl_users ON tbl_chat.to_id=tbl_users.id  WHERE  tbl_chat.to_id='" . $to_id . "' AND view_status=0");
+$row = mysqli_query($link,"SELECT tbl_chat.*,tbl_users.id AS t_u_id,tbl_users.username FROM tbl_chat LEFT JOIN tbl_users ON tbl_chat.to_id=tbl_users.id  WHERE  tbl_chat.to_id='" . $to_id . "' AND view_status=0");
 
-while ($data = mysql_fetch_array($row)) {
+while ($data = mysqli_fetch_array($row)) {
     ?>
 
 
@@ -12,8 +12,8 @@ while ($data = mysql_fetch_array($row)) {
     <?php
     $str = "SELECT username FROM tbl_users WHERE id='" . $data['from_id'] . "'";
 
-    $friend_query = mysql_query($str);
-    $friend_data = mysql_fetch_assoc($friend_query);
+    $friend_query = mysqli_query($link,$str);
+    $friend_data = mysqli_fetch_assoc($friend_query);
 
     $user = $friend_data['username'];
     ?>
@@ -24,7 +24,7 @@ while ($data = mysql_fetch_array($row)) {
     <?php
     //update view status		
     $sql = "UPDATE  tbl_chat SET  view_status =  '1' WHERE  tbl_chat.id =" . $data['id'];
-    mysql_query($sql);
+    mysqli_query($link,$sql);
 }
 ?>
 

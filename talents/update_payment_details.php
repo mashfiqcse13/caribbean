@@ -2,24 +2,24 @@
 include('../_includes/application-top.php');
 ChecktalentLogin();
 
-/* $sql=mysql_query("SELECT payment_details FROM  tbl_users WHERE id='".$_SESSION['talent_id']."' ");
-  $result=mysql_fetch_assoc($sql); */
+/* $sql=mysqli_query($link,"SELECT payment_details FROM  tbl_users WHERE id='".$_SESSION['talent_id']."' ");
+  $result=mysqli_fetch_assoc($sql); */
 //print_r($result);
 
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Save')) {
 
     $data = array(
         "uid" => $_SESSION['talent_id'],
-        "bank_name" => mysql_real_escape_string(trim($_POST['bank_name'])),
+        "bank_name" => mysqli_real_escape_string( $link ,trim($_POST['bank_name'])),
         "country" => $_POST['country'],
-        "routing_number" => mysql_real_escape_string(trim($_POST['routing_number'])),
-        "bank_address" => mysql_real_escape_string(trim($_POST['bank_address'])),
-        "bank_address_2" => mysql_real_escape_string(trim($_POST['bank_address_2'])),
-        "bank_city" => mysql_real_escape_string(trim($_POST['bank_city'])),
-        "bank_state" => mysql_real_escape_string(trim($_POST['bank_state'])),
-        "bank_zip_code" => mysql_real_escape_string(trim($_POST['bank_zip_code'])),
-        "account_holder_name" => mysql_real_escape_string(trim($_POST['account_holder_name'])),
-        "accountnumber_iban" => mysql_real_escape_string(trim($_POST['accountnumber_iban']))
+        "routing_number" => mysqli_real_escape_string( $link ,trim($_POST['routing_number'])),
+        "bank_address" => mysqli_real_escape_string( $link ,trim($_POST['bank_address'])),
+        "bank_address_2" => mysqli_real_escape_string( $link ,trim($_POST['bank_address_2'])),
+        "bank_city" => mysqli_real_escape_string( $link ,trim($_POST['bank_city'])),
+        "bank_state" => mysqli_real_escape_string( $link ,trim($_POST['bank_state'])),
+        "bank_zip_code" => mysqli_real_escape_string( $link ,trim($_POST['bank_zip_code'])),
+        "account_holder_name" => mysqli_real_escape_string( $link ,trim($_POST['account_holder_name'])),
+        "accountnumber_iban" => mysqli_real_escape_string( $link ,trim($_POST['accountnumber_iban']))
     );
     $table = "tbl_seller_bank";
     insertData($data, $table);
@@ -32,16 +32,16 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
 
     $data = array(
         "uid" => $_SESSION['talent_id'],
-        "bank_name" => mysql_real_escape_string(trim($_POST['bank_name'])),
+        "bank_name" => mysqli_real_escape_string( $link ,trim($_POST['bank_name'])),
         "country" => $_POST['country'],
-        "routing_number" => mysql_real_escape_string(trim($_POST['routing_number'])),
-        "bank_address" => mysql_real_escape_string(trim($_POST['bank_address'])),
-        "bank_address_2" => mysql_real_escape_string(trim($_POST['bank_address_2'])),
-        "bank_city" => mysql_real_escape_string(trim($_POST['bank_city'])),
-        "bank_state" => mysql_real_escape_string(trim($_POST['bank_state'])),
-        "bank_zip_code" => mysql_real_escape_string(trim($_POST['bank_zip_code'])),
-        "account_holder_name" => mysql_real_escape_string(trim($_POST['account_holder_name'])),
-        "accountnumber_iban" => mysql_real_escape_string(trim($_POST['accountnumber_iban']))
+        "routing_number" => mysqli_real_escape_string( $link ,trim($_POST['routing_number'])),
+        "bank_address" => mysqli_real_escape_string( $link ,trim($_POST['bank_address'])),
+        "bank_address_2" => mysqli_real_escape_string( $link ,trim($_POST['bank_address_2'])),
+        "bank_city" => mysqli_real_escape_string( $link ,trim($_POST['bank_city'])),
+        "bank_state" => mysqli_real_escape_string( $link ,trim($_POST['bank_state'])),
+        "bank_zip_code" => mysqli_real_escape_string( $link ,trim($_POST['bank_zip_code'])),
+        "account_holder_name" => mysqli_real_escape_string( $link ,trim($_POST['account_holder_name'])),
+        "accountnumber_iban" => mysqli_real_escape_string( $link ,trim($_POST['accountnumber_iban']))
     );
     $table = "tbl_seller_bank";
     $parameters = "uid='" . $_SESSION["talent_id"] . "'";
@@ -73,10 +73,10 @@ include('../_includes/header.php');
 
 
                 <?php
-                $sql = mysql_query("SELECT * FROM tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
-                $result = mysql_fetch_array($sql);
+                $sql = mysqli_query($link,"SELECT * FROM tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
+                $result = mysqli_fetch_array($sql);
 //print_r($result);
-                $row = mysql_num_rows($sql);
+                $row = mysqli_num_rows($sql);
                 if ($row == '0') {
                     ?>
 

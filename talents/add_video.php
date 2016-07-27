@@ -4,8 +4,8 @@ include('../_includes/application-top.php');
 ChecktalentLogin();
 
 /* chacking for payment delails */
-$sql = mysql_query("SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
-$payment_details = mysql_num_rows($sql);
+$sql = mysqli_query($link,"SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
+$payment_details = mysqli_num_rows($sql);
 
 if ($payment_details > 0) {
     $pdetails = "1";
@@ -32,9 +32,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                       exit(); */
                     $data = array(
                         "user_id" => $_SESSION['talent_id'],
-                        "video_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                        "video_type" => mysql_real_escape_string(trim($_POST['video_type'])),
-                        "video_code" => mysql_real_escape_string(trim($_POST['video_code'])),
+                        "video_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                        "video_type" => mysqli_real_escape_string( $link ,trim($_POST['video_type'])),
+                        "video_code" => mysqli_real_escape_string( $link ,trim($_POST['video_code'])),
                         "status" => '1'
                     );
                     $table = "tbl_profile_videos";
@@ -45,10 +45,10 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                     $data1 = array(
                         "uid" => $_SESSION['talent_id'],
                         "ref_id" => $vid,
-                        "product_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                        "product_price" => mysql_real_escape_string(trim($_POST['product_price'])),
-                        "shipping" => mysql_real_escape_string(trim($_POST['shipping1'])),
-                        "p_shipping" => mysql_real_escape_string(trim($_POST['p_shipping'])),
+                        "product_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                        "product_price" => mysqli_real_escape_string( $link ,trim($_POST['product_price'])),
+                        "shipping" => mysqli_real_escape_string( $link ,trim($_POST['shipping1'])),
+                        "p_shipping" => mysqli_real_escape_string( $link ,trim($_POST['p_shipping'])),
                         "content_type" => '2',
                         "status" => '1'
                     );
@@ -81,7 +81,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                     /* Added Activity Below */
 
                     $uname = (GetChatUserName($_SESSION["talent_id"]));
-                    SaveActivity(4, $uname, mysql_real_escape_string(trim($_POST['video_name'])), $_SESSION["talent_id"]);
+                    SaveActivity(4, $uname, mysqli_real_escape_string( $link ,trim($_POST['video_name'])), $_SESSION["talent_id"]);
 
                     //////////////////////////////////////////////////
 
@@ -105,9 +105,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
 
                     $data = array(
                         "user_id" => $_SESSION['talent_id'],
-                        "video_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                        "video_type" => mysql_real_escape_string(trim($_POST['video_type'])),
-                        "video_code" => mysql_real_escape_string(trim($_POST['video_code'])),
+                        "video_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                        "video_type" => mysqli_real_escape_string( $link ,trim($_POST['video_type'])),
+                        "video_code" => mysqli_real_escape_string( $link ,trim($_POST['video_code'])),
                         "status" => '1'
                     );
                     $table = "tbl_profile_videos";
@@ -130,7 +130,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                     /* Added Activity Below */
 
                     $uname = (GetChatUserName($_SESSION["talent_id"]));
-                    SaveActivity(4, $uname, mysql_real_escape_string(trim($_POST['video_name'])), $_SESSION["talent_id"]);
+                    SaveActivity(4, $uname, mysqli_real_escape_string( $link ,trim($_POST['video_name'])), $_SESSION["talent_id"]);
 
                     //////////////////////////////////////////////////
 
@@ -165,9 +165,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                         /* INSERT INTO tbl_profile_videos */
                         $data = array(
                             "user_id" => $_SESSION['talent_id'],
-                            "video_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                            "video_type" => mysql_real_escape_string(trim($_POST['video_type'])),
-                            "video_code" => mysql_real_escape_string(trim($_POST['video_code'])),
+                            "video_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                            "video_type" => mysqli_real_escape_string( $link ,trim($_POST['video_type'])),
+                            "video_code" => mysqli_real_escape_string( $link ,trim($_POST['video_code'])),
                             "status" => '1'
                         );
                         $table = "tbl_profile_videos";
@@ -178,10 +178,10 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                         $data1 = array(
                             "uid" => $_SESSION['talent_id'],
                             "ref_id" => $vid,
-                            "product_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                            "product_price" => mysql_real_escape_string(trim($_POST['product_price'])),
-                            "shipping" => mysql_real_escape_string(trim($_POST['shipping1'])),
-                            "p_shipping" => mysql_real_escape_string(trim($_POST['p_shipping'])),
+                            "product_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                            "product_price" => mysqli_real_escape_string( $link ,trim($_POST['product_price'])),
+                            "shipping" => mysqli_real_escape_string( $link ,trim($_POST['shipping1'])),
+                            "p_shipping" => mysqli_real_escape_string( $link ,trim($_POST['p_shipping'])),
                             "content_type" => '2',
                             "status" => '1'
                         );
@@ -229,7 +229,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                         /* Added Activity Below */
 
                         $uname = (GetChatUserName($_SESSION["talent_id"]));
-                        SaveActivity(4, $uname, mysql_real_escape_string(trim($_POST['video_name'])), $_SESSION["talent_id"]);
+                        SaveActivity(4, $uname, mysqli_real_escape_string( $link ,trim($_POST['video_name'])), $_SESSION["talent_id"]);
 
                         //////////////////////////////////////////////////
 
@@ -264,9 +264,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                           exit(); */
                         $data = array(
                             "user_id" => $_SESSION['talent_id'],
-                            "video_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                            "video_type" => mysql_real_escape_string(trim($_POST['video_type'])),
-                            "video_code" => mysql_real_escape_string(trim($_POST['video_code'])),
+                            "video_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                            "video_type" => mysqli_real_escape_string( $link ,trim($_POST['video_type'])),
+                            "video_code" => mysqli_real_escape_string( $link ,trim($_POST['video_code'])),
                             "status" => '1'
                         );
                         $table = "tbl_profile_videos";
@@ -304,7 +304,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                         /* Added Activity Below */
 
                         $uname = (GetChatUserName($_SESSION["talent_id"]));
-                        SaveActivity(4, $uname, mysql_real_escape_string(trim($_POST['video_name'])), $_SESSION["talent_id"]);
+                        SaveActivity(4, $uname, mysqli_real_escape_string( $link ,trim($_POST['video_name'])), $_SESSION["talent_id"]);
 
                         //////////////////////////////////////////////////
 

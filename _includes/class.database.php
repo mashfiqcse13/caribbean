@@ -15,7 +15,7 @@ class DBClass {
 
     private $db_link, $servername, $username, $password, $dbname;
 
-    function DBClass($servername, $username, $password, $dbname) {
+    function __construct($servername, $username, $password, $dbname) {
         // $servername = "localhost";
         // $username = "rhasan_roki";
         // $password = "9Oy#)@(EF7)r";

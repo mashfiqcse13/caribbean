@@ -3,7 +3,7 @@ include('_includes/application-top.php');
 CheckLoginForum();
 if (isset($_GET['p_id'])) {
     $sql = "delete from tbl_shopping_cart where id='" . $_GET['p_id'] . "'";
-    mysql_query($sql);
+    mysqli_query($link,$sql);
     header("Location:shopping_cart.php?op=d");
 }
 include('_includes/header.php');
@@ -55,13 +55,13 @@ include('_includes/header.php');
         $uid = "";
     }
     //echo $uid;
-    // $result=mysql_query("SELECT * FROM tbl_shopping_cart WHERE uid=".$uid."");
-    $result = mysql_query("SELECT tbl_shopping_cart.*, tbl_users.id AS t_u_id, tbl_users.age FROM tbl_shopping_cart LEFT OUTER JOIN tbl_users ON 
+    // $result=mysqli_query($link,"SELECT * FROM tbl_shopping_cart WHERE uid=".$uid."");
+    $result = mysqli_query($link,"SELECT tbl_shopping_cart.*, tbl_users.id AS t_u_id, tbl_users.age FROM tbl_shopping_cart LEFT OUTER JOIN tbl_users ON 
 
 							 						 tbl_shopping_cart.uid=tbl_users.id WHERE tbl_shopping_cart.uid='" . $uid . "'");
 
-    $number = mysql_num_rows($result);
-    //$data=mysql_fetch_assoc($result);
+    $number = mysqli_num_rows($result);
+    //$data=mysqli_fetch_assoc($result);
     // print_r($data);
     ?>
     <table cellpadding="0" cellspacing="0" class="TabUIRecords" width="100%">
@@ -84,7 +84,7 @@ include('_includes/header.php');
             <tbody>
                 <?php
             }
-            while ($row = mysql_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                 <tr>
                     <td width="20%" style="border:none;">

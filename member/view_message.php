@@ -42,15 +42,15 @@ include('../_includes/header.php');
 				
 					ON tbl_msg.from_id = tbl_users.id  WHERE tbl_msg.id='" . $_GET['id'] . "'";
 
-            $query_row = mysql_query($query);
+            $query_row = mysqli_query($link,$query);
 
-            $number = mysql_num_rows($query_row);
+            $number = mysqli_num_rows($query_row);
 
             if ($number <= 0) {
                 echo "<p class='err'>No Record Found.</p>";
             } else {
 
-                $data = mysql_fetch_assoc($query_row);
+                $data = mysqli_fetch_assoc($query_row);
                 ?>
 
                 <div class="view_msg"><!--START div class  view_msg-->

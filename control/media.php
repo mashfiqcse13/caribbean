@@ -6,13 +6,13 @@ cmslogin();
 include('include/header.php');
 
 if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "delete") {
-    $db_rslt_file_name = mysql_query("SELECT * FROM tbl_contact WHERE `id` = '" . mysql_real_escape_string($_REQUEST['id']) . "'");
-    $file_name_4_dlt = mysql_fetch_array($db_rslt_file_name);
+    $db_rslt_file_name = mysqli_query($link,"SELECT * FROM tbl_contact WHERE `id` = '" . mysqli_real_escape_string( $link ,$_REQUEST['id']) . "'");
+    $file_name_4_dlt = mysqli_fetch_array($db_rslt_file_name);
     $file_name_4_dlt = '../' . $file_name_4_dlt['file_attached'];
     unlink($file_name_4_dlt);
 //    die($file_name_4_dlt);
 
-    mysql_query("UPDATE `tbl_contact` SET `file_attached`='' WHERE `id` = '" . mysql_real_escape_string($_REQUEST['id']) . "';");
+    mysqli_query($link,"UPDATE `tbl_contact` SET `file_attached`='' WHERE `id` = '" . mysqli_real_escape_string( $link ,$_REQUEST['id']) . "';");
     echo "<div id='afterpostingajax'>File Successfully Deleted</div>";
 }
 
@@ -21,14 +21,14 @@ if (isset($_GET['filetype'])) {
     $supported_file_type = array('Video', 'Photo', 'Music', 'Document', 'Others');
     $selected_file_type = $supported_file_type[$_GET['filetype']];
     $sql = "SELECT * FROM tbl_contact where `type_of_file` = '$selected_file_type'";
-    $result = mysql_query($sql);
+    $result = mysqli_query($link,$sql);
 } else {
     $sql = "SELECT * FROM tbl_contact where `type_of_file` = 'Video'";
-    $result = mysql_query($sql);
+    $result = mysqli_query($link,$sql);
 }
 
 if (!$result) {
-    die("Retrieving records from contact table's query faild:" . mysql_query());
+    die("Retrieving records from contact table's query faild:" . mysqli_error($link));
 }
 ?>
 <script type="text/javascript">
@@ -201,7 +201,7 @@ if (!$result) {
     </ul>
     <ul class="prodlist">
         <?php
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
 
             if (isset($_GET['id']) && $row['id'] == $_GET['id']) {
                 $classcss = "select";

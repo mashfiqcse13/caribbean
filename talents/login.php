@@ -14,7 +14,7 @@ if (!empty($lid)) {
     $table = "tbl_user_details";
     insertData($data, $table);
     /* Added Activity Below */
-    SaveActivity(14, mysql_real_escape_string(trim($_POST['username'])), '', $lid);
+    SaveActivity(14, mysqli_real_escape_string( $link ,trim($_POST['username'])), '', $lid);
     //////////////////////////////////////////////////
 }
 
@@ -27,10 +27,10 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign In')) {
     $count = strlen(trim($_POST["username"]));
 
 
-    $query = "select * from tbl_users where email='" . mysql_real_escape_string(trim($_POST["username"])) . "'AND password='" . mysql_real_escape_string(trim($_POST["password"])) . "'AND type='1' AND `is_block_admin` = 'No' AND (suspend_to < '" . date("Y-m-d H:i:s") . "' OR suspend_to IS NULL)";
-    $row = mysql_query($query);
-    $row1 = mysql_num_rows($row);
-    $data = mysql_fetch_array($row);
+    $query = "select * from tbl_users where email='" . mysqli_real_escape_string( $link ,trim($_POST["username"])) . "'AND password='" . mysqli_real_escape_string( $link ,trim($_POST["password"])) . "'AND type='1' AND `is_block_admin` = 'No' AND (suspend_to < '" . date("Y-m-d H:i:s") . "' OR suspend_to IS NULL)";
+    $row = mysqli_query($link,$query);
+    $row1 = mysqli_num_rows($row);
+    $data = mysqli_fetch_array($row);
     if ($row1 == 1) {
         //First Destroy All Previous Session then continue/
         //session_destroy();
@@ -42,7 +42,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign In')) {
         //echo "successful";
     } else {
         //when login not successfull if block then show block, suspend message.
-        $row_two = mysql_fetch_array(mysql_query("select * from tbl_users where email='" . mysql_real_escape_string(trim($_POST["username"])) . "'AND password='" . mysql_real_escape_string(trim($_POST["password"])) . "'"));
+        $row_two = mysqli_fetch_array(mysqli_query($link,"select * from tbl_users where email='" . mysqli_real_escape_string( $link ,trim($_POST["username"])) . "'AND password='" . mysqli_real_escape_string( $link ,trim($_POST["password"])) . "'"));
         if (!empty($row_two['is_block_admin']) && $row_two['is_block_admin'] == "Yes") {
             $MSG = "Your Account is Temporary Blocked by Admin!";
         } else if (!empty($row_two['suspend_to']) && $row_two['suspend_to'] > date("Y-m-d H:i:s")) {

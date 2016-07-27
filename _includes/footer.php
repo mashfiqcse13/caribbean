@@ -60,10 +60,10 @@ if (isset($_SESSION['talent_id']) AND $_SESSION['talent_id'] != '') {
 <?php
 if ($identity != '') :
     $sql = "SELECT * FROM tbl_chat WHERE to_id='" . $identity . "' AND view_status=0 GROUP BY from_id";
-    $rs = mysql_query($sql);
+    $rs = mysqli_query($link,$sql);
 
 
-    while ($data = mysql_fetch_array($rs)) {
+    while ($data = mysqli_fetch_array($rs)) {
 
         //open popup for each chat session
         ?>

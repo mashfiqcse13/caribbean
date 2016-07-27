@@ -4,14 +4,14 @@ include('../_includes/application-top.php');
 /* function talent($id)
   {
   $sql="SELECT * FROM tbl_talents WHERE status=1 AND id='".$id."'";
-  $result=mysql_query($sql);
-  $data=mysql_fetch_assoc($result);
+  $result=mysqli_query($link,$sql);
+  $data=mysqli_fetch_assoc($result);
   return $data['talent'];
   }
 
   $result="SELECT * FROM tbl_users WHERE id='".$_SESSION['talent_id']."'";
-  $sql=mysql_query($result);
-  $data=mysql_fetch_assoc($sql); */
+  $sql=mysqli_query($link,$result);
+  $data=mysqli_fetch_assoc($sql); */
 
 include('../_includes/header.php');
 ?>

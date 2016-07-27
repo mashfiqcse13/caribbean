@@ -1,10 +1,10 @@
 <?php
 include('../_includes/application-top.php');
 if ((isset($_POST["send"])) AND ( $_POST["send"] == 'Send Password')) {
-    $query = "SELECT * FROM tbl_users WHERE username='" . mysql_real_escape_string(trim($_POST["username"])) . "' AND type='0'";
-    $row = mysql_query($query);
-    $row1 = mysql_num_rows($row);
-    $data = mysql_fetch_assoc($row);
+    $query = "SELECT * FROM tbl_users WHERE username='" . mysqli_real_escape_string( $link ,trim($_POST["username"])) . "' AND type='0'";
+    $row = mysqli_query($link,$query);
+    $row1 = mysqli_num_rows($row);
+    $data = mysqli_fetch_assoc($row);
     if ($row1 == 1) {
         $to = $data['email'];
         $subject = SITE_NAME . ": Forget Password Request";

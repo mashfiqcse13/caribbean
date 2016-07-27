@@ -3,7 +3,7 @@ include('include/application_top.php');
 cmslogin();
 if (isset($_GET['id'])) {
     $sql = "delete from tbl_site_music where id='" . $_GET['id'] . "'";
-    mysql_query($sql);
+    mysqli_query($link,$sql);
     unlink("../_uploads/site_music/" . $_GET['id'] . ".mp3");
     $MSG = "Music Record Deleted Sucessfully.";
 }
@@ -61,9 +61,9 @@ if (isset($_GET['op'])) {
 <?php } ?>
 <?php
 //DATABASE QUERY
-$result = mysql_query("SELECT * FROM  tbl_site_music order by id ");
-$number = mysql_num_rows($result);
-//$data=mysql_fetch_assoc($result);
+$result = mysqli_query($link,"SELECT * FROM  tbl_site_music order by id ");
+$number = mysqli_num_rows($result);
+//$data=mysqli_fetch_assoc($result);
 // print_r($data);
 ?>
 
@@ -96,7 +96,7 @@ $number = mysql_num_rows($result);
 
         <?php
     }
-    while ($row = mysql_fetch_assoc($result)) {
+    while ($row = mysqli_fetch_assoc($result)) {
         ?>
         <tr>
             <td><?php echo $row["name"]; ?></td>

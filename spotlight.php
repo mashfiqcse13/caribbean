@@ -33,10 +33,10 @@
                         JOIN tbl_contactrecords on tbl_contact.id = tbl_contactrecords.`contactid` 
                     where page_name = \'Spotlight\'';
 
-                $result = mysql_query($sql);
+                $result = mysqli_query($link,$sql);
 
                 if ($result) {
-                    while ($row = mysql_fetch_array($result)) {
+                    while ($row = mysqli_fetch_array($result)) {
                         if (!empty($row['file_attached'])) {
                             ?>
                             <aside class="items">

@@ -26,12 +26,12 @@ if (isset($_POST['submit'])) {
     $age = explode('-', $_POST['age']);
     $age = $age['0'] . '-' . $age['1'] . '-' . $age['2'];
     $data = array(
-        "first_name" => mysql_real_escape_string(trim($_POST['first_name'])),
-        "last_name" => mysql_real_escape_string(trim($_POST['last_name'])),
-        "phone_no" => mysql_real_escape_string(trim($_POST['phone_no'])),
-        "username" => mysql_real_escape_string(trim($_POST['username'])),
-        "email" => mysql_real_escape_string(trim($_POST['email'])),
-        "city" => mysql_real_escape_string(trim($_POST['city'])),
+        "first_name" => mysqli_real_escape_string( $link ,trim($_POST['first_name'])),
+        "last_name" => mysqli_real_escape_string( $link ,trim($_POST['last_name'])),
+        "phone_no" => mysqli_real_escape_string( $link ,trim($_POST['phone_no'])),
+        "username" => mysqli_real_escape_string( $link ,trim($_POST['username'])),
+        "email" => mysqli_real_escape_string( $link ,trim($_POST['email'])),
+        "city" => mysqli_real_escape_string( $link ,trim($_POST['city'])),
         "country" => $_POST['country'],
         "sex" => $_POST['sex'],
         "age" => $age,
@@ -234,8 +234,8 @@ include('../_includes/header.php');
                         $talent_list_tot = explode(',', $talent_list);
 
                         $sql = "SELECT * FROM tbl_talents WHERE status=1";
-                        $result = mysql_query($sql);
-                        while ($data = mysql_fetch_assoc($result)) {
+                        $result = mysqli_query($link,$sql);
+                        while ($data = mysqli_fetch_assoc($result)) {
                             ?>
                             <li style="width:400px; clear:both;margin-left:98px;">
                                 <label>

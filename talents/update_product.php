@@ -2,8 +2,8 @@
 include('../_includes/application-top.php');
 ChecktalentLogin();
 if (isset($_GET['id'])) {
-    $sql = mysql_query("SELECT * FROM  tbl_products WHERE id='" . $_GET['id'] . "' order by id ");
-    $result = mysql_fetch_assoc($sql);
+    $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE id='" . $_GET['id'] . "' order by id ");
+    $result = mysqli_fetch_assoc($sql);
     //print_r($result);
 }
 
@@ -22,19 +22,19 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Product')) {
         } else {
 
             if ($_POST['shipping'] == 1) {
-                $pshipping = mysql_real_escape_string(trim($_POST['p_shipping']));
+                $pshipping = mysqli_real_escape_string( $link ,trim($_POST['p_shipping']));
             } else {
                 $pshipping = "0.00";
             }
 
             $data = array(
                 "uid" => $_SESSION['talent_id'],
-                "product_name" => mysql_real_escape_string(trim($_POST['product_name'])),
-                "product_details" => mysql_real_escape_string(trim($_POST['product_details'])),
-                "product_price" => mysql_real_escape_string(trim($_POST['product_price'])),
-                "shipping" => mysql_real_escape_string(trim($_POST['shipping'])),
+                "product_name" => mysqli_real_escape_string( $link ,trim($_POST['product_name'])),
+                "product_details" => mysqli_real_escape_string( $link ,trim($_POST['product_details'])),
+                "product_price" => mysqli_real_escape_string( $link ,trim($_POST['product_price'])),
+                "shipping" => mysqli_real_escape_string( $link ,trim($_POST['shipping'])),
                 "p_shipping" => $pshipping,
-                "video_code" => mysql_real_escape_string(trim($_POST['video_code'])),
+                "video_code" => mysqli_real_escape_string( $link ,trim($_POST['video_code'])),
                 "status" => $_POST['status'],
             );
             $table = "tbl_products";
@@ -59,18 +59,18 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Product')) {
         }
     } else {
         if ($_POST['shipping'] == 1) {
-            $pshipping = mysql_real_escape_string(trim($_POST['p_shipping']));
+            $pshipping = mysqli_real_escape_string( $link ,trim($_POST['p_shipping']));
         } else {
             $pshipping = "0.00";
         }
         $data = array(
             "uid" => $_SESSION['talent_id'],
-            "product_name" => mysql_real_escape_string(trim($_POST['product_name'])),
-            "product_details" => mysql_real_escape_string(trim($_POST['product_details'])),
-            "product_price" => mysql_real_escape_string(trim($_POST['product_price'])),
-            "shipping" => mysql_real_escape_string(trim($_POST['shipping'])),
+            "product_name" => mysqli_real_escape_string( $link ,trim($_POST['product_name'])),
+            "product_details" => mysqli_real_escape_string( $link ,trim($_POST['product_details'])),
+            "product_price" => mysqli_real_escape_string( $link ,trim($_POST['product_price'])),
+            "shipping" => mysqli_real_escape_string( $link ,trim($_POST['shipping'])),
             "p_shipping" => $pshipping,
-            "video_code" => mysql_real_escape_string(trim($_POST['video_code'])),
+            "video_code" => mysqli_real_escape_string( $link ,trim($_POST['video_code'])),
             "status" => $_POST['status'],
         );
         $table = "tbl_products";

@@ -21,8 +21,8 @@
     </div>
 
     <!--<div class="bannerabt" style="background:url(/app/webroot/img/gen_banner2.jpg) no-repeat 0 0;">
-				<?php $sel=mysql_query("SELECT bannerimg FROM contentmanagements WHERE id =82 AND parent_id =0");
-				 					 $selimg = mysql_fetch_array($sel); $selectimg = $selimg['bannerimg'];?>
+				<?php $sel=mysqli_query($link,"SELECT bannerimg FROM contentmanagements WHERE id =82 AND parent_id =0");
+				 					 $selimg = mysqli_fetch_array($sel); $selectimg = $selimg['bannerimg'];?>
     <div class="bannerabt" style="background:url(<?php echo $this->webroot.'admin/bannerimg/'.$selectimg;?>) no-repeat 0 0;">-->
     <div class="left_area">			
         <h2>SELLING OR RENTING YOUR PROPERTY</h2>

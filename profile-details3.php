@@ -6,7 +6,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'submit')) {
     $data = array(
         "profile_id" => $_POST['profile_id'],
         "commenter_id" => $_POST['talent_id'],
-        "comment_text" => mysql_real_escape_string(trim($_POST['comment_text'])),
+        "comment_text" => mysqli_real_escape_string( $link ,trim($_POST['comment_text'])),
         "comment_time" => date('Y-m-d H:i:s')
     );
 
@@ -97,14 +97,14 @@ if ($data['id'] != '') {
         $_SESSION["user_id"] = 0;
         $uid = "";
     }
-    $query211 = mysql_query("SELECT profile_display_status FROM  tbl_user_profile_settings WHERE uid='" . $data['id'] . "'");
-    $ror211 = mysql_fetch_assoc($query211);
+    $query211 = mysqli_query($link,"SELECT profile_display_status FROM  tbl_user_profile_settings WHERE uid='" . $data['id'] . "'");
+    $ror211 = mysqli_fetch_assoc($query211);
 
 
 
-    $query111 = mysql_query("SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-    $RESULT = mysql_fetch_assoc($query111);
-    $ror111 = mysql_num_rows($query111);
+    $query111 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+    $RESULT = mysqli_fetch_assoc($query111);
+    $ror111 = mysqli_num_rows($query111);
     //echo $uid;
     //if(($RESULT['id']!=$uid)||(($ror211['profile_display_status']==1)&&($uid=="")) || ($RESULT['id']==$uid)){
     if ((($ror211['profile_display_status'] == 1) && (($uid == ""))) || ($RESULT['id'] == $uid) || ($uid != "")) {
@@ -116,14 +116,14 @@ if ($data['id'] != '') {
                     $name = GetFullName($_GET['username']);
                     echo $name . " " . "is" . ' ' . "currently" . " ";
                     /* ###################GET VALUE FROM tbl_user_online############### */
-                    $SQL_ONLI = mysql_query("SELECT id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                    $SQL_RESULT = mysql_fetch_array($SQL_ONLI);
+                    $SQL_ONLI = mysqli_query($link,"SELECT id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                    $SQL_RESULT = mysqli_fetch_array($SQL_ONLI);
                     //print_r($SQL_RESULT);
                     $SQL_QUERY = "SELECT * FROM tbl_user_online WHERE uid='" . $SQL_RESULT['id'] . "'";
-                    $SQL_RESULT1 = mysql_query($SQL_QUERY);
-                    $SQL_fetch = mysql_fetch_array($SQL_RESULT1);
+                    $SQL_RESULT1 = mysqli_query($link,$SQL_QUERY);
+                    $SQL_fetch = mysqli_fetch_array($SQL_RESULT1);
                     //print_r($SQL_fetch);
-                    $SQL_ROWS = mysql_num_rows($SQL_RESULT1);
+                    $SQL_ROWS = mysqli_num_rows($SQL_RESULT1);
 
                     if ($SQL_ROWS == '') {
                         ?>
@@ -163,8 +163,8 @@ if ($data['id'] != '') {
                     <p class="msg">
                         <?php
                         if (isset($_GET['op']) AND ( $_GET['op'] == "suc")) {
-                            $query27 = mysql_query("SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                            $row27 = mysql_fetch_assoc($query27);
+                            $query27 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                            $row27 = mysqli_fetch_assoc($query27);
 
                             echo "Congratulations,Now you are connected to " . $row27['first_name'] . " " . $row27['last_name'] . "";
                         }
@@ -180,8 +180,8 @@ if ($data['id'] != '') {
                             echo "You Can Not send Request Yourself.";
                         }
                         if (isset($_GET['op']) AND ( $_GET['op'] == "ex")) {
-                            $query26 = mysql_query("SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                            $row26 = mysql_fetch_assoc($query26);
+                            $query26 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                            $row26 = mysqli_fetch_assoc($query26);
                             echo "You are already connected to " . $row26['first_name'] . " " . $row26['last_name'] . "";
                         }
                         ?>

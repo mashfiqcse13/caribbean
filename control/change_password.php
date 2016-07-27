@@ -24,8 +24,8 @@ if (isset($_POST['submit'])) {
     }
     if ($error == '') {
         /* PASSWORD CHANGE START HEAR */
-        $sql_q = mysql_query("SELECT * FROM tbl_admin_login WHERE password='" . $_POST['password'] . "' AND id=" . $_SESSION['cms_id'] . " ");
-        if (mysql_num_rows($sql_q) > 0) {
+        $sql_q = mysqli_query($link,"SELECT * FROM tbl_admin_login WHERE password='" . $_POST['password'] . "' AND id=" . $_SESSION['cms_id'] . " ");
+        if (mysqli_num_rows($sql_q) > 0) {
             $data = array("password" => $_POST['conframpassword']);
             $table = "tbl_admin_login";
             $parameters = "id='" . $_SESSION['cms_id'] . "'";
@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
         } else {
             echo"<p style=color:#FF0000;margin-left:25px;>Old Password Does Not Match Tryagain!</p>";
         }
-        $row = mysql_fetch_array($sql_q);
+        $row = mysqli_fetch_array($sql_q);
     } else {
         echo "<p style=color:#FF0000;margin-left:60px;>$error</p>";
     }

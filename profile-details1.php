@@ -9,7 +9,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'submit')) {
     $data = array(
         "profile_id" => $_POST['profile_id'],
         "commenter_id" => $_POST['talent_id'],
-        "comment_text" => mysql_real_escape_string(trim($_POST['comment_text'])),
+        "comment_text" => mysqli_real_escape_string( $link ,trim($_POST['comment_text'])),
         "comment_time" => date('Y-m-d H:i:s')
     );
 
@@ -95,8 +95,8 @@ include('_includes/header.php');
 *********************************************************-->
 
 <?php
-$query111 = mysql_query("SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-$ror111 = mysql_num_rows($query111);
+$query111 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+$ror111 = mysqli_num_rows($query111);
 if ($ror111 > 0) {
     ?>
 
@@ -109,14 +109,14 @@ if ($ror111 > 0) {
 
 
                 /* ###################GET VALUE FROM tbl_user_online############### */
-                $SQL_ONLI = mysql_query("SELECT id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                $SQL_RESULT = mysql_fetch_array($SQL_ONLI);
+                $SQL_ONLI = mysqli_query($link,"SELECT id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                $SQL_RESULT = mysqli_fetch_array($SQL_ONLI);
                 //print_r($SQL_RESULT);
                 $SQL_QUERY = "SELECT * FROM tbl_user_online WHERE uid='" . $SQL_RESULT['id'] . "'";
-                $SQL_RESULT1 = mysql_query($SQL_QUERY);
-                $SQL_fetch = mysql_fetch_array($SQL_RESULT1);
+                $SQL_RESULT1 = mysqli_query($link,$SQL_QUERY);
+                $SQL_fetch = mysqli_fetch_array($SQL_RESULT1);
                 //print_r($SQL_fetch);
-                $SQL_ROWS = mysql_num_rows($SQL_RESULT1);
+                $SQL_ROWS = mysqli_num_rows($SQL_RESULT1);
 
                 if ($SQL_ROWS == '') {
                     ?>
@@ -185,8 +185,8 @@ if ($ror111 > 0) {
                 <p class="msg">
                     <?php
                     if (isset($_GET['op']) AND ( $_GET['op'] == "suc")) {
-                        $query27 = mysql_query("SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                        $row27 = mysql_fetch_assoc($query27);
+                        $query27 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                        $row27 = mysqli_fetch_assoc($query27);
                         echo "Congratulations, You are a new fans of " . $row27['first_name'] . " " . $row27['last_name'] . "";
                     }
                     ?>
@@ -201,8 +201,8 @@ if ($ror111 > 0) {
                         echo "You Can Not send Request Yourself.";
                     }
                     if (isset($_GET['op']) AND ( $_GET['op'] == "ex")) {
-                        $query26 = mysql_query("SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                        $row26 = mysql_fetch_assoc($query26);
+                        $query26 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                        $row26 = mysqli_fetch_assoc($query26);
                         echo "You are already fans of " . $row26['first_name'] . " " . $row26['last_name'] . "";
                     }
                     ?>
@@ -217,8 +217,8 @@ if ($ror111 > 0) {
                 <div class="profile_details"><!--START DIV CLASS profile_details-->
                                 <div class="profile_details_top"><!--<img src="_images/Profile_big_img.jpg" border="0"/>-->
                         <?php
-                        $query1 = mysql_query("SELECT id,type FROM tbl_users WHERE username='" . $_GET['username'] . "'");
-                        $row = mysql_fetch_assoc($query1);
+                        $query1 = mysqli_query($link,"SELECT id,type FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                        $row = mysqli_fetch_assoc($query1);
                         //echo $row['type'];
                         $profile_id = $row['id'];
                         //echo $row['id'];
@@ -245,12 +245,12 @@ if ($ror111 > 0) {
 
                     $weq = $qry['type'];
 
-                    $query = mysql_query("SELECT p.id AS PID, u.id AS UID,u.type FROM tbl_profile_photos AS p LEFT OUTER JOIN tbl_users AS u ON u.id=p.user_id WHERE u.username='" . $_GET['username'] . "' ORDER BY p.id DESC LIMIT 3");
+                    $query = mysqli_query($link,"SELECT p.id AS PID, u.id AS UID,u.type FROM tbl_profile_photos AS p LEFT OUTER JOIN tbl_users AS u ON u.id=p.user_id WHERE u.username='" . $_GET['username'] . "' ORDER BY p.id DESC LIMIT 3");
 
-                    if ((mysql_num_rows($query) > 0) && ($weq == 1)) {
+                    if ((mysqli_num_rows($query) > 0) && ($weq == 1)) {
                         ?>
                         <?php
-                        while ($row1 = mysql_fetch_assoc($query)) {
+                        while ($row1 = mysqli_fetch_assoc($query)) {
                             ?>
 
                             <div class="profile_details_bottom"><a href="profile-images.php?id=<?php echo $row1['UID']; ?>"><img src="_uploads/profile_photo/thumb/<?php echo $row1['PID']; ?>.jpg" alt=" " width="100"/></a></div>
@@ -269,13 +269,13 @@ if ($ror111 > 0) {
 
                     <!---------------------------------------START-BIO-DIV------------------------------------------------>
                     <?php
-                    $query2 = mysql_query("SELECT b.id AS BID,b.*, u.id AS UID,u.type FROM  tbl_user_details AS b LEFT OUTER JOIN tbl_users AS u ON u.id=b.user_id 
+                    $query2 = mysqli_query($link,"SELECT b.id AS BID,b.*, u.id AS UID,u.type FROM  tbl_user_details AS b LEFT OUTER JOIN tbl_users AS u ON u.id=b.user_id 
 																							WHERE u.username='" . $_GET['username'] . "'");
-                    $weq1 = mysql_fetch_assoc($query2);
+                    $weq1 = mysqli_fetch_assoc($query2);
                     //print_r($weq1);										
-                    $row2 = mysql_fetch_assoc($query2);
+                    $row2 = mysqli_fetch_assoc($query2);
                     //print_r($row2);
-                    if ((mysql_num_rows($query2) > 0) && ($weq1['type'] == 1) && ($weq1['profile_display_status'] == 1)) {
+                    if ((mysqli_num_rows($query2) > 0) && ($weq1['type'] == 1) && ($weq1['profile_display_status'] == 1)) {
                         ?>
                         <div class="bio_div">
 
@@ -295,17 +295,17 @@ if ($ror111 > 0) {
                     <!---------------------------------------MYSTORE-DIV------------------------------------------------>
 
                     <?php
-                    $query_bookdetails = mysql_query("SELECT b.id as bookid,b.name,b.author,b.uid,u.id,u.username FROM tbl_profile_books AS b LEFT OUTER JOIN tbl_users AS u ON u.id=b.uid
+                    $query_bookdetails = mysqli_query($link,"SELECT b.id as bookid,b.name,b.author,b.uid,u.id,u.username FROM tbl_profile_books AS b LEFT OUTER JOIN tbl_users AS u ON u.id=b.uid
 																												WHERE u.username='" . $_GET['username'] . "' ORDER BY b.id DESC LIMIT 0, 2 ");
 
-                    //$row_bookdetails=mysql_fetch_assoc($query_bookdetails);	
+                    //$row_bookdetails=mysqli_fetch_assoc($query_bookdetails);	
                     //print_r($row_bookdetails);		
-                    if ((mysql_num_rows($query_bookdetails) > 0)) {
+                    if ((mysqli_num_rows($query_bookdetails) > 0)) {
                         ?>					
                         <div class="mystore">
                             <h2> My Book</h2>
                             <?php
-                            while ($row_bookdetailsl = mysql_fetch_assoc($query_bookdetails)) {
+                            while ($row_bookdetailsl = mysqli_fetch_assoc($query_bookdetails)) {
                                 ?>
                                 <div class="store_detail">
                                     <div class="store_detail_left"> <a href="view_book.php?id=<?php echo $profile_id; ?>"><img src="_uploads/profile_book_photo/thumb/<?php echo $row_bookdetailsl['bookid']; ?>.jpg" width="100" /></a></div>
@@ -354,12 +354,12 @@ if ($ror111 > 0) {
 
             <div class="profile_page_contnt_middle"><!--START DIV CLASS profile_page_contnt_middle-->
                 <?php
-                $query3 = mysql_query("SELECT tbl_users.*, tbl_profile_music.*,tbl_profile_music.id AS music_id FROM tbl_users LEFT OUTER JOIN 
+                $query3 = mysqli_query($link,"SELECT tbl_users.*, tbl_profile_music.*,tbl_profile_music.id AS music_id FROM tbl_users LEFT OUTER JOIN 
 																						tbl_profile_music ON tbl_users.id=tbl_profile_music.user_id WHERE username ='" . $_GET['username'] . "' AND tbl_profile_music.status='1'  
 																						ORDER BY tbl_profile_music.id DESC LIMIT 0, 4 ");
-                //$de=mysql_fetch_assoc($query3);
+                //$de=mysqli_fetch_assoc($query3);
                 // print_r($de);
-                $numrows = mysql_num_rows($query3);
+                $numrows = mysqli_num_rows($query3);
                 if ($numrows > 0) {
                     ?>
 
@@ -373,7 +373,7 @@ if ($ror111 > 0) {
                         <h2>Music</h2>
                         <ul>
                             <?php
-                            while ($row3 = mysql_fetch_assoc($query3)) {
+                            while ($row3 = mysqli_fetch_assoc($query3)) {
                                 ?>	
                                 <li>
 
@@ -406,7 +406,7 @@ if ($ror111 > 0) {
 
                 <!---------------------------------------START-BIO-DIV------------------------------------------------>
                 <?php
-                if ((mysql_num_rows($query2) > 0) && ($weq1['type'] == 0) && ($weq1['profile_display_status'] == 1)) {
+                if ((mysqli_num_rows($query2) > 0) && ($weq1['type'] == 0) && ($weq1['profile_display_status'] == 1)) {
                     ?>
                     <div style="margin-top:-5px;" class="bio_div">
 
@@ -463,10 +463,10 @@ if ($ror111 > 0) {
 
                 <?php
                 if (isset($_SESSION['talent_id'])) {
-                    $mysql = mysql_query("SELECT type FROM tbl_users WHERE id='" . $_SESSION['talent_id'] . "' ");
-                    $rest = mysql_fetch_assoc($mysql);
-                    $mysql1 = mysql_query("SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "' ");
-                    $rest1 = mysql_fetch_assoc($mysql1);
+                    $mysql = mysqli_query($link,"SELECT type FROM tbl_users WHERE id='" . $_SESSION['talent_id'] . "' ");
+                    $rest = mysqli_fetch_assoc($mysql);
+                    $mysql1 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "' ");
+                    $rest1 = mysqli_fetch_assoc($mysql1);
 
                     if ($rest['type'] == $rest1['type']) {
                         ?>
@@ -480,10 +480,10 @@ if ($ror111 > 0) {
                 /*                 * All fans Here* */
 
                 $result5 = "SELECT * FROM  tbl_fans WHERE fan_id='" . $data['id'] . "' ORDER BY tbl_fans.id DESC";
-                $sql5 = mysql_query($result5);
-                $number = mysql_num_rows($sql5);
+                $sql5 = mysqli_query($link,$result5);
+                $number = mysqli_num_rows($sql5);
                 //echo $number;
-                //$data5=mysql_fetch_assoc($sql5);
+                //$data5=mysqli_fetch_assoc($sql5);
                 //print_r($data5);
 
                 if ($number <> 0) {
@@ -500,9 +500,9 @@ if ($ror111 > 0) {
                         <h2>Fans</h2>
                         <ul>
                             <?php
-                            while ($data5 = mysql_fetch_assoc($sql5)) {
-                                $result6 = mysql_query("SELECT username FROM  tbl_users WHERE id=" . $data5["profile_id"] . "");
-                                $sql6 = mysql_fetch_assoc($result6);
+                            while ($data5 = mysqli_fetch_assoc($sql5)) {
+                                $result6 = mysqli_query($link,"SELECT username FROM  tbl_users WHERE id=" . $data5["profile_id"] . "");
+                                $sql6 = mysqli_fetch_assoc($result6);
                                 //print_r($sql6);
                                 ?>
                                 <li><a href="profile-details.php?username=<?php echo $sql6['username'] ?>"><img src="_uploads/user_photo/<?php echo $data5["profile_id"] ?>.jpg" style="width:60px; height:45px;"/></a></li>
@@ -521,17 +521,17 @@ if ($ror111 > 0) {
                 $query_product = "SELECT tbl_users.*, tbl_products.*,tbl_products.id AS p_id FROM tbl_users LEFT OUTER JOIN 
 																						tbl_products ON tbl_users.id=tbl_products.uid WHERE username ='" . $_GET['username'] . "' AND tbl_products.status='1'  
 																						ORDER BY tbl_products.id DESC LIMIT 0, 2 ";
-                $query_product_ro = mysql_query($query_product);
-                $query_product_ro_2 = mysql_query($query_product);
-                $row_product1 = mysql_fetch_assoc($query_product_ro_2);
+                $query_product_ro = mysqli_query($link,$query_product);
+                $query_product_ro_2 = mysqli_query($link,$query_product);
+                $row_product1 = mysqli_fetch_assoc($query_product_ro_2);
                 //print_r($row_product);
 
-                if ((mysql_num_rows($query_product_ro) > 0)) {
+                if ((mysqli_num_rows($query_product_ro) > 0)) {
                     ?>			
                     <div class="mystore">
                         <h2>Products</h2>
                         <?php
-                        while ($row_product = mysql_fetch_assoc($query_product_ro)) {
+                        while ($row_product = mysqli_fetch_assoc($query_product_ro)) {
                             ?>
                             <div class="store_detail">
                                 <div class="store_detail_left"> 
@@ -563,16 +563,16 @@ if ($ror111 > 0) {
 
                 <?php
                 $cur_date = date('Y-m-d');
-                $query_event = mysql_query("SELECT p.*, u.id AS UID FROM tbl_profile_events AS p LEFT OUTER JOIN tbl_users AS u ON u.id=p.uid WHERE u.username='" . $_GET['username'] . "' AND p.event_date >= '" . $cur_date . "' ORDER BY p.id DESC LIMIT 3");
+                $query_event = mysqli_query($link,"SELECT p.*, u.id AS UID FROM tbl_profile_events AS p LEFT OUTER JOIN tbl_users AS u ON u.id=p.uid WHERE u.username='" . $_GET['username'] . "' AND p.event_date >= '" . $cur_date . "' ORDER BY p.id DESC LIMIT 3");
                 ?>
                 <?php
-                if (mysql_num_rows($query_event) > 0) {
+                if (mysqli_num_rows($query_event) > 0) {
                     ?>
                     <div class="eventandshows_div"><!--START DIV CLASS eventandshows_div-->
                         <h2 class="txt_1">events and shows</h2>
 
                         <?php
-                        while ($rows_event = mysql_fetch_assoc($query_event)) {
+                        while ($rows_event = mysqli_fetch_assoc($query_event)) {
                             ?>
 
                             <div class="event_detail"><a href="all_events_shows.php?id=<?php echo $rows_event['UID']; ?>"><!--START DIV CLASS event_detail-->
@@ -619,16 +619,16 @@ if ($ror111 > 0) {
             <!---------------------------------------START-CONTENT-RIGHT-DIV------------------------------------------------>
             <div class="profile_page_contnt_right">
                 <?php
-                $query4 = mysql_query("SELECT tbl_users.*,  tbl_profile_videos.*,tbl_profile_videos.id AS video_id FROM tbl_users LEFT OUTER JOIN 
+                $query4 = mysqli_query($link,"SELECT tbl_users.*,  tbl_profile_videos.*,tbl_profile_videos.id AS video_id FROM tbl_users LEFT OUTER JOIN 
                                          tbl_profile_videos ON tbl_users.id= tbl_profile_videos.user_id WHERE username ='" . $_GET['username'] . "' AND tbl_profile_videos.status='1'  ORDER BY tbl_profile_videos.id DESC LIMIT 1");
-                $number = mysql_num_rows($query4);
+                $number = mysqli_num_rows($query4);
                 if ($number > 0) {
                     ?>
                     <!--------START-VIDEO-DIV----------->
                     <div class="video_div">
                         <h2>Video</h2>
                         <?php
-                        while ($row4 = mysql_fetch_assoc($query4)) {
+                        while ($row4 = mysqli_fetch_assoc($query4)) {
                             ?>
                             <a id="video" <?php if ($row4["video_type"] == 1) { ?>href="talents/video_play.php?filename=_uploads/profile_video/<?php echo $row4["video_id"]; ?>.mp4" <?php } else {
                                 ?> href="talents/video_play.php?id=<?php echo $row4["video_id"];
@@ -650,15 +650,15 @@ if ($ror111 > 0) {
                 <!--------END-VIDEO-DIV----------->
                 <!------------------------------member all photo hear--------------------->
                 <?php
-                //$query=mysql_query("SELECT p.id AS PID, u.id AS UID,u.type FROM tbl_profile_photos AS p LEFT OUTER JOIN tbl_users AS u ON u.id=p.user_id WHERE u.username='".$_GET['username']."' ORDER BY p.id DESC LIMIT 3");
-                //$weq=mysql_fetch_assoc($query);
+                //$query=mysqli_query($link,"SELECT p.id AS PID, u.id AS UID,u.type FROM tbl_profile_photos AS p LEFT OUTER JOIN tbl_users AS u ON u.id=p.user_id WHERE u.username='".$_GET['username']."' ORDER BY p.id DESC LIMIT 3");
+                //$weq=mysqli_fetch_assoc($query);
                 //print_r($weq);
                 ?>
                 <?php
-                if ((mysql_num_rows($query) > 0) && ($weq['type'] == 0)) {
+                if ((mysqli_num_rows($query) > 0) && ($weq['type'] == 0)) {
                     ?>
                     <?php
-                    while ($row1 = mysql_fetch_assoc($query)) {
+                    while ($row1 = mysqli_fetch_assoc($query)) {
                         ?>
 
                         <div class="profile_details_bottom"><a href="profile-images.php?id=<?php echo $row1['UID']; ?>"><img src="_uploads/profile_photo/thumb/<?php echo $row1['PID']; ?>.jpg" alt=" " width="100"/></a></div>
@@ -678,7 +678,7 @@ if ($ror111 > 0) {
 
 
                 <?php
-                $query_comment = mysql_query("SELECT c.id AS CID,c.profile_id,c.comment_text,c.commenter_id, u.id AS UID,u.first_name,u.last_name FROM  tbl_profile_comments AS c 
+                $query_comment = mysqli_query($link,"SELECT c.id AS CID,c.profile_id,c.comment_text,c.commenter_id, u.id AS UID,u.first_name,u.last_name FROM  tbl_profile_comments AS c 
 																									LEFT OUTER JOIN
 																									tbl_users AS u ON u.id=c.profile_id WHERE u.username='" . $_GET['username'] . "' ORDER BY c.id DESC LIMIT 2");
                 ?>
@@ -686,13 +686,13 @@ if ($ror111 > 0) {
                 <div class="comment_div"><!--START DIV comment_div-->
                     <h2>Comments</h2>	
                     <?php
-                    if (mysql_num_rows($query_comment) > 0) {
+                    if (mysqli_num_rows($query_comment) > 0) {
                         ?>
 
                         <?php
-                        while ($row_comment = mysql_fetch_assoc($query_comment)) {
-                            $query_username = mysql_query("SELECT username FROM tbl_users WHERE id='" . $row_comment['commenter_id'] . "' ");
-                            $rows_username = mysql_fetch_assoc($query_username);
+                        while ($row_comment = mysqli_fetch_assoc($query_comment)) {
+                            $query_username = mysqli_query($link,"SELECT username FROM tbl_users WHERE id='" . $row_comment['commenter_id'] . "' ");
+                            $rows_username = mysqli_fetch_assoc($query_username);
                             ?>
 
                             <ul>

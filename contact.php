@@ -223,7 +223,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                                                 '" . date("h:i:s A") . "',
                                                 '" . (date("Y-m-d h:i:s A")) . "');";
 
-                mysql_query($Query);
+                mysqli_query($link,$Query);
                 //echo '<div id="formfeedback"><h3>Thank You!</h3><p>'. $thanksmessage .'</p></div>';
             } // end of if !mail
         } else { //report the errors

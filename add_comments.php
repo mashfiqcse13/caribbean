@@ -15,7 +15,7 @@ if ($_POST['ajax'] == 1) {
     $data = array(
         "profile_id" => $_POST['profile_id'],
         "commenter_id" => $uid,
-        "comment_text" => mysql_real_escape_string(trim($_POST['comment_text'])),
+        "comment_text" => mysqli_real_escape_string( $link ,trim($_POST['comment_text'])),
     );
     $table = "tbl_profile_comments";
     insertData($data, $table);
@@ -32,7 +32,7 @@ if ($_POST['ajax'] == 1) {
         $data = array(
             "profile_id" => $_POST['profile_id'],
             "commenter_id" => $_POST['commenter_id'],
-            "comment_text" => mysql_real_escape_string(trim($_POST['comment_text'])),
+            "comment_text" => mysqli_real_escape_string( $link ,trim($_POST['comment_text'])),
         );
         $table = "tbl_profile_comments";
         insertData($data, $table);
@@ -117,8 +117,8 @@ if ($_POST['ajax'] == 1) {
               } */
             ?>
             <?php
-            $query = mysql_query("SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'");
-            $data = mysql_fetch_array($query);
+            $query = mysqli_query($link,"SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'");
+            $data = mysqli_fetch_array($query);
             ?>
             <form action="<?php $_SERVER['PHP_SELF']; ?>" method="post" id="comment">											
                 <p><label for="comment_text">Add Comments:</label>

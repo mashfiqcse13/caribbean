@@ -7,12 +7,12 @@ if (isset($_GET['id'])) {
 
     if ($data['video_type'] == 0) {
         $sql = "delete from tbl_profile_videos where id='" . $_GET['id'] . "'";
-        mysql_query($sql);
+        mysqli_query($link,$sql);
         unlink("../_uploads/video_photo/" . $_GET['id'] . ".jpg");
         $MSG = "Video Record Deleted Sucessfully.";
     } else {
         $sql = "delete from tbl_profile_videos where id='" . $_GET['id'] . "'";
-        mysql_query($sql);
+        mysqli_query($link,$sql);
         unlink("../_uploads/profile_video/" . $_GET['id'] . ".mp4");
         unlink("../_uploads/video_photo/" . $_GET['id'] . ".jpg");
         $MSG = "Video Record Deleted Sucessfully.";
@@ -74,9 +74,9 @@ include('../_includes/header.php');
     <!--/////USER VIDEO UPLOAD HEAR/////-->
     <?php
     //DATABASE QUERY
-    $result = mysql_query("SELECT * FROM  tbl_profile_videos WHERE 	user_id='" . $_SESSION['talent_id'] . "'  order by id ");
-    $number = mysql_num_rows($result);
-    //$data=mysql_fetch_assoc($result);
+    $result = mysqli_query($link,"SELECT * FROM  tbl_profile_videos WHERE 	user_id='" . $_SESSION['talent_id'] . "'  order by id ");
+    $number = mysqli_num_rows($result);
+    //$data=mysqli_fetch_assoc($result);
     // print_r($data);
     ?>
     <table cellpadding="0" cellspacing="0" class="TabUIRecords" width="100%">
@@ -99,7 +99,7 @@ include('../_includes/header.php');
             <tbody>
                 <?php
             }
-            while ($row = mysql_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                 <tr>
                     <td width="8%">

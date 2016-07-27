@@ -3,7 +3,7 @@ include('../_includes/application-top.php');
 ChecknontalentLogin();
 include('../_includes/header.php');
 if (empty($_SESSION['user_id'])) {
-    $user_id = mysql_real_escape_string($_REQUEST['id']);
+    $user_id = mysqli_real_escape_string( $link ,$_REQUEST['id']);
     $_SESSION['user_id'] = $user_id;
 }
 $data = getAnyTableWhereData("tbl_users", "AND id=" . $_SESSION['user_id'] . " ");

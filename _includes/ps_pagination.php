@@ -36,7 +36,7 @@ class PS_Pagination {
      * @param integer $links_per_page Number of links to display per page. Defaults to 5
      * @param string $append Parameters to be appended to pagination links 
      */
-    function PS_Pagination($connection, $sql, $rows_per_page = 10, $links_per_page = 5, $append = "") {
+    function __construct($connection, $sql, $rows_per_page = 10, $links_per_page = 5, $append = "") {
         $this->conn = $connection;
         $this->sql = $sql;
         $this->rows_per_page = (int) $rows_per_page;
@@ -60,7 +60,7 @@ class PS_Pagination {
      */
     function paginate() {
         //Check for valid mysql connection
-        if (!$this->conn || !is_resource($this->conn)) {
+        if ($this->conn == FALSE) {
             if ($this->debug)
                 echo "MySQL connection missing<br />";
             return false;
@@ -68,14 +68,13 @@ class PS_Pagination {
 
         //Find total number of rows
 
-        $all_rs = @mysql_query($this->sql);
+        $all_rs = mysqli_query($this->conn, $this->sql);
         if (!$all_rs) {
             if ($this->debug)
-                echo "SQL query failed. Check your query.<br /><br />Error Returned: " . mysql_error();
+                echo "SQL query failed. Check your query.<br /><br />Error Returned: " . mysqli_error ( $this->conn );
             return false;
         }
-        $this->total_rows = mysql_num_rows($all_rs);
-        @mysql_close($all_rs);
+        $this->total_rows = mysqli_num_rows($all_rs);
         //echo $this->total_rows;
         //Return FALSE if no rows found
 
@@ -105,10 +104,10 @@ class PS_Pagination {
 
         //Fetch the required result set
         //echo $this->sql;
-        $rs = @mysql_query($this->sql . " LIMIT {$this->offset}, {$this->rows_per_page}");
+        $rs = mysqli_query($this->conn, $this->sql . " LIMIT {$this->offset}, {$this->rows_per_page}");
         if (!$rs) {
             if ($this->debug)
-                echo "Pagination query failed. Check your query.<br /><br />Error Returned: " . mysql_error();
+                echo "Pagination query failed. Check your query.<br /><br />Error Returned: " . mysqli_error ( $this->conn );
             return false;
         }
         return $rs;

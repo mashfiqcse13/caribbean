@@ -1,17 +1,17 @@
 <?php
-$query_activity = mysql_query("SELECT ac.id AS ACID,ac.user_id,ac.activity,ac.activity_time, u.id AS UID,u.first_name,u.last_name FROM  tbl_user_activity AS ac LEFT OUTER JOIN tbl_users AS u ON u.id=ac.user_id WHERE u.username='" . $_GET['username'] . "' ORDER BY ac.id DESC LIMIT 6");
+$query_activity = mysqli_query($link,"SELECT ac.id AS ACID,ac.user_id,ac.activity,ac.activity_time, u.id AS UID,u.first_name,u.last_name FROM  tbl_user_activity AS ac LEFT OUTER JOIN tbl_users AS u ON u.id=ac.user_id WHERE u.username='" . $_GET['username'] . "' ORDER BY ac.id DESC LIMIT 6");
 ?>
 
 <div class="div_activity"><!--START DIV comment_div-->
     <h2 style="margin-bottom:10px;">activity</h2>	
     <?php
-    if (mysql_num_rows($query_activity) > 0) {
+    if (mysqli_num_rows($query_activity) > 0) {
         ?>
         <ul>	
             <?php
-            while ($row_activity = mysql_fetch_assoc($query_activity)) {
-                //$query_username=mysql_query("SELECT username FROM tbl_users WHERE id='".$row_comment['commenter_id']."' ");
-                //$rows_username=mysql_fetch_assoc($query_username);
+            while ($row_activity = mysqli_fetch_assoc($query_activity)) {
+                //$query_username=mysqli_query($link,"SELECT username FROM tbl_users WHERE id='".$row_comment['commenter_id']."' ");
+                //$rows_username=mysqli_fetch_assoc($query_username);
                 ?>
                 <li>
                     <h3><?php echo $row_activity['activity']; ?></h3>

@@ -1,7 +1,7 @@
 <?php
 include('_includes/application-top.php');
-$query = mysql_query("SELECT * FROM  tbl_products WHERE id='" . $_GET['id'] . "' ORDER BY tbl_products.id DESC");
-$row = mysql_fetch_assoc($query);
+$query = mysqli_query($link,"SELECT * FROM  tbl_products WHERE id='" . $_GET['id'] . "' ORDER BY tbl_products.id DESC");
+$row = mysqli_fetch_assoc($query);
 include('_includes/header.php');
 ?>
 

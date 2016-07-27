@@ -2,8 +2,8 @@
 include('../_includes/application-top.php');
 ChecktalentLogin();
 /* chacking for payment delails */
-$sql = mysql_query("SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
-$payment_details = mysql_num_rows($sql);
+$sql = mysqli_query($link,"SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
+$payment_details = mysqli_num_rows($sql);
 
 
 if ($payment_details > 0) {
@@ -30,9 +30,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Book')) {
 
             $data = array(
                 "uid" => $_SESSION["talent_id"],
-                "name" => mysql_real_escape_string(trim($_POST['name'])),
-                "author" => mysql_real_escape_string(trim($_POST['author'])),
-                "book_details" => mysql_real_escape_string(trim($_POST['book_details'])),
+                "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
+                "author" => mysqli_real_escape_string( $link ,trim($_POST['author'])),
+                "book_details" => mysqli_real_escape_string( $link ,trim($_POST['book_details'])),
                 "status" => '1'
             );
             $table = "tbl_profile_books";
@@ -44,11 +44,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Book')) {
             $data1 = array(
                 "uid" => $_SESSION['talent_id'],
                 "ref_id" => $img_id,
-                "product_name" => mysql_real_escape_string(trim($_POST['name'])),
-                "product_details" => mysql_real_escape_string(trim($_POST['book_details'])),
-                "product_price" => mysql_real_escape_string(trim($_POST['product_price'])),
-                "shipping" => mysql_real_escape_string(trim($_POST['shipping'])),
-                "p_shipping" => mysql_real_escape_string(trim($_POST['p_shipping'])),
+                "product_name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
+                "product_details" => mysqli_real_escape_string( $link ,trim($_POST['book_details'])),
+                "product_price" => mysqli_real_escape_string( $link ,trim($_POST['product_price'])),
+                "shipping" => mysqli_real_escape_string( $link ,trim($_POST['shipping'])),
+                "p_shipping" => mysqli_real_escape_string( $link ,trim($_POST['p_shipping'])),
                 "content_type" => '4',
                 "status" => '1'
             );
@@ -87,7 +87,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Book')) {
             /* Added Activity Below */
 
             $uname = (GetChatUserName($_SESSION["talent_id"]));
-            SaveActivity(5, $uname, mysql_real_escape_string(trim($_POST['name'])), $_SESSION["talent_id"]);
+            SaveActivity(5, $uname, mysqli_real_escape_string( $link ,trim($_POST['name'])), $_SESSION["talent_id"]);
 
             //////////////////////////////////////////////////
 
@@ -107,9 +107,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Book')) {
 
             $data = array(
                 "uid" => $_SESSION["talent_id"],
-                "name" => mysql_real_escape_string(trim($_POST['name'])),
-                "author" => mysql_real_escape_string(trim($_POST['author'])),
-                "book_details" => mysql_real_escape_string(trim($_POST['book_details'])),
+                "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
+                "author" => mysqli_real_escape_string( $link ,trim($_POST['author'])),
+                "book_details" => mysqli_real_escape_string( $link ,trim($_POST['book_details'])),
                 "status" => '1'
             );
             $table = "tbl_profile_books";
@@ -135,7 +135,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Book')) {
             /* Added Activity Below */
 
             $uname = (GetChatUserName($_SESSION["talent_id"]));
-            SaveActivity(5, $uname, mysql_real_escape_string(trim($_POST['name'])), $_SESSION["talent_id"]);
+            SaveActivity(5, $uname, mysqli_real_escape_string( $link ,trim($_POST['name'])), $_SESSION["talent_id"]);
 
             //////////////////////////////////////////////////
 

@@ -7,7 +7,7 @@ $_SESSION['talent_login']=1;
 if(strtolower($_SESSION['is_admin']) == "yes"){
 	if($_REQUEST['id'] != "")
 	{
-     $user_id                    =   mysql_real_escape_string($_REQUEST['id']);
+     $user_id                    =   mysqli_real_escape_string( $link ,$_REQUEST['id']);
 	  $_SESSION['talent_id']      =   $user_id;
 	}
 }
@@ -23,21 +23,21 @@ if(!empty($lid)){
 	$table="tbl_user_details";
 	insertData($data,$table);
 	/* Added Activity Below */
-	SaveActivity(14,mysql_real_escape_string(trim($_POST['username'])),'',$lid);
+	SaveActivity(14,mysqli_real_escape_string( $link ,trim($_POST['username'])),'',$lid);
 	//////////////////////////////////////////////////
 }
 
 ChecktalentLogin();
 function talent($id){
 	$sql="SELECT * FROM tbl_talents WHERE status=1 AND id='".$id."'";
-	$result=mysql_query($sql);
-	$data=mysql_fetch_assoc($result);
+	$result=mysqli_query($link,$sql);
+	$data=mysqli_fetch_assoc($result);
 	return $data['talent'];
 }
 //echo $_SESSION['talent_id'];
 $result="SELECT * FROM tbl_users WHERE id='".$_SESSION['talent_id']."'";
-$sql=mysql_query($result);
-$data=mysql_fetch_assoc($sql);
+$sql=mysqli_query($link,$result);
+$data=mysqli_fetch_assoc($sql);
 //print_r($data);
 include('../_includes/header.php');
 
@@ -103,8 +103,8 @@ include('../_includes/header.php');
 					}
 
 					$query = "SELECT * FROM tbl_msg WHERE to_id='".$uid."' AND view_status='0'";
-					$query_row = mysql_query($query);													
-					$rows = mysql_num_rows($query_row);
+					$query_row = mysqli_query($link,$query);													
+					$rows = mysqli_num_rows($query_row);
 					?>
                     <li><a href="message.php">Message&nbsp;<?php echo "(".$rows.")"; ?></a></li>	
                     <li><a href="../profile-details.php?username=<?php echo $data['username'];?>">View Public Profile</a></li>

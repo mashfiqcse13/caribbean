@@ -9,7 +9,7 @@ include('../_includes/class.Profile_pic.php');
 $Profile_photo = new Profile_photo($_SESSION["talent_id"], "talent");
 if (isset($_GET['img_reset'])) {
     $sql = "UPDATE `tbl_contact` SET `file_attached` = '$file_attached_updated' WHERE `id` = '{$_POST['photoid']}'";
-    $result = mysql_query($sql);
+    $result = mysqli_query($link,$sql);
 }
 if (isset($_POST['submit'])) {
     $Profile_photo->crop($_POST['photoid'], json_encode($_POST['crop']));

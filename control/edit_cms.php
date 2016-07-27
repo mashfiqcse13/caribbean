@@ -21,14 +21,14 @@ if (isset($_POST["update"])) {
 
 
 <?php
-$result = mysql_query("SELECT * FROM tbl_cms WHERE id='" . $_GET['id'] . "' ");
+$result = mysqli_query($link,"SELECT * FROM tbl_cms WHERE id='" . $_GET['id'] . "' ");
 if (!$result) {
-    die("database query faild:" . mysql_query());
+    die("database query faild:" . mysqli_error($link));
 }
 ?>
 
 <?php
-while ($row = mysql_fetch_array($result)) {
+while ($row = mysqli_fetch_array($result)) {
     ?>
     <?php /* ?><div id="cms_heading"></div><?php */ ?>
     <div id="cms">

@@ -8,8 +8,8 @@ function show_music($music_id) {
       </audio>';
     return $output;
 }
-$query = mysql_query("SELECT * FROM tbl_profile_music WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_music.status='1' ORDER BY tbl_profile_music.id DESC");
-//$treu=mysql_fetch_assoc($query);
+$query = mysqli_query($link,"SELECT * FROM tbl_profile_music WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_music.status='1' ORDER BY tbl_profile_music.id DESC");
+//$treu=mysqli_fetch_assoc($query);
 //print_r($treu);
 
 
@@ -24,8 +24,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
     }
 
     if ($uid != "") {
-        $sql = mysql_query("SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='1'");
-        $producrt = mysql_fetch_assoc($sql);
+        $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='1'");
+        $producrt = mysqli_fetch_assoc($sql);
         //print_r($producrt);
 
         $data = array(
@@ -38,8 +38,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
         );
         $table = "tbl_shopping_cart";
 
-        $sql = mysql_query("SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
-        $num_row = mysql_num_rows($sql);
+        $sql = mysqli_query($link,"SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
+        $num_row = mysqli_num_rows($sql);
 
         if ($num_row == 0) {
             insertData($data, $table);
@@ -107,10 +107,10 @@ include('_includes/header.php');
             <th style="width: 28%;">Description</th>
         </tr>
         <?php
-        while ($row = mysql_fetch_array($query)) {
-            $sql13 = mysql_query("SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type='1' ");
-            $res13 = mysql_fetch_assoc($sql13);
-            $row13 = mysql_num_rows($sql13);
+        while ($row = mysqli_fetch_array($query)) {
+            $sql13 = mysqli_query($link,"SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type='1' ");
+            $res13 = mysqli_fetch_assoc($sql13);
+            $row13 = mysqli_num_rows($sql13);
 
             if ($res13['id'] != '') {
                 $pid13 = $res13['id'];

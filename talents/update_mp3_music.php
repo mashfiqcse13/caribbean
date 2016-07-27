@@ -3,8 +3,8 @@ include('../_includes/application-top.php');
 ChecktalentLogin();
 
 /* chacking for payment delails */
-$sql12 = mysql_query("SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
-$payment_details = mysql_num_rows($sql12);
+$sql12 = mysqli_query($link,"SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
+$payment_details = mysqli_num_rows($sql12);
 
 if ($payment_details > 0) {
     $pdetails = "1";
@@ -13,15 +13,15 @@ if ($payment_details > 0) {
 }
 
 
-$sql = mysql_query("SELECT p.id AS PID, p.ref_id AS REFID, p.product_price,p.id AS produc_id, m.id AS MID, m.music_title, m.music_details, m.status FROM tbl_products AS p LEFT OUTER JOIN tbl_profile_music AS m ON m.id=p.ref_id WHERE m.id=" . $_GET['id'] . " AND user_id=" . $_SESSION['talent_id'] . " AND p.content_type='1' ");
+$sql = mysqli_query($link,"SELECT p.id AS PID, p.ref_id AS REFID, p.product_price,p.id AS produc_id, m.id AS MID, m.music_title, m.music_details, m.status FROM tbl_products AS p LEFT OUTER JOIN tbl_profile_music AS m ON m.id=p.ref_id WHERE m.id=" . $_GET['id'] . " AND user_id=" . $_SESSION['talent_id'] . " AND p.content_type='1' ");
 
-if (mysql_num_rows($sql) > 0) {
-    $result = mysql_fetch_assoc($sql);
+if (mysqli_num_rows($sql) > 0) {
+    $result = mysqli_fetch_assoc($sql);
     $prd_id = $result['PID'];
     $product_price = $result['product_price'];
 } else {
-    $sql1 = mysql_query("SELECT m.id AS MID, m.music_title, m.music_details, m.status FROM  tbl_profile_music AS m WHERE id=" . $_GET['id'] . " AND user_id=" . $_SESSION['talent_id'] . " order by id ");
-    $result = mysql_fetch_assoc($sql1);
+    $sql1 = mysqli_query($link,"SELECT m.id AS MID, m.music_title, m.music_details, m.status FROM  tbl_profile_music AS m WHERE id=" . $_GET['id'] . " AND user_id=" . $_SESSION['talent_id'] . " order by id ");
+    $result = mysqli_fetch_assoc($sql1);
     $prd_id = 0;
     $product_price = "0.00";
 }
@@ -35,11 +35,11 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Music')) {
             $sql = "DELETE " .
                     "FROM tbl_products " .
                     "WHERE 1=1 AND id=" . $prd_id . " ";
-            $result = mysql_query($sql) or die(mysql_error());
+            $result = mysqli_query($link,$sql) or die(mysql_error());
 
             $data = array(
-                "music_title" => mysql_real_escape_string(trim($music_titl)),
-                "music_details" => mysql_real_escape_string(trim($music_details)),
+                "music_title" => mysqli_real_escape_string( $link ,trim($music_titl)),
+                "music_details" => mysqli_real_escape_string( $link ,trim($music_details)),
                 "status" => $_POST['status'],
             );
             $table = "tbl_profile_music";
@@ -51,8 +51,8 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Music')) {
         if ($prd_id != 0) {
 
             $data = array(
-                "music_title" => mysql_real_escape_string(trim($music_titl)),
-                "music_details" => mysql_real_escape_string(trim($music_details)),
+                "music_title" => mysqli_real_escape_string( $link ,trim($music_titl)),
+                "music_details" => mysqli_real_escape_string( $link ,trim($music_details)),
                 "status" => $_POST['status'],
             );
             $table = "tbl_profile_music";
@@ -62,9 +62,9 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Music')) {
             $data1 = array(
                 "uid" => $_SESSION['talent_id'],
                 "ref_id" => $mid,
-                "product_name" => mysql_real_escape_string(trim($music_titl)),
-                "product_details" => mysql_real_escape_string(trim($music_details)),
-                "product_price" => mysql_real_escape_string(trim($product_price)),
+                "product_name" => mysqli_real_escape_string( $link ,trim($music_titl)),
+                "product_details" => mysqli_real_escape_string( $link ,trim($music_details)),
+                "product_price" => mysqli_real_escape_string( $link ,trim($product_price)),
                 "content_type" => '1',
                 "status" => '1'
             );
@@ -74,8 +74,8 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Music')) {
         } else {
 
             $data = array(
-                "music_title" => mysql_real_escape_string(trim($music_titl)),
-                "music_details" => mysql_real_escape_string(trim($music_details)),
+                "music_title" => mysqli_real_escape_string( $link ,trim($music_titl)),
+                "music_details" => mysqli_real_escape_string( $link ,trim($music_details)),
                 "status" => $_POST['status'],
             );
             $table = "tbl_profile_music";
@@ -85,9 +85,9 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Music')) {
             $data1 = array(
                 "uid" => $_SESSION['talent_id'],
                 "ref_id" => $mid,
-                "product_name" => mysql_real_escape_string(trim($music_titl)),
-                "product_details" => mysql_real_escape_string(trim($music_details)),
-                "product_price" => mysql_real_escape_string(trim($product_price)),
+                "product_name" => mysqli_real_escape_string( $link ,trim($music_titl)),
+                "product_details" => mysqli_real_escape_string( $link ,trim($music_details)),
+                "product_price" => mysqli_real_escape_string( $link ,trim($product_price)),
                 "content_type" => '1',
                 "status" => '1'
             );

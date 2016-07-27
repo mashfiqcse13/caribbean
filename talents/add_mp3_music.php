@@ -3,8 +3,8 @@ include('../_includes/application-top.php');
 ChecktalentLogin();
 
 /* chacking for payment delails */
-$sql = mysql_query("SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
-$payment_details = mysql_num_rows($sql);
+$sql = mysqli_query($link,"SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
+$payment_details = mysqli_num_rows($sql);
 
 
 if ($payment_details > 0) {
@@ -35,8 +35,8 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
 
             $data = array(
                 "user_id" => $_SESSION['talent_id'],
-                "music_title" => mysql_real_escape_string(trim($_POST['music_titl'])),
-                "music_details" => mysql_real_escape_string(trim($_POST['music_details'])),
+                "music_title" => mysqli_real_escape_string( $link ,trim($_POST['music_titl'])),
+                "music_details" => mysqli_real_escape_string( $link ,trim($_POST['music_details'])),
                 "status" => '1'
             );
             $table = "tbl_profile_music";
@@ -46,9 +46,9 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
             $data1 = array(
                 "uid" => $_SESSION['talent_id'],
                 "ref_id" => $lid,
-                "product_name" => mysql_real_escape_string(trim($_POST['music_titl'])),
-                "product_details" => mysql_real_escape_string(trim($_POST['music_details'])),
-                "product_price" => mysql_real_escape_string(trim($_POST['product_price'])),
+                "product_name" => mysqli_real_escape_string( $link ,trim($_POST['music_titl'])),
+                "product_details" => mysqli_real_escape_string( $link ,trim($_POST['music_details'])),
+                "product_price" => mysqli_real_escape_string( $link ,trim($_POST['product_price'])),
                 "content_type" => '1',
                 "status" => '1'
             );
@@ -70,7 +70,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
             /* Added Activity Below */
 
             $uname = (GetChatUserName($_SESSION["talent_id"]));
-            SaveActivity(3, $uname, mysql_real_escape_string(trim($_POST['music_titl'])), $_SESSION["talent_id"]);
+            SaveActivity(3, $uname, mysqli_real_escape_string( $link ,trim($_POST['music_titl'])), $_SESSION["talent_id"]);
 
             //////////////////////////////////////////////////
 
@@ -91,8 +91,8 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
 
             $data = array(
                 "user_id" => $_SESSION['talent_id'],
-                "music_title" => mysql_real_escape_string(trim($_POST['music_titl'])),
-                "music_details" => mysql_real_escape_string(trim($_POST['music_details'])),
+                "music_title" => mysqli_real_escape_string( $link ,trim($_POST['music_titl'])),
+                "music_details" => mysqli_real_escape_string( $link ,trim($_POST['music_details'])),
                 "status" => '1'
             );
             $table = "tbl_profile_music";
@@ -118,7 +118,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
             /* Added Activity Below */
 
             $uname = (GetChatUserName($_SESSION["talent_id"]));
-            SaveActivity(3, $uname, mysql_real_escape_string(trim($_POST['music_titl'])), $_SESSION["talent_id"]);
+            SaveActivity(3, $uname, mysqli_real_escape_string( $link ,trim($_POST['music_titl'])), $_SESSION["talent_id"]);
 
             //////////////////////////////////////////////////
 

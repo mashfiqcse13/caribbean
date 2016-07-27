@@ -30,9 +30,9 @@ if (((isset($_SESSION['user_id'])) && ($_SESSION['user_id'] != '') || (isset($_S
         }
 
 
-        $result = mysql_query($sql) or die(mysql_error());
+        $result = mysqli_query($link,$sql) or die(mysql_error());
 
-        if (mysql_num_rows($result) > 0) {
+        if (mysqli_num_rows($result) > 0) {
             header('location: profile-details.php?username=' . $_GET['username'] . '&op=ex');
         } else {
 

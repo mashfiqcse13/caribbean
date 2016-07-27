@@ -140,12 +140,12 @@ function yog_mysql_insert_id($db_link) {
     return $ret;
 }
 
-function yog_mysql_query($query, $db_link) {
+function yog_mysqli_query($link,$query, $db_link) {
     //Send a MySQL query    
     $ret = array();
     switch (DB_EXTENSION) {
         case "mysql":
-            $result = mysql_query($query, $db_link);
+            $result = mysqli_query($link,$query, $db_link);
             /*             * ******************* */
 
             if (yog_mysql_errno($db_link) != 0) {
@@ -225,7 +225,7 @@ function yog_mysql_error($db_link) {
     $ret = 0;
     switch (DB_EXTENSION) {
         case "mysql":
-            $ret = mysql_error($db_link);
+            $ret = mysqli_error($db_link);
             break;
         case "mysqli":
             $ret = mysqli_error($db_link);
@@ -234,12 +234,12 @@ function yog_mysql_error($db_link) {
     return $ret;
 }
 
-function yog_mysql_num_rows($result) {
+function yog_mysqli_num_rows($result) {
     //Get number of rows in result
     $ret = 0;
     switch (DB_EXTENSION) {
         case "mysql":
-            $ret = mysql_num_rows($result);
+            $ret = mysqli_num_rows($result);
             break;
         case "mysqli":
             $ret = mysqli_num_rows($result);
@@ -276,12 +276,12 @@ function yog_mysql_fetch_field($result) {
     return $ret;
 }
 
-function yog_mysql_fetch_array($result) {
+function yog_mysqli_fetch_array($result) {
     //Fetch a result row as an associative array, a numeric array, or both
     $ret = 0;
     switch (DB_EXTENSION) {
         case "mysql":
-            $ret = mysql_fetch_array($result);
+            $ret = mysqli_fetch_array($result);
             break;
         case "mysqli":
             $ret = mysqli_fetch_array($result);
@@ -337,7 +337,7 @@ function yog_mysql_close($db_link) {
     $ret = 0;
     switch (DB_EXTENSION) {
         case "mysql":
-            $ret = mysql_close($db_link);
+            $ret = mysqli_close($db_link);
             break;
         case "mysqli":
             $ret = mysqli_close($db_link);
@@ -543,7 +543,7 @@ function HandleExtraInfo($mysql, $value) {
 function ExecuteSingleQuery($mysql, $query) {
     WriteLog("Enter ExecuteSingleQuery");
 
-    $result = yog_mysql_query($query, $mysql);
+    $result = yog_mysqli_query($link,$query, $mysql);
     foreach ($result as $key => $value) {
         //$value['result'],$value['ar'];
 
@@ -567,7 +567,7 @@ function CreateXMLFromResult($mysql, $value) {
     // $value['result'], $value['ar']
     /* query execute was successful so we need to echo the correct xml */
     /* the query may or may not return any result */
-    WriteLog("yog_mysql_num_rows in ExecuteSingleQuery");
+    WriteLog("yog_mysqli_num_rows in ExecuteSingleQuery");
 
     // check if the query is not a result returning query    
     $isNotResultQuery = 0;
@@ -581,7 +581,7 @@ function CreateXMLFromResult($mysql, $value) {
     $numfields = 0;
 
     if (!is_int($value['result'])) {
-        $numrows = yog_mysql_num_rows($value['result']);
+        $numrows = yog_mysqli_num_rows($value['result']);
         $numfields = yog_mysql_num_fields($value['result']);
     }
 
@@ -637,7 +637,7 @@ function CreateXMLFromResult($mysql, $value) {
 
     echo "<r_i c=\"$numrows\">";
     /* add up each row information */
-    while ($row = yog_mysql_fetch_array($value['result'])) {
+    while ($row = yog_mysqli_fetch_array($value['result'])) {
         $lengths = yog_mysql_fetch_lengths($value['result']);
 
         /* start of a row */
@@ -860,7 +860,7 @@ function ExecuteBatchQuery($mysql, $query) {
             return ExecuteSingleQuery($mysql, $prev);
         }
 
-        $result = yog_mysql_query($prev, $mysql);
+        $result = yog_mysqli_query($link,$prev, $mysql);
 
         foreach ($result as $key => $value) {
             //$value['result'], $value['ar']
@@ -889,7 +889,7 @@ function SetNonStrictMode($mysql) {
 
     /* like SQLyog app we dont check the MySQL version. We just execute the statement and ignore the error if any */
     $query = "set sql_mode=''";
-    $result = yog_mysql_query($query, $mysql);
+    $result = yog_mysqli_query($link,$query, $mysql);
 
     WriteLog("Exit SetNonStrictMode");
 
@@ -910,7 +910,7 @@ function SetName($mysql) {
 
     $query = 'SET NAMES ' . $charset;
     if ($charset != "[default]") {
-        yog_mysql_query($query, $mysql);
+        yog_mysqli_query($link,$query, $mysql);
     }
 
     WriteLog("Exit SetName");

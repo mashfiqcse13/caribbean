@@ -46,8 +46,8 @@ include('../_includes/header.php');
     ?>
 
     <?php
-    $query = mysql_query("SELECT * FROM tbl_profile_books WHERE uid='" . $_SESSION['talent_id'] . "' order by tbl_profile_books.id desc");
-    $number = mysql_num_rows($query);
+    $query = mysqli_query($link,"SELECT * FROM tbl_profile_books WHERE uid='" . $_SESSION['talent_id'] . "' order by tbl_profile_books.id desc");
+    $number = mysqli_num_rows($query);
     ?>
 
     <?php
@@ -73,11 +73,11 @@ include('../_includes/header.php');
 
                 <?php
             }
-            while ($row = mysql_fetch_assoc($query)) {
-                $sql = mysql_query("SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type=4 ");
-                $res = mysql_fetch_assoc($sql);
+            while ($row = mysqli_fetch_assoc($query)) {
+                $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type=4 ");
+                $res = mysqli_fetch_assoc($sql);
                 // print_r($res);
-                $row1 = mysql_num_rows($sql);
+                $row1 = mysqli_num_rows($sql);
 
                 if ($res['id'] != '') {
                     $pid = $res['id'];

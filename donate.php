@@ -56,7 +56,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Submit') AND $errors ==
               '" . date("Y-m-d") . "',
               '" . (date("h:i:s A")) . "');";
 
-    mysql_query($Query);
+    mysqli_query($link,$Query);
 
 
     // To send HTML mail, the Content-type header must be set

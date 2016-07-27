@@ -12,10 +12,10 @@ $string5 = '.mp3"/><description>Artist Name : ';
 $string6 = '</description></item>';
 
 $tmusic = "SELECT * FROM tbl_site_music WHERE status='1' ORDER BY tbl_site_music.id DESC ";
-$sqlmu = mysql_query($tmusic);
-$sqlmu1 = mysql_query($tmusic);
+$sqlmu = mysqli_query($link,$tmusic);
+$sqlmu1 = mysqli_query($link,$tmusic);
 
-while ($row = mysql_fetch_assoc($sqlmu)) {
+while ($row = mysqli_fetch_assoc($sqlmu)) {
     $string.=$string3 . ucfirst($row["name"]);
     $string.=$string4 . $row["id"];
     $string.=$string5 . ucfirst($row["artist"]);
@@ -95,15 +95,15 @@ fwrite($handle, $data);
         <?php
 // $sql1="SELECT * FROM  tbl_users  WHERE  type=1 order by RAND() LIMIT 0, 20 ";
         $sql1 = "SELECT * FROM tbl_featured_artists WHERE  status=1";
-        $result1 = mysql_query($sql1);
-//$row1=mysql_fetch_assoc($result1);
+        $result1 = mysqli_query($link,$sql1);
+//$row1=mysqli_fetch_assoc($result1);
 //print_r($row1);
         ?>
         <div class="home_left_side_third">
             <br /><span class="sub">Featured Artists</span><br /><hr class="nbv"/>
             <ul class="list_class">
                 <?php
-                while ($row1 = mysql_fetch_assoc($result1)) {
+                while ($row1 = mysqli_fetch_assoc($result1)) {
                     ?>
                     <li>
                         <div style="padding:0px; margin:0px; width:100px; height:230px;">
@@ -142,7 +142,7 @@ fwrite($handle, $data);
               <label>
               <select name="select" size="6"  multiple="multiple" id="select">
               <?php
-              while($music=mysql_fetch_assoc($sqlmu1))
+              while($music=mysqli_fetch_assoc($sqlmu1))
               {
               ?>
               <option ondblclick="<?php echo "javascript:music_play_eq('".$music['id']."')";?>">
@@ -157,14 +157,14 @@ fwrite($handle, $data);
         </div>
         <?php
         $sql = "SELECT * FROM  tbl_forum_topics order by tbl_forum_topics.id desc LIMIT 0, 4 ";
-        $result = mysql_query($sql);
-        //$row=mysql_fetch_assoc($result);
+        $result = mysqli_query($link,$sql);
+        //$row=mysqli_fetch_assoc($result);
         //print_r($row);
         ?>
         <div class="home_right_side_second">&nbsp;&nbsp;&nbsp;Latest Forum Topics
             <ul>
                 <?php
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                     <li>
                         <?php
@@ -242,13 +242,13 @@ fwrite($handle, $data);
                         JOIN tbl_contactrecords on tbl_contact.id = tbl_contactrecords.`contactid` 
                     where page_name = \'Home\'';
 
-        $result = mysql_query($sql);
+        $result = mysqli_query($link,$sql);
 
         if ($result) {
             ?>
             <ul>
                 <?php
-                while ($row = mysql_fetch_array($result)) {
+                while ($row = mysqli_fetch_array($result)) {
                     if (!empty($row['file_attached'])) {
                         ?>
                         <li>

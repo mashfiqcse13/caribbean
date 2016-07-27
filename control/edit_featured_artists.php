@@ -1,8 +1,8 @@
 <?php
 include('include/application_top.php');
 cmslogin();
-$sql = mysql_query("SELECT * FROM  tbl_featured_artists WHERE id='" . $_GET['id'] . "' order by id ");
-$result = mysql_fetch_assoc($sql);
+$sql = mysqli_query($link,"SELECT * FROM  tbl_featured_artists WHERE id='" . $_GET['id'] . "' order by id ");
+$result = mysqli_fetch_assoc($sql);
 //print_r($result);
 if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Featured Artists')) {
     if ((isset($_FILES['f_photo']['name'])) && ($_FILES['f_photo']['name'] != '')) {
@@ -17,7 +17,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Featured Artists'
             $MSG = 'Not allowed extension,please upload jpg,jpeg,gif,png images only!';
         } else {
             $data = array(
-                "f_artists_name" => mysql_real_escape_string(trim($_POST['f_artists_name'])),
+                "f_artists_name" => mysqli_real_escape_string( $link ,trim($_POST['f_artists_name'])),
                 "status" => $_POST['status']
             );
             $table = "tbl_featured_artists";
@@ -42,7 +42,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Featured Artists'
         }
     } else {
         $data = array(
-            "f_artists_name" => mysql_real_escape_string(trim($_POST['f_artists_name'])),
+            "f_artists_name" => mysqli_real_escape_string( $link ,trim($_POST['f_artists_name'])),
             "status" => $_POST['status']
         );
         $table = "tbl_featured_artists";

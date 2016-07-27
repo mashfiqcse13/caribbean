@@ -16,18 +16,18 @@ if (!empty($lid)) {
     insertData($data, $table);
 
     /* Added Activity Below */
-    SaveActivity(14, mysql_real_escape_string(trim($_POST['username'])), '', $l_id);
+    SaveActivity(14, mysqli_real_escape_string( $link ,trim($_POST['username'])), '', $l_id);
 
     //////////////////////////////////////////////////
 }
 
 
 if ((isset($_POST['login'])) AND ( $_POST['login'] == 'Sign In')) {
-    $query = "SELECT * FROM tbl_users WHERE email='" . mysql_real_escape_string(trim($_POST["username"])) . "' AND password='" . mysql_real_escape_string(trim($_POST["password"])) . "' AND type='0' AND `is_block_admin` = 'No' AND (suspend_to < '" . date("Y-m-d H:i:s") . "' OR suspend_to IS NULL)";
-//$query="SELECT * FROM tbl_users WHERE username='".mysql_real_escape_string(trim($_POST["username"]))."' AND password='".$_POST["password"]."' AND type='0'";
-    $result = mysql_query($query);
-    $count = mysql_num_rows($result);
-    $data = mysql_fetch_array($result);
+    $query = "SELECT * FROM tbl_users WHERE email='" . mysqli_real_escape_string( $link ,trim($_POST["username"])) . "' AND password='" . mysqli_real_escape_string( $link ,trim($_POST["password"])) . "' AND type='0' AND `is_block_admin` = 'No' AND (suspend_to < '" . date("Y-m-d H:i:s") . "' OR suspend_to IS NULL)";
+//$query="SELECT * FROM tbl_users WHERE username='".mysqli_real_escape_string( $link ,trim($_POST["username"]))."' AND password='".$_POST["password"]."' AND type='0'";
+    $result = mysqli_query($link,$query);
+    $count = mysqli_num_rows($result);
+    $data = mysqli_fetch_array($result);
     if ($count == 1) {
         //First Destroy All Previous Session then continue/
         session_destroy();

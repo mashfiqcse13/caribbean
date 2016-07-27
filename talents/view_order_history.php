@@ -35,11 +35,11 @@ include('../_includes/header.php');
 
             <div class="profile_details" style="width:55%; position:relative; float:left;">
                 <?php
-                $query = mysql_query("SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name,p.ref_id,p.content_type, p.shipping
+                $query = mysqli_query($link,"SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name,p.ref_id,p.content_type, p.shipping
 						
 										FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON p.id=tbl_orders.p_id WHERE tbl_orders.id='" . $_GET['id'] . "'");
 
-                while ($row = mysql_fetch_assoc($query)) {
+                while ($row = mysqli_fetch_assoc($query)) {
                     ?>
 
                     <h2>Order Details&nbsp;/ <?php echo $row['id']; ?></h2>
@@ -67,8 +67,8 @@ include('../_includes/header.php');
                     <?php if ($row['order_status'] == 1) { ?><p style="color:#009933;"><?php echo 'Success'; ?></p><?php } ?></p>
                 </div>
                 <?php
-                // $query=mysql_query("SELECT * FROM tbl_users WHERE id='".$_GET['id']."'");	
-                // $data=mysql_fetch_array($query);
+                // $query=mysqli_query($link,"SELECT * FROM tbl_users WHERE id='".$_GET['id']."'");	
+                // $data=mysqli_fetch_array($query);
                 if ($_SESSION['is_admin'] != "yes") {
                     ?>
 
@@ -98,8 +98,8 @@ include('../_includes/header.php');
                 $p_id = $row["p_id"];
 
                 $sql_product = "SELECT * FROM  tbl_products WHERE id='" . $p_id . "'";
-                $query_product = mysql_query($sql_product);
-                $product_row = mysql_fetch_assoc($query_product);
+                $query_product = mysqli_query($link,$sql_product);
+                $product_row = mysqli_fetch_assoc($query_product);
                 ?>
 
                 <h2>Product Details</h2>
@@ -174,10 +174,10 @@ include('../_includes/header.php');
             <h2>Shipping Details</h2>
 
             <?php
-            $tbl_query123 = mysql_query("SELECT tbl_order_shipping.*, tbl_orders.id FROM tbl_order_shipping LEFT JOIN tbl_orders ON 
+            $tbl_query123 = mysqli_query($link,"SELECT tbl_order_shipping.*, tbl_orders.id FROM tbl_order_shipping LEFT JOIN tbl_orders ON 
 													tbl_order_shipping.order_id = tbl_orders.id WHERE tbl_order_shipping.order_id='" . $_GET['id'] . "'");
 
-            while ($tbl_row123 = mysql_fetch_array($tbl_query123)) {
+            while ($tbl_row123 = mysqli_fetch_array($tbl_query123)) {
                 ?>
 
                 <p class="style1"><label class="style">Shipping Address :</label> <?php echo $tbl_row123['address']; ?> </p>

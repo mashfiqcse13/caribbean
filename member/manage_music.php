@@ -58,9 +58,9 @@ include('../_includes/header.php');
     <!--/////USER MUSIC UPLOAD HEAR/////-->
     <?php
     //DATABASE QUERY
-    $result = mysql_query("SELECT * FROM  tbl_profile_music WHERE 	user_id='" . $_SESSION['user_id'] . "' order by id ");
-    $number = mysql_num_rows($result);
-    //$data=mysql_fetch_assoc($result);
+    $result = mysqli_query($link,"SELECT * FROM  tbl_profile_music WHERE 	user_id='" . $_SESSION['user_id'] . "' order by id ");
+    $number = mysqli_num_rows($result);
+    //$data=mysqli_fetch_assoc($result);
     //print_r($data);
     ?>
     <table cellpadding="0" cellspacing="0" class="TabUIRecords" width="100%">
@@ -81,7 +81,7 @@ include('../_includes/header.php');
             <tbody>
                 <?php
             }
-            while ($row = mysql_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                 <tr>
                     <td><?php echo $row["music_title"]; ?></td>

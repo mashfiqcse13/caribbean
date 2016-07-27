@@ -2,8 +2,8 @@
 include('_includes/application-top.php');
 CheckLoginForum();
 //echo $_SESSION['talent_id'];
-$sql = mysql_query("SELECT * FROM tbl_forum_topics WHERE id='" . $_GET['id'] . "'");
-$ruselt = mysql_fetch_assoc($sql);
+$sql = mysqli_query($link,"SELECT * FROM tbl_forum_topics WHERE id='" . $_GET['id'] . "'");
+$ruselt = mysqli_fetch_assoc($sql);
 //print_r($ruselt);
 
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Submit Reply')) {
@@ -24,7 +24,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Submit Reply')) {
         $data = array(
             "forum_id" => $_GET['id'],
             "uid" => $uid,
-            "reply_text" => mysql_real_escape_string(trim($_POST['forum_reply'])),
+            "reply_text" => mysqli_real_escape_string( $link ,trim($_POST['forum_reply'])),
         );
         $table = "tbl_forum_reply";
         insertData($data, $table);

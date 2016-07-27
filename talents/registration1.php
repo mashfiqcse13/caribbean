@@ -30,8 +30,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign up') AND $errors =
 
 
     $query1 = "SELECT * FROM tbl_users WHERE username='" . $_POST["username"] . "' AND  status=1";
-    $row = mysql_query($query1);
-    $row = mysql_num_rows($row);
+    $row = mysqli_query($link,$query1);
+    $row = mysqli_num_rows($row);
 
 
     /* $start_date1=explode("-", $_POST['age']);
@@ -111,13 +111,13 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign up') AND $errors =
         if (empty($usernameeErr) && empty($nameErr) && empty($phoneErr)) { // \w equals "[0-9A-Za-z_]"
             // valid username, alphanumeric & longer than or equals 5 chars
             $data = array(
-                "username" => mysql_real_escape_string(trim($username)),
-                "password" => mysql_real_escape_string(trim($_POST['conframpassword'])),
-                "first_name" => mysql_real_escape_string(trim($_POST['first_name'])),
-                "last_name" => mysql_real_escape_string(trim($_POST['last_name'])),
-                "phone_no" => mysql_real_escape_string(trim($_POST['phone_no'])),
-                "email" => mysql_real_escape_string(trim($_POST['email'])),
-                "city" => mysql_real_escape_string(trim($_POST['city'])),
+                "username" => mysqli_real_escape_string( $link ,trim($username)),
+                "password" => mysqli_real_escape_string( $link ,trim($_POST['conframpassword'])),
+                "first_name" => mysqli_real_escape_string( $link ,trim($_POST['first_name'])),
+                "last_name" => mysqli_real_escape_string( $link ,trim($_POST['last_name'])),
+                "phone_no" => mysqli_real_escape_string( $link ,trim($_POST['phone_no'])),
+                "email" => mysqli_real_escape_string( $link ,trim($_POST['email'])),
+                "city" => mysqli_real_escape_string( $link ,trim($_POST['city'])),
                 "country" => $country_with_code,
                 "sex" => $_POST['sex'],
                 "age" => $age,
@@ -137,11 +137,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign up') AND $errors =
 
             //////////////////////////SEND_EMAIL_TO_TALENT_REGISTER_EMAIL_ADDRESS////////////////////////
 
-            $to = mysql_real_escape_string(trim($_POST['email']));
+            $to = mysqli_real_escape_string( $link ,trim($_POST['email']));
 
             $subject = "CCS: Registration email";
 
-            /* $msg="Welcome"."<br><br>"."Dear ".mysql_real_escape_string(trim($_POST['first_name']))." ".mysql_real_escape_string(trim($_POST['last_name']))."<br>"."
+            /* $msg="Welcome"."<br><br>"."Dear ".mysqli_real_escape_string( $link ,trim($_POST['first_name']))." ".mysqli_real_escape_string( $link ,trim($_POST['last_name']))."<br>"."
               Thank you for registring at ccs. At CCS you can highlight your profile as talent, sale music, videos, photos, books etc or as a member you
 
               can simply browse through artist profile, listen to their music, watch video, view photos, become fans/friends with others, chat, send
@@ -213,7 +213,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign up') AND $errors =
               insertData($data,$table);
 
               /* Added Activity Below */
-            /* SaveActivity(14,mysql_real_escape_string(trim($_POST['username'])),'',$lid); */
+            /* SaveActivity(14,mysqli_real_escape_string( $link ,trim($_POST['username'])),'',$lid); */
 
             //////////////////////////////////////////////////
 
@@ -533,8 +533,8 @@ foreach ($countries_array1 as $key => $value) {
                 <?php } ?>
                 <?php
                 $sql = "SELECT * FROM tbl_talents WHERE status=1";
-                $result = mysql_query($sql);
-                while ($data = mysql_fetch_assoc($result)) {
+                $result = mysqli_query($link,$sql);
+                while ($data = mysqli_fetch_assoc($result)) {
                     ?>
                     <li style="width:400px; clear:both;margin-left:98px; ">
 

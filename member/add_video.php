@@ -21,9 +21,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
             } else {
                 $data = array(
                     "user_id" => $_SESSION['user_id'],
-                    "video_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                    "video_type" => mysql_real_escape_string(trim($_POST['video_type'])),
-                    "video_code" => mysql_real_escape_string(trim($_POST['video_code'])),
+                    "video_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                    "video_type" => mysqli_real_escape_string( $link ,trim($_POST['video_type'])),
+                    "video_code" => mysqli_real_escape_string( $link ,trim($_POST['video_code'])),
                     "status" => '1'
                 );
                 $table = "tbl_profile_videos";
@@ -49,8 +49,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
             }
         } else {
             $data = array(
-                "video_name" => mysql_real_escape_string(trim($video_name)),
-                "video_code" => mysql_real_escape_string(trim($video_code)),
+                "video_name" => mysqli_real_escape_string( $link ,trim($video_name)),
+                "video_code" => mysqli_real_escape_string( $link ,trim($video_code)),
                 "status" => $status,
             );
 
@@ -87,8 +87,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                         } else {
                             $data = array(
                                 "user_id" => $_SESSION['user_id'],
-                                "video_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                                "video_type" => mysql_real_escape_string(trim($_POST['video_type'])),
+                                "video_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                                "video_type" => mysqli_real_escape_string( $link ,trim($_POST['video_type'])),
                                 "status" => '1'
                             );
                             $table = "tbl_profile_videos";
@@ -139,8 +139,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
 
                     $data = array(
                         "user_id" => $_SESSION['user_id'],
-                        "video_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                        "video_type" => mysql_real_escape_string(trim($_POST['video_type'])),
+                        "video_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                        "video_type" => mysqli_real_escape_string( $link ,trim($_POST['video_type'])),
                         "status" => '1'
                     );
                     $table = "tbl_profile_videos";
@@ -177,8 +177,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
 
                     $data = array(
                         "user_id" => $_SESSION['user_id'],
-                        "video_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                        "video_type" => mysql_real_escape_string(trim($_POST['video_type'])),
+                        "video_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                        "video_type" => mysqli_real_escape_string( $link ,trim($_POST['video_type'])),
                         "status" => '1'
                     );
                     $table = "tbl_profile_videos";
@@ -207,8 +207,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
 
             $data = array(
                 "user_id" => $_SESSION['user_id'],
-                "video_name" => mysql_real_escape_string(trim($_POST['video_name'])),
-                "video_type" => mysql_real_escape_string(trim($_POST['video_type'])),
+                "video_name" => mysqli_real_escape_string( $link ,trim($_POST['video_name'])),
+                "video_type" => mysqli_real_escape_string( $link ,trim($_POST['video_type'])),
                 "status" => '1'
             );
             $table = "tbl_profile_videos";

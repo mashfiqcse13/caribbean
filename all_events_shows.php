@@ -17,10 +17,10 @@ include('_includes/header.php');
     <h2>EVENTS AND SHOWS</h2>
     <p style="text-align:right"><a href="javascript:back(0)" class="button" style="float:left; margin:-5px 0px 0px 0px;" onclick="return back();">Back</a><br />
         <?php
-        //$query=mysql_query("SELECT * FROM tbl_profile_events WHERE uid='".$_GET['id']."' ORDER BY tbl_profile_events.id DESC");
+        //$query=mysqli_query($link,"SELECT * FROM tbl_profile_events WHERE uid='".$_GET['id']."' ORDER BY tbl_profile_events.id DESC");
 
         $cur_date = date('Y-m-d');
-        $query = mysql_query("SELECT * FROM tbl_profile_events WHERE uid='" . $_GET['id'] . "' AND event_date >= '" . $cur_date . "' ORDER BY event_date ")
+        $query = mysqli_query($link,"SELECT * FROM tbl_profile_events WHERE uid='" . $_GET['id'] . "' AND event_date >= '" . $cur_date . "' ORDER BY event_date ")
         ?>
     <div class="profile_page_wraper"><!--START DIV CLASS profile_page_wraper-->			
 
@@ -28,7 +28,7 @@ include('_includes/header.php');
 
 
             <?php
-            while ($row = mysql_fetch_assoc($query)) {
+            while ($row = mysqli_fetch_assoc($query)) {
                 ?>
 
                 <div class="event_detail_all_events"><!--START DIV CLASS event_detail_all_events-->

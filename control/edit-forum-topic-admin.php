@@ -6,8 +6,8 @@ include '../_includes/class.media.php';
 include './include/common_function.php';
 include('include/header.php');
 
-$result = mysql_query("SELECT * FROM tbl_forum_topics WHERE id=" . $_GET["t_id"] . " ");
-$rows = mysql_fetch_assoc($result);
+$result = mysqli_query($link,"SELECT * FROM tbl_forum_topics WHERE id=" . $_GET["t_id"] . " ");
+$rows = mysqli_fetch_assoc($result);
 extract($rows);
 //$table1="tbl_forum_topics";
 //$whereClause="AND id=".$_GET["t_id"]."";
@@ -19,10 +19,10 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Topic')) {
 
     if ((isset($_POST['forum_details'])) && ($_POST['forum_details'] != '')) {
         $data = array(
-            "forum_topic" => mysql_real_escape_string(trim($_POST['forum_topic'])),
-            "forum_details" => mysql_real_escape_string(trim($_POST['forum_details'])),
+            "forum_topic" => mysqli_real_escape_string( $link ,trim($_POST['forum_topic'])),
+            "forum_details" => mysqli_real_escape_string( $link ,trim($_POST['forum_details'])),
             "post_date" => date('y-m-d h:i:s'),
-            'media_id' => mysql_real_escape_string(trim($_POST['media_id']))
+            'media_id' => mysqli_real_escape_string( $link ,trim($_POST['media_id']))
         );
         $table = "tbl_forum_topics";
         $parameters = "id='" . $_POST["top_id"] . "'";

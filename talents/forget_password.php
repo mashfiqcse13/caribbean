@@ -1,10 +1,10 @@
 <?php
 include('../_includes/application-top.php');
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Send Email')) {
-    $query = "select * from tbl_users where username='" . mysql_real_escape_string(trim($_POST["username"])) . "' AND type='1' ";
-    $row = mysql_query($query);
-    $row1 = mysql_num_rows($row);
-    $data = mysql_fetch_assoc($row);
+    $query = "select * from tbl_users where username='" . mysqli_real_escape_string( $link ,trim($_POST["username"])) . "' AND type='1' ";
+    $row = mysqli_query($link,$query);
+    $row1 = mysqli_num_rows($row);
+    $data = mysqli_fetch_assoc($row);
     //print_r($data);
     if ($row1 == 1) {
         $to = $data['email'];

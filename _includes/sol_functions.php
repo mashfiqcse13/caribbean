@@ -162,13 +162,14 @@ function removeQuotes($strToChange) {
 //	$insert=InsertData($data,$tablename);
 /////////////////////////////////////////////////////////////
 function insertData($data, $table) {
+    global $link;
 
     if (!empty($data)) {
         $fld_names = implode(', ', array_keys($data));
         $fld_values = '\'' . implode('\', \'', array_values($data)) . '\'';
         $sql = 'INSERT INTO ' . $table . ' (' . $fld_names . ') VALUES (' . $fld_values . ')';
 
-        $result = mysql_query($sql) or die(mysql_error());
+        $result = mysqli_query($link,$sql) or die(mysqli_error ( $link));
         return $result;
     }
     return 0;
@@ -184,6 +185,7 @@ function insertData($data, $table) {
 //	$update=updateDB($data,$tablename, " name = 'Pratik'");
 /////////////////////////////////////////////////////////////
 function updateData($data, $table, $parameters = '') {
+    global $link;
 
     if ($parameters != '') {
         $where = "WHERE " . $parameters;
@@ -202,7 +204,7 @@ function updateData($data, $table, $parameters = '') {
         }
         $sql = 'UPDATE ' . $table . ' ' . $data . ' ' . $where;
 
-        $result = mysql_query($sql) or die(mysql_error());
+        $result = mysqli_query($link,$sql) or die(mysqli_error ( $link));
         return $result;
     }
     return 0;
@@ -216,6 +218,7 @@ function updateData($data, $table, $parameters = '') {
 //	$delete=deletedata($data,$tablename);
 /////////////////////////////////////////////////////////////
 function deletedata($table, $parameters = '') {
+    global $link;
 
     if ($parameters != '') {
         $where = "WHERE " . $parameters;
@@ -225,7 +228,7 @@ function deletedata($table, $parameters = '') {
 
     if (!empty($table)) {
         $sql = 'DELETE FROM ' . $table . ' ' . $where;
-        $result = mysql_query($sql) or die(mysql_error());
+        $result = mysqli_query($link,$sql) or die(mysqli_error ( $link));
         return $result;
     }
     return 0;
@@ -238,12 +241,13 @@ function deletedata($table, $parameters = '') {
 // 	Instructions: Pass the table name and where clause like " and id=1"
 /////////////////////////////////////////////////////////////
 function getAnyTableWhereData($table, $whereClause) {
+    global $link;
     //echo "<br> $table,$whereClause";	
     $query = "select * from $table where 1=1 $whereClause ";
     //echo "<br>$query";
-    $result = mysql_query($query) or die(mysql_error());
+    $result = mysqli_query($link,$query) or die(mysqli_error ( $link));
 
-    if ($row = mysql_fetch_array($result)) {
+    if ($row = mysqli_fetch_array($result)) {
         mysql_free_result($result);
         return $row;
     } else {
@@ -365,7 +369,7 @@ class my_thumbnail {
 
     var $img;
 
-    function my_thumbnail($imgfile) {
+    function __construct($imgfile) {
 //
 // //detect image format
 // $this->img["format"]=ereg_replace(".*\.(.*)$","\\1",$imgfile);
@@ -770,27 +774,27 @@ function tep_href_link($page = '', $parameters = '') {
     }
 
     if (tep_not_null($parameters)) {
-        $link .= $page . '?' . tep_output_string($parameters);
+        $href_link .= $page . '?' . tep_output_string($parameters);
         $separator = '&';
     } else {
-        $link .= $page;
+        $href_link .= $page;
         $separator = '?';
     }
 
-    while ((substr($link, -1) == '&') || (substr($link, -1) == '?'))
-        $link = substr($link, 0, -1);
+    while ((substr($href_link, -1) == '&') || (substr($href_link, -1) == '?'))
+        $href_link = substr($href_link, 0, -1);
 
 //    if ( (SEARCH_ENGINE_FRIENDLY_URLS == 'true') && ($search_engine_safe == true) ) {
-//      while (strstr($link, '&&')) $link = str_replace('&&', '&', $link);
+//      while (strstr($href_link, '&&')) $href_link = str_replace('&&', '&', $href_link);
 //
-//      $link = str_replace('?', '/', $link);
-//      $link = str_replace('&', '/', $link);
-//      $link = str_replace('=', '/', $link);
+//      $href_link = str_replace('?', '/', $href_link);
+//      $href_link = str_replace('&', '/', $href_link);
+//      $href_link = str_replace('=', '/', $href_link);
 //
 //      $separator = '?';
 //    }
 
-    return $link;
+    return $href_link;
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -1050,8 +1054,8 @@ function ShowFixedSizedImage($source, $width = 100, $height = 100) {
 //  ExportToExcel($query,"excelfile.xls","Records Heading");
 /////////////////////////////////////////////////////////////////////
 function ExportToExcel($query, $excel_file_name, $heading = '') {
-
-    $tmprst = mysql_query($query);
+    global $link;
+    $tmprst = mysqli_query($link,$query);
     $num_field = mysql_num_fields($tmprst);
 
     if ($heading <> "") {
@@ -1062,7 +1066,7 @@ function ExportToExcel($query, $excel_file_name, $heading = '') {
     }
     $body.="\n";
 
-    while ($row = mysql_fetch_array($tmprst)) {
+    while ($row = mysqli_fetch_array($tmprst)) {
         $body.="";
         for ($i = 0; $i < $num_field; $i++) {
             $body.="" . $row[$i] . "\t";

@@ -8,7 +8,7 @@ if ((isset($_SESSION["user_id"])) && ($_SESSION["user_id"] != 0)) {
 
     $sql = "DELETE FROM tbl_user_online WHERE uid='" . $_SESSION["user_id"] . "'";
 
-    $query = mysql_query($sql);
+    $query = mysqli_query($link,$sql);
 
     unset($_SESSION['user_login']);
     $_SESSION['user_login'] = 0;

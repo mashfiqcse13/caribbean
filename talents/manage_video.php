@@ -8,7 +8,7 @@ if ((isset($_GET['id'])) && ($_GET['id'] != '')) {
     if ($data['video_type'] == 0) {
 
         $sql = "delete from tbl_profile_videos where id='" . $_GET['id'] . "'";
-        mysql_query($sql);
+        mysqli_query($link,$sql);
         unlink("../_uploads/video_photo/" . $_GET['id'] . ".jpg");
         $MSG = "Video Record Deleted Sucessfully.";
     } else {
@@ -19,14 +19,14 @@ if ((isset($_GET['id'])) && ($_GET['id'] != '')) {
             if ($_GET['pid'] != 0) {
 
                 $sql1 = "delete from tbl_products where id='" . $_GET['pid'] . "'";
-                mysql_query($sql1);
+                mysqli_query($link,$sql1);
 
                 unlink("../_uploads/profile_product/" . $_GET['pid'] . ".jpg");
                 unlink("../_uploads/profile_product/thumb/" . $_GET['pid'] . ".jpg");
 
 
                 $sql = "delete from tbl_profile_videos where id='" . $_GET['id'] . "'";
-                mysql_query($sql);
+                mysqli_query($link,$sql);
                 unlink("../_uploads/profile_video/" . $_GET['id'] . ".mp4");
                 unlink("../_uploads/video_photo/" . $_GET['id'] . ".jpg");
 
@@ -34,7 +34,7 @@ if ((isset($_GET['id'])) && ($_GET['id'] != '')) {
             } else {
 
                 $sql = "delete from tbl_profile_videos where id='" . $_GET['id'] . "'";
-                mysql_query($sql);
+                mysqli_query($link,$sql);
                 unlink("../_uploads/profile_video/" . $_GET['id'] . ".mp4");
                 unlink("../_uploads/video_photo/" . $_GET['id'] . ".jpg");
                 $MSG = "Video Record Deleted Sucessfully.";
@@ -101,9 +101,9 @@ include('../_includes/header.php');
     <!--/////USER VIDEO UPLOAD HEAR/////-->
     <?php
     //DATABASE QUERY
-    $result = mysql_query("SELECT * FROM  tbl_profile_videos WHERE 	user_id='" . $_SESSION['talent_id'] . "'  order by id desc");
-    $number = mysql_num_rows($result);
-    //$data=mysql_fetch_assoc($result);
+    $result = mysqli_query($link,"SELECT * FROM  tbl_profile_videos WHERE 	user_id='" . $_SESSION['talent_id'] . "'  order by id desc");
+    $number = mysqli_num_rows($result);
+    //$data=mysqli_fetch_assoc($result);
     // print_r($data);
     ?>
     <table cellpadding="0" cellspacing="0" class="TabUIRecords" width="100%">
@@ -129,12 +129,12 @@ include('../_includes/header.php');
             <tbody>
                 <?php
             }
-            while ($row = mysql_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result)) {
 
-                $sql = mysql_query("SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type=2 ");
-                $res = mysql_fetch_assoc($sql);
+                $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type=2 ");
+                $res = mysqli_fetch_assoc($sql);
 
-                $row1 = mysql_num_rows($sql);
+                $row1 = mysqli_num_rows($sql);
 
                 if ($res['id'] != '') {
                     $pid = $res['id'];

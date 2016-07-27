@@ -34,8 +34,8 @@ include('../_includes/header.php');
     ?>
     <!-------------------------------------START QUERY FROM DATABASE USER EVENTS---------------------------------------->		
     <?php
-    $query = mysql_query("SELECT * FROM   tbl_profile_events WHERE uid='" . $_SESSION['talent_id'] . "' order by  tbl_profile_events.id desc ");
-    $number = mysql_num_rows($query);
+    $query = mysqli_query($link,"SELECT * FROM   tbl_profile_events WHERE uid='" . $_SESSION['talent_id'] . "' order by  tbl_profile_events.id desc ");
+    $number = mysqli_num_rows($query);
     ?>
 
     <?php
@@ -56,7 +56,7 @@ include('../_includes/header.php');
             <tbody>
                 <?php
             }
-            while ($row = mysql_fetch_assoc($query)) {
+            while ($row = mysqli_fetch_assoc($query)) {
                 ?>	
                 <tr>
                     <td align="left"><?php echo $row['name']; ?></td>

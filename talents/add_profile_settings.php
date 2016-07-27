@@ -46,13 +46,13 @@ include('../_includes/header.php');
     <div class="form_class">
         <?php
         //echo "SELECT * FROM ` tbl_user_details` WHERE user_id='".$_SESSION['talent_id']."' ";
-        $query = mysql_query("SELECT * FROM tbl_user_profile_settings WHERE uid='" . $_SESSION['talent_id'] . "' ");
-        //$row=mysql_fetch_assoc($query);
+        $query = mysqli_query($link,"SELECT * FROM tbl_user_profile_settings WHERE uid='" . $_SESSION['talent_id'] . "' ");
+        //$row=mysqli_fetch_assoc($query);
         //print_r($row);
         ?>
 
         <?php
-        while ($row = mysql_fetch_assoc($query)) {
+        while ($row = mysqli_fetch_assoc($query)) {
             ?>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="add_details" >
                 <p>

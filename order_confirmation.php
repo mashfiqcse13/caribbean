@@ -14,11 +14,11 @@ if (isset($_SESSION['talent_id']) AND $_SESSION['talent_id'] != '') {
   INSERT DATA tbl_orders
  * ************************************************************************* */
 
-$query4 = mysql_query("SELECT p.id as prid,p.uid,p.product_price,p.shipping, p.p_shipping, u.id 
+$query4 = mysqli_query($link,"SELECT p.id as prid,p.uid,p.product_price,p.shipping, p.p_shipping, u.id 
 								
 		                     FROM tbl_products as p LEFT OUTER JOIN tbl_users AS u ON u.id=p.uid WHERE p.id='" . $_GET['id'] . "'");
 
-$data = mysql_fetch_array($query4);
+$data = mysqli_fetch_array($query4);
 
 $total = ($data['product_price'] + $data['p_shipping']);
 
@@ -46,12 +46,12 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Make Payment")) {
     if ($_POST['ordershipping'] != 0) {
         $data = array(
             "order_id" => $oid,
-            "name" => mysql_real_escape_string(trim($_POST['name'])),
-            "address" => mysql_real_escape_string(trim($_POST['address'])),
-            "zip" => mysql_real_escape_string(trim($_POST['zip'])),
-            "city" => mysql_real_escape_string(trim($_POST['city'])),
-            "state" => mysql_real_escape_string(trim($_POST['state'])),
-            "country" => mysql_real_escape_string(trim($_POST['country']))
+            "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
+            "address" => mysqli_real_escape_string( $link ,trim($_POST['address'])),
+            "zip" => mysqli_real_escape_string( $link ,trim($_POST['zip'])),
+            "city" => mysqli_real_escape_string( $link ,trim($_POST['city'])),
+            "state" => mysqli_real_escape_string( $link ,trim($_POST['state'])),
+            "country" => mysqli_real_escape_string( $link ,trim($_POST['country']))
         );
         //echo '<pre>';print_r($data);die;
 
@@ -62,7 +62,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Make Payment")) {
     $sql = "DELETE " .
             "FROM tbl_shopping_cart " .
             "WHERE 1=1 AND uid=" . $uid . " AND p_id=" . $_GET['id'] . " ";
-    $result = mysql_query($sql) or die(mysql_error());
+    $result = mysqli_query($link,$sql) or die(mysql_error());
     header("Location:paypal.php?p=" . $product_id . "&o=" . $oid);
 }
 
@@ -85,8 +85,8 @@ include('_includes/header.php');
         <div class="profile_page_wraper"><!--START DIV CLASS profile_page_wraper-->	
             <form  action="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $_GET['id']; ?>" method="post" name="s_details" id="s_details">
                 <?php
-                $query = mysql_query("SELECT * FROM tbl_products WHERE id='" . $_GET['id'] . "'");
-                $row = mysql_fetch_array($query);
+                $query = mysqli_query($link,"SELECT * FROM tbl_products WHERE id='" . $_GET['id'] . "'");
+                $row = mysqli_fetch_array($query);
                 ?>
 
 

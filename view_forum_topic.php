@@ -6,21 +6,21 @@ CheckLoginALL();
 if (isset($_GET['view'])) {
     $view_cnt = $_GET['view'];
     $sql_view_insert = "Update tbl_forum_topics set view_count ='" . $view_cnt . "' where id='" . $_GET['id'] . "'";
-    mysql_query($sql_view_insert);
+    mysqli_query($link,$sql_view_insert);
 }
 //DATABASE QUERY
 //$query="SELECT tbl_forum_topics.id AS forum_id,tbl_forum_topics.*, tbl_users.* FROM tbl_forum_topics 
 //LEFT JOIN  tbl_users ON tbl_forum_topics.uid=tbl_users.id WHERE tbl_forum_topics.id='".$_GET['id']."'";die;
-$sql = mysql_query("SELECT tbl_forum_topics.id AS forum_id,tbl_forum_topics.*, tbl_users.* FROM tbl_forum_topics 
+$sql = mysqli_query($link,"SELECT tbl_forum_topics.id AS forum_id,tbl_forum_topics.*, tbl_users.* FROM tbl_forum_topics 
 				 LEFT JOIN  tbl_users ON tbl_forum_topics.uid=tbl_users.id WHERE tbl_forum_topics.id='" . $_GET['id'] . "'");
-$data = mysql_fetch_assoc($sql);
+$data = mysqli_fetch_assoc($sql);
 // print_r($data);
 //for reply query:
 $str = "SELECT tbl_forum_reply.*, tbl_forum_reply.uid as reply_uid,tbl_forum_reply.id as reply_id  , tbl_users.* FROM tbl_forum_reply 
 				 LEFT JOIN  tbl_users ON tbl_forum_reply.uid=tbl_users.id WHERE tbl_forum_reply.forum_id='" . $_GET['id'] . "' order by tbl_forum_reply.id desc";
 // echo $str;
-$sql1 = mysql_query($str);
-//$ert=mysql_fetch_assoc($sql1);
+$sql1 = mysqli_query($link,$str);
+//$ert=mysqli_fetch_assoc($sql1);
 // print_r($ert);
 include('_includes/header.php');
 ?>
@@ -155,7 +155,7 @@ include('_includes/header.php');
                 </td>
             </tr>
             <?php
-            while ($row = mysql_fetch_assoc($sql1)) {
+            while ($row = mysqli_fetch_assoc($sql1)) {
                 $data121 = getAnyTableWhereData("tbl_forum_topics", "AND id='" . $_GET['id'] . "' ");
                 ?>
                 <tr>

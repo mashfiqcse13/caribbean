@@ -11,7 +11,7 @@ if (file_exists($img_location)) {
     @unlink($img_location);
 }
 $sql = "DELETE FROM tbl_profile_photos WHERE id='" . $_GET['id'] . "'";
-$query = mysql_query($sql);
+$query = mysqli_query($link,$sql);
 header("Location:manage_photo.php?op=del");
 /* IMAGE DELETE FUNCTION END HEAR */
 ?>

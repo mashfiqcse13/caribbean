@@ -3,9 +3,9 @@ include('_includes/application-top.php');
 
 /* USER FORUM HEAR DATABASE QUERY FOR TOPIC */
 $str = "SELECT * FROM  tbl_forum_topics order by tbl_forum_topics.id desc";
-$str2 = mysql_query($str);
-$number = mysql_num_rows($str2);
-//$query=mysql_query($str);
+$str2 = mysqli_query($link,$str);
+$number = mysqli_num_rows($str2);
+//$query=mysqli_query($link,$str);
 $page_row_no = PAGE_ROW_NO;
 $page_link_no = PAGE_LINK_NO;
 $page = new PS_Pagination($connt, $str, $page_row_no, $page_link_no, $append = "");
@@ -62,16 +62,16 @@ include('_includes/header.php');
                     <tbody>
                         <?php
                     }
-                    while ($row = mysql_fetch_assoc($rs)) {
-                        $SQL = mysql_query("SELECT * FROM  tbl_forum_reply WHERE forum_id=" . $row["id"] . " ");
-                        $number = mysql_num_rows($SQL);
+                    while ($row = mysqli_fetch_assoc($rs)) {
+                        $SQL = mysqli_query($link,"SELECT * FROM  tbl_forum_reply WHERE forum_id=" . $row["id"] . " ");
+                        $number = mysqli_num_rows($SQL);
                         ?>
                         <tr>
                             <td align="left">
                                 <?php
                                 $sql_view_cnt = "select view_count from  tbl_forum_topics where id='" . $row["id"] . "'";
-                                $sql_query_view = mysql_query($sql_view_cnt);
-                                $der = mysql_fetch_assoc($sql_query_view);
+                                $sql_query_view = mysqli_query($link,$sql_view_cnt);
+                                $der = mysqli_fetch_assoc($sql_query_view);
                                 $view_cnt_pre = $der['view_count'];
                                 $view_cnt = $view_cnt_pre + 1;
                                 ?>

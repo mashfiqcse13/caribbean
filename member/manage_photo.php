@@ -50,8 +50,8 @@ include('../_includes/header.php');
     <!--/////USER IMAGE UPLOAD HEAR/////-->
     <?php
     //DATABASE QUERY
-    $result = mysql_query("SELECT * FROM  tbl_profile_photos WHERE user_id='" . $_SESSION['user_id'] . "' order by tbl_profile_photos.id desc ");
-    $number = mysql_num_rows($result);
+    $result = mysqli_query($link,"SELECT * FROM  tbl_profile_photos WHERE user_id='" . $_SESSION['user_id'] . "' order by tbl_profile_photos.id desc ");
+    $number = mysqli_num_rows($result);
     ?>
     <?php
     if ($number <= 0) {
@@ -71,7 +71,7 @@ include('../_includes/header.php');
             <tbody>
                 <?php
             }
-            while ($row = mysql_fetch_assoc($result)) {
+            while ($row = mysqli_fetch_assoc($result)) {
                 ?>
                 <tr>
                     <td width="8%">

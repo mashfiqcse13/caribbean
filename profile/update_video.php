@@ -2,8 +2,8 @@
 include('../_includes/application-top.php');
 ChecktalentLogin();
 if (isset($_GET['id'])) {
-    $sql = mysql_query("SELECT * FROM  tbl_profile_videos WHERE id='" . $_GET['id'] . "' order by id ");
-    $result = mysql_fetch_assoc($sql);
+    $sql = mysqli_query($link,"SELECT * FROM  tbl_profile_videos WHERE id='" . $_GET['id'] . "' order by id ");
+    $result = mysqli_fetch_assoc($sql);
     //print_r($result);
 }
 
@@ -37,8 +37,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
                 unlink("../_temp/" . $vid . ".jpg");
 
                 $data = array(
-                    "video_name" => mysql_real_escape_string(trim($video_name)),
-                    "video_code" => mysql_real_escape_string(trim($video_code)),
+                    "video_name" => mysqli_real_escape_string( $link ,trim($video_name)),
+                    "video_code" => mysqli_real_escape_string( $link ,trim($video_code)),
                     "status" => $status,
                 );
                 $table = "tbl_profile_videos";
@@ -51,8 +51,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
             }
         } else {
             $data = array(
-                "video_name" => mysql_real_escape_string(trim($video_name)),
-                "video_code" => mysql_real_escape_string(trim($video_code)),
+                "video_name" => mysqli_real_escape_string( $link ,trim($video_name)),
+                "video_code" => mysqli_real_escape_string( $link ,trim($video_code)),
                 "status" => $status,
             );
 
@@ -113,7 +113,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
                             unlink("../_temp/" . $vid . ".mp4");
 
                             $data = array(
-                                "video_name" => mysql_real_escape_string(trim($video_name)),
+                                "video_name" => mysqli_real_escape_string( $link ,trim($video_name)),
                                 "status" => $status,
                             );
                             $table = "tbl_profile_videos";
@@ -151,7 +151,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
                     unlink("../_temp/" . $vid . ".jpg");
 
                     $data = array(
-                        "video_name" => mysql_real_escape_string(trim($video_name)),
+                        "video_name" => mysqli_real_escape_string( $link ,trim($video_name)),
                         "status" => $status,
                     );
                     $table = "tbl_profile_videos";
@@ -184,7 +184,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
                     unlink("../_temp/" . $vid . ".mp4");
 
                     $data = array(
-                        "video_name" => mysql_real_escape_string(trim($video_name)),
+                        "video_name" => mysqli_real_escape_string( $link ,trim($video_name)),
                         "status" => $status,
                     );
                     $table = "tbl_profile_videos";
@@ -198,7 +198,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
 
 
             $data = array(
-                "video_name" => mysql_real_escape_string(trim($video_name)),
+                "video_name" => mysqli_real_escape_string( $link ,trim($video_name)),
                 "status" => $status,
             );
             $table = "tbl_profile_videos";

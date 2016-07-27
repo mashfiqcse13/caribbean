@@ -5,10 +5,10 @@ cmslogin();
 
 include('include/header.php');
 
-$result = mysql_query("SELECT * FROM tbl_contact");
+$result = mysqli_query($link,"SELECT * FROM tbl_contact");
 
 if (!$result) {
-    die("Retrieving records from contact table's query faild:" . mysql_query());
+    die("Retrieving records from contact table's query faild:" . mysqli_error($link));
 }
 ?>
 <style>
@@ -37,7 +37,7 @@ if (!$result) {
 <div style="margin:50px auto; width:97%; padding:1px; background:#fff;">
     <ul class="prodlist">
         <?php
-        while ($row = mysql_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             ?>
             <li class="one_third">
                 <div class="thumb">

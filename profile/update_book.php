@@ -13,9 +13,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
         } else {
             $data = array(
                 "uid" => $_SESSION["talent_id"],
-                "name" => mysql_real_escape_string(trim($_POST['name'])),
-                "author" => mysql_real_escape_string(trim($_POST['author'])),
-                "book_details" => mysql_real_escape_string(trim($_POST['book_details'])),
+                "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
+                "author" => mysqli_real_escape_string( $link ,trim($_POST['author'])),
+                "book_details" => mysqli_real_escape_string( $link ,trim($_POST['book_details'])),
                 "status" => '1'
             );
             $table = "tbl_profile_books";
@@ -43,9 +43,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
     } else {
         $data = array(
             "uid" => $_SESSION["talent_id"],
-            "name" => mysql_real_escape_string(trim($_POST['name'])),
-            "author" => mysql_real_escape_string(trim($_POST['author'])),
-            "book_details" => mysql_real_escape_string(trim($_POST['book_details'])),
+            "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
+            "author" => mysqli_real_escape_string( $link ,trim($_POST['author'])),
+            "book_details" => mysqli_real_escape_string( $link ,trim($_POST['book_details'])),
             "status" => '1'
         );
         $table = "tbl_profile_books";
@@ -88,11 +88,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
 
             <div id="m_profile_right"><!--START CLASS m_profile_right PART -->
                 <?php
-                $result = mysql_query("SELECT * FROM  tbl_profile_books WHERE id='" . $_GET['id'] . "' ");
+                $result = mysqli_query($link,"SELECT * FROM  tbl_profile_books WHERE id='" . $_GET['id'] . "' ");
                 ?>
 
                 <?php
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                     <form action="update_book.php?id=<?php echo $_GET['id']; ?>" method="post" enctype="multipart/form-data" id="book_update">
                         <p><label for="name">Name</label>

@@ -5,7 +5,7 @@ if (isset($_POST['delete']) and $_POST['delete'] != "") {
     if (isset($_POST["check"])) {
         foreach ($_POST["check"] as $row) {
             $str = "DELETE FROM tbl_msg WHERE id='" . $row . "'";
-            mysql_query($str);
+            mysqli_query($link,$str);
             $MSG = "Record Deleted Successfully.";
         }
     }
@@ -49,14 +49,14 @@ if (isset($_POST['delete']) and $_POST['delete'] != "") {
 							
 								ON tbl_msg.from_id = tbl_users.id  WHERE tbl_msg.to_id ='" . $uid . "'  ORDER BY tbl_msg.id DESC ";
 
-    $query_msg = mysql_query($query);
+    $query_msg = mysqli_query($link,$query);
 
-    $number = mysql_num_rows($query_msg);
+    $number = mysqli_num_rows($query_msg);
 
     if ($number <= 0) {
         echo "<p class='err' style='margin-top:10px;'>NO Record Found</p>";
     } else {
-        //$number = mysql_num_rows
+        //$number = mysqli_num_rows
         ?>
         <table cellpadding="0" cellspacing="0" class="TabUIRecords" style="margin-top:10px;">
             <thead>
@@ -74,7 +74,7 @@ if (isset($_POST['delete']) and $_POST['delete'] != "") {
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="delete">
                 <tbody>
                     <?php
-                    while ($row = mysql_fetch_array($query_msg)) {
+                    while ($row = mysqli_fetch_array($query_msg)) {
                         ?>
 
                         <tr <?php

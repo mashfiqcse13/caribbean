@@ -1,16 +1,16 @@
 
 <?php
-$query_bookdetails = mysql_query("SELECT b.id as bookid,b.name,b.author,b.uid,u.id,u.username FROM tbl_profile_books AS b LEFT OUTER JOIN tbl_users AS u ON u.id=b.uid
+$query_bookdetails = mysqli_query($link,"SELECT b.id as bookid,b.name,b.author,b.uid,u.id,u.username FROM tbl_profile_books AS b LEFT OUTER JOIN tbl_users AS u ON u.id=b.uid
 									WHERE u.username='" . $_GET['username'] . "' ORDER BY b.id DESC LIMIT 0, 2 ");
 
-//$row_bookdetails=mysql_fetch_assoc($query_bookdetails);	
+//$row_bookdetails=mysqli_fetch_assoc($query_bookdetails);	
 //print_r($row_bookdetails);		
-if ((mysql_num_rows($query_bookdetails) > 0)) {
+if ((mysqli_num_rows($query_bookdetails) > 0)) {
     ?>					
     <div class="mystore">
         <h2> My Book</h2>
         <?php
-        while ($row_bookdetailsl = mysql_fetch_assoc($query_bookdetails)) {
+        while ($row_bookdetailsl = mysqli_fetch_assoc($query_bookdetails)) {
             ?>
             <div class="store_detail">
                 <div class="store_detail_left"> 

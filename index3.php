@@ -54,15 +54,15 @@
         </div>
         <?php
         $sql1 = "SELECT * FROM  tbl_users  WHERE  type=1 order by RAND() LIMIT 0, 4 ";
-        $result1 = mysql_query($sql1);
-        //$row1=mysql_fetch_assoc($result1);
+        $result1 = mysqli_query($link,$sql1);
+        //$row1=mysqli_fetch_assoc($result1);
         //print_r($row1);
         ?>
         <div class="home_left_side_third">
             <br /><span class="sub">Featured Artists</span><br /><hr class="nbv"/>
             <ul class="list_class">
                 <?php
-                while ($row1 = mysql_fetch_assoc($result1)) {
+                while ($row1 = mysqli_fetch_assoc($result1)) {
                     ?>
                     <li>
                         <a href="profile-details.php?username=<?php echo $row1['username']; ?>">
@@ -88,9 +88,9 @@
         <div class="home_right_side_first">Music
             <?php
             $tmusic = "SELECT * FROM tbl_site_music WHERE status='1' ORDER BY tbl_site_music.id DESC ";
-            $sqlmu = mysql_query($tmusic);
-            $sqlmu1 = mysql_query($tmusic);
-            $row = mysql_fetch_assoc($sqlmu);
+            $sqlmu = mysqli_query($link,$tmusic);
+            $sqlmu1 = mysqli_query($link,$tmusic);
+            $row = mysqli_fetch_assoc($sqlmu);
 
             //print_r($music);
             ?> 
@@ -122,7 +122,7 @@
                 <label>
                     <select name="select" size="6"  multiple="multiple" id="select">
                         <?php
-                        while ($music = mysql_fetch_assoc($sqlmu1)) {
+                        while ($music = mysqli_fetch_assoc($sqlmu1)) {
                             ?>
                             <option ondblclick="<?php echo "javascript:music_play_eq('" . $music['id'] . "')"; ?>">
                                 <?php echo $music['name']; ?> - <?php echo $music['artist']; ?>
@@ -134,14 +134,14 @@
         </div>
         <?php
         $sql = "SELECT * FROM  tbl_forum_topics order by tbl_forum_topics.id desc LIMIT 0, 4 ";
-        $result = mysql_query($sql);
-//$row=mysql_fetch_assoc($result);
+        $result = mysqli_query($link,$sql);
+//$row=mysqli_fetch_assoc($result);
 //print_r($row);
         ?>
         <div class="home_right_side_second">&nbsp;&nbsp;&nbsp;Latest Forum Topics
             <ul>
                 <?php
-                while ($row = mysql_fetch_assoc($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
                     ?>
                     <li>
                         <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">

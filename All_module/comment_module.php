@@ -1,5 +1,5 @@
 <?php
-$query_comment = mysql_query("SELECT c.id AS CID,c.profile_id,c.comment_text,c.commenter_id, u.id AS UID,u.first_name,u.last_name FROM  tbl_profile_comments AS c 
+$query_comment = mysqli_query($link,"SELECT c.id AS CID,c.profile_id,c.comment_text,c.commenter_id, u.id AS UID,u.first_name,u.last_name FROM  tbl_profile_comments AS c 
 															LEFT OUTER JOIN
 															tbl_users AS u ON u.id=c.profile_id WHERE u.username='" . $_GET['username'] . "' ORDER BY c.id DESC LIMIT 2");
 ?>
@@ -7,13 +7,13 @@ $query_comment = mysql_query("SELECT c.id AS CID,c.profile_id,c.comment_text,c.c
 <div class="comment_div"><!--START DIV comment_div-->
     <h2>Comments</h2>	
     <?php
-    if (mysql_num_rows($query_comment) > 0) {
+    if (mysqli_num_rows($query_comment) > 0) {
         ?>
 
         <?php
-        while ($row_comment = mysql_fetch_assoc($query_comment)) {
-            $query_username = mysql_query("SELECT username FROM tbl_users WHERE id='" . $row_comment['commenter_id'] . "' ");
-            $rows_username = mysql_fetch_assoc($query_username);
+        while ($row_comment = mysqli_fetch_assoc($query_comment)) {
+            $query_username = mysqli_query($link,"SELECT username FROM tbl_users WHERE id='" . $row_comment['commenter_id'] . "' ");
+            $rows_username = mysqli_fetch_assoc($query_username);
             ?>
 
             <ul>

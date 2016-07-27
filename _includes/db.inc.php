@@ -1,22 +1,10 @@
 <?php
 
 /* database connection */
-
-
-$connt = @mysql_connect(db_host, db_username, db_passward);
-
-if (!$connt) {
-
-    echo "datababe connection faild" . mysql_error();
-}
-
-/* database selection */
-
-//$selt=mysql_select_db('caribbea_db1',$connt);
-
-$selt = mysql_select_db(db_name, $connt);
-
-if (!$selt) {
-
-    echo "database selection faild" . mysql_error();
+$link = mysqli_connect(db_host, db_username, db_passward, db_name);
+if (!$link) {
+    echo "Error: Unable to connect to MySQL." . PHP_EOL;
+    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+    exit;
 }

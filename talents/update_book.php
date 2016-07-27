@@ -3,8 +3,8 @@ include('../_includes/application-top.php');
 ChecktalentLogin();
 
 /* chacking for payment delails */
-$sql12 = mysql_query("SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
-$payment_details = mysql_num_rows($sql12);
+$sql12 = mysqli_query($link,"SELECT * FROM  tbl_seller_bank WHERE uid='" . $_SESSION['talent_id'] . "' ");
+$payment_details = mysqli_num_rows($sql12);
 
 if ($payment_details > 0) {
     $pdetails = "1";
@@ -12,15 +12,15 @@ if ($payment_details > 0) {
     $pdetails = "0";
 }
 
-$sql = mysql_query("SELECT pr.id AS pr_id, pr.ref_id, pr.product_name, pr.product_details, pr.product_price, pr.shipping, pr.p_shipping, pb.id AS pb_book_id, pb.uid, pb.name, pb.author, pb.book_details FROM tbl_products AS pr LEFT OUTER JOIN tbl_profile_books AS pb ON pb.id=pr.ref_id WHERE pb.id=" . $_GET['id'] . " AND pb.uid=" . $_SESSION['talent_id'] . " AND pr.content_type='4' ");
+$sql = mysqli_query($link,"SELECT pr.id AS pr_id, pr.ref_id, pr.product_name, pr.product_details, pr.product_price, pr.shipping, pr.p_shipping, pb.id AS pb_book_id, pb.uid, pb.name, pb.author, pb.book_details FROM tbl_products AS pr LEFT OUTER JOIN tbl_profile_books AS pb ON pb.id=pr.ref_id WHERE pb.id=" . $_GET['id'] . " AND pb.uid=" . $_SESSION['talent_id'] . " AND pr.content_type='4' ");
 
-if (mysql_num_rows($sql) > 0) {
-    $result = mysql_fetch_assoc($sql);
+if (mysqli_num_rows($sql) > 0) {
+    $result = mysqli_fetch_assoc($sql);
     $prd_id = $result['pr_id'];
     $product_price = $result['product_price'];
 } else {
-    $sql1 = mysql_query("SELECT pb.id AS pb_book_id, pb.uid, pb.name, pb.author, pb.book_details, pb.status FROM  tbl_profile_books AS pb WHERE id=" . $_GET['id'] . " AND uid=" . $_SESSION['talent_id'] . " order by id ");
-    $result = mysql_fetch_assoc($sql1);
+    $sql1 = mysqli_query($link,"SELECT pb.id AS pb_book_id, pb.uid, pb.name, pb.author, pb.book_details, pb.status FROM  tbl_profile_books AS pb WHERE id=" . $_GET['id'] . " AND uid=" . $_SESSION['talent_id'] . " order by id ");
+    $result = mysqli_fetch_assoc($sql1);
     $prd_id = 0;
     $product_price = "0.00";
 }
@@ -44,14 +44,14 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
             $sql = "DELETE " .
                     "FROM tbl_products " .
                     "WHERE 1=1 AND id=" . $prd_id . " ";
-            $result = mysql_query($sql) or die(mysql_error());
+            $result = mysqli_query($link,$sql) or die(mysql_error());
         }
 
         $data = array(
             "uid" => $_SESSION["talent_id"],
-            "name" => mysql_real_escape_string(trim($name)),
-            "author" => mysql_real_escape_string(trim($author)),
-            "book_details" => mysql_real_escape_string(trim($book_details)),
+            "name" => mysqli_real_escape_string( $link ,trim($name)),
+            "author" => mysqli_real_escape_string( $link ,trim($author)),
+            "book_details" => mysqli_real_escape_string( $link ,trim($book_details)),
             "status" => '1'
         );
         $table = "tbl_profile_books";
@@ -62,9 +62,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
 
         $data = array(
             "uid" => $_SESSION["talent_id"],
-            "name" => mysql_real_escape_string(trim($name)),
-            "author" => mysql_real_escape_string(trim($author)),
-            "book_details" => mysql_real_escape_string(trim($book_details)),
+            "name" => mysqli_real_escape_string( $link ,trim($name)),
+            "author" => mysqli_real_escape_string( $link ,trim($author)),
+            "book_details" => mysqli_real_escape_string( $link ,trim($book_details)),
             "status" => '1'
         );
         $table = "tbl_profile_books";
@@ -75,19 +75,19 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
         $sql = "SELECT * " .
                 "FROM tbl_products " .
                 "WHERE 1=1 AND id=" . $prd_id . " AND ref_id=" . $mid . " ";
-        $result = mysql_query($sql) or die(mysql_query());
+        $result = mysqli_query($link,$sql) or die(mysqli_error($link));
 
-        if (mysql_num_rows($result) > 0) {
+        if (mysqli_num_rows($result) > 0) {
 
             if ($shipping == 1) {
                 $data1 = array(
                     "uid" => $_SESSION['talent_id'],
                     "ref_id" => $mid,
-                    "product_name" => mysql_real_escape_string(trim($name)),
-                    "product_details" => mysql_real_escape_string(trim($book_details)),
-                    "product_price" => mysql_real_escape_string(trim($product_price)),
-                    "shipping" => mysql_real_escape_string(trim($shipping)),
-                    "p_shipping" => mysql_real_escape_string(trim($p_shipping)),
+                    "product_name" => mysqli_real_escape_string( $link ,trim($name)),
+                    "product_details" => mysqli_real_escape_string( $link ,trim($book_details)),
+                    "product_price" => mysqli_real_escape_string( $link ,trim($product_price)),
+                    "shipping" => mysqli_real_escape_string( $link ,trim($shipping)),
+                    "p_shipping" => mysqli_real_escape_string( $link ,trim($p_shipping)),
                     "content_type" => '4',
                     "status" => '1'
                 );
@@ -95,9 +95,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
                 $data1 = array(
                     "uid" => $_SESSION['talent_id'],
                     "ref_id" => $mid,
-                    "product_name" => mysql_real_escape_string(trim($name)),
-                    "product_details" => mysql_real_escape_string(trim($book_details)),
-                    "product_price" => mysql_real_escape_string(trim($product_price)),
+                    "product_name" => mysqli_real_escape_string( $link ,trim($name)),
+                    "product_details" => mysqli_real_escape_string( $link ,trim($book_details)),
+                    "product_price" => mysqli_real_escape_string( $link ,trim($product_price)),
                     "shipping" => 0,
                     "p_shipping" => "0.00",
                     "content_type" => '4',
@@ -124,11 +124,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
             $data1 = array(
                 "uid" => $_SESSION['talent_id'],
                 "ref_id" => $mid,
-                "product_name" => mysql_real_escape_string(trim($name)),
-                "product_details" => mysql_real_escape_string(trim($book_details)),
-                "product_price" => mysql_real_escape_string(trim($product_price)),
-                "shipping" => mysql_real_escape_string(trim($shipping)),
-                "p_shipping" => mysql_real_escape_string(trim($p_shipping)),
+                "product_name" => mysqli_real_escape_string( $link ,trim($name)),
+                "product_details" => mysqli_real_escape_string( $link ,trim($book_details)),
+                "product_price" => mysqli_real_escape_string( $link ,trim($product_price)),
+                "shipping" => mysqli_real_escape_string( $link ,trim($shipping)),
+                "p_shipping" => mysqli_real_escape_string( $link ,trim($p_shipping)),
                 "content_type" => '4',
                 "status" => '1'
             );

@@ -11,16 +11,16 @@ if ((isset($_GET['id'])) && ($_GET['id'] != '')) {
     if ($_GET['pid'] != 0) {
 
         $sql1 = "delete from tbl_products where id='" . $_GET['pid'] . "'";
-        mysql_query($sql1);
+        mysqli_query($link,$sql1);
 
         $sql = "delete from tbl_profile_music where id='" . $_GET['id'] . "'";
-        mysql_query($sql);
+        mysqli_query($link,$sql);
         unlink("../_uploads/profile_music/" . $_GET['id'] . ".mp3");
         header("Location:manage_music.php?op=del");
     }
 
     $sql = "delete from tbl_profile_music where id='" . $_GET['id'] . "'";
-    mysql_query($sql);
+    mysqli_query($link,$sql);
     unlink("../_uploads/profile_music/" . $_GET['id'] . ".mp3");
     header("Location:manage_music.php?op=del");
 }

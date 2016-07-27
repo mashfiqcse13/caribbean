@@ -5,18 +5,18 @@ cmslogin();
 if (isset($_GET['img_reset'])) {
 
     $sql = "UPDATE `tbl_contact` SET `file_attached` = '$file_attached_updated' WHERE `id` = '{$_POST['pic_id']}'";
-    $result = mysql_query($sql);
+    $result = mysqli_query($link,$sql);
 }
 if (isset($_POST['submit'])) {
 
     $sql = "SELECT * FROM tbl_contact where id = '{$_POST['pic_id']}'";
-    $result = mysql_query($sql);
+    $result = mysqli_query($link,$sql);
 
     if (!$result) {
-        die("Retrieving records from contact table's query faild:" . mysql_query());
+        die("Retrieving records from contact table's query faild:" . mysqli_error($link));
     }
 
-    $row = mysql_fetch_array($result);
+    $row = mysqli_fetch_array($result);
     $stripslash = explode('/', $row['file_attached']);
     $file = explode('.', $stripslash['1']);
 
@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
     }
 
     $sql = "UPDATE `tbl_contact` SET `file_attached` = '$file_attached_updated' WHERE `id` = '{$_POST['pic_id']}'";
-    $result = mysql_query($sql);
+    $result = mysqli_query($link,$sql);
 
     die('<script>
             window.location.assign("' . SITE_URL . 'media.php");
@@ -56,16 +56,16 @@ include('include/header.php');
     if (isset($_GET['pic_id'])) {
 
         $sql = "SELECT * FROM tbl_contact where id = '{$_GET['pic_id']}'";
-        $result = mysql_query($sql);
+        $result = mysqli_query($link,$sql);
 
         if (!$result) {
-            die("Retrieving records from contact table's query faild:" . mysql_query());
+            die("Retrieving records from contact table's query faild:" . mysqli_error($link));
         }
-        $row = mysql_fetch_array($result);
+        $row = mysqli_fetch_array($result);
         if (isset($_GET['img_reset'])) {
 
             $sql = "UPDATE `tbl_contact` SET `file_attached` = '" . str_replace('-croped', '', $row['file_attached']) . "' WHERE `id` = '{$_GET['pic_id']}'";
-            $result = mysql_query($sql);
+            $result = mysqli_query($link,$sql);
             die('<script>
             window.location.assign("' . SITE_URL . 'media.php");
         </script>');

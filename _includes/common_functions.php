@@ -5,10 +5,11 @@
  */
 
 function Let_the_admin_see_the_user_dashboard() {
+    global $link;
     if (empty($_SESSION['is_admin']) || strtolower($_SESSION['is_admin']) != "yes" || empty($_REQUEST['id']) || $_REQUEST['id'] < 1) {
         return FALSE;
     }
-    $user_id = mysql_real_escape_string($_REQUEST['id']);
+    $user_id = mysqli_real_escape_string($link,$_REQUEST['id']);
     $db = new DBClass(db_host, db_username, db_passward, db_name);
     $result = $db->db_select_as_array('tbl_users', "id = '$user_id'");
     if (empty($result[0])) {

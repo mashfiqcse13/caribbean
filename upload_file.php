@@ -21,7 +21,7 @@ if (isset($_SESSION['file1'])) {
     $file1 = $_SESSION['file1'];
     $file2 = $_SESSION['file2'];
 
-    $contact = mysql_query("INSERT INTO contact SET name='" . $name . "' , email='" . $email . "' , company='" . $company . "' , country='" . $country . "' , aname='" . $aname . "' , towork='" . $towork . "' , genre='" . $genre . "' , query_sub='" . $query_sub . "' , query='" . $query . "' , file1='" . $file1 . "' , file2='" . $file2 . "'");
+    $contact = mysqli_query($link,"INSERT INTO contact SET name='" . $name . "' , email='" . $email . "' , company='" . $company . "' , country='" . $country . "' , aname='" . $aname . "' , towork='" . $towork . "' , genre='" . $genre . "' , query_sub='" . $query_sub . "' , query='" . $query . "' , file1='" . $file1 . "' , file2='" . $file2 . "'");
     unset($_SESSION['file1']);
     header('location:contact.php?smsg=Contact Message Recived');
 

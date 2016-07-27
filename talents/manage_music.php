@@ -63,9 +63,9 @@ include('../_includes/header.php');
     <p style="text-align:right"><a href="profile_setup.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a><a href="add_mp3_music.php" class="button">Add Music</a></p>
     <!--/////USER MUSIC UPLOAD HEAR/////-->
     <?php
-    $result = mysql_query("SELECT * FROM  tbl_profile_music WHERE 	user_id='" . $_SESSION['talent_id'] . "' order by id DESC ");
-    $number = mysql_num_rows($result);
-    //$data=mysql_fetch_assoc($result);
+    $result = mysqli_query($link,"SELECT * FROM  tbl_profile_music WHERE 	user_id='" . $_SESSION['talent_id'] . "' order by id DESC ");
+    $number = mysqli_num_rows($result);
+    //$data=mysqli_fetch_assoc($result);
     ?>
     <table cellpadding="0" cellspacing="0" class="TabUIRecords" width="100%">
         <?php
@@ -87,10 +87,10 @@ include('../_includes/header.php');
             <tbody>
                 <?php
             }
-            while ($row = mysql_fetch_assoc($result)) {
-                $sql = mysql_query("SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type=1 ");
-                $res = mysql_fetch_assoc($sql);
-                $row1 = mysql_num_rows($sql);
+            while ($row = mysqli_fetch_assoc($result)) {
+                $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type=1 ");
+                $res = mysqli_fetch_assoc($sql);
+                $row1 = mysqli_num_rows($sql);
 
                 if ($res['id'] != '') {
                     $pid = $res['id'];

@@ -2,10 +2,10 @@
 include('include/application_top.php');
 $_SESSION['cms_login'] = 0;
 if ((isset($_POST['Login'])) AND ( $_POST['Login'] == 'Login')) {
-    $query = "SELECT * FROM tbl_admin_login WHERE name='" . mysql_real_escape_string($_POST['username']) . "' AND password='" . mysql_real_escape_string($_POST['password']) . "'";
-    $result = mysql_query($query);
-    $count = mysql_num_rows($result);
-    $data = mysql_fetch_array($result);
+    $query = "SELECT * FROM tbl_admin_login WHERE name='" . mysqli_real_escape_string( $link ,$_POST['username']) . "' AND password='" . mysqli_real_escape_string( $link ,$_POST['password']) . "'";
+    $result = mysqli_query($link,$query);
+    $count = mysqli_num_rows($result);
+    $data = mysqli_fetch_array($result);
     if ($count == 1) {
         $_SESSION['cms_login'] = 1;
         $_SESSION['cms_id'] = $data['id'];

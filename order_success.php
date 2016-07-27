@@ -2,13 +2,13 @@
 include('_includes/application-top.php');
 CheckLoginForum();
 $sql = "SELECT * FROM tbl_orders WHERE id='" . $_SESSION['OID'] . "'";
-$result = mysql_query($sql);
-$row = mysql_fetch_assoc($result);
+$result = mysqli_query($link,$sql);
+$row = mysqli_fetch_assoc($result);
 //print_r($row);
 
 $sql1 = "SELECT payment_details FROM tbl_users WHERE id='" . $row['seller_id'] . "'";
-$result1 = mysql_query($sql1);
-$row1 = mysql_fetch_assoc($result1);
+$result1 = mysqli_query($link,$sql1);
+$row1 = mysqli_fetch_assoc($result1);
 //print_r($row1);
 //echo $_SESSION['OID'];
 //exit();	

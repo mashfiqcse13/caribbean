@@ -11,8 +11,8 @@ $data = array(
 $table = "tbl_chat";
 insertData($data, $table);
 
-$query = mysql_query("SELECT tbl_chat.from_id,tbl_chat.*,tbl_users.id,tbl_users.username FROM tbl_chat LEFT JOIN tbl_users ON tbl_chat.from_id=tbl_users.id  WHERE from_id='" . $from_id . "'");
-$row = mysql_fetch_array($query);
+$query = mysqli_query($link,"SELECT tbl_chat.from_id,tbl_chat.*,tbl_users.id,tbl_users.username FROM tbl_chat LEFT JOIN tbl_users ON tbl_chat.from_id=tbl_users.id  WHERE from_id='" . $from_id . "'");
+$row = mysqli_fetch_array($query);
 ?>
 
 <label style="font-family:Verdana, Arial, Helvetica, sans-serif;font-size:14px; color:#FF9900;font-weight:bold;"><?php echo $row['username']; ?></label>:&nbsp;&nbsp;<label style="color:#999999;font-family:Verdana, Arial, Helvetica, sans-serif;font-weight:bold; font-size:14px; text-align:justify;"><?php echo $msg; ?></label><br />

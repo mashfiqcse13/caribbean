@@ -33,30 +33,30 @@ function CheckLoginForum() {
 
 function GetPageText($page_name) {
     $sql = "select  cms_text from   tbl_cms where name='" . $page_name . "' AND status=1";
-    $query = mysql_query($sql);
-    $row = mysql_fetch_assoc($query);
+    $query = mysqli_query($link,$sql);
+    $row = mysqli_fetch_assoc($query);
     echo $row["cms_text"];
 }
 
 function GetPageHeading($page_name) {
     $sql = "select  heading from   tbl_cms where name='" . $page_name . "' AND status=1";
-    $query = mysql_query($sql);
-    $row = mysql_fetch_assoc($query);
+    $query = mysqli_query($link,$sql);
+    $row = mysqli_fetch_assoc($query);
     echo $row["heading"];
 }
 
 /* 	function GetMetaTitle($page_name)
   {
   $sql = "select  page_title from   tbl_cms where name='".$page_name."'";
-  $query=mysql_query($sql);
-  $row=mysql_fetch_assoc($query);
+  $query=mysqli_query($link,$sql);
+  $row=mysqli_fetch_assoc($query);
   echo $row["page_title"];
   } */
 
 function GetMetaKeyword($page_name) {
     $sql = "select  meta_keyword from tbl_cms where name='" . $page_name . "'";
-    $query = mysql_query($sql);
-    $row = mysql_fetch_assoc($query);
+    $query = mysqli_query($link,$sql);
+    $row = mysqli_fetch_assoc($query);
     echo $row["meta_keyword"];
 }
 
@@ -76,9 +76,9 @@ function CheckProfileView($ername) {
 //				 "WHERE u.username='" . $ername . "'AND type='1' ";
 //				
 //		
-//		$result1=mysql_query($sql) or die(mysql_error());
+//		$result1=mysqli_query($link,$sql) or die(mysqli_error ( $link ));
 //		
-//		$data1=mysql_fetch_array($result1);
+//		$data1=mysqli_fetch_array($result1);
 //
 //		//get profile status
 //
@@ -103,8 +103,8 @@ function CheckProfileView($ername) {
 
 function GetFullName($username) {
     $sql = "SELECT   tbl_users.first_name,tbl_users.last_name FROM   tbl_users WHERE username='" . $username . "'";
-    $query = mysql_query($sql);
-    $row = mysql_fetch_assoc($query);
+    $query = mysqli_query($link,$sql);
+    $row = mysqli_fetch_assoc($query);
     $name = $row["first_name"] . " " . $row["last_name"];
     return $name;
 }
@@ -124,9 +124,9 @@ function Onlineactivity() {
     /* ###################GET VALUE FROM tbl_user_online############### */
     if (isset($uid)) {
         $SQL_QUERY = "SELECT * FROM tbl_user_online WHERE uid='" . $uid . "'";
-        $SQL_RESULT = mysql_query($SQL_QUERY);
-        $SQL_fetch = mysql_fetch_assoc($SQL_RESULT);
-        $SQL_ROWS = mysql_num_rows($SQL_RESULT);
+        $SQL_RESULT = mysqli_query($link,$SQL_QUERY);
+        $SQL_fetch = mysqli_fetch_assoc($SQL_RESULT);
+        $SQL_ROWS = mysqli_num_rows($SQL_RESULT);
         if ($SQL_ROWS == '') {
             /* ###################INSERT VALUE FROM tbl_user_online############### */
             $data = array(
@@ -158,7 +158,7 @@ function Onlineactivity() {
     $before_5_min = (date('Y-m-d H:i:s', strtotime('-5 minutes')));
     //echo $before_5_min;
     $sql = "DELETE FROM tbl_user_online WHERE last_activity<'" . $before_5_min . "'";
-    mysql_query($sql);
+    mysqli_query($link,$sql);
     ////////////////////////////////////////////////////////////////////////////
 }
 
@@ -166,8 +166,8 @@ function Onlineactivity() {
 //////// for chat username
 function GetChatUserName($id) {
     $sql = "SELECT username FROM tbl_users WHERE id='" . $id . "'";
-    $query = mysql_query($sql);
-    $row = mysql_fetch_array($query);
+    $query = mysqli_query($link,$sql);
+    $row = mysqli_fetch_array($query);
     return $row["username"];
 }
 
