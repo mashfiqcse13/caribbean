@@ -21,7 +21,7 @@ if ($number <> 0) {
                 $result6 = mysqli_query($link,"SELECT username FROM  tbl_users WHERE id=" . $data5["profile_id"] . "");
                 $sql6 = mysqli_fetch_assoc($result6);
                 $fans_profile_pic_url = "_uploads/user_photo/{$data5["profile_id"]}.jpg";
-                if (file_exists("../$friends_profile_pic_url")) {
+                if (file_exists("$fans_profile_pic_url")) {
                     $fans_profile_pic_url.="?" . time();
                 } else {
                     $fans_profile_pic_url = "_images/dummy.png";

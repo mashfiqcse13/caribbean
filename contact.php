@@ -164,23 +164,23 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             } else {
 
                 $info = pathinfo($_FILES['attachment']['name']);
-                $ext = $info['extension']; // get the extension of the file
+                $ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION); // get the extension of the file
                 $newname = "newname" . date('Y-m-d-H-i-s') . "." . $ext;
                 $target = 'uploadcontact/' . $newname;
                 if (!empty($_FILES['attachment']['name'])) {
                     if (move_uploaded_file($_FILES['attachment']['tmp_name'], $target)) {
                         //determining file type
-                        if(in_array($ext, $allowedVideo)){
+                        if (in_array($ext, $allowedVideo)) {
                             $type_of_file = "Video";
-                        }else if(in_array($ext, $allowedPhoto)){
+                        } else if (in_array($ext, $allowedPhoto)) {
                             $type_of_file = "Photo";
-                        }else if(in_array($ext, $allowedMusic)){
+                        } else if (in_array($ext, $allowedMusic)) {
                             $type_of_file = "Music";
-                        }else if(in_array($ext, $allowedDocs)){
+                        } else if (in_array($ext, $allowedDocs)) {
                             $type_of_file = "Document";
-                        }else if(in_array($ext, $allowedArchive)){
+                        } else if (in_array($ext, $allowedArchive)) {
                             $type_of_file = "Archive";
-                        }else {
+                        } else {
                             $type_of_file = "unknown";
                         }
                         // echo "jjjj";
@@ -189,6 +189,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                     }
                 } else {
                     $target = "";
+                    $type_of_file = "";
                 }
 
                 $Query = "INSERT INTO `tbl_contact`
@@ -208,22 +209,22 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                                                      `join_time`,
                                                      `created`)
                                         VALUES (
-                                                '" . $name . "',
-                                                '" . $artistbandname . "',
-                                                '" . $type_of_file . "',
-                                                '" . $title_of_work . "',
-                                                '" . $genre . "',
-                                                '" . $email . "',
-                                                '" . $company . "',
-                                                '" . $job_title . "',
-                                                '" . $query_sub . "',
-                                                '" . $query . "',
-                                                '" . $target . "',
+                                                '" . mysqli_real_escape_string($link, $name) . "',
+                                                '" . mysqli_real_escape_string($link, $artistbandname) . "',
+                                                '" . mysqli_real_escape_string($link, $type_of_file) . "',
+                                                '" . mysqli_real_escape_string($link, $title_of_work) . "',
+                                                '" . mysqli_real_escape_string($link, $genre) . "',
+                                                '" . mysqli_real_escape_string($link, $email) . "',
+                                                '" . mysqli_real_escape_string($link, $company) . "',
+                                                '" . mysqli_real_escape_string($link, $job_title) . "',
+                                                '" . mysqli_real_escape_string($link, $query_sub) . "',
+                                                '" . mysqli_real_escape_string($link, $query) . "',
+                                                '" . mysqli_real_escape_string($link, $target) . "',
                                                 '" . date("Y-m-d") . "',
                                                 '" . date("h:i:s A") . "',
                                                 '" . (date("Y-m-d h:i:s A")) . "');";
-
-                mysqli_query($link,$Query);
+//                die("<pre>" . $Query);
+                mysqli_query($link, $Query) or die(mysqli_error($link));
                 //echo '<div id="formfeedback"><h3>Thank You!</h3><p>'. $thanksmessage .'</p></div>';
             } // end of if !mail
         } else { //report the errors
@@ -352,11 +353,11 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             </p>
             <p>
                 <label for="city">Artist Name:</label>
-                <input type="text" name="artistbandname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }                ?>"/>
+                <input type="text" name="artistbandname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }                       ?>"/>
             </p>
             <p>
                 <label for="city">Title Of Work:</label>
-                <input type="text" name="title_of_work" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }                ?>"/>
+                <input type="text" name="title_of_work" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }                       ?>"/>
             </p>
 
             <p>

@@ -44,7 +44,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
             $sql = "DELETE " .
                     "FROM tbl_products " .
                     "WHERE 1=1 AND id=" . $prd_id . " ";
-            $result = mysqli_query($link,$sql) or die(mysql_error());
+            $result = mysqli_query($link,$sql) or die(mysqli_error($link,));
         }
 
         $data = array(

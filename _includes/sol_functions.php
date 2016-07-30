@@ -248,7 +248,7 @@ function getAnyTableWhereData($table, $whereClause) {
     $result = mysqli_query($link,$query) or die(mysqli_error ( $link));
 
     if ($row = mysqli_fetch_array($result)) {
-        mysql_free_result($result);
+        mysqli_free_result($result);
         return $row;
     } else {
         return false;

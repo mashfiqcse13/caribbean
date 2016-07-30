@@ -10,7 +10,7 @@ $page_row_no = PAGE_ROW_NO;
 $page_link_no = PAGE_LINK_NO;
 $page = new PS_Pagination($connt, $str, $page_row_no, $page_link_no, $append = "");
 $rs = $page->paginate();
-echo mysql_error();
+echo mysqli_error($link);
 
 include('_includes/header.php');
 ?>

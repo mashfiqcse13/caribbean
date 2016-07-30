@@ -27,7 +27,7 @@ $qry = "SELECT * " .
         "WHERE " . $_SESSION['search'] . " " .
         "ORDER BY username ";
 
-$result = mysqli_query($link,$qry) or die(mysql_error());
+$result = mysqli_query($link,$qry) or die(mysqli_error($link,));
 
 //$query=mysqli_query($link,"SELECT * FROM  tbl_users WHERE username like '".$_POST['search']."%' OR first_name like '".$_POST['search']."%' OR last_name like '".$_POST['search']."%'");
 $number = mysqli_num_rows($result);

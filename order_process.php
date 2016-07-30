@@ -31,7 +31,7 @@ if ((isset($_GET['order'])) && ($_GET['order'] == 1)) {
             "payment_status=1 " .
             "WHERE 1=1 AND id=" . $_GET['id'] . " ";
 
-    $result = mysqli_query($link,$sql) or die(mysql_error());
+    $result = mysqli_query($link,$sql) or die(mysqli_error($link,));
 
 
 
@@ -46,7 +46,7 @@ if ((isset($_GET['order'])) && ($_GET['order'] == 1)) {
             "ON p.id=o.p_id " .
             "WHERE 1=1 AND o.uid=" . $uid . " AND o.id=" . $_GET['id'] . " ";
 
-    $result1 = mysqli_query($link,$sql1) or die(mysql_error());
+    $result1 = mysqli_query($link,$sql1) or die(mysqli_error($link,));
 
     $row1 = mysqli_fetch_array($result1);
 
@@ -90,7 +90,7 @@ if ((isset($_GET['order'])) && ($_GET['order'] == 1)) {
             "ON u.id=p.uid 	 " .
             "WHERE 1=1 AND p.id=" . $row1['p_id'] . " ";
 
-    $result2 = mysqli_query($link,$sql2) or die(mysql_error());
+    $result2 = mysqli_query($link,$sql2) or die(mysqli_error($link,));
 
     $row2 = mysqli_fetch_array($result2);
 

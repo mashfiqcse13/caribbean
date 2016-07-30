@@ -309,7 +309,7 @@ function yog_mysql_free_result($result) {
     $ret = 0;
     switch (DB_EXTENSION) {
         case "mysql":
-            $ret = mysql_free_result($result);
+            $ret = mysqli_free_result($result);
             break;
         case "mysqli":
             $ret = mysqli_free_result($result);

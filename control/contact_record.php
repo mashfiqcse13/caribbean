@@ -1,34 +1,37 @@
 <?php
 include('include/application_top.php');
 cmslogin();
-?>
-
-<?php include('include/header.php'); ?>
-
-<?php
+include('include/header.php');
 //3.perform database query
 
 if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "delete") {
-    $db_rslt_file_name = mysqli_query($link,"SELECT * FROM tbl_contact WHERE `id` = '" . mysqli_real_escape_string( $link ,$_REQUEST['id']) . "'");
+    $db_rslt_file_name = mysqli_query($link, "SELECT * FROM tbl_contact WHERE `id` = '" . mysqli_real_escape_string($link, $_REQUEST['id']) . "'");
     $file_name_4_dlt = mysqli_fetch_array($db_rslt_file_name);
     $file_name_4_dlt = '../' . $file_name_4_dlt['file_attached'];
-    unlink($file_name_4_dlt);
-    mysqli_query($link,"DELETE FROM `tbl_contact` WHERE `id` = '" . mysqli_real_escape_string( $link ,$_REQUEST['id']) . "';");
-    echo "<h3 style='padding: 9px;text-align: center;color: #ffffff;background: #008000;'>Record Successfully Deleted,</h1>";
+    if (file_exists($file_name_4_dlt)) {
+        unlink($file_name_4_dlt);
+    }
+    mysqli_query($link, "DELETE FROM `tbl_contact` WHERE `id` = '" . mysqli_real_escape_string($link, $_REQUEST['id']) . "';");
+    header('Location: contact_record.php?msq_code=deleted');
+    die();
+}
+
+if (!empty($_REQUEST['msq_code']) && $_REQUEST['msq_code'] == "deleted") {
+    ?>  <script>alert("Record Successfully Deleted")</script> <?php
 }
 
 
 
-$result = mysqli_query($link,"SELECT * FROM tbl_contact");
+$result = mysqli_query($link, "SELECT * FROM tbl_contact");
 if (!$result) {
     die("database query faild:" . mysqli_error($link));
 }
 ?>
 <?php
 if (isset($_GET['op']) AND ( $_GET['op'] == "U")) {
-    echo "<p  style=margin-left:15px;color:#669900;>Record Updated Sucessfully</p>";
+    ?> <script>alert("Record Updated Sucessfully")</script> <?php
 } elseif (isset($_GET['op']) AND ( $_GET['op'] == "invalid")) {
-    echo "Invalid Login";
+    ?> <script>alert("Invalid Login")</script> <?php
 }
 ?>
 
@@ -69,7 +72,7 @@ if (isset($_GET['op']) AND ( $_GET['op'] == "U")) {
                         'Archive' => 4,
                     );
                     $file_type_id = $file_type_id[$row['type_of_file']];
-                    echo '<a href="'.SITE_URL.'media.php?id=' . $row['id'].'&filetype='.$file_type_id.'" >View It !!</a>';
+                    echo '<a href="' . SITE_URL . 'media.php?id=' . $row['id'] . '&filetype=' . $file_type_id . '" >View It !!</a>';
                 } else {
                     echo "No File found";
                 }
