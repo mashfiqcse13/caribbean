@@ -62,7 +62,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Make Payment")) {
     $sql = "DELETE " .
             "FROM tbl_shopping_cart " .
             "WHERE 1=1 AND uid=" . $uid . " AND p_id=" . $_GET['id'] . " ";
-    $result = mysqli_query($link,$sql) or die(mysqli_error($link,));
+    $result = mysqli_query($link,$sql) or die(mysqli_error($link));
     header("Location:paypal.php?p=" . $product_id . "&o=" . $oid);
 }
 

@@ -64,7 +64,7 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])) {
 
         while (!feof($fp)) {
 
-            $res. = fgets($fp, 1024);
+            $res.= fgets($fp, 1024);
 
 
             $from_email = "surajit1990dhk@gmail.com";

@@ -131,7 +131,7 @@ function yog_mysql_insert_id($db_link) {
     $ret = 0;
     switch (DB_EXTENSION) {
         case "mysql":
-            $ret = mysqli_insert_id($link$db_link);
+            $ret = mysqli_insert_id($db_link);
             break;
         case "mysqli":
             $ret = mysqli_insert_id($db_link);

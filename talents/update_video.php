@@ -43,7 +43,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
     if ($video_sale == '1') {
         if ($vtype == '1') {
             $sql = "SELECT * " . "FROM tbl_products " . "WHERE id=" . $vpid . " AND uid=" . $_SESSION['talent_id'] . " AND ref_id=" . $vid . " ";
-            $result = mysqli_query($link,$sql) or die(mysqli_error($link,));
+            $result = mysqli_query($link,$sql) or die(mysqli_error($link));
             if (mysqli_num_rows($result) > 0) {
                 $data = array(
                     'product_name' => mysqli_real_escape_string( $link ,$video_name),
@@ -167,7 +167,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
 
 
             $sql = "SELECT * " . "FROM tbl_products " . "WHERE id=" . $vpid . " AND uid=" . $_SESSION['talent_id'] . " AND ref_id=" . $vid . " ";
-            $result = mysqli_query($link,$sql) or die(mysqli_error($link,));
+            $result = mysqli_query($link,$sql) or die(mysqli_error($link));
             if (mysqli_num_rows($result) > 0) {
                 $data = array(
                     'product_name' => mysqli_real_escape_string( $link ,$video_name),
@@ -259,12 +259,12 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
     } else {
         if ($vtype == '1') {
             $sql = "SELECT * " . "FROM tbl_products " . "WHERE id=" . $vpid . " AND uid=" . $_SESSION['talent_id'] . " AND ref_id=" . $vid . " ";
-            $result = mysqli_query($link,$sql) or die(mysqli_error($link,));
+            $result = mysqli_query($link,$sql) or die(mysqli_error($link));
             if (mysqli_num_rows($result) > 0) {
                 $sql = "DELETE " .
                         "FROM tbl_products " .
                         "WHERE id=" . $vpid . " AND ref_id=" . $vid . " ";
-                $result = mysqli_query($link,$sql) or die(mysqli_error($link,));
+                $result = mysqli_query($link,$sql) or die(mysqli_error($link));
             }
 
 
@@ -325,13 +325,13 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
         } else {
 
             $sql = "SELECT * " . "FROM tbl_products " . "WHERE id=" . $vpid . " AND uid=" . $_SESSION['talent_id'] . " AND ref_id=" . $vid . " ";
-            $result = mysqli_query($link,$sql) or die(mysqli_error($link,));
+            $result = mysqli_query($link,$sql) or die(mysqli_error($link));
             if (mysqli_num_rows($result) > 0) {
 
                 $sql = "DELETE " .
                         "FROM tbl_products " .
                         "WHERE id=" . $vpid . " AND ref_id=" . $vid . " ";
-                $result = mysqli_query($link,$sql) or die(mysqli_error($link,));
+                $result = mysqli_query($link,$sql) or die(mysqli_error($link));
             }
 
             $product_img_thumb = "../_uploads/profile_product/thumb/" . $vpid . ".jpg";
