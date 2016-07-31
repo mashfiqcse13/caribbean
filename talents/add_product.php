@@ -6,7 +6,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Product')) {
     /* move upload photo in temp folder */
     //get the file ext:
     $filename = $_FILES['product_photo']['name'];
-    $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+    $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
     // $file_ext = strrchr($filename, '.'); 
     $whitelist = array(".jpg", ".jpeg", ".gif", ".png");
@@ -34,7 +34,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Product')) {
         );
         $table = "tbl_products";
         insertData($data, $table);
-        $lid = mysql_insert_id();
+        $lid = mysqli_insert_id($link);
 
         $upload_file = $_FILES['product_photo']['tmp_name'];
         $destination = "../_temp/" . $lid . ".jpg";

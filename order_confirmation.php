@@ -40,7 +40,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Make Payment")) {
     $table = "tbl_orders";
     insertData($data, $table);
 
-    $oid = mysql_insert_id();
+    $oid = mysqli_insert_id($link);
     $_SESSION['OID'] = $oid;
 
     if ($_POST['ordershipping'] != 0) {

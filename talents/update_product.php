@@ -12,7 +12,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Product')) {
     //extract($_POST);
     if ((isset($_FILES['product_photo']['name'])) && ($_FILES['product_photo']['name'] != '')) {
         $filename = $_FILES['product_photo']['name'];
-        $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+        $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
         //$file_ext = strrchr($filename, '.'); 
         $whitelist = array(".jpg", ".jpeg", ".gif", ".png");

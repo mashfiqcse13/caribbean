@@ -20,7 +20,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Image')) {
 
         /* USER IMAGE UPLOAD */
         $filename = $_FILES['img_path']['name'];
-        $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+        $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
         //$file_ext = strrchr($filename, '.');
         //preg_replace('/\.\w+$/e', 'strtolower("$0")', $string);
@@ -38,7 +38,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Image')) {
             insertData($data, "tbl_profile_photos");
 
 
-            $img_id = mysql_insert_id();
+            $img_id = mysqli_insert_id($link);
 
             /*  Aa fore Sold */
             $data1 = array(
@@ -55,7 +55,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Image')) {
             $table1 = "tbl_products";
             insertData($data1, $table1);
 
-            $prod_id = mysql_insert_id();
+            $prod_id = mysqli_insert_id($link);
 
             $upload_file = $_FILES['img_path']['tmp_name'];
             $destination = "../_temp/" . $img_id . ".jpg";
@@ -100,14 +100,14 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Image')) {
             //////////////////////////////////////////////////	
 
 
-            header("Location:manage_photo.php?op=a");
+            header("Location:manage_photo.php?id=$user_idd&op=a");
         }
     } else {
 
         /* USER IMAGE UPLOAD */
         $filename = $_FILES['img_path']['name'];
 
-        $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+        $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
         //echo $file_ext = strrchr($filename, '.');
 
         $whitelist = array(".jpg", ".jpeg", ".gif", ".png");
@@ -124,7 +124,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Image')) {
             insertData($data, "tbl_profile_photos");
 
 
-            $img_id = mysql_insert_id();
+            $img_id = mysqli_insert_id($link);
 
             $upload_file = $_FILES['img_path']['tmp_name'];
             $destination = "../_temp/" . $img_id . ".jpg";
@@ -152,7 +152,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Image')) {
 
             //////////////////////////////////////////////////
 
-            header("Location:manage_photo.php?op=a");
+            header("Location:manage_photo.php?id=$user_idd&op=a");
         }
     }
 }
@@ -254,7 +254,7 @@ include('../_includes/header.php');
 
             <div id="m_profile_right"><!--START CLASS m_profile_right PART -->
                 <!--/////USER IMAGE UPLOAD/////-->
-                <form  name="add_mp3_songs" action="<?php $_SERVER['PHP_SELF']; ?>" method="post" id="add_mp3_songs" enctype="multipart/form-data" onsubmit="return Validate_info()">
+                <form  name="add_mp3_songs" action="add_image.php?id=<?php $user_idd; ?>" method="post" id="add_mp3_songs" enctype="multipart/form-data" onsubmit="return Validate_info()">
                     <input type="hidden" name="pdetails" value="<?php echo $pdetails; ?>" />
                     <p><label for="photo_title">Title:</label>
                         <input type="text" name="photo_title" value="" class="required" maxlength="100"/> 

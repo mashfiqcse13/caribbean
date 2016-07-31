@@ -5,45 +5,45 @@ include '../_includes/class.database.php';
 $db = new DBClass(db_host, db_username, db_passward, db_name);
 
 if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
-
     /* move upload photo in temp folder */
-    //get the file ext:
-    $filename = $_FILES['mp3_file']['name'];
-    $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
 
+    $file_ext = "";
     if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "add") {
-        $result = mysqli_query($link,"SELECT file_attached FROM tbl_contact where id='" . $_REQUEST['id'] . "'");
+        $result = mysqli_query($link, "SELECT file_attached FROM tbl_contact where id='" . $_REQUEST['id'] . "'");
 
         while ($row = mysqli_fetch_array($result)) {
             $audio = $row['file_attached'];
             $stripslash = explode('/', $row['file_attached']);
         }
 
-        //$tempdir = $_SERVER['DOCUMENT_ROOT']."/uploadcontact/index.php";
-        //echo $audio;uploadcontact/newname2014-06-04-22-28-10.mp3
-        //echo $_SERVER['DOCUMENT_ROOT'];/var/zpanel/hostdata/zadmin/public_html/caribbeancirclestars_com
-
+        //get the file ext:
         $file_ext = ".mp3";
+    } else if (!empty($_FILES['mp3_file']['name'])) {
+        //get the file ext:
+        $filename = $_FILES['mp3_file']['name'];
+        $file_ext = "." . pathinfo($filename, PATHINFO_EXTENSION);
     }
     //$file_ext = strrchr($filename, '.');
     //check if its allowed or not:
     // $whitelist = array(".mp3"); 
+//    die("<pre>'$file_ext'");
+//    die("<pre>'$file_ext'\n" . print_r($_FILES['mp3_file'], TRUE));
     if ($file_ext <> ".mp3") {
         $MSG = 'Not allowed extension,please upload mp3 only!';
     } else {
 
         $data = array(
-            "name" => mysqli_real_escape_string( $link ,trim($_POST['name'])),
-            "artist" => mysqli_real_escape_string( $link ,trim($_POST['artist'])),
+            "name" => mysqli_real_escape_string($link, trim($_POST['name'])),
+            "artist" => mysqli_real_escape_string($link, trim($_POST['artist'])),
             "status" => '1'
         );
         $table = "tbl_site_music";
         insertData($data, $table);
 
-        $lid = mysql_insert_id();
+        $lid = mysqli_insert_id($link);
 
-        if (!isset($_REQUEST['id'])) {
-
+        if (!empty($_FILES['mp3_file']['tmp_name'])) {
+//            die("<pre>'$lid'");
             $source_path = $_FILES['mp3_file']['tmp_name'];
             $destination = "../_temp/" . $lid . ".mp3";
             upload_my_file($source_path, $destination);
@@ -54,6 +54,8 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
 
             /* delete temp folder file */
             unlink("../_temp/" . $lid . ".mp3");
+            header("location:manage_music.php?op=add_music_success_4rm_media");
+            die();
         } else {
             $file1 = "../uploadcontact/" . $stripslash['1'];
             $newfile1 = "../_uploads/site_music/" . $stripslash['1'];
@@ -63,13 +65,9 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
                 echo "failed to copy from media to music...";
             }
             rename($newfile1, $newfile11);
-            die('
-            <script>
-                window.location = "manage_music.php?op=add_music_success_4rm_media";
-            </script>
-            ');
+            header("location:manage_music.php?op=add_music_success_4rm_media");
+            die();
         }
-        header("location:add_site_music.php?op=a ");
     }
 }
 ?>
@@ -116,8 +114,11 @@ if (!empty($_GET['id']) && $_GET['action'] == "add") {
 }
 ?>
 <h1>ADD MUSIC</h1>
+<?php if (!empty($_REQUEST['id']) && $_REQUEST['action'] == "add"){  ?>
 <p style=""><a href="media.php?filetype=2" class="button" style=" margin:10px 0px 0px 15px; color:#FFFFFF;">Back</a></p>
-
+<?php }else{?>
+<p style=""><a href="manage_music.php" class="button" style=" margin:10px 0px 0px 15px; color:#FFFFFF;">Back</a></p>
+<?php }?>
 <div class="add_site_mp3">
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data" id="add_mp3_songs" >
         <input type="hidden" value="<?php echo $_REQUEST['id']; ?>" name="id">

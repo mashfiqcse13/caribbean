@@ -5,7 +5,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Upload')) {
     // $linkcat="../_temp/".$_SESSION["user_id"].'.jpg';
     //@copy($_FILES["img_path"]["tmp_name"],$linkcat);
     $filename = $_FILES['img_path']['name'];
-    $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+    $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
     //$file_ext = strrchr($filename, '.');
 

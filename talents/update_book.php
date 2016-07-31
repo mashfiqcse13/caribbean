@@ -135,7 +135,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
 
             $table1 = "tbl_products";
             insertData($data1, $table1);
-            $prod_id = mysql_insert_id();
+            $prod_id = mysqli_insert_id($link);
 
             $prof_photo = "../_uploads/profile_book_photo/" . $mid . ".jpg";
             $prof_photo_thumb = "../_uploads/profile_book_photo/thumb/" . $mid . ".jpg";
@@ -153,7 +153,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'update')) {
     if ((isset($_FILES['img_path']['name'])) && ($_FILES['img_path']['name'] != '')) {
 
         $filename = $_FILES['img_path']['name'];
-        $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+        $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
         //$file_ext = strrchr($filename, '.');
         $whitelist = array(".jpg", ".jpeg", ".gif", ".png");

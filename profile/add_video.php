@@ -28,7 +28,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                 );
                 $table = "tbl_profile_videos";
                 insertData($data, $table);
-                $vid = mysql_insert_id();
+                $vid = mysqli_insert_id($link);
 
                 $source_path1 = $_FILES['file_photo']['tmp_name'];
                 $destination1 = "../_temp/" . $vid . ".jpg";
@@ -93,7 +93,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                             );
                             $table = "tbl_profile_videos";
                             insertData($data, $table);
-                            $vid = mysql_insert_id();
+                            $vid = mysqli_insert_id($link);
 
                             $source_path1 = $_FILES['file_photo']['tmp_name'];
                             $destination1 = "../_temp/" . $vid . ".jpg";
@@ -145,7 +145,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                     );
                     $table = "tbl_profile_videos";
                     insertData($data, $table);
-                    $vid = mysql_insert_id();
+                    $vid = mysqli_insert_id($link);
 
                     $source_path1 = $_FILES['file_photo']['tmp_name'];
                     $destination1 = "../_temp/" . $vid . ".jpg";
@@ -183,7 +183,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                     );
                     $table = "tbl_profile_videos";
                     insertData($data, $table);
-                    $vid = mysql_insert_id();
+                    $vid = mysqli_insert_id($link);
 
                     $source_path2 = $_FILES['mp4_file']['tmp_name'];
                     $destination2 = "../_temp/" . $vid . ".mp4";
@@ -213,7 +213,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
             );
             $table = "tbl_profile_videos";
             insertData($data, $table);
-            $vid = mysql_insert_id();
+            $vid = mysqli_insert_id($link);
 
             $parameters = "id='" . $vid . "'";
 

@@ -74,7 +74,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
                     "status" => $status
                 );
                 insertData($data, "tbl_products");
-                $vpid = mysql_insert_id();
+                $vpid = mysqli_insert_id($link);
 
                 if ($shipping1 == 1) {
                     $data1 = array('shipping' => $shipping1,
@@ -108,7 +108,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
 
             if ((isset($_FILES['file_photo']['name'])) && ($_FILES['file_photo']['name'] != '')) {
                 $filename = $_FILES['file_photo']['name'];
-                $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+                $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
                 //$file_ext = strrchr($filename, '.');
 
@@ -198,7 +198,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
                     "status" => $status
                 );
                 insertData($data, "tbl_products");
-                $vpid = mysql_insert_id();
+                $vpid = mysqli_insert_id($link);
 
                 if ($shipping1 == 1) {
                     $data1 = array('shipping' => $shipping1,
@@ -215,7 +215,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
 
             if ((isset($_FILES['file_photo']['name'])) && ($_FILES['file_photo']['name'] != '')) {
                 $filename = $_FILES['file_photo']['name'];
-                $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+                $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
                 //$file_ext = strrchr($filename, '.');
 
@@ -278,7 +278,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
 
             if ((isset($_FILES['file_photo']['name'])) && ($_FILES['file_photo']['name'] != '')) {
                 $filename = $_FILES['file_photo']['name'];
-                $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+                $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
                 //$file_ext = strrchr($filename, '.');
 
@@ -344,7 +344,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Video')) {
 
             if ((isset($_FILES['file_photo']['name'])) && ($_FILES['file_photo']['name'] != '')) {
                 $filename = $_FILES['file_photo']['name'];
-                $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+                $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
                 //$file_ext = strrchr($filename, '.');
 

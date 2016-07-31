@@ -7,7 +7,7 @@ $result = mysqli_fetch_assoc($sql);
 if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update Featured Artists')) {
     if ((isset($_FILES['f_photo']['name'])) && ($_FILES['f_photo']['name'] != '')) {
         $filename = $_FILES['f_photo']['name'];
-        $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+        $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
         //$file_ext = strrchr($filename, '.');
 

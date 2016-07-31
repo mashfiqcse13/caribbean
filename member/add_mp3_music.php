@@ -21,7 +21,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
         );
         $table = "tbl_profile_music";
         insertData($data, $table);
-        $lid = mysql_insert_id();
+        $lid = mysqli_insert_id($link);
 
         $source_path = $_FILES['mp3_file']['tmp_name'];
         $destination = "../_temp/" . $lid . ".mp3";

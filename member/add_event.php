@@ -23,7 +23,7 @@ if ((isset($_POST['submit']) AND ( $_POST['submit']) == 'Add Event')) {
         $table = "tbl_profile_events";
         insertData($data, $table);
 
-        $img_id = mysql_insert_id();
+        $img_id = mysqli_insert_id($link);
 
         $upload_file = $_FILES['img_path']['tmp_name'];
         $destination = "../_temp/" . $img_id . ".jpg";

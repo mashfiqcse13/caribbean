@@ -8,7 +8,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Update')) {
     /* move upload photo in temp folder */
     //get the file ext:
     $filename = $_FILES['img_path']['name'];
-    $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+    $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
     //$file_ext = strrchr($filename, '.');
     //check if its allowed or not:

@@ -153,7 +153,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign up') AND $errors =
               Kind Redards -
               Team CCS
               "; */
-            $lid = mysql_insert_id();
+            $lid = mysqli_insert_id($link);
             $msg = "Welcome To CCS" . "<br><br>" . "Dear Member,<br><br>" . "
 
      Thank you for registering at CCS.  At CCS you can highlight your profile as Talent Member, sell music, videos, photos, books etc, or as a Patron Member you can simply browse throug h any artist profile.

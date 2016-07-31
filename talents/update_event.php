@@ -5,7 +5,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
     /* USER IMAGE UPLOAD */
     if ((isset($_FILES['img_path']['name'])) && ($_FILES['img_path']['name'] != '')) {
         $filename = $_FILES['img_path']['name'];
-        $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+        $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
         //$file_ext = strrchr($filename, '.');
         $whitelist = array(".jpg", ".jpeg", ".gif", ".png");

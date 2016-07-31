@@ -108,7 +108,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
 
             $table = "tbl_users";
             insertData($data, $table);
-            $l_id = mysql_insert_id();
+            $l_id = mysqli_insert_id($link);
             //////////////////////////SEND_EMAIL_TO_MEMBER_REGISTER_EMAIL_ADDRESS////////////////////////
 
             $to = mysqli_real_escape_string( $link ,trim($_POST['email']));

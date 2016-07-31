@@ -20,7 +20,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
             if ((isset($_FILES['file_photo']['name'])) && ($_FILES['file_photo']['name'] != '')) {
                 /* USER IMAGE UPLOAD */
                 $filename = $_FILES['file_photo']['name'];
-                $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+                $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
                 //$file_ext = strrchr($filename, '.');
 
@@ -39,7 +39,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                     );
                     $table = "tbl_profile_videos";
                     insertData($data, $table);
-                    $vid = mysql_insert_id();
+                    $vid = mysqli_insert_id($link);
 
                     /* INSERT INTO tbl_products */
                     $data1 = array(
@@ -54,7 +54,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                     );
                     $table1 = "tbl_products";
                     insertData($data1, $table1);
-                    $Mid = mysql_insert_id();
+                    $Mid = mysqli_insert_id($link);
 
                     $source_path = $_FILES['file_photo']['tmp_name'];
                     $destination = "../_temp/" . $vid . ".jpg";
@@ -92,7 +92,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
             if ((isset($_FILES['file_photo']['name'])) && ($_FILES['file_photo']['name'] != '')) {
                 /* USER IMAGE UPLOAD */
                 $filename = $_FILES['file_photo']['name'];
-                $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+                $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
                 //$file_ext = strrchr($filename, '.');
 
@@ -112,7 +112,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                     );
                     $table = "tbl_profile_videos";
                     insertData($data, $table);
-                    $vid = mysql_insert_id();
+                    $vid = mysqli_insert_id($link);
 
                     $source_path1 = $_FILES['file_photo']['tmp_name'];
                     $destination1 = "../_temp/" . $vid . ".jpg";
@@ -144,7 +144,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
             if (((isset($_FILES['file_photo']['name'])) && ($_FILES['file_photo']['name'] != '')) || (isset($_FILES['mp4_file']['name']) && ($_FILES['mp4_file']['name'] != ''))) {
                 /* USER IMAGE UPLOAD */
                 $filename = $_FILES['file_photo']['name'];
-                $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+                $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
                 //$file_ext = strrchr($filename, '.');
 
@@ -172,7 +172,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                         );
                         $table = "tbl_profile_videos";
                         insertData($data, $table);
-                        $vid = mysql_insert_id();
+                        $vid = mysqli_insert_id($link);
 
                         /* INSERT INTO tbl_products */
                         $data1 = array(
@@ -187,7 +187,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                         );
                         $table1 = "tbl_products";
                         insertData($data1, $table1);
-                        $Mid = mysql_insert_id();
+                        $Mid = mysqli_insert_id($link);
 
                         /* INSERT PHOTO VIDEO PHOTO FOLDER */
                         $source_path = $_FILES['file_photo']['tmp_name'];
@@ -243,7 +243,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
             if (((isset($_FILES['file_photo']['name'])) && ($_FILES['file_photo']['name'] != '')) || (isset($_FILES['mp4_file']['name']) && ($_FILES['mp4_file']['name'] != ''))) {
                 /* USER IMAGE UPLOAD */
                 $filename = $_FILES['file_photo']['name'];
-                $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+                $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
                 //$file_ext = strrchr($filename, '.');
 
@@ -271,7 +271,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Video')) {
                         );
                         $table = "tbl_profile_videos";
                         insertData($data, $table);
-                        $vid = mysql_insert_id();
+                        $vid = mysqli_insert_id($link);
 
                         /* INSERT PHOTO VIDEO PHOTO FOLDER */
                         $source_path1 = $_FILES['file_photo']['tmp_name'];

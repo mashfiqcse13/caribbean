@@ -3,7 +3,7 @@ include('include/application_top.php');
 cmslogin();
 if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Featured Artists')) {
     $filename = $_FILES['f_photo']['name'];
-    $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+    $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
     //$file_ext = strrchr($filename, '.');
 
@@ -17,7 +17,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Featured Artists')) 
             "status" => '1'
         );
         insertData($data, "tbl_featured_artists");
-        $img_id = mysql_insert_id();
+        $img_id = mysqli_insert_id($link);
 
         $source_path = $_FILES['f_photo']['tmp_name'];
         $destination = "../_temp/" . $img_id . ".jpg";

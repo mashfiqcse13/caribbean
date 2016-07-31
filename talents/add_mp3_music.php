@@ -24,7 +24,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
         /* move upload photo in temp folder */
         //get the file ext:
         $filename = $_FILES['mp3_file']['name'];
-        $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+        $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
         //$file_ext = strrchr($filename, '.');
         //check if its allowed or not:
@@ -41,7 +41,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
             );
             $table = "tbl_profile_music";
             insertData($data, $table);
-            $lid = mysql_insert_id();
+            $lid = mysqli_insert_id($link);
             /*  Aa fore Sold */
             $data1 = array(
                 "uid" => $_SESSION['talent_id'],
@@ -80,7 +80,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
         /* move upload photo in temp folder */
         //get the file ext:
         $filename = $_FILES['mp3_file']['name'];
-        $file_ext = strrchr(preg_replace('/\.\w+$/e', 'strtolower("$0")', $filename), '.');
+        $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
 
         //$file_ext = strrchr($filename, '.');
         //check if its allowed or not:
@@ -97,7 +97,7 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
             );
             $table = "tbl_profile_music";
             insertData($data, $table);
-            $lid = mysql_insert_id();
+            $lid = mysqli_insert_id($link);
 
 
             $source_path = $_FILES['mp3_file']['tmp_name'];
