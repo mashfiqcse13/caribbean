@@ -22,7 +22,7 @@ while ($row = mysqli_fetch_assoc($query1)) {
     ?>
     <?php
 
-    echo  //$row['o_id']; 
+//    echo  $row['o_id']; 
 
 
     /* $tbl_orders = "DELETE FROM  tbl_orders WHERE id='".$row['o_id']."'";

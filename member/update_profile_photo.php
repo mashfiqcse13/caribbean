@@ -99,6 +99,7 @@ include('../_includes/header.php');
             <div id="m_profile_right">
                 <a id="exist_photos" href="javascript:showonlyone('newboxes1');" onclick="choose();" style="background-color: #ccc; padding: 0px 0px 0px 0px;">Choose From Photos...</a>
                 <a id="upload_new" href="javascript:showonlyone('newboxes2');" onclick="upload()" style="background-color: #ccc; padding: 0px 0px 0px 0px;">Upload Photo...</a>
+                <script> var photo_id_of_prfile_pic = 0;</script>
                 <div class="newboxes" id="newboxes1" style="">
                     <p style="margin: 33px 0 0;font-size: 14px;font-weight: bold;">Old Profile Photos:</p>
                     <?php
@@ -108,14 +109,16 @@ include('../_includes/header.php');
                         <ul class="grid cs-style-3">
                             <?php
                             foreach ($images_details as $image_detail) {
-                                ?>
+                                if ($image_detail['is_profile_picture'] == 2) {
+                                    ?> <script>photo_id_of_prfile_pic = <?php echo $image_detail['photo_id'] ?>;</script>
+                                <?php } ?>
                                 <li id="item_no_<?php echo $image_detail['photo_id'] ?>">
                                     <a href="<?php echo $image_detail['file_url']; ?>" class="fancybox">
                                         <img src="<?php echo $image_detail['file_url'] . "?" . time(); ?>" alt=" " width="200" height="200"/>
                                     </a>
                                     <br>
-                                    <a href="<?php echo "javascript:Confrim_Profile_Photo('update_profile_photo.php?photoid=" . $image_detail['photo_id'] . "$user_idd1&action=makeprofile')"; ?>">Make Profile Pic</a>
                                     <?php
+                                    echo '<a href="javascript:Confrim_Profile_Photo(\'update_profile_photo.php?photoid=' . $image_detail['photo_id'] . $user_idd1 . '&action=makeprofile\',' . $image_detail['photo_id'] . ')">Make Profile Pic</a>';
                                     echo '<a href="javascript:crop_img(\'media_img_cropper.php?photoid=' . $image_detail['photo_id'] . $user_idd1 . '\',' . $image_detail['photo_id'] . ')">Crop</a>';
                                     if ($image_detail['status'] == 33) {
                                         echo '<a href="javascript:uncrop_img(\'update_profile_photo.php?uncrop_photoid=' . $image_detail['photo_id'] . $user_idd1 . '\',' . $image_detail['photo_id'] . ')">Uncrop</a>';
@@ -147,105 +150,111 @@ include('../_includes/header.php');
 </div>
 <script src="../_script/jquery.form.min.js" type="text/javascript"></script>
 <script type="text/javascript">
-                    showonlyone('newboxes1');
-                    $(document).ready(function () {
-                        $(".fancybox").fancybox();
-                        $('#ajax_form').ajaxForm({
-                            dataType: 'json',
-                            beforeSubmit: function (responseText, statusText) {
-                                $('body').html('Loading........');
-                            },
-                            success: function (responseText, statusText) {
-                                if (responseText.destination_url != null) {
-                                    $('body').load(responseText.destination_url);
-                                } else {
-                                    alert("Failed to upload");
-                                    $('body').load('update_profile_photo.php');
-                                }
-                            }
-                        });
-                    });
-                    function back()
-                    {
-                        window.history.back();
-                    }
+                                        showonlyone('newboxes1');
+                                        $(document).ready(function () {
+                                            $(".fancybox").fancybox();
+                                            $('#ajax_form').ajaxForm({
+                                                dataType: 'json',
+                                                beforeSubmit: function (responseText, statusText) {
+                                                    $('body').html('Loading........');
+                                                },
+                                                success: function (responseText, statusText) {
+                                                    if (responseText.destination_url != null) {
+                                                        $('body').load(responseText.destination_url);
+                                                    } else {
+                                                        alert("Failed to upload");
+                                                        $('body').load('update_profile_photo.php');
+                                                    }
+                                                }
+                                            });
+                                        });
+                                        function back()
+                                        {
+                                            window.history.back();
+                                        }
 
-                    function showonlyone(thechosenone) {
-                        $('.newboxes').each(function (index) {
-                            if ($(this).attr("id") == thechosenone) {
-                                $(this).show(200);
-                            } else {
-                                $(this).hide(600);
-                            }
-                        });
-                    }
+                                        function showonlyone(thechosenone) {
+                                            $('.newboxes').each(function (index) {
+                                                if ($(this).attr("id") == thechosenone) {
+                                                    $(this).show(200);
+                                                } else {
+                                                    $(this).hide(600);
+                                                }
+                                            });
+                                        }
 
-                    function Confrim_Delete(Url) //confarming property delete
-                    {
-                        if (confirm("Are you sure you want to delete this Photo ?"))
-                        {
-                            var target_selector_to_update = '#m_profile .current_profile_pic';
-                            $(target_selector_to_update).html('Loading.....');
-                            $.ajax({
-                                url: Url,
-                                complete: function (data, text) {
-                                    $(target_selector_to_update).load('update_profile_photo.php ' + target_selector_to_update + ' *');
-                                }
-                            });
-                        }
-                    }
+                                        function Confrim_Delete(Url) //confarming property delete
+                                        {
+                                            if (confirm("Are you sure you want to delete this Photo ?"))
+                                            {
+                                                var target_selector_to_update = '#m_profile .current_profile_pic';
+                                                $(target_selector_to_update).html('Loading.....');
+                                                $.ajax({
+                                                    url: Url,
+                                                    complete: function (data, text) {
+                                                        $(target_selector_to_update).load('update_profile_photo.php ' + target_selector_to_update + ' *');
+                                                    }
+                                                });
+                                                //deleting the profile pic form the gallary
+                                                delete_photo_from_the_gallary('update_profile_photo.php?photoid=' + photo_id_of_prfile_pic + '&id=19&action=delimage', photo_id_of_prfile_pic);
+                                            }
+                                        }
 
-                    function Confrim_Photo_Delete(Url, photo_id) //confarming property delete
-                    {
-                        if (confirm("Are you sure you want to delete this Photo ?"))
-                        {
-                            var target_selector_to_update = '#item_no_' + photo_id;
-                            $.ajax({
-                                url: Url,
-                                complete: function (data, text) {
-                                    $(target_selector_to_update).fadeOut(1000);
-                                    $('#m_profile .current_profile_pic').load('update_profile_photo.php #m_profile .current_profile_pic *');
-                                }
-                            });
-                        }
-                    }
+                                        function delete_photo_from_the_gallary(Url, photo_id) {
+                                            var target_selector_to_update = '#item_no_' + photo_id;
+                                            $.ajax({
+                                                url: Url,
+                                                complete: function (data, text) {
+                                                    $(target_selector_to_update).fadeOut(1000);
+                                                    $('#m_profile .current_profile_pic').load('update_profile_photo.php #m_profile .current_profile_pic *');
+                                                }
+                                            });
+                                        }
+                                        function Confrim_Photo_Delete(Url, photo_id) //confarming property delete
+                                        {
+                                            if (confirm("Are you sure you want to delete this Photo ?"))
+                                            {
+                                                delete_photo_from_the_gallary(Url, photo_id);
+                                            }
+                                        }
 
-                    function uncrop_img(Url, photo_id) //confarming property delete
-                    {
-                        var target_selector_to_update = '#item_no_' + photo_id;
-                        $(target_selector_to_update).html('Loading.....');
-                        $.ajax({
-                            url: Url,
-                            complete: function (data, text) {
-                                $(target_selector_to_update).load("update_profile_photo.php<?php echo $user_idd; ?> " + target_selector_to_update + ' *');
-                            }
-                        });
-                        $(".fancybox").fancybox();
-                    }
+                                        function uncrop_img(Url, photo_id) //confarming property delete
+                                        {
+                                            var target_selector_to_update = '#item_no_' + photo_id;
+                                            $(target_selector_to_update).html('Loading.....');
+                                            $.ajax({
+                                                url: Url,
+                                                complete: function (data, text) {
+                                                    $(target_selector_to_update).load("update_profile_photo.php<?php echo $user_idd; ?> " + target_selector_to_update + ' *');
+                                                }
+                                            });
+                                            $(".fancybox").fancybox();
+                                        }
 
 
-                    function crop_img(Url, photo_id) //confarming property delete
-                    {
-                        var target_selector_to_update = 'body';
-                        $(target_selector_to_update).html('Loading.....');
-                        $(target_selector_to_update).load(Url);
-                    }
+                                        function crop_img(Url, photo_id) //confarming property delete
+                                        {
+                                            var target_selector_to_update = 'body';
+                                            $(target_selector_to_update).html('Loading.....');
+                                            $(target_selector_to_update).load(Url);
+                                        }
 
-                    function Confrim_Profile_Photo(Url) //confarming property delete
-                    {
-                        if (confirm("Are you sure you want to make this Profile Photo ?"))
-                        {
-                            var target_selector_to_update = '#m_profile .current_profile_pic';
-                            $(target_selector_to_update).html('Loading.....');
-                            $.ajax({
-                                url: Url,
-                                complete: function (data, text) {
-                                    $(target_selector_to_update).load('update_profile_photo.php ' + target_selector_to_update + ' *');
-                                }
-                            });
-                        }
-                        $(".fancybox").fancybox();
-                    }
+                                        function Confrim_Profile_Photo(Url, photo_id) //confarming property delete
+                                        {
+                                            if (confirm("Are you sure you want to make this Profile Photo ?"))
+                                            {
+                                                var target_selector_to_update = '#m_profile .current_profile_pic';
+                                                $(target_selector_to_update).html('Loading.....');
+                                                $.ajax({
+                                                    url: Url,
+                                                    complete: function (data, text) {
+                                                        $(target_selector_to_update).load('update_profile_photo.php ' + target_selector_to_update + ' *');
+                                                        photo_id_of_prfile_pic = photo_id;
+                                                    }
+                                                });
+                                            }
+                                            $(".fancybox").fancybox();
+                                        }
 
 </script> 
 

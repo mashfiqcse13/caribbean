@@ -88,6 +88,7 @@ class Profile_pic {
                 $file['file'] = "../_uploads/profile_images/" . $imagename;
                 $file['file_url'] = BASE_URL . "_uploads/profile_images/" . $imagename;
             }
+            $file['is_profile_picture'] = $row['is_profile_picture'];
 
             $file['photo_id'] = $rows[$index]['id'];
             $file['status'] = $rows[$index]['status'];
