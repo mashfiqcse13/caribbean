@@ -106,6 +106,24 @@ include('../_includes/header.php');
                     $images_details = $profile_pic->get_gallery();
                     if (!empty($images_details)) {
                         ?>
+                        <style>
+                            .cover {
+                                height: 200px;
+                                margin: 0 0 5px;
+                                overflow: hidden;
+                                position: relative;
+                            }
+                            .cover > img {
+                                bottom: 0;
+                                left: 0;
+                                margin: auto;
+                                max-height: 100%;
+                                max-width: 100%;
+                                position: absolute;
+                                right: 0;
+                                top: 0;
+                            }
+                        </style>
                         <ul class="grid cs-style-3">
                             <?php
                             foreach ($images_details as $image_detail) {
@@ -114,9 +132,10 @@ include('../_includes/header.php');
                                 <?php } ?>
                                 <li id="item_no_<?php echo $image_detail['photo_id'] ?>">
                                     <a href="<?php echo $image_detail['file_url']; ?>" class="fancybox">
-                                        <img src="<?php echo $image_detail['file_url'] . "?" . time(); ?>" alt=" " width="200" height="200"/>
+                                        <div class="cover">
+                                            <img src="<?php echo $image_detail['file_url'] . "?" . time(); ?>" />
+                                        </div>
                                     </a>
-                                    <br>
                                     <?php
                                     echo '<a href="javascript:Confrim_Profile_Photo(\'update_profile_photo.php?photoid=' . $image_detail['photo_id'] . $user_idd1 . '&action=makeprofile\',' . $image_detail['photo_id'] . ')">Make Profile Pic</a>';
                                     echo '<a href="javascript:crop_img(\'media_img_cropper.php?photoid=' . $image_detail['photo_id'] . $user_idd1 . '\',' . $image_detail['photo_id'] . ')">Crop</a>';
