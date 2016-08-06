@@ -1,5 +1,5 @@
 <?php
-$query_comment = mysqli_query($link,"SELECT c.id AS CID,c.profile_id,c.comment_text,c.commenter_id, u.id AS UID,u.first_name,u.last_name FROM  tbl_profile_comments AS c 
+$query_comment = mysqli_query($link, "SELECT c.id AS CID,c.profile_id,c.comment_text,c.commenter_id, u.id AS UID,u.first_name,u.last_name FROM  tbl_profile_comments AS c 
 															LEFT OUTER JOIN
 															tbl_users AS u ON u.id=c.profile_id WHERE u.username='" . $_GET['username'] . "' ORDER BY c.id DESC LIMIT 2");
 ?>
@@ -12,13 +12,14 @@ $query_comment = mysqli_query($link,"SELECT c.id AS CID,c.profile_id,c.comment_t
 
         <?php
         while ($row_comment = mysqli_fetch_assoc($query_comment)) {
-            $query_username = mysqli_query($link,"SELECT username FROM tbl_users WHERE id='" . $row_comment['commenter_id'] . "' ");
+            $query_username = mysqli_query($link, "SELECT username FROM tbl_users WHERE id='" . $row_comment['commenter_id'] . "' ");
             $rows_username = mysqli_fetch_assoc($query_username);
             ?>
 
             <ul>
                 <li>
-                    <div class="post_imge"> <a href="profile-details.php?username=<?php echo $rows_username['username'] ?>"><img src="_uploads/user_photo/<?php echo $row_comment['commenter_id']; ?>.jpg" width="70px" height="60px" /></a></div>
+                    <div class="post_imge"> <a href="profile-details.php?username=<?php echo $rows_username['username'] ?>">
+                            <img src="_uploads/user_photo/<?php echo $row_comment['commenter_id']; ?>.jpg?<?php echo time() ?>" width="70px" height="60px" /></a></div>
                     <div class="post_txt">
                         <h3><a href="profile-details.php?username=<?php echo $rows_username['username'] ?>"> <?php echo $rows_username['username'] ?></a></h3>
 

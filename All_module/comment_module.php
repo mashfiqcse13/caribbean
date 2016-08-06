@@ -24,7 +24,7 @@ $query_comment = mysqli_query($link, "SELECT c.id AS CID,c.profile_id,c.comment_
                             $filename = "_uploads/user_photo/{$row_comment['commenter_id'] }.jpg";
                             if (file_exists($filename)) {
                                 ?>
-                                <img src="_uploads/user_photo/<?php echo $row_comment['commenter_id']; ?>.jpg" width="70px" height="60px" />
+                                <img src="_uploads/user_photo/<?php echo $row_comment['commenter_id']; ?>.jpg?<?php echo time() ?>" width="70px" height="60px" />
                             <?php } else { ?>
                                 <img src="_images/dummy.png" width="70px" height="60px" />
                             <?php } ?>

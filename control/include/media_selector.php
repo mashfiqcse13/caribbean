@@ -41,7 +41,9 @@
             $media = new media();
             $media_rows = $media->get_all_media_as_array('pic_music_vedio');
             foreach ($media_rows as $key => $media_row) {
-
+                if(empty($media_row['file_attached'])){
+                    continue;
+                }
                 if (in_array($media_row['type_of_file'], array('Music', 'Photo', 'Video'))) {
                     $item_class = $media_row['type_of_file'];
                 } else {
@@ -71,7 +73,7 @@
                             <?php
                         }
                         ?>
-                    </div>>
+                    </div>
                     <table>
                         <tr>
                             <td>Title Of Work</td>
@@ -114,7 +116,9 @@
                             <td><?php echo $media_row['id'] ?></td>
                         </tr>
                     </table>
-
+                    <p style="text-align: center;">
+                        <span class="button" style="margin: 0px; cursor: pointer;">Select This Media</span>
+                    </p>
                 </li>
 
             <?php } ?>

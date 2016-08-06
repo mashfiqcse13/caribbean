@@ -22,10 +22,10 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
     if ((isset($_POST['forum_details'])) && ($_POST['forum_details'] != '')) {
         $data = array(
             "uid" => $uid,
-            "forum_topic" => mysqli_real_escape_string( $link ,trim($_POST['forum_topic'])),
-            "forum_details" => mysqli_real_escape_string( $link ,trim($_POST['forum_details'])),
+            "forum_topic" => mysqli_real_escape_string($link, trim($_POST['forum_topic'])),
+            "forum_details" => mysqli_real_escape_string($link, trim($_POST['forum_details'])),
             "view_count" => '0',
-            "media_id" => mysqli_real_escape_string( $link ,trim($_POST['media_id'])),
+            "media_id" => mysqli_real_escape_string($link, trim($_POST['media_id'])),
             "is_admin" => 'Yes'
         );
         $table = "tbl_forum_topics";
@@ -103,7 +103,9 @@ include('include/header.php');
                     <label for="email">Topic:</label>
                     <input  type="text" name="forum_topic" value="" maxlength="100" class="required" />
                 </p>
-                <a href="#media" id="add_media_button" class="button">Select Media</a>
+                <p>
+                    <a href="#media" id="add_media_button" class="button">Select Media</a>
+                </p>
                 <br>
                 <div id="selected_media_preview">
                     <?php
