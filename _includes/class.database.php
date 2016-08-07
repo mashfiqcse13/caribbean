@@ -53,7 +53,7 @@ class DBClass {
         }
         $sql.=") VALUES (";
         foreach ($data_to_insert as $index => $value) {
-            $value = str_replace("'", "\'", $value);
+            $value = mysqli_real_escape_string($db_link,$value);
             $sql.="'$value',";
         }
         $sql.=")";
