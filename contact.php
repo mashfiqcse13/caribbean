@@ -4,6 +4,11 @@ include('_includes/application-top.php');
 ?>
 
 <?php
+//ini_set('upload_max_filesize', '10M') or die("failed");
+//ini_set('post_max_size', '10M');
+//ini_set('max_input_time', 300);
+//ini_set('max_execution_time', 300);
+//die(ini_get('upload_max_filesize'));
 if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
     //echo $_SESSION['letters_code'];
     {
@@ -34,7 +39,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
         // Maximum file size for attachments in KB NOT Bytes for simplicity. MAKE SURE your php.ini can handel it,
         // post_max_size, upload_max_filesize, file_uploads, max_execution_time!
         // 2048kb = 2MB,       1024kb = 1MB,     512kb = 1/2MB etc..
-        $max_file_size = "1024";
+        $max_file_size = 1024 * 16;
 
         // Thank you message
         $thanksmessage = "Your email has been sent, we will respond shortly.";
@@ -144,6 +149,9 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                         $data . "\n\n" .
                         "--{$mime_boundary}--\n";
             }
+            if (!empty($fileatt) && !is_uploaded_file($fileatt)) {
+                die("file is not uploaded");
+            }
 
 
             // Send the completed message
@@ -167,7 +175,7 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                 $ext = pathinfo($_FILES['attachment']['name'], PATHINFO_EXTENSION); // get the extension of the file
                 $newname = "newname" . date('Y-m-d-H-i-s') . "." . $ext;
                 $target = 'uploadcontact/' . $newname;
-                if (!empty($_FILES['attachment']['name'])) {
+                if (!empty($_FILES['attachment']['name']) && is_uploaded_file($fileatt)) {
                     if (move_uploaded_file($_FILES['attachment']['tmp_name'], $target)) {
                         //determining file type
                         if (in_array($ext, $allowedVideo)) {
@@ -192,39 +200,24 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                     $type_of_file = "";
                 }
 
-                $Query = "INSERT INTO `tbl_contact`
-                                                    (
-                                                     `name`,
-                                                     `artistbandname`,
-                                                     `type_of_file`,
-                                                     `title_of_work`,
-                                                     `genre`,
-                                                     `email`,
-                                                     `company`,
-                                                     `job_title`,
-                                                     `query_subject`,
-                                                     `query`,
-                                                     `file_attached`,
-                                                     `join_date`,
-                                                     `join_time`,
-                                                     `created`)
-                                        VALUES (
-                                                '" . mysqli_real_escape_string($link, $name) . "',
-                                                '" . mysqli_real_escape_string($link, $artistbandname) . "',
-                                                '" . mysqli_real_escape_string($link, $type_of_file) . "',
-                                                '" . mysqli_real_escape_string($link, $title_of_work) . "',
-                                                '" . mysqli_real_escape_string($link, $genre) . "',
-                                                '" . mysqli_real_escape_string($link, $email) . "',
-                                                '" . mysqli_real_escape_string($link, $company) . "',
-                                                '" . mysqli_real_escape_string($link, $job_title) . "',
-                                                '" . mysqli_real_escape_string($link, $query_sub) . "',
-                                                '" . mysqli_real_escape_string($link, $query) . "',
-                                                '" . mysqli_real_escape_string($link, $target) . "',
-                                                '" . date("Y-m-d") . "',
-                                                '" . date("h:i:s A") . "',
-                                                '" . (date("Y-m-d h:i:s A")) . "');";
+                $data_to_insert = array(
+                    'name' => $name,
+                    'artistbandname' => $artistbandname,
+                    'type_of_file' => $type_of_file,
+                    'title_of_work' => $title_of_work,
+                    'genre' => $genre,
+                    'email' => $email,
+                    'company' => $company,
+                    'job_title' => $job_title,
+                    'query_subject' => $query_sub,
+                    'query' => $query,
+                    'file_attached' => $target,
+                    'join_date' => date("Y-m-d"),
+                    'join_time' => date("h:i:s A"),
+                    'created' => date("Y-m-d h:i:s A"));
 //                die("<pre>" . $Query);
-                mysqli_query($link, $Query) or die(mysqli_error($link));
+                $db = new DBClass(db_host, db_username, db_passward, db_name);
+                $db->db_insert('tbl_contact', $data_to_insert);
                 //echo '<div id="formfeedback"><h3>Thank You!</h3><p>'. $thanksmessage .'</p></div>';
             } // end of if !mail
         } else { //report the errors
@@ -353,11 +346,11 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
             </p>
             <p>
                 <label for="city">Artist Name:</label>
-                <input type="text" name="artistbandname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }                       ?>"/>
+                <input type="text" name="artistbandname" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }                         ?>"/>
             </p>
             <p>
                 <label for="city">Title Of Work:</label>
-                <input type="text" name="title_of_work" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }                       ?>"/>
+                <input type="text" name="title_of_work" required value="<?php //if(isset($city) AND ($city<>"")){ echo $city; }                         ?>"/>
             </p>
 
             <p>

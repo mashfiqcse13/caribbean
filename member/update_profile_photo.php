@@ -53,6 +53,23 @@ include('../_includes/header.php');
         border-bottom: 1px solid;
         margin: 0 0 20px;
     }
+
+    .cover {
+        height: 200px;
+        margin: 0 0 5px;
+        overflow: hidden;
+        position: relative;
+    }
+    .cover > img {
+        bottom: 0;
+        left: 0;
+        margin: auto;
+        max-height: 100%;
+        max-width: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
 </style>
 <div class="content">
     <h1>Update profile photo</h1>
@@ -106,24 +123,6 @@ include('../_includes/header.php');
                     $images_details = $profile_pic->get_gallery();
                     if (!empty($images_details)) {
                         ?>
-                        <style>
-                            .cover {
-                                height: 200px;
-                                margin: 0 0 5px;
-                                overflow: hidden;
-                                position: relative;
-                            }
-                            .cover > img {
-                                bottom: 0;
-                                left: 0;
-                                margin: auto;
-                                max-height: 100%;
-                                max-width: 100%;
-                                position: absolute;
-                                right: 0;
-                                top: 0;
-                            }
-                        </style>
                         <ul class="grid cs-style-3">
                             <?php
                             foreach ($images_details as $image_detail) {
@@ -156,7 +155,7 @@ include('../_includes/header.php');
                 </div>
                 <div class="newboxes" id="newboxes2" style="">
                     <p style="margin: 33px 0 0;font-size: 14px;font-weight: bold;">Upload New Profile Photo:</p>
-                    <label style="float: unset;"></label>
+                    <p><strong>Note : </strong>Please select a square type image . It you select wide image and make it profile Picture that will give bad profile picture. You can also crop it after uploading. </p>
                     <form id="ajax_form" action="update_profile_photo.php" method="post" enctype="multipart/form-data">
                         <input type="hidden" name='id' value="<?php echo $_SESSION['user_id'] ?>"/>
                         <input type="file" name="img_path" value="" /><p>
@@ -245,7 +244,7 @@ include('../_includes/header.php');
                                             $.ajax({
                                                 url: Url,
                                                 complete: function (data, text) {
-                                                    $(target_selector_to_update).load("update_profile_photo.php<?php echo $user_idd; ?> " + target_selector_to_update + ' *');
+                                                    $(target_selector_to_update).load("update_profile_photo.php<?php echo $user_idd; ?> " + target_selector_to_update);
                                                 }
                                             });
                                             $(".fancybox").fancybox();

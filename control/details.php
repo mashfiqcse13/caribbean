@@ -36,15 +36,15 @@ if (!empty($_REQUEST['task'])) {
 <?php } ?>
 <br/>
 <ul>
-    <li class="b_image" style="height:152px;">
+    <li class="b_image" style="height:152px;border: 0;">
     <!-- <img src="../_uploads/user_photo/<?php echo $data["id"]; ?>.jpg" height='150' width='120'/> -->
         <?php
         $image = "../_uploads/user_photo/" . $data["id"] . ".jpg";
         if (file_exists($image)) {
             ?>
-            <img src="<?php echo $image . "?" . time(); ?>" height='150' width='120'/>
+            <img src="<?php echo $image . "?" . time(); ?>"width='120'/>
         <?php } else { ?>
-            <img src="images/dummy.png" height='150' width='120'/>
+            <img src="images/dummy.png" width='120'/>
         <?php } ?>
     </li>
 </ul>
