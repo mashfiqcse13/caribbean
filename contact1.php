@@ -279,11 +279,11 @@ if ((isset($_POST['submit'])) && ($_POST['submit'] == "Submit")) {
                     <option value="Poets">Poets</option>
                     <option value="Preformer">Preformer</option>
                     <option value="Promoter">Promoter</option>
-                    <option value="Publisher">Publisher</option>
                     <option value="singer/artiste">Singer/Artiste</option>
                     <option value="Sportsman">Sportsman</option>
                     <option value="Sportswoman">Sportswoman</option>
                     <option value="Writer">Writer</option>
+                    <option value="Others">Others</option>
 
                 </select>
             </p>
