@@ -30,7 +30,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign up') AND $errors =
 
 
     $query1 = "SELECT * FROM tbl_users WHERE username='" . $_POST["username"] . "' AND  status=1";
-    $row = mysqli_query($link,$query1);
+    $row = mysqli_query($link, $query1);
     $row = mysqli_num_rows($row);
 
 
@@ -110,51 +110,71 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign up') AND $errors =
 
         if (empty($usernameeErr) && empty($nameErr) && empty($phoneErr)) { // \w equals "[0-9A-Za-z_]"
             // valid username, alphanumeric & longer than or equals 5 chars
-            $data = array(
-                "username" => mysqli_real_escape_string( $link ,trim($username)),
-                "password" => mysqli_real_escape_string( $link ,trim($_POST['conframpassword'])),
-                "first_name" => mysqli_real_escape_string( $link ,trim($_POST['first_name'])),
-                "last_name" => mysqli_real_escape_string( $link ,trim($_POST['last_name'])),
-                "phone_no" => mysqli_real_escape_string( $link ,trim($_POST['phone_no'])),
-                "email" => mysqli_real_escape_string( $link ,trim($_POST['email'])),
-                "city" => mysqli_real_escape_string( $link ,trim($_POST['city'])),
-                "country" => $country_with_code,
-                "sex" => $_POST['sex'],
-                "age" => $age,
-                "type" => '1',
-                "talent" => $check_tot,
-                "status" => '1',
-                "joining_time" => date("h:i:s A"),
-                "join_date" => date("Y-m-d")
-            );
-            $table = "tbl_users";
-            //echo '<pre>';print_r($data);
-            insertData($data, $table);
+            //Getting IP address for storeing
+            $mac_address = $_SERVER['REMOTE_ADDR'];
+            $chkqry = mysqli_query($link, "SELECT * FROM tbl_users WHERE mac_address='$mac_address'");
+            if (mysqli_num_rows($chkqry) > 0) {
+                $totl_rec = mysqli_num_rows($chkqry);
+                while ($row = mysqli_fetch_assoc($chkqry)) {
+                    $mac_count = $row['allowed_mac'];
+                }
+
+                if ($totl_rec < $mac_count) {
+                    $newmac = 1;
+                } else {
+                    $newmac = 0;
+                }
+            } else {
+                $newmac = 1;
+            }
+
+            if ($newmac == 1) {
+                $data = array(
+                    "username" => mysqli_real_escape_string($link, trim($username)),
+                    "password" => mysqli_real_escape_string($link, trim($_POST['conframpassword'])),
+                    "first_name" => mysqli_real_escape_string($link, trim($_POST['first_name'])),
+                    "last_name" => mysqli_real_escape_string($link, trim($_POST['last_name'])),
+                    "phone_no" => mysqli_real_escape_string($link, trim($_POST['phone_no'])),
+                    "email" => mysqli_real_escape_string($link, trim($_POST['email'])),
+                    "city" => mysqli_real_escape_string($link, trim($_POST['city'])),
+                    "country" => $country_with_code,
+                    "sex" => $_POST['sex'],
+                    "age" => $age,
+                    "type" => '1',
+                    "talent" => $check_tot,
+                    "status" => '1',
+                    "joining_time" => date("h:i:s A"),
+                    "join_date" => date("Y-m-d"),
+                    "mac_address" => $mac_address
+                );
+                $table = "tbl_users";
+                //echo '<pre>';print_r($data);
+                insertData($data, $table);
 
 
 
 
 
-            //////////////////////////SEND_EMAIL_TO_TALENT_REGISTER_EMAIL_ADDRESS////////////////////////
+                //////////////////////////SEND_EMAIL_TO_TALENT_REGISTER_EMAIL_ADDRESS////////////////////////
 
-            $to = mysqli_real_escape_string( $link ,trim($_POST['email']));
+                $to = mysqli_real_escape_string($link, trim($_POST['email']));
 
-            $subject = "CCS: Registration email";
+                $subject = "CCS: Registration email";
 
-            /* $msg="Welcome"."<br><br>"."Dear ".mysqli_real_escape_string( $link ,trim($_POST['first_name']))." ".mysqli_real_escape_string( $link ,trim($_POST['last_name']))."<br>"."
-              Thank you for registring at ccs. At CCS you can highlight your profile as talent, sale music, videos, photos, books etc or as a member you
+                /* $msg="Welcome"."<br><br>"."Dear ".mysqli_real_escape_string( $link ,trim($_POST['first_name']))." ".mysqli_real_escape_string( $link ,trim($_POST['last_name']))."<br>"."
+                  Thank you for registring at ccs. At CCS you can highlight your profile as talent, sale music, videos, photos, books etc or as a member you
 
-              can simply browse through artist profile, listen to their music, watch video, view photos, become fans/friends with others, chat, send
+                  can simply browse through artist profile, listen to their music, watch video, view photos, become fans/friends with others, chat, send
 
-              messages, buy product and many more exciting things to do ...
+                  messages, buy product and many more exciting things to do ...
 
-              Get Started Now, <a href=http://test.solutiononline.org/caribbeancirclestars/> [Click Here]</a>
+                  Get Started Now, <a href=http://test.solutiononline.org/caribbeancirclestars/> [Click Here]</a>
 
-              Kind Redards -
-              Team CCS
-              "; */
-            $lid = mysqli_insert_id($link);
-            $msg = "Welcome To CCS" . "<br><br>" . "Dear Member,<br><br>" . "
+                  Kind Redards -
+                  Team CCS
+                  "; */
+                $lid = mysqli_insert_id($link);
+                $msg = "Welcome To CCS" . "<br><br>" . "Dear Member,<br><br>" . "
 
      Thank you for registering at CCS.  At CCS you can highlight your profile as Talent Member, sell music, videos, photos, books etc, or as a Patron Member you can simply browse throug h any artist profile.
      Listen to their music, watch video, view photos, use the forum, become fans/friends with others, chat, send messages, buy products and many more exciting things to do.
@@ -171,53 +191,102 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign up') AND $errors =
     <br/>
      CCS Management and Staff.";
 
-            $from = TO_ADMIN;
+                $from = TO_ADMIN;
 
 
-            SendEMail($to, $subject, $msg, $from);
-
-
-
-
-            /*             * **********************profile settings**************************** */
-            $data = array(
-                "uid" => $lid,
-                "profile_display_status" => $_POST['profile_display_status'],
-                "p_photo" => '1',
-                "p_bio" => '1',
-                "p_music" => '2',
-                "p_social" => '2',
-                "p_fans" => '2',
-                "p_video" => '3',
-                "p_comments" => '3',
-                "p_event" => '2',
-                "p_book" => '1',
-                "p_product" => '2'
-            );
-            $table = "tbl_user_profile_settings";
-            //echo '<pre>';print_r($data);
-            insertData($data, $table);
+                SendEMail($to, $subject, $msg, $from);
 
 
 
-            /* $_SESSION['talent_login']=1;
-              $_SESSION['talent_id']=$lid;
-              ////////tbl_user_details INSERTED/////////
 
-              $data=array(
-              "user_id"=>$_SESSION['talent_id'],
-              "biography"=>" ",
-              "profile_display_status"=>"1"
-              );
-              $table="tbl_user_details";
-              insertData($data,$table);
+                /*                 * **********************profile settings**************************** */
+                $data = array(
+                    "uid" => $lid,
+                    "profile_display_status" => $_POST['profile_display_status'],
+                    "p_photo" => '1',
+                    "p_bio" => '1',
+                    "p_music" => '2',
+                    "p_social" => '2',
+                    "p_fans" => '2',
+                    "p_video" => '3',
+                    "p_comments" => '3',
+                    "p_event" => '2',
+                    "p_book" => '1',
+                    "p_product" => '2'
+                );
+                $table = "tbl_user_profile_settings";
+                //echo '<pre>';print_r($data);
+                insertData($data, $table);
 
-              /* Added Activity Below */
-            /* SaveActivity(14,mysqli_real_escape_string( $link ,trim($_POST['username'])),'',$lid); */
 
-            //////////////////////////////////////////////////
 
-            header("Location:membersuccess.php?op=register");
+                /* $_SESSION['talent_login']=1;
+                  $_SESSION['talent_id']=$lid;
+                  ////////tbl_user_details INSERTED/////////
+
+                  $data=array(
+                  "user_id"=>$_SESSION['talent_id'],
+                  "biography"=>" ",
+                  "profile_display_status"=>"1"
+                  );
+                  $table="tbl_user_details";
+                  insertData($data,$table);
+
+                  /* Added Activity Below */
+                /* SaveActivity(14,mysqli_real_escape_string( $link ,trim($_POST['username'])),'',$lid); */
+
+                //////////////////////////////////////////////////
+
+                header("Location:membersuccess.php?op=register");
+            } else {
+
+                $data = array(
+                    "username" => mysqli_real_escape_string($link, trim($username)),
+                    "password" => mysqli_real_escape_string($link, trim($_POST['conframpassword'])),
+                    "first_name" => mysqli_real_escape_string($link, trim($_POST['first_name'])),
+                    "last_name" => mysqli_real_escape_string($link, trim($_POST['last_name'])),
+                    "phone_no" => mysqli_real_escape_string($link, trim($_POST['phone_no'])),
+                    "email" => mysqli_real_escape_string($link, trim($_POST['email'])),
+                    "city" => mysqli_real_escape_string($link, trim($_POST['city'])),
+                    "country" => $country_with_code,
+                    "sex" => $_POST['sex'],
+                    "age" => $age,
+                    "type" => '1',
+                    "talent" => $check_tot,
+                    "status" => '1',
+                    "joining_time" => date("h:i:s A"),
+                    "join_date" => date("Y-m-d"),
+                    "mac_address" => $mac_address,
+                    "new_mac_req" => 1
+                );
+                $table = "tbl_users";
+                //echo '<pre>';print_r($data);
+                insertData($data, $table);
+
+                /*                 * **********************profile settings**************************** */
+                $data = array(
+                    "uid" => $lid,
+                    "profile_display_status" => $_POST['profile_display_status'],
+                    "p_photo" => '1',
+                    "p_bio" => '1',
+                    "p_music" => '2',
+                    "p_social" => '2',
+                    "p_fans" => '2',
+                    "p_video" => '3',
+                    "p_comments" => '3',
+                    "p_event" => '2',
+                    "p_book" => '1',
+                    "p_product" => '2'
+                );
+                $table = "tbl_user_profile_settings";
+                //echo '<pre>';print_r($data);
+                insertData($data, $table);
+                ?>
+                <script type="text/javascript">
+                    alert('Please contact admin to complete sign up!');
+                </script>
+                <?php
+            }
         } else {
             $erro_form = "Please Try again";
         }
@@ -440,75 +509,81 @@ include('../_includes/header.php');
 
                 <?php if (!empty($nameErr)) { ?>
                     <label for="first_name" generated="true" class="error"><?php echo $nameErr; ?>.</label>
-<?php } ?>
+                <?php } ?>
             </p>
             <p>
                 <label for="last_name">Last Name:</label>
                 <input  type="text" name="last_name" value="<?php
-if (isset($last_name) AND ( $last_name <> "")) {
-    echo $last_name;
-}
-?>" maxlength="100" class="required" />
+                if (isset($last_name) AND ( $last_name <> "")) {
+                    echo $last_name;
+                }
+                ?>" maxlength="100" class="required" />
             </p>
             <p>
                 <label for="phone_no">Phone No:</label>
                 <input  type="text" id="phone" name="phone_no" value="<?php
-if (isset($phone_no) AND ( $phone_no <> "")) {
-    echo $phone_no;
-}
-?>" maxlength="30" class="required" />
+                if (isset($phone_no) AND ( $phone_no <> "")) {
+                    echo $phone_no;
+                }
+                ?>" maxlength="30" class="required" />
             <div id="err" style="margin-left:140px;color:#FF0000;"></div>
-                <?php if (!empty($phoneErr)) { ?>
+            <?php if (!empty($phoneErr)) { ?>
                 <label for="phone_no" generated="true"  class="error"><?php echo $phoneErr; ?>.</label>
-                        <?php } ?>
+            <?php } ?>
             </p>
             <p>
                 <label for="email">Email:</label>
                 <input  type="text" name="email" value="<?php
-                        if (isset($email) AND ( $email <> "")) {
-                            echo $email;
-                        }
-                        ?>" maxlength="100" class="email required" />
+                if (isset($email) AND ( $email <> "")) {
+                    echo $email;
+                }
+                ?>" maxlength="100" class="email required" />
                         <?php if (!empty($emailErr)) { ?>
                     <label for="email" generated="true" class="error"><?php echo $emailErr; ?>.</label>
-<?php } ?>
+                <?php } ?>
             </p>
             <p>
                 <label for="city">City:</label>
                 <input  type="text" name="city" value="<?php
-                    if (isset($city) AND ( $city <> "")) {
-                        echo $city;
-                    }
-                    ?>" maxlength="50" class="required" />
+                if (isset($city) AND ( $city <> "")) {
+                    echo $city;
+                }
+                ?>" maxlength="50" class="required" />
             </p>
             <p>
                 <label for="country">Country:</label>
                 <select name="country" id="location" class="required" onchange="correct_number()" >
-<?php
-foreach ($countries_array1 as $key => $value) {
-    // $code = explode("-",$value);
-    ?>
-                        <option value="<?php echo $key; ?>" <?php if (isset($country)) {
-        if ($key == $country) {
-            ?>selected<?php }
-                      }
-                      ?>><?php echo $value; ?></option>
-                                  <?php
-                              }
-                              ?>
+                    <?php
+                    foreach ($countries_array1 as $key => $value) {
+                        // $code = explode("-",$value);
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php
+                        if (isset($country)) {
+                            if ($key == $country) {
+                                ?>selected<?php
+                                    }
+                                }
+                                ?>><?php echo $value; ?></option>
+                                <?php
+                            }
+                            ?>
                 </select>
             </p>
             <p>
                 <label for="sex">Sex:</label>
-                <label><input type="radio" name="sex" value="1" <?php if (isset($sex)) {
-                                  if ($sex == 1) {
-                                      ?>checked="checked"<?php }
-        } else {
-            ?> checked="checked"<?php } ?>>Male</label>
-                <label><input type="radio" name="sex" value="2" <?php if (isset($sex)) {
-            if ($sex == 2) {
-                ?>checked="checked"<?php }
-        }
+                <label><input type="radio" name="sex" value="1" <?php
+                    if (isset($sex)) {
+                        if ($sex == 1) {
+                            ?>checked="checked"<?php
+                                  }
+                              } else {
+                                  ?> checked="checked"<?php } ?>>Male</label>
+                <label><input type="radio" name="sex" value="2" <?php
+                    if (isset($sex)) {
+                        if ($sex == 2) {
+                            ?>checked="checked"<?php
+                                  }
+                              }
                               ?>>Female</label>
             </p>
 
@@ -534,19 +609,21 @@ foreach ($countries_array1 as $key => $value) {
                 <?php } ?>
                 <?php
                 $sql = "SELECT * FROM tbl_talents WHERE status=1";
-                $result = mysqli_query($link,$sql);
+                $result = mysqli_query($link, $sql);
                 while ($data = mysqli_fetch_assoc($result)) {
                     ?>
                     <li style="width:400px; clear:both;margin-left:98px; ">
 
                         <label>
                             <input type="checkbox" name="check[]" value="<?php echo $data['id'] ?>"  class="required"
-    <?php if (isset($check)) {
-        if (in_array($data['id'], $check)) {
-            ?> checked="checked" <?php }
-    }
-    ?>/>
-                    <?php echo $data['talent']; ?>
+                            <?php
+                            if (isset($check)) {
+                                if (in_array($data['id'], $check)) {
+                                    ?> checked="checked" <?php
+                                       }
+                                   }
+                                   ?>/>
+                                   <?php echo $data['talent']; ?>
                         </label>
 
                     </li>
@@ -567,11 +644,11 @@ foreach ($countries_array1 as $key => $value) {
                 <br/><br/><br/>
                 <strong>Enter Code*:</strong><br />
                 <input type="text" name="ct_captcha" id="ct_captcha" size="12" maxlength="8" />
-<?php
-if (isset($errors) && !empty($errors)) {
-    echo '<label for="ct_captcha" generated="true" class="error">Invalid Security Code.</label>';
-}
-?>
+                <?php
+                if (isset($errors) && !empty($errors)) {
+                    echo '<label for="ct_captcha" generated="true" class="error">Invalid Security Code.</label>';
+                }
+                ?>
             </p>
 
             <div style="clear:both"></div>

@@ -38,7 +38,7 @@ if (isset($captcha) && !empty($captcha)) {
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors == "") {
 
     $query = "SELECT * FROM tbl_users WHERE email='" . trim($_POST['email']) . "' AND status=1 ";
-    $user_exit = mysqli_query($link,$query);
+    $user_exit = mysqli_query($link, $query);
     $count = mysqli_num_rows($user_exit);
 
 
@@ -60,11 +60,11 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
         $age = $age['0'] . '-' . $age['1'] . '-' . $age['2'];
 
 
-        $mac = $_REQUEST['hid_mac'];
+        $mac = $_SERVER['REMOTE_ADDR'];
 
 
 
-        $chkqry = mysqli_query($link,"SELECT * FROM tbl_users WHERE mac_address='$mac'");
+        $chkqry = mysqli_query($link, "SELECT * FROM tbl_users WHERE mac_address='$mac'");
 
         if (mysqli_num_rows($chkqry) > 0) {
             $totl_rec = mysqli_num_rows($chkqry);
@@ -84,19 +84,19 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
 
 
         if ($newmac == 1) {
-            $mymac5 = substr(md5(rand(0, 5000) . 'mac_adr' . rand(6000, 15000)), 0, 25);
+            $mymac5 = $_SERVER['REMOTE_ADDR'];
 
 
 
             $data = array(
-                "username" => mysqli_real_escape_string( $link ,trim($_POST['username'])),
-                "password" => mysqli_real_escape_string( $link ,trim($_POST['conframpassword'])),
-                "first_name" => mysqli_real_escape_string( $link ,trim($_POST['first_name'])),
-                "last_name" => mysqli_real_escape_string( $link ,trim($_POST['last_name'])),
-                "phone_no" => mysqli_real_escape_string( $link ,trim($_POST['phone_no'])),
-                "email" => mysqli_real_escape_string( $link ,trim($_POST['email'])),
+                "username" => mysqli_real_escape_string($link, trim($_POST['username'])),
+                "password" => mysqli_real_escape_string($link, trim($_POST['conframpassword'])),
+                "first_name" => mysqli_real_escape_string($link, trim($_POST['first_name'])),
+                "last_name" => mysqli_real_escape_string($link, trim($_POST['last_name'])),
+                "phone_no" => mysqli_real_escape_string($link, trim($_POST['phone_no'])),
+                "email" => mysqli_real_escape_string($link, trim($_POST['email'])),
                 "city" => $_POST['city'],
-                "country" => mysqli_real_escape_string( $link ,trim($_POST['country'])),
+                "country" => mysqli_real_escape_string($link, trim($_POST['country'])),
                 "sex" => $_POST['sex'],
                 "age" => $age,
                 "type" => '0',
@@ -105,13 +105,12 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
                 "join_date" => date("Y-m-d"),
                 "mac_address" => $mymac5
             );
-
             $table = "tbl_users";
             insertData($data, $table);
             $l_id = mysqli_insert_id($link);
             //////////////////////////SEND_EMAIL_TO_MEMBER_REGISTER_EMAIL_ADDRESS////////////////////////
 
-            $to = mysqli_real_escape_string( $link ,trim($_POST['email']));
+            $to = mysqli_real_escape_string($link, trim($_POST['email']));
 
             $subject = "CCS: Registration email";
 
@@ -170,14 +169,14 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
         } else {
 
             $data = array(
-                "username" => mysqli_real_escape_string( $link ,trim($_POST['username'])),
-                "password" => mysqli_real_escape_string( $link ,trim($_POST['conframpassword'])),
-                "first_name" => mysqli_real_escape_string( $link ,trim($_POST['first_name'])),
-                "last_name" => mysqli_real_escape_string( $link ,trim($_POST['last_name'])),
-                "phone_no" => mysqli_real_escape_string( $link ,trim($_POST['phone_no'])),
-                "email" => mysqli_real_escape_string( $link ,trim($_POST['email'])),
+                "username" => mysqli_real_escape_string($link, trim($_POST['username'])),
+                "password" => mysqli_real_escape_string($link, trim($_POST['conframpassword'])),
+                "first_name" => mysqli_real_escape_string($link, trim($_POST['first_name'])),
+                "last_name" => mysqli_real_escape_string($link, trim($_POST['last_name'])),
+                "phone_no" => mysqli_real_escape_string($link, trim($_POST['phone_no'])),
+                "email" => mysqli_real_escape_string($link, trim($_POST['email'])),
                 "city" => $_POST['city'],
-                "country" => mysqli_real_escape_string( $link ,trim($_POST['country'])),
+                "country" => mysqli_real_escape_string($link, trim($_POST['country'])),
                 "sex" => $_POST['sex'],
                 "age" => $age,
                 "type" => '0',
@@ -443,15 +442,15 @@ include('../_includes/header.php');
 
                 <?php if (!empty($nameErr)) { ?>
                     <label for="first_name" generated="true" class="error"><?php echo $nameErr; ?>.</label>
-<?php } ?>
+                <?php } ?>
             </p>
             <p>
                 <label for="last_name">Last Name:</label>
                 <input  type="text" name="last_name" value="<?php
-if (isset($last_name) AND ( $last_name <> "")) {
-    echo $last_name;
-}
-?>" maxlength="100" class="required" />
+                if (isset($last_name) AND ( $last_name <> "")) {
+                    echo $last_name;
+                }
+                ?>" maxlength="100" class="required" />
             </p>
             <p>
                 <label for="phone_no">Phone No:</label>
@@ -460,57 +459,63 @@ if (isset($last_name) AND ( $last_name <> "")) {
                     echo $phone_no;
                 }
                 ?>" maxlength="30" class="required" />
-                <?php if (!empty($phoneErr)) { ?>
-                    <label for="phone_no" generated="true" class="error">Please enter valid phone number<?php //echo str_replace($phoneErr,'12','7'); ?>.</label>
-                        <?php } ?>
+                        <?php if (!empty($phoneErr)) { ?>
+                    <label for="phone_no" generated="true" class="error">Please enter valid phone number<?php //echo str_replace($phoneErr,'12','7');   ?>.</label>
+                <?php } ?>
             </p>
             <p>
                 <label for="email">Email:</label>
                 <input  type="text" name="email" value="<?php
-                        if (isset($email) AND ( $email <> "")) {
-                            echo $email;
-                        }
-                        ?>" maxlength="100" class="email required" />
+                if (isset($email) AND ( $email <> "")) {
+                    echo $email;
+                }
+                ?>" maxlength="100" class="email required" />
                         <?php if (!empty($emailErr)) { ?>
                     <label for="email" generated="true" class="error"><?php echo $emailErr; ?>.</label>
-<?php } ?>
+                <?php } ?>
             </p>
             <p>
                 <label for="city">City:</label>
                 <input  type="text" name="city" value="<?php
-                    if (isset($city) AND ( $city <> "")) {
-                        echo $city;
-                    }
-                    ?>" maxlength="50" class="required" />
+                if (isset($city) AND ( $city <> "")) {
+                    echo $city;
+                }
+                ?>" maxlength="50" class="required" />
             </p>
             <p>
                 <label for="country">Country:</label>
                 <select name="country" id="location" class="required" >
-<?php
-foreach ($countries_array as $key => $value) {
-    // $code = explode("-",$value);
-    ?>
-                        <option value="<?php echo $key; ?>" <?php if (isset($country)) {
-        if ($key == $country) {
-            ?>selected<?php }
-                      }
-                      ?>><?php echo $value; ?></option>
-                                  <?php
-                              }
-                              ?>
+                    <?php
+                    foreach ($countries_array as $key => $value) {
+                        // $code = explode("-",$value);
+                        ?>
+                        <option value="<?php echo $key; ?>" <?php
+                        if (isset($country)) {
+                            if ($key == $country) {
+                                ?>selected<?php
+                                    }
+                                }
+                                ?>><?php echo $value; ?></option>
+                                <?php
+                            }
+                            ?>
                 </select>
             </p>
             <p>
                 <label for="sex">Sex:</label>
-                <label><input type="radio" name="sex" value="1" <?php if (isset($sex)) {
-                                  if ($sex == 1) {
-                                      ?>checked="checked"<?php }
-        } else {
-            ?> checked="checked"<?php } ?>>Male</label>
-                <label><input type="radio" name="sex" value="2" <?php if (isset($sex)) {
-            if ($sex == 2) {
-                ?>checked="checked"<?php }
-        }
+                <label><input type="radio" name="sex" value="1" <?php
+                    if (isset($sex)) {
+                        if ($sex == 1) {
+                            ?>checked="checked"<?php
+                                  }
+                              } else {
+                                  ?> checked="checked"<?php } ?>>Male</label>
+                <label><input type="radio" name="sex" value="2" <?php
+                    if (isset($sex)) {
+                        if ($sex == 2) {
+                            ?>checked="checked"<?php
+                                  }
+                              }
                               ?>>Female</label>
             </p>
 
@@ -519,10 +524,10 @@ foreach ($countries_array as $key => $value) {
             <p>
                 <label for="age">Date of Birth:</label>
                 <input  type="text" name="age" id="age" onchange="checkBirthDate(this.value)" value="<?php
-        if (isset($age) AND ( $age <> "")) {
-            echo $age;
-        }
-                              ?>" class="required" />
+                if (isset($age) AND ( $age <> "")) {
+                    echo $age;
+                }
+                ?>" class="required" />
             <div id="showmsg"></div>
             </p>
 
@@ -540,11 +545,11 @@ foreach ($countries_array as $key => $value) {
                 <br/>
                 <strong>Enter Code*:</strong><br />
                 <input type="text" name="ct_captcha" id="ct_captcha" size="12" maxlength="8" />
-<?php
-if (isset($errors) && !empty($errors)) {
-    echo '<label for="ct_captcha" generated="true" class="error">Invalid Security Code.</label>';
-}
-?>
+                <?php
+                if (isset($errors) && !empty($errors)) {
+                    echo '<label for="ct_captcha" generated="true" class="error">Invalid Security Code.</label>';
+                }
+                ?>
             </p>
 
             <div style="clear:both"></div>
