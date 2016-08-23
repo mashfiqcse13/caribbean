@@ -13,7 +13,7 @@ include('include/header.php');
 </script>
 <?php
 $query = "SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'";
-$query_row = mysqli_query($link,$query);
+$query_row = mysqli_query($link, $query);
 $data = mysqli_fetch_array($query_row);
 $_SESSION['ab'] = $data['first_name'];
 
@@ -79,7 +79,7 @@ if (!empty($_REQUEST['task'])) {
 
 <?php
 if ($data['new_mac_req'] == 1) {
-    $myqry2 = mysqli_query($link,"SELECT * FROM tbl_users WHERE mac_address='" . $data['mac_address'] . "'");
+    $myqry2 = mysqli_query($link, "SELECT * FROM tbl_users WHERE mac_address='" . $data['mac_address'] . "'");
     ?>
     <p style="margin-left:200px; width:600px;"><label>Connected Users:</label>
         <?php
@@ -116,7 +116,7 @@ if ($data['type'] == 1) {
     //session_start();
     $_SESSION['talent_login'] = 0;
     $session_query = "SELECT * FROM tbl_users WHERE username='" . $data['username'] . "' AND password='" . $data['password'] . "' AND type='1'";
-    $result = mysqli_query($link,$session_query);
+    $result = mysqli_query($link, $session_query);
     $count = mysqli_num_rows($result);
     $data_1 = mysqli_fetch_array($result);
     if ($count == 1) {
@@ -162,7 +162,7 @@ if ($data['type'] == 1) {
 } else {
     $_SESSION['user_login'] = 0;
     $session_query = "SELECT * FROM tbl_users WHERE username='" . $data['username'] . "' AND password='" . $data['password'] . "' AND type='0'";
-    $result = mysqli_query($link,$session_query);
+    $result = mysqli_query($link, $session_query);
     $count = mysqli_num_rows($result);
     $data_1 = mysqli_fetch_array($result);
     if ($count == 1) {
@@ -220,15 +220,20 @@ if ($data['type'] == 1) {
 
     function change_mac(mid) {
         if (mid != '') {
-            $.post('mac-ajax.php', {mac_cntr: $('#mac_alwd').val(), mac_adr: mid})
-                    .done(function (data) {
-                        //alert(data);
-                        window.location.reload();
-                    });//
+            $.ajax({
+                type: 'POST',
+                url: 'mac-ajax.php',
+                data: {mac_cntr: $('#mac_alwd').val(), mac_adr: mid},
+                dataType: 'html',
+                success: function (data,textStatus,jqXHR) {
+                    alert(data);
+                    window.location.reload();
+                }
+            });
         } else {
             alert('No Mac address registered');
         }
     }
 </script>
-
 <?php include('include/footer.php'); ?>
+

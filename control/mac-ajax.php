@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+include('include/application_top.php');
 
 include('../_includes/db.inc.php');
 
