@@ -1,5 +1,6 @@
 <?php
 include('include/application_top.php');
+require_once '../_includes/class.database.php';
 cmslogin();
 include('include/header.php');
 ?>
@@ -78,6 +79,29 @@ if (!empty($_REQUEST['task'])) {
 </p>
 
 <?php
+// getting related users
+$db = new DBClass(db_host, db_username, db_passward, db_name);
+$condition = "`mac_address` != '' and `mac_address` = '{$data['mac_address']}'";
+$query_result_array = $db->db_select_as_array('tbl_users', $condition);
+if ($query_result_array != false) {
+    $the_related_users_array = array();
+    foreach ($query_result_array as $user) {
+        if ($_GET['id'] == $user['id']) {
+            continue;
+        }
+        $tmp_username = $user['username'];
+        $tmp_user_link = "http://caribbeancirclestars.com/control/details.php?id=" . $user['id'];
+        array_push($the_related_users_array, "<a href=\"$tmp_user_link\">$tmp_username</a> ");
+    }
+    $the_related_users = implode(" | ", $the_related_users_array);
+    ?>
+    <p style="margin-left:200px; width:600px;  ">
+        <label>Related Users :</label> 
+        <?php echo $the_related_users ?>
+    </p>
+    <?php
+}
+
 if ($data['new_mac_req'] == 1) {
     $myqry2 = mysqli_query($link, "SELECT * FROM tbl_users WHERE mac_address='" . $data['mac_address'] . "'");
     ?>
@@ -225,7 +249,7 @@ if ($data['type'] == 1) {
                 url: 'mac-ajax.php',
                 data: {mac_cntr: $('#mac_alwd').val(), mac_adr: mid},
                 dataType: 'html',
-                success: function (data,textStatus,jqXHR) {
+                success: function (data, textStatus, jqXHR) {
                     alert(data);
                     window.location.reload();
                 }
