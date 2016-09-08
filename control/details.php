@@ -86,33 +86,24 @@ $query_result_array = $db->db_select_as_array('tbl_users', $condition);
 if ($query_result_array != false) {
     $the_related_users_array = array();
     foreach ($query_result_array as $user) {
-        if ($_GET['id'] == $user['id']) {
-            continue;
+        if ($user['new_mac_req'] == 1) {
+            $color = 'style="color: red;font-weight:bold;"';
+        } else {
+            $color = '';
         }
-        $tmp_username = $user['username'];
+        $tmp_username = "{$user['first_name']}  {$user['last_name']} ( {$user['username']} )";
         $tmp_user_link = "http://caribbeancirclestars.com/control/details.php?id=" . $user['id'];
-        array_push($the_related_users_array, "<a href=\"$tmp_user_link\">$tmp_username</a> ");
+        array_push($the_related_users_array, "<a href=\"$tmp_user_link\" $color>$tmp_username</a> ");
     }
-    $the_related_users = implode(" | ", $the_related_users_array);
+    $the_related_users = implode(" <br> ", $the_related_users_array);
     ?>
     <p style="margin-left:200px; width:600px;  ">
         <label>Related Users :</label> 
-        <?php echo $the_related_users ?>
+        <span style="display: block; padding-left: 22%; margin-top: -14px;"><?php echo $the_related_users ?></span>
     </p>
     <?php
 }
-
-if ($data['new_mac_req'] == 1) {
-    $myqry2 = mysqli_query($link, "SELECT * FROM tbl_users WHERE mac_address='" . $data['mac_address'] . "'");
-    ?>
-    <p style="margin-left:200px; width:600px;"><label>Connected Users:</label>
-        <?php
-        while ($each1 = mysqli_fetch_assoc($myqry2)) {
-            echo $each1['first_name'] . " " . $each1['last_name'] . ", ";
-        }
-        ?>
-    </p>
-<?php } ?>
+?>
 
 <p style="margin-left:200px; width:600px;  ">
     <label>Email:</label> <?php echo $data['email']; ?>
