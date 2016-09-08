@@ -16,25 +16,29 @@ if (!empty($lid)) {
     insertData($data, $table);
 
     /* Added Activity Below */
-    SaveActivity(14, mysqli_real_escape_string( $link ,trim($_POST['username'])), '', $l_id);
+    SaveActivity(14, mysqli_real_escape_string($link, trim($_POST['username'])), '', $l_id);
 
     //////////////////////////////////////////////////
 }
 
 
 if ((isset($_POST['login'])) AND ( $_POST['login'] == 'Sign In')) {
-    $query = "SELECT * FROM tbl_users WHERE email='" . mysqli_real_escape_string( $link ,trim($_POST["username"])) . "' AND password='" . mysqli_real_escape_string( $link ,trim($_POST["password"])) . "' AND type='0' AND `is_block_admin` = 'No' AND (suspend_to < '" . date("Y-m-d H:i:s") . "' OR suspend_to IS NULL)";
+    $query = "SELECT * FROM tbl_users WHERE email='" . mysqli_real_escape_string($link, trim($_POST["username"])) . "' AND password='" . mysqli_real_escape_string($link, trim($_POST["password"])) . "' AND type='0' AND `is_block_admin` = 'No' AND (suspend_to < '" . date("Y-m-d H:i:s") . "' OR suspend_to IS NULL)";
 //$query="SELECT * FROM tbl_users WHERE username='".mysqli_real_escape_string( $link ,trim($_POST["username"]))."' AND password='".$_POST["password"]."' AND type='0'";
-    $result = mysqli_query($link,$query);
+    $result = mysqli_query($link, $query);
     $count = mysqli_num_rows($result);
     $data = mysqli_fetch_array($result);
     if ($count == 1) {
         //First Destroy All Previous Session then continue/
-        session_destroy();
-        session_start();
-        $_SESSION['user_login'] = 1;
-        $_SESSION['user_id'] = $data['id'];
-        header("Location:member.php");
+        if ($data['new_mac_req'] == 0) {
+            session_destroy();
+            session_start();
+            $_SESSION['user_login'] = 1;
+            $_SESSION['user_id'] = $data['id'];
+            header("Location:member.php");
+        } else {
+            $MSG = "We have found that you are using multiple account form the same computer. Please contact admin(" . TO_ADMIN . ")!";
+        }
     } else {
         $MSG = "Invalid Email or Password, Please try again";
     }

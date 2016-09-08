@@ -67,15 +67,16 @@ if (!empty($_REQUEST['task'])) {
     <label>Phone No:</label> <?php echo $data['phone_no']; ?>
 </p>
 
-<p style="margin-left:200px; width:600px;<?php if ($data['new_mac_req'] == 1) { ?> color:#FF0000; font-weight:bold; <?php } ?>">
+<p style="margin-left:200px; width:600px;">
     <label>Mac Address:</label>
-    <?php echo $data['mac_address']; ?>&nbsp;&nbsp;&nbsp;
-    Allowed: <select name="mac_alwd" id="mac_alwd">
-        <?php for ($i = 1; $i <= 10; $i++) { ?>
-            <option value="<?php echo $i; ?>" <?php echo $i == $data['allowed_mac'] ? 'selected="selected"' : ''; ?>><?php echo $i; ?></option>
-        <?php } ?>  
+    <span style="<?php if ($data['new_mac_req'] == 1) { ?> color:#FF0000; font-weight:bold; <?php } ?>">
+        <?php echo $data['mac_address']; ?>
+    </span>&nbsp;&nbsp;&nbsp;
+    This mac is : <select name="new_mac_req" id="new_mac_req">
+        <option value="0" <?php echo 0 == $data['new_mac_req'] ? 'selected="selected"' : ''; ?>>Allowed</option>
+        <option value="1" <?php echo 1 == $data['new_mac_req'] ? 'selected="selected"' : ''; ?>>Disallowed</option>
     </select>&nbsp;&nbsp;
-    <input type="button" value="Go" class="button3" style="float:none;background-color: green;border-radius: 5px;" onclick="change_mac('<?php echo $data['mac_address']; ?>');" />
+    <input type="button" value="Go" class="button3" style="float:none;background-color: green;border-radius: 5px;" onclick="change_mac('<?php echo $data['mac_address']; ?>',<?php echo $data["id"] ?>);" />
 </p>
 
 <?php
@@ -85,34 +86,26 @@ $condition = "`mac_address` != '' and `mac_address` = '{$data['mac_address']}'";
 $query_result_array = $db->db_select_as_array('tbl_users', $condition);
 if ($query_result_array != false) {
     $the_related_users_array = array();
+    $number_of_total_user_with_this_mac = 0;
     foreach ($query_result_array as $user) {
-        if ($_GET['id'] == $user['id']) {
-            continue;
+        if ($user['new_mac_req'] == 1) {
+            $color = 'style="color: red;font-weight:bold;"';
+        } else {
+            $color = '';
         }
-        $tmp_username = $user['username'];
+        $tmp_username = "{$user['first_name']}  {$user['last_name']} ( {$user['username']} )";
         $tmp_user_link = "http://caribbeancirclestars.com/control/details.php?id=" . $user['id'];
-        array_push($the_related_users_array, "<a href=\"$tmp_user_link\">$tmp_username</a> ");
+        array_push($the_related_users_array, "<a href=\"$tmp_user_link\" $color>$tmp_username</a> ");
     }
-    $the_related_users = implode(" | ", $the_related_users_array);
+    $the_related_users = implode(" <br> ", $the_related_users_array);
     ?>
     <p style="margin-left:200px; width:600px;  ">
         <label>Related Users :</label> 
-        <?php echo $the_related_users ?>
+        <span style="display: block; padding-left: 22%; margin-top: -14px;"><?php echo $the_related_users ?></span>
     </p>
     <?php
 }
-
-if ($data['new_mac_req'] == 1) {
-    $myqry2 = mysqli_query($link, "SELECT * FROM tbl_users WHERE mac_address='" . $data['mac_address'] . "'");
-    ?>
-    <p style="margin-left:200px; width:600px;"><label>Connected Users:</label>
-        <?php
-        while ($each1 = mysqli_fetch_assoc($myqry2)) {
-            echo $each1['first_name'] . " " . $each1['last_name'] . ", ";
-        }
-        ?>
-    </p>
-<?php } ?>
+?>
 
 <p style="margin-left:200px; width:600px;  ">
     <label>Email:</label> <?php echo $data['email']; ?>
@@ -242,16 +235,16 @@ if ($data['type'] == 1) {
         ;
     }
 
-    function change_mac(mid) {
+    function change_mac(mid, pram_user_id) {
         if (mid != '') {
             $.ajax({
                 type: 'POST',
                 url: 'mac-ajax.php',
-                data: {mac_cntr: $('#mac_alwd').val(), mac_adr: mid},
+                data: {new_mac_req: $('#new_mac_req').val(), mac_adr: mid, user_id: pram_user_id},
                 dataType: 'html',
                 success: function (data, textStatus, jqXHR) {
                     alert(data);
-                    window.location.reload();
+                    $('body').load("http://caribbeancirclestars.com/control/details.php?id=" + pram_user_id);
                 }
             });
         } else {
