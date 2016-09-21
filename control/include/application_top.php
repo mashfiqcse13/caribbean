@@ -15,6 +15,10 @@ function cmslogin() {
     }
 }
 
+define('SITE_NAME', 'CCS');
+define('FROM_EMAIL', 'donotreply@caribbeancirclestars.com');
+define('TO_ADMIN', 'admin@caribbeancirclestars.com');
+
 define('SITE_URL', $BASE_URL . 'control/');
 define('SITE_URL1', $BASE_URL);
 define('SITE_URL2', $BASE_URL);

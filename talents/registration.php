@@ -1,5 +1,7 @@
 <?php
 include('../_includes/application-top.php');
+include_once '../_includes/class.database.php';
+$db = new DBClass(db_host, db_username, db_passward, db_name);
 
 $_SESSION['talent_login'] = 0;
 
@@ -281,11 +283,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign up') AND $errors =
                 $table = "tbl_user_profile_settings";
                 //echo '<pre>';print_r($data);
                 insertData($data, $table);
-                ?>
-                <script type="text/javascript">
-                    alert('Please contact admin to complete sign up!');
-                </script>
-                <?php
+                $last_inserted_user_id = $db->auto_increment_id('tbl_users')-1;
+                header("Location: " . SITE_URL . "new_mac_varification.php?banned_user_id=$last_inserted_user_id");
+                die();
             }
         } else {
             $erro_form = "Please Try again";

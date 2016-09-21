@@ -1,6 +1,6 @@
 <?php
 include('_includes/application-top.php');
-include_once './_includes/class.database.php';
+include_once '_includes/class.database.php';
 $db = new DBClass(db_host, db_username, db_passward, db_name);
 
 if (!empty($_POST['banned_user_id']) && !empty($_POST['mac_msg_by_user'])) {
@@ -9,7 +9,7 @@ if (!empty($_POST['banned_user_id']) && !empty($_POST['mac_msg_by_user'])) {
         "mac_msg_by_user" => $_POST['mac_msg_by_user']
     );
     $db->db_update('tbl_users', $data_to_insert, "`id` = $banned_user_id");
-    header("Location: ".SITE_URL."new_mac_varification.php?banned_user_id=$banned_user_id");
+    header("Location: " . SITE_URL . "new_mac_varification.php?banned_user_id=$banned_user_id");
     die();
 }
 
@@ -34,10 +34,10 @@ include('_includes/header.php');
         width: 23%;
         min-width: 200px;
     }
-    .item img{height: 150px;width: auto;}
+    .item img{height: 150px;width: auto;max-width: 100%}
 </style>
 <div class="content">
-    <h1 style="text-align: center;">We have found some users related to you</h1>
+    <h1 style="text-align: center;">Hi <?php echo $banned_user_details['first_name'] ?>! We have found some users related to you</h1>
     <p>Please define your relationship with them . If we are satisfied with your answer, we will let you in . &nbsp;Otherwise ,&nbsp;you will not able to login . Thank you</p>
     <h2>Related Users</h2>
     <div id="member">
@@ -55,7 +55,7 @@ include('_includes/header.php');
                 ?>
                 <li class="item">
                     <a href="<?php echo $related_user_public_profile_url ?>">
-                        <img width="120" height="152" src="<?php echo $related_user_image_url . "?" . time(); ?>">
+                        <img src="<?php echo $related_user_image_url . "?" . time(); ?>">
                     </a><br>
                     <a href="<?php echo $related_user_public_profile_url ?>"> <?php echo $related_user_full_name ?></a><br>
                     User name : <?php echo $related_user['username'] ?><br>

@@ -79,23 +79,47 @@ if (!empty($_REQUEST['task'])) {
     <input type="button" value="Go" class="button3" style="float:none;background-color: green;border-radius: 5px;" onclick="change_mac('<?php echo $data['mac_address']; ?>',<?php echo $data["id"] ?>);" />
 </p>
 
+
+<table id="mac_msg" style="margin-left:200px; width:600px; border: 1px solid ">
+    <tr>
+        <td colspan="2" style="text-align: center;font-weight: bold">User response about the MAC issue</td>
+    </tr>
+    <tr>
+        <td>User : </td>
+        <td><?php echo $data['mac_msg_by_user'] ?>
+        </td>
+    </tr>
+    <tr>
+        <td>Admin : </td>
+        <td><br>
+            <form method="post" action="mac_msg_by_admin.php">
+                <input type="hidden" name="banned_user_id" value="<?php echo $data['id'] ?>"/>
+                <textarea name="mac_msg_by_admin" placeholder="Say something..." rows="3" cols="100" required=""
+                          ><?php echo $data['mac_msg_by_admin'] ?></textarea><br><br>
+                <input type="submit" value="Send to admin">
+            </form>
+        </td>
+    </tr>
+</table>
+
+
 <?php
 // getting related users
 $db = new DBClass(db_host, db_username, db_passward, db_name);
-$condition = "`mac_address` != '' and `mac_address` = '{$data['mac_address']}'";
+$condition = "`mac_address` != '' and `mac_address` = '{$data['mac_address']}' and `id` != {$data["id"]}";
 $query_result_array = $db->db_select_as_array('tbl_users', $condition);
 if ($query_result_array != false) {
     $the_related_users_array = array();
     $number_of_total_user_with_this_mac = 0;
     foreach ($query_result_array as $user) {
         if ($user['new_mac_req'] == 1) {
-            $color = 'style="color: red;font-weight:bold;"';
+            $status = '(Disabled by MAC)';
         } else {
-            $color = '';
+            $status = '';
         }
         $tmp_username = "{$user['first_name']}  {$user['last_name']} ( {$user['username']} )";
         $tmp_user_link = "http://caribbeancirclestars.com/control/details.php?id=" . $user['id'];
-        array_push($the_related_users_array, "<a href=\"$tmp_user_link\" $color>$tmp_username</a> ");
+        array_push($the_related_users_array, "<a href=\"$tmp_user_link\">$tmp_username</a> $status");
     }
     $the_related_users = implode(" <br> ", $the_related_users_array);
     ?>
@@ -223,6 +247,15 @@ if ($data['type'] == 1) {
 }
 ?>
 <script type="text/javascript">
+    $('[name="new_mac_req"]').change(function () {
+        var status = $(this).val();
+        if (status == 1) {
+            $('#mac_msg').slideDown("slow");
+        } else {
+            $('#mac_msg').slideUp("slow");
+        }
+    });
+    $('[name="new_mac_req"]').trigger('change');
     function check_suspend(obj) {
         if (obj.value == "suspend") {
             $("#sus_date").html("<input type='text' style='border: 1px solid red;width:60px;' name='suspend_days' placeholder='Enter Days'>eg:5");

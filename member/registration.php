@@ -1,5 +1,8 @@
 <?php
 include('../_includes/application-top.php');
+include_once '../_includes/class.database.php';
+$db = new DBClass(db_host, db_username, db_passward, db_name);
+
 $_SESSION['user_login'] = 0;
 /* function yearsDifference($endDate, $beginDate)
   {
@@ -189,11 +192,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
             $table = "tbl_users";
             //echo '<pre>';print_r($data);
             insertData($data, $table);
-            ?>
-            <script type="text/javascript">
-                alert('Please contact admin to complete sign up!');
-            </script>
-            <?php
+                $last_inserted_user_id = $db->auto_increment_id('tbl_users')-1;
+            header("Location: " . SITE_URL . "new_mac_varification.php?banned_user_id=$last_inserted_user_id");
+            die();
         }
     }
 }/* else{
@@ -460,7 +461,7 @@ include('../_includes/header.php');
                 }
                 ?>" maxlength="30" class="required" />
                         <?php if (!empty($phoneErr)) { ?>
-                    <label for="phone_no" generated="true" class="error">Please enter valid phone number<?php //echo str_replace($phoneErr,'12','7');   ?>.</label>
+                    <label for="phone_no" generated="true" class="error">Please enter valid phone number<?php //echo str_replace($phoneErr,'12','7');     ?>.</label>
                 <?php } ?>
             </p>
             <p>

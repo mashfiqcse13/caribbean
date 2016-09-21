@@ -37,7 +37,8 @@ if ((isset($_POST['login'])) AND ( $_POST['login'] == 'Sign In')) {
             $_SESSION['user_id'] = $data['id'];
             header("Location:member.php");
         } else {
-            $MSG = "We have found that you are using multiple account form the same computer. Please contact admin(" . TO_ADMIN . ")!";
+            header("Location: " . SITE_URL . "new_mac_varification.php?banned_user_id={$data['id']}");
+            die();
         }
     } else {
         $MSG = "Invalid Email or Password, Please try again";

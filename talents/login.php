@@ -41,7 +41,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Sign In')) {
             $_SESSION['talent_id'] = $data['id'];
             header("Location:member.php");
         } else {
-            $MSG = "We have found that you are using multiple account form the same computer. Please contact admin(" . TO_ADMIN . ")!";
+            header("Location: " . SITE_URL . "new_mac_varification.php?banned_user_id={$data['id']}");
+            die();
         }
         //echo "successful";
     } else {
