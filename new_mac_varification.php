@@ -37,14 +37,14 @@ include('_includes/header.php');
     .item img{height: 150px;width: auto;max-width: 100%}
 </style>
 <div class="content">
-    <h1 style="text-align: center;">Hi <?php echo $banned_user_details['first_name'] ?>! We have found some users related to you</h1>
-    <p>Please define your relationship with them . If we are satisfied with your answer, we will let you in . &nbsp;Otherwise ,&nbsp;you will not able to login . Thank you</p>
+    <h1 style="text-align: center;">Hi <?php echo $banned_user_details['first_name'] ?>! We have found other users link to this account.</h1>
+    <p>Our record shows you have related account. Please verify your relationship to these accounts. This process is needed to complete your membership on our website. Without this needed information you will not be able to proceed or login. Thank you.</p>
     <h2>Related Users</h2>
     <div id="member">
         <ul>
             <?php
             foreach ($related_users as $related_user) {
-                $related_user_type = $related_user['type'] == 1 ? "Talent" : "General";
+                $related_user_type = $related_user['type'] == 1 ? "Talent" : "Member";
                 $related_user_full_name = "{$related_user['first_name']} {$related_user['last_name']}";
                 $related_user_public_profile_url = "profile-details.php?username={$related_user['username']}";
                 $related_user_image_url = "_uploads/user_photo/" . $related_user["id"] . ".jpg";
@@ -66,25 +66,24 @@ include('_includes/header.php');
             ?>
         </ul>
         <div style="clear:both;"></div>
-    </div>
-    <p>Please write to admin in the following Text box. To mention a user Please use the "<strong>User name</strong>" . You will be notified by email about the progress .</p>
+    </div><br><br>
     <table>
-        <tr>
-            <th>Admin : </th>
+        <tr style="vertical-align: top">
+            <th>Admin: </th>
             <td><?php
                 if (empty($banned_user_details['mac_msg_by_admin'])) {
-                    $banned_user_details['mac_msg_by_admin'] = "Tell me about the relationship among these users and you";
+                    $banned_user_details['mac_msg_by_admin'] = "Please contact Admin in the Text box below. Let us know how you are related to this user/users shown on this page. We need to verify your relationship to these account/accounts before you can open this account. We will notify you soon if allowed to open this account.  Thank you.";
                 }
                 echo $banned_user_details['mac_msg_by_admin']
-                ?>
+                ?><br><br>
             </td>
         </tr>
-        <tr>
-            <th>You : </th>
-            <td><br>
+        <tr style="vertical-align: top">
+            <th>You: </th>
+            <td>
                 <form method="post" action="new_mac_varification.php">
                     <input type="hidden" name="banned_user_id" value="<?php echo $banned_user_id ?>"/>
-                    <textarea name="mac_msg_by_user" placeholder="Say something..." rows="5" cols="100" required=""
+                    <textarea name="mac_msg_by_user" placeholder="Type your message" rows="5" cols="100" required=""
                               ><?php echo $banned_user_details['mac_msg_by_user'] ?></textarea><br><br>
                     <input type="submit" value="Send to admin">
                 </form>
