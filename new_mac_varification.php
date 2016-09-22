@@ -48,7 +48,8 @@ include('_includes/header.php');
             </tr>
         </tbody>
     </table>
-
+    <br>
+    <br>
 
     <h2>Related Users</h2>
     <div id="member">
