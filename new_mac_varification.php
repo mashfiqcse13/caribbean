@@ -38,7 +38,18 @@ include('_includes/header.php');
 </style>
 <div class="content">
     <h1 style="text-align: center;">Hi <?php echo $banned_user_details['first_name'] ?>! We have found other users link to this account.</h1>
-    <p>Our record shows you have related account. Please verify your relationship to these accounts. This process is needed to complete your membership on our website. Without this needed information you will not be able to proceed or login. Thank you.</p>
+    <table  cellspacing="10" style="border: 1px solid; background: rgb(202, 247, 178) none repeat scroll 0% 0%;">
+        <tbody>
+            <tr>
+                <th><img alt="" src="_images/warning_symbol.gif"></th>
+                <td>
+                    Our record shows you have related account. Please verify your relationship to these accounts. This process is needed to complete your membership on our website. Without this needed information you will not be able to proceed or login. Thank you.
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
     <h2>Related Users</h2>
     <div id="member">
         <ul>
