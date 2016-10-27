@@ -37,7 +37,7 @@ include('_includes/header.php');
     .item img{height: 150px;width: auto;max-width: 100%}
 </style>
 <div class="content">
-    <h1 style="text-align: center;">Hi <?php echo $banned_user_details['first_name'] ?>! We have found other users link to this account.</h1>
+    <h1 style="text-align: center;">Hi <?php echo $banned_user_details['first_name'] ?>! We found other users linked to this account via login.</h1>
     <table  cellspacing="10" style="border: 1px solid; background: rgb(202, 247, 178) none repeat scroll 0% 0%;">
         <tbody>
             <tr>

@@ -1,8 +1,8 @@
 <?php
 include('../_includes/application-top.php');
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Send Email')) {
-    $query = "select * from tbl_users where username='" . mysqli_real_escape_string( $link ,trim($_POST["username"])) . "' AND type='1' ";
-    $row = mysqli_query($link,$query);
+    $query = "select * from tbl_users where username='" . mysqli_real_escape_string($link, trim($_POST["username"])) . "' or email ='" . mysqli_real_escape_string($link, trim($_POST["username"])) . "' AND type='1' ";
+    $row = mysqli_query($link, $query);
     $row1 = mysqli_num_rows($row);
     $data = mysqli_fetch_assoc($row);
     //print_r($data);
@@ -11,15 +11,17 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Send Email')) {
         $subject = SITE_NAME . ": Forget Password Request";
         $msg = "Hi " . $data['first_name'] . " " . $data['last_name'] . " <br />" .
                 "Your Username is: " . $data['username'] . "<br> 
-						     Your Password is: " . $data['password'] . "
-								 <br><br>
-								 <a href='" . SITE_URL . "'>Click here</a> to login to your account.
-								 ";
+                Your Password is: " . $data['password'] . "
+                            <br><br>
+                            <a href='" . SITE_URL . "talents/login.php'>Click here</a> to login to your account.
+                            ";
         $from = FROM_EMAIL;
-        //SendEMail($to,$subject,$msg,$from);  
-        $MSG = "User Login details have been send to your registered email address.";
+        SendEMail($to,$subject,$msg,$from);  
+        header("Location: forget_password.php?status=1"); // User Login details have been send to your registered email address.
+        die();
     } else {
-        $MSG1 = "Invalid Username";
+        header("Location: forget_password.php?status=0"); // Invalid Username
+        die();
     }
 }
 
@@ -33,32 +35,31 @@ include('../_includes/header.php');
 <div class="content">
     <h1>Password Search</h1>
     <?php
-    if ((isset($MSG1)) || (isset($MSG))) {
-        ?>
-        <p class="err">
-            <?php
-            if (isset($MSG1) AND ( $MSG1 <> "")) {
-                echo $MSG1;
-            }
-            ?>
-        </p>
-        <p class="msg">
-            <?php
-            if (isset($MSG) AND ( $MSG <> "")) {
-                echo $MSG;
-            }
-            ?>
-        </p>
-        <?php
+    if (isset($_GET['status']) AND ( $_GET['status'] == '1')) {
+        echo '<p class="msg">User Login details have been send to your registered email address.</p>';
+    } else if (isset($_GET['status']) AND ( $_GET['status'] == '0')) {
+        echo '<p class="err">Invalid Username</p>';
     }
     ?>
+
     <div class="form_class">
         <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="talents_forget_pass">
-            <p>
-                <label for="username">Type Username:</label>
-                <input type="text" name="username" value="" class="required" style="margin-left:30px;"/>
-            </p>
-            <input type="submit" name="submit" value="Send Email" class="button" style="margin-left:168px;" />
+            <table style="margin: 10px auto 0;">
+                <tbody>
+                    <tr>
+                        <td><label for="username" width="100%" style="width: 175px;">Type Username or Email:</label></td>
+                        <td><input name="username" value="" class="required" style="" type="text"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><a href="login.php">Click Here to Login</a></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input name="submit" value="Send Email" class="button" style="margin-left: 0px;" type="submit"></td>
+                    </tr>
+                </tbody>
+            </table>
         </form>
     </div>
 </div>
