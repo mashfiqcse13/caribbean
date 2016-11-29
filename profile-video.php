@@ -138,7 +138,7 @@ include('_includes/header.php');
                         <input type="hidden" name="item_id" value="<?php echo $row["id"]; ?>" />
                         <input type="hidden" name="item_type" value="video" />	
                         <input type="submit" value="Add To Favorite" />
-                    </form>	
+                    </form>
                     <br>
                 <?php } ?>
             </li> 
