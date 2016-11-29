@@ -5,7 +5,6 @@ function show_video($video_type, $video_id) {
 
     if ($video_type == 1) {     // means it is a file type
         $src = '_uploads/profile_video/' . $video_id . '.mp4';
-        echo $src;
         $output = '<video  width="315" height="220" controls>
                     <source src="' . $src . '" type="video/mp4">
                     <source src="movie.ogg" type="video/ogg">
@@ -13,7 +12,7 @@ function show_video($video_type, $video_id) {
                   </video>';
     } else if (!empty($video_id)) {        // there is a video code
         global $connt, $selt;
-        $result = mysqli_query($link,"SELECT * FROM  tbl_profile_videos WHERE id='" . $video_id . "' ");
+        $result = mysqli_query($link, "SELECT * FROM  tbl_profile_videos WHERE id='" . $video_id . "' ");
         $data = mysqli_fetch_assoc($result);
         //print_r($data);
         $output = preg_replace('/width=("|\')(\d+|\d+px|)("|\')/i', 'width="315"', $data['video_code']);
@@ -22,7 +21,7 @@ function show_video($video_type, $video_id) {
     return $output;
 }
 
-$query = mysqli_query($link,"SELECT * FROM tbl_profile_videos WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_videos.status='1' ORDER BY tbl_profile_videos.id DESC");
+$query = mysqli_query($link, "SELECT * FROM tbl_profile_videos WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_videos.status='1' ORDER BY tbl_profile_videos.id DESC");
 //$treu=mysqli_fetch_assoc($query);
 //print_r($treu);
 
@@ -36,7 +35,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
     }
 
     if ($uid != "") {
-        $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='2'");
+        $sql = mysqli_query($link, "SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='2'");
         $producrt = mysqli_fetch_assoc($sql);
         //print_r($producrt);
         $data = array(
@@ -49,7 +48,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
         );
         $table = "tbl_shopping_cart";
 
-        $sql = mysqli_query($link,"SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
+        $sql = mysqli_query($link, "SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
         $num_row = mysqli_num_rows($sql);
 
         if ($num_row == 0) {
@@ -106,11 +105,13 @@ include('_includes/header.php');
             <li class="b_image">
 
                 <p class="title"><label><?php echo $row["video_name"]; ?></label></p>		
-    <!--                <a id="video" <?php if ($row["video_type"] == 1) { ?>href="talents/video_play.php?filename=_uploads/profile_video/<?php echo $row["id"]; ?>.mp4" <?php } else {
+                <!--              
+                <a id="video" <?php if ($row["video_type"] == 1) { ?>href="talents/video_play.php?filename=_uploads/profile_video/<?php echo $row["id"]; ?>.mp4" <?php } else {
                 ?> href="talents/video_play.php?id=<?php
                     echo $row["id"];
                 }
-                ?>" >-->
+                ?>">
+                -->
                 <?php echo show_video($row["video_type"], $row["id"]) ?>				
                 <?php
                 if ($data['status'] == 1) {
@@ -131,7 +132,15 @@ include('_includes/header.php');
                         <?php
                     }
                     ?>			
-                </form>				
+                </form>	
+                <?php if (is_favorite($row["id"], 'video') == false) { ?>
+                    <form action="<?php echo BASE_URL ?>member/add_product_to_favorite.php" method="get">
+                        <input type="hidden" name="item_id" value="<?php echo $row["id"]; ?>" />
+                        <input type="hidden" name="item_type" value="video" />	
+                        <input type="submit" value="Add To Favorite" />
+                    </form>	
+                    <br>
+                <?php } ?>
             </li> 
             <?php
         }
