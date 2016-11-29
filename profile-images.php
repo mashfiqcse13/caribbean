@@ -13,7 +13,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
 
     if ($uid != "") {
 
-        $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='3'");
+        $sql = mysqli_query($link, "SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='3'");
         $producrt = mysqli_fetch_assoc($sql);
 
         $data = array(
@@ -26,7 +26,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
         );
         $table = "tbl_shopping_cart";
 
-        $sql = mysqli_query($link,"SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
+        $sql = mysqli_query($link, "SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
         $num_row = mysqli_num_rows($sql);
 
         if ($num_row == 0) {
@@ -69,7 +69,7 @@ include('_includes/header.php');
     <?php } ?>
     <p style="text-align:right"><a href="javascript:back(0)" class="button" style="float:left; margin:-5px 0px 0px 0px;" onclick="return back();">Back</a><br />
         <?php
-        $query = mysqli_query($link,"SELECT * FROM tbl_profile_photos WHERE user_id='" . $_GET['id'] . "' ORDER BY tbl_profile_photos.id DESC");
+        $query = mysqli_query($link, "SELECT * FROM tbl_profile_photos WHERE user_id='" . $_GET['id'] . "' ORDER BY tbl_profile_photos.id DESC");
         ?>
 
         <?php
@@ -84,18 +84,25 @@ include('_includes/header.php');
                     <img src="../_uploads/profile_photo/croped/<?php echo $img_name; ?>" 
                          width="100" alt="my_img"/>
                 </a>
-    <?php } else { ?>
+            <?php } else { ?>
                 <a href="../_uploads/profile_photo/<?php echo $img_name; ?>" class="fancybox">
                     <img src="../_uploads/profile_photo/thumb/<?php echo $img_name; ?>" 
                          width="100" alt="my_img"/>
                 </a>
             <?php } ?>
-    <?php $data = getAnyTableWhereData("tbl_products", "AND ref_id='" . $row["id"] . "' AND content_type='3' "); ?>
+            <?php $data = getAnyTableWhereData("tbl_products", "AND ref_id='" . $row["id"] . "' AND content_type='3' "); ?>
             <p><label><?php echo $row['photo_title']; ?></label><p>	
+                <?php if (is_favorite($row["id"], 'photo') == false) { ?>
+                <form action="<?php echo BASE_URL ?>member/add_product_to_favorite.php" method="get">
+                    <input type="hidden" name="item_id" value="<?php echo $row["id"]; ?>" />
+                    <input type="hidden" name="item_type" value="photo" />	
+                    <input type="submit" value="Add To Favorite" />
+                </form>	
+                <br>
+            <?php } ?>
+
             <form action="" method="post">
-
                 <input type="hidden" name="p_id" value="<?php echo $data['id']; ?>" />
-
                 <?php
                 if ($data['status'] == 1) {
                     ?>
@@ -105,7 +112,7 @@ include('_includes/header.php');
                 }
                 ?>
 
-            </form>			
+            </form>		
 
         </div>
 
