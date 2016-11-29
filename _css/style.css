@@ -668,33 +668,17 @@ div.music_details{
     /*margin-left:150px;*/
     margin-top:-40px;
 }
-#shear{
-    /*border:1px solid #FF0000;
-    */width:150px;
-    margin-left:350px;
-    margin-top:-38px;
-}
 .music_download{
-    /*float:right;*/
-    display:inline-block;
-    background-color:#DB9D30;
-    width:85px;
-    height:20px;
-    color:#FFFFFF;
-    text-align:center;
-    border:0px;
-    font-size:12px;
-    vertical-align:middle;
-
-    /*text-decoration:blink;*/
-    font-weight:bold;
+    display: inline-block;
+    background-color: #DB9D30;
+    padding: 10px;
+    margin: 3px;
+    color: #FFFFFF;
+    border: 0px;
+    font-weight: bold;
     border-radius:5px 5px 5px 5px;
     -webkit-border-radius:5px 5px 5px 5px;
     -moz-border-radius:5px 5px 5px 5px;
-    margin: -35px 0px 0px 247px;
-    padding:10px 0px 10px 0px;
-
-
 }
 a.music_download:hover{
     /*border:none;*/

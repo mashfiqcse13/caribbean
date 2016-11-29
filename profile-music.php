@@ -1,5 +1,6 @@
 <?php
 include('_includes/application-top.php');
+
 function show_music($music_id) {
     $src = "_uploads/profile_music/" . $music_id . ".mp3";
     $output = '<audio controls>
@@ -8,7 +9,8 @@ function show_music($music_id) {
       </audio>';
     return $output;
 }
-$query = mysqli_query($link,"SELECT * FROM tbl_profile_music WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_music.status='1' ORDER BY tbl_profile_music.id DESC");
+
+$query = mysqli_query($link, "SELECT * FROM tbl_profile_music WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_music.status='1' ORDER BY tbl_profile_music.id DESC");
 //$treu=mysqli_fetch_assoc($query);
 //print_r($treu);
 
@@ -24,7 +26,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
     }
 
     if ($uid != "") {
-        $sql = mysqli_query($link,"SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='1'");
+        $sql = mysqli_query($link, "SELECT * FROM  tbl_products WHERE id='" . $_POST['p_id'] . "' AND content_type='1'");
         $producrt = mysqli_fetch_assoc($sql);
         //print_r($producrt);
 
@@ -38,7 +40,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add To Cart')) {
         );
         $table = "tbl_shopping_cart";
 
-        $sql = mysqli_query($link,"SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
+        $sql = mysqli_query($link, "SELECT * FROM  tbl_shopping_cart WHERE 	p_id='" . $_POST['p_id'] . "' and uid='" . $uid . "'");
         $num_row = mysqli_num_rows($sql);
 
         if ($num_row == 0) {
@@ -90,13 +92,9 @@ include('_includes/header.php');
             ?>
         </p>
     <?php } ?>
-    <p style="text-align:right"><a href="javascript:back(0)" class="button" style="float:left; margin:-5px 0px 0px 0px;" onclick="return back();">Back</a></p>
-    <!--<ul class="a_music">-->
-    <style>
-        th {
-            padding: 15px 0;
-        }
-    </style>
+    <p style="text-align:right">
+        <a href="javascript:back(0)" class="button" style="float:left; margin:-5px 0px 0px 0px;" onclick="return back();">Back</a>
+    </p>
     <table width="100%">
         <tr style="background-color: rgb(202, 201, 201);">
             <th style="padding: 15px 10px;">Name of the track</th>
@@ -108,7 +106,7 @@ include('_includes/header.php');
         </tr>
         <?php
         while ($row = mysqli_fetch_array($query)) {
-            $sql13 = mysqli_query($link,"SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type='1' ");
+            $sql13 = mysqli_query($link, "SELECT * FROM  tbl_products WHERE ref_id='" . $row['id'] . "' AND content_type='1' ");
             $res13 = mysqli_fetch_assoc($sql13);
             $row13 = mysqli_num_rows($sql13);
 
@@ -129,30 +127,27 @@ include('_includes/header.php');
                     }
                     ?>	</td>
                 <td>	
-                    <form action="" method="post">
 
-                        <input type="hidden" name="p_id" value="<?php echo $data['id']; ?>" />
-
-                        <?php
-                        if ($data['status'] == 1) {
-                            ?>			
-                            <input type="submit" class="m_Add_Cart" value="Add To Cart" name="submit" />
-                            <?php
-                        } else {
-                            ?>	
-                            <a class="music_download" href="<?php echo SITE_URL . "_uploads/profile_music/" . $row['id'] . ".mp3"; ?>" >
-                                Download 
-                            </a>
-
-                            <br />
-
-
-                            <?php
-                        }
-                        ?>				
-                    </form>	
+                    <?php if ($data['status'] == 1) { ?>		
+                        <form action="" method="post">
+                            <input type="hidden" name="p_id" value="<?php echo $data['id']; ?>" />	
+                            <input type="submit" class="m_Add_Cart" value="Add To Cart" name="submit" />			
+                        </form>
+                    <?php } else { ?>	
+                        <a class="music_download" href="<?php echo SITE_URL . "_uploads/profile_music/" . $row['id'] . ".mp3"; ?>" >
+                            Download 
+                        </a>
+                    <?php } ?>		
+                    <?php if (is_favorite($row["id"], 'music') == false) { ?>
+                        <form action="<?php echo BASE_URL ?>member/add_product_to_favorite.php" method="get">
+                            <input type="hidden" name="item_id" value="<?php echo $row["id"]; ?>" />
+                            <input type="hidden" name="item_type" value="music" />	
+                            <input type="submit" value="Add To Favorite" />
+                        </form>	
+                        <br>
+                    <?php } ?>
                 </td>
-                <td><div id="shear">
+                <td><div id="share">
                         <!-- AddToAny BEGIN -->
                         <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
                             <a class="a2a_dd" href="http://www.addtoany.com/share_save"></a>
