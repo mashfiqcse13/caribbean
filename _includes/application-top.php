@@ -12,6 +12,7 @@ session_start();
 require_once 'common_config.php';
 require("db.inc.php");
 require_once('class.database.php');
+require_once('classes/User.php');
 require("ps_pagination.php");
 require("sol_functions.php");
 require("custom_functions.php");
