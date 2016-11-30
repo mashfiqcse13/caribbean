@@ -5,6 +5,7 @@
 
 include('../_includes/application-top.php');
 ChecknontalentLogin();
+$user_id = $_SESSION['user_id'];
 include('../_includes/header.php');
 ?>
 <div class="content"><!--START CLASS contant PART -->
@@ -15,7 +16,7 @@ include('../_includes/header.php');
             <?php include('./profile_template/sidebar_right.php'); ?>
             <!--END CLASS m_profile_left PART -->
             <div id="m_profile_right_1"><!--START ID m_profile_right PART -->
-                Serious security problem found .
+                <?php include '../All_module/user-fav/images-modul.php'; ?>
             </div>
         </div>
     </div>

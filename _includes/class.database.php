@@ -149,6 +149,43 @@ class DBClass {
     }
 
     /*
+      select a table form Database as an 2D array
+     */
+
+    public function db_query_as_array($sql) {
+        $db_link = $this->db_link;
+        $result = mysqli_query($db_link, $sql);
+
+        $i = 0;
+        while ($row = mysqli_fetch_array($result)) {
+            $data[$i] = $row;
+            $i++;
+        }
+        if ($i == 0) {
+            return false;
+        } else {
+            return $data;
+        }
+    }
+    
+    
+    public function db_query($sql) {
+        $db_link = $this->db_link;
+        $result = mysqli_query($db_link, $sql);
+
+        $i = 0;
+        while ($row = mysqli_fetch_object($result)) {
+            $data[$i] = $row;
+            $i++;
+        }
+        if ($i == 0) {
+            return false;
+        } else {
+            return $data;
+        }
+    }
+
+    /*
       will execute LAST_INSERT_ID()
      */
 
