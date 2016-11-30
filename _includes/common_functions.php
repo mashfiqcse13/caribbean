@@ -35,6 +35,26 @@ function show_music($music_id) {
     return $output;
 }
 
+function show_video($video_type, $video_id) {
+
+    if ($video_type == 1) {     // means it is a file type
+        $src = BASE_URL . '_uploads/profile_video/' . $video_id . '.mp4';
+        $output = '<video  width="315" height="220" controls>
+                    <source src="' . $src . '" type="video/mp4">
+                    <source src="movie.ogg" type="video/ogg">
+                  Your browser does not support the video tag.
+                  </video>';
+    } else if (!empty($video_id)) {        // there is a video code
+        global $connt, $selt;
+        $result = mysqli_query($link, "SELECT * FROM  tbl_profile_videos WHERE id='" . $video_id . "' ");
+        $data = mysqli_fetch_assoc($result);
+        //print_r($data);
+        $output = preg_replace('/width=("|\')(\d+|\d+px|)("|\')/i', 'width="315"', $data['video_code']);
+        $output = preg_replace('/height=("|\')(\d+|\d+px|)("|\')/i', 'height="220"', $output);
+    }
+    return $output;
+}
+
 function is_favorite($item_id, $item_type) {
     $user_id = $_SESSION['user_id'];
 

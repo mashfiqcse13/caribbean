@@ -1,26 +1,6 @@
 <?php
 include('_includes/application-top.php');
 
-function show_video($video_type, $video_id) {
-
-    if ($video_type == 1) {     // means it is a file type
-        $src = '_uploads/profile_video/' . $video_id . '.mp4';
-        $output = '<video  width="315" height="220" controls>
-                    <source src="' . $src . '" type="video/mp4">
-                    <source src="movie.ogg" type="video/ogg">
-                  Your browser does not support the video tag.
-                  </video>';
-    } else if (!empty($video_id)) {        // there is a video code
-        global $connt, $selt;
-        $result = mysqli_query($link, "SELECT * FROM  tbl_profile_videos WHERE id='" . $video_id . "' ");
-        $data = mysqli_fetch_assoc($result);
-        //print_r($data);
-        $output = preg_replace('/width=("|\')(\d+|\d+px|)("|\')/i', 'width="315"', $data['video_code']);
-        $output = preg_replace('/height=("|\')(\d+|\d+px|)("|\')/i', 'height="220"', $output);
-    }
-    return $output;
-}
-
 $query = mysqli_query($link, "SELECT * FROM tbl_profile_videos WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_videos.status='1' ORDER BY tbl_profile_videos.id DESC");
 //$treu=mysqli_fetch_assoc($query);
 //print_r($treu);
