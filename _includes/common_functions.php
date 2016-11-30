@@ -26,6 +26,15 @@ function Let_the_admin_see_the_user_dashboard() {
     return $user_id;
 }
 
+function show_music($music_id) {
+    $src = BASE_URL . "_uploads/profile_music/" . $music_id . ".mp3";
+    $output = '<audio controls>
+        <source src="' . $src . '" type="audio/ogg">
+      Your browser does not support the audio element.
+      </audio>';
+    return $output;
+}
+
 function is_favorite($item_id, $item_type) {
     $user_id = $_SESSION['user_id'];
 

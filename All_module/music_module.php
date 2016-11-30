@@ -5,14 +5,6 @@
 </style>
 <?php
 
-function show_music($music_id) {
-    $src = "_uploads/profile_music/" . $music_id . ".mp3";
-    $output = '<audio controls>
-        <source src="' . $src . '" type="audio/ogg">
-      Your browser does not support the audio element.
-      </audio>';
-    return $output;
-}
 
 $query3 = mysqli_query($link,"SELECT tbl_users.*, tbl_profile_music.*,tbl_profile_music.id AS music_id FROM tbl_users LEFT OUTER JOIN 
 							tbl_profile_music ON tbl_users.id=tbl_profile_music.user_id WHERE username ='" . $_GET['username'] . "' AND tbl_profile_music.status='1'  

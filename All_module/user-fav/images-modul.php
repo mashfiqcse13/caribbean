@@ -1,26 +1,29 @@
-<h2>My Favorite Images</h2>
-
 <?php
 /*
  * important variables
  *          $user_id
  *          
  */
-?>
-<!--div.flexbox>(div.flex-itme*7)-->
-
-<div class="flexbox">
-    <?php
-    $db = new DBClass(db_host, db_username, db_passward, db_name);
-    $sql = "SELECT * FROM `tbl_profile_photos` WHERE `id` in (
+$db = new DBClass(db_host, db_username, db_passward, db_name);
+$sql = "SELECT * FROM `tbl_profile_photos` WHERE `id` in (
                 select tbl_user_fav_photo.id_photo as id from tbl_user_fav_photo 
                 where tbl_user_fav_photo.id_user = $user_id
             )";
-    $my_fav_photos = $db->db_query($sql);
+$my_fav_photos = $db->db_query($sql);
+if (empty($my_fav_photos)) {
+    return FALSE;
+}
+?>
+<h2>My Favorite Images</h2>
+
+<!--div.flexbox>(div.flex-itme*7)-->
+
+<div class="flexbox my-fav-image">
+    <?php
     foreach ($my_fav_photos as $my_fav_photo) {
         ?>
 
-        <div class="flex-itme">
+        <div class="flex-item image-item single-item">
             <?php
             $img_name = "{$my_fav_photo->id}.jpg?" . time();
 
@@ -37,15 +40,17 @@
                          width="100" alt="my_img"/>
                 </a>
             <?php }
-            ?>
-            <label><?php echo $my_fav_photo->photo_title; ?></label>
-
+            ?><br><br>
+            <strong><?php echo $my_fav_photo->photo_title; ?></strong>
+            <br><br>
             <?php if (is_favorite($my_fav_photo->id, 'photo')) { ?>
-                <form action="<?php echo BASE_URL ?>member/remove_product_from_favorite.php" method="get">
-                    <input type="hidden" name="item_id" value="<?php echo $my_fav_photo->id; ?>" />
-                    <input type="hidden" name="item_type" value="photo" />	
-                    <input type="submit" value="Remove from Favorite" />
-                </form>	
+                <div>
+                    <form action="<?php echo BASE_URL ?>member/remove_product_from_favorite.php" method="get">
+                        <input type="hidden" name="item_id" value="<?php echo $my_fav_photo->id; ?>" />
+                        <input type="hidden" name="item_type" value="photo" />	
+                        <input type="submit" value="Remove from Favorite" />
+                    </form>
+                </div>	
                 <br>
             <?php } ?>
         </div>

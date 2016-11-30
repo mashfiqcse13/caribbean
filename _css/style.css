@@ -539,7 +539,6 @@ font-weight:bold;
 
 #m_profile_right_1 p{width:98%;height:15px;margin-top:19px; /*border:thin solid #0033FF;*/}
 
-#m_profile_right_1 p label{margin-top:-5px;}
 
 p.style1{width:98%;height:15px;margin-top:19px; /*border:thin solid #0033FF;*/}
 p label.style{margin-top:-5px;}
@@ -2098,4 +2097,26 @@ ul.list_class li{
     margin: 30px auto;
     text-align: center;
     width: 100%;
+}
+.flexbox {
+    display: flex;
+    justify-content: flex-start;
+}
+.flex-item{
+
+}
+
+/*My Favorite page css*/
+.my-fav-image .single-item{
+    margin: 10px;
+    text-align: center;
+}
+.my-fav-image .image-item.single-item{
+    margin: 10px;
+    max-width: 200px;
+    width: 100%;
+    text-align: center;
+}
+.my-fav-image .image-item.single-item label{
+    text-align: center;
 }

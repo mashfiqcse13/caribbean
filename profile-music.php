@@ -1,14 +1,6 @@
 <?php
 include('_includes/application-top.php');
 
-function show_music($music_id) {
-    $src = "_uploads/profile_music/" . $music_id . ".mp3";
-    $output = '<audio controls>
-        <source src="' . $src . '" type="audio/ogg">
-      Your browser does not support the audio element.
-      </audio>';
-    return $output;
-}
 
 $query = mysqli_query($link, "SELECT * FROM tbl_profile_music WHERE user_id='" . $_GET['id'] . "' AND tbl_profile_music.status='1' ORDER BY tbl_profile_music.id DESC");
 //$treu=mysqli_fetch_assoc($query);
