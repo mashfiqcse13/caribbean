@@ -626,9 +626,9 @@ if ($data['id'] != '') {
                 ?>
                 		
                     
-                                <?php include '/All_module/user-fav/images-modul.php'; ?>
-                                <?php include '/All_module/user-fav/music-modul.php'; ?>
-                                <?php include '/All_module/user-fav/video-modul.php'; ?>
+                                <?php include 'All_module/user-fav/images-modul.php'; ?>
+                                <?php include 'All_module/user-fav/music-modul.php'; ?>
+                                <?php include 'All_module/user-fav/video-modul.php'; ?>
   
                         
 
