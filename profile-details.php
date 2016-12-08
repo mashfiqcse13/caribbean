@@ -449,6 +449,8 @@ if ($data['id'] != '') {
                     ?>
 
                     <div class="profile_page_contnt_left"><!--START DIV CLASS profile_page_contnt_left-->
+                        
+
 
                         <div class="profile_details"><!--START DIV CLASS profile_details-->
                             <div class="profile_details_top"><!--START DIV CLASS profile_photo-->
@@ -486,6 +488,8 @@ if ($data['id'] != '') {
 
                 <!----SECOND-------------------------------------------------------------------------------------START-CONTENT-MIDDLE-DIV------------------------------------------------------------------------------------>					
                 <div class="profile_page_contnt_middle"><!--START DIV CLASS profile_page_contnt_middle-->
+                    
+                                      
 
                     <?php
                     $p_query = mysqli_query($link,"SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
@@ -613,6 +617,20 @@ if ($data['id'] != '') {
                             </div><!--END DIV CLASS profile_details-->  
                         </div><!--END DIV CLASS profile_page_contnt_left-->
                     <?php } ?>
+                        
+                        
+                        
+                        
+                <?php
+                    $user_id = $_SESSION['user_id'];
+                ?>
+                		
+                    
+                                <?php include '/All_module/user-fav/images-modul.php'; ?>
+                                <?php include '/All_module/user-fav/music-modul.php'; ?>
+                                <?php include '/All_module/user-fav/video-modul.php'; ?>
+  
+                        
 
                 </div><!--END DIV CLASS profile_page_contnt_middle-->
                 <!---------------------------------------------------------------------------------------END-CONTENT-MIDDLE-DIV------------------------------------------------------------------------------------------------------>
@@ -751,6 +769,11 @@ if ($data['id'] != '') {
                 </div><!--END DIV CLASS profile_page_contnt_RIGHT-->
                 <!---------------------------------------------------------------------------------------------END-CONTENT-RIGHT-DIV-------------------------------------------------------------------------------->
                 <div style="clear:both"></div> 
+                
+                
+                
+                
+                
             </div>
         </div>
         <?php

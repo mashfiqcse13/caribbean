@@ -142,9 +142,9 @@ function GetFullName($username) {
 ///////////////////////////////////ONLINE ACTIVITY ////////////////////////////////////////
 function Onlineactivity() {
     global $link;
-    if ((isset($_SESSION["talent_id"])) && ($_SESSION["talent_id"] != 0) AND ( $_SESSION['is_admin'] != "yes")) {
+    if ((isset($_SESSION["talent_id"])) && ($_SESSION["talent_id"] != 0) AND ( isset($_SESSION['is_admin']) && ($_SESSION['is_admin'] != "yes"))) {
         $uid = $_SESSION["talent_id"];
-    } elseif ((isset($_SESSION["user_id"])) && ($_SESSION["user_id"] != 0) AND ( @$_SESSION['is_admin'] != "yes")) {
+    } elseif ((isset($_SESSION["user_id"])) && ($_SESSION["user_id"] != 0) AND (isset ($_SESSION['is_admin']) &&   ($_SESSION['is_admin'] != "yes" ))) {
         $uid = $_SESSION["user_id"];
     } else {
         //

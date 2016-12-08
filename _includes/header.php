@@ -58,7 +58,7 @@
 
                 <div class="right_head">
                     <?php
-                    if (isset($_SESSION['talent_login']) AND ( $_SESSION['talent_login'] == 1) AND ( $_SESSION['is_admin'] != "yes")) {
+                    if (isset($_SESSION['talent_login']) AND ( $_SESSION['talent_login'] == 1) AND ( isset($_SESSION['is_admin']) && $_SESSION['is_admin'] != "yes")) {
                         $identity = $_SESSION['talent_id'];
                         ?>
                         <a style="float:left; margin-bottom:10px;" href="<?php echo SITE_URL ?>talents/member.php"><img src="<?php echo SITE_URL ?>_images/membr_area.png"/></a>

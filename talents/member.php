@@ -23,6 +23,7 @@ if (!empty($lid)) {
 ChecktalentLogin();
 
 function talent($id) {
+    global $link;
     $sql = "SELECT * FROM tbl_talents WHERE status=1 AND id='" . $id . "'";
     $result = mysqli_query($link,$sql);
     $data = mysqli_fetch_assoc($result);
@@ -120,7 +121,7 @@ include('../_includes/header.php');
                     <label>City:</label> <?php echo $data['city']; ?>
                 </p>
                 <p>
-                    <label>Country:</label> <?php echo $countries_array[$data['country']]; ?>
+                    <label>Country:</label> <?php if(isset($countries_array[$data['country']])){echo $countries_array[$data['country']];} ?>
                 </p>
                 <p>
                     <label>Phone No:</label> <?php echo $data['phone_no']; ?>

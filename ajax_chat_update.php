@@ -27,4 +27,3 @@ while ($data = mysqli_fetch_array($row)) {
     mysqli_query($link,$sql);
 }
 ?>
-
