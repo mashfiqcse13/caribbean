@@ -40,6 +40,7 @@ if ((isset($_SESSION['cms_login'])) && ($_SESSION['cms_login'] != 0)) {
             //alert(username);
             window.open("<?php echo SITE_URL; ?>chat.php?username=" + username, "ChatBox" + username, "width=380,height=500,toolbar=0,menubar=0,location=0,status=1,scrollbars=1,resizable=1,left=20,top=20");
         }
+       
     </script>
     <?php
 }
@@ -60,7 +61,7 @@ if (isset($_SESSION['talent_id']) AND $_SESSION['talent_id'] != '') {
 <?php
 if ($identity != '') :
     $sql = "SELECT * FROM tbl_chat WHERE to_id='" . $identity . "' AND view_status=0 GROUP BY from_id";
-    $rs = mysqli_query($link,$sql);
+    $rs = mysqli_query($link, $sql);
 
 
     while ($data = mysqli_fetch_array($rs)) {

@@ -118,7 +118,7 @@ include('../_includes/header.php');
             <input type="submit" name="submit" value="Sign In" class="button" />
         </form>
         <p>Not a member ? <a href="registration.php">Click Here</a> to Register.</p>
-        <p>Forget Your Password ? <a href="forget_password.php">Click Here</a>.</p>
+        <p>Forget Your Password ? <a href="talent_forget_password.php">Click Here</a>.</p>
     </div> 
 </div>
 <?php

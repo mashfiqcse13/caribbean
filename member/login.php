@@ -96,7 +96,7 @@ if ((isset($_POST['login'])) AND ( $_POST['login'] == 'Sign In')) {
         </form>
     </div><!--DIV END form_class-->
     <p>Not a member&nbsp;?&nbsp;<a href="registration.php">Click Here</a>&nbsp;to Register.</p>
-    <p>Forgot Your Password&nbsp;?&nbsp;<a href="forgot-password.php">Click Here</a></p>
+    <p>Forgot Your Password&nbsp;?&nbsp;<a href="member_forget_password.php">Click Here</a></p>
 </div><!--DIV END content-->
 
 <?php include('../_includes/footer.php'); ?>
