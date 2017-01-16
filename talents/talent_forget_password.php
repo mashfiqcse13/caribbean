@@ -1,6 +1,7 @@
 <?php
 include('../_includes/application-top.php');
-
+    
+        
 
         if((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Send Email') ){
 
@@ -24,15 +25,21 @@ include('../_includes/application-top.php');
                 if ($row1 == 1) {
                     $to = $data['email'];
                     
+                    $get_gen_id = security_key_db_reg();
+                    
+                    $secrate_url = SITE_URL."/talents/talent_forget_pass_reset.php?uid={$data['id']}&secrate_key=$get_gen_id";
+                    
                     $subject = SITE_NAME . ": Forget Password Request";
                     $msg = "Hi " . $data['first_name'] . " " . $data['last_name'] . " <br />" .
-                            "Your Username is: " . $data['username'] . "<br> 
-                            Your Password is: " . $data['password'] . "
-                                        <br><br>
-                                        <a href='" . SITE_URL . "talents/login.php'>Click here</a> to login to your account.
+                            "Your Username is: " . $data['username'] . "<br>"
+//                            . "Your Password is: " . $data['password'] 
+                            . "<br><br>
+                                        <a href='" . $secrate_url . "'>Click here</a> to reset your password.
                                         ";
                     $from = FROM_EMAIL;
                     
+                    
+      
              
                     
                     SendEMail($to,$subject,$msg,$from);

@@ -6,8 +6,48 @@
 //	Name: Email Send Function (SMTP + mail)
 //	Date: 23-08-2012
 /////////////////////////////////////////////////////////////
-function SendEMail($to, $subject, $msg, $from) {
+
+
+
+
+function security_key_db_reg() {
+    $gen_id = md5(date("y m d h:m:s"));
+
+    $db = new DBClass(db_host, db_username, db_passward, db_name);
+    $data_to_insert = array(
+        'security_id' => $gen_id,
+        'key_reg_time' => date("y-m-d h:m:s")
+    );
+    $db->db_insert("tbl_forgot_pass_req", $data_to_insert);
     
+    return $gen_id;
+}
+
+function security_key_check($security_key){
+    $db = new DBClass(db_host, db_username, db_passward, db_name);
+    $table_name = 'tbl_forgot_pass_req';
+    $delet_condition = 'key_reg_time < dateadd(hh, -1, getdate())';
+    $db->db_delete($table_name, $delet_condition);
+    
+    $sql = "SELECT * FROM tbl_forgot_pass_req WHERE security_id = '" . $security_key . "' ";
+    
+    return $db->db_query_as_array($sql);
+}
+
+function update_user_password($user_id, $new_pass,$user_type){
+    $db = new DBClass(db_host, db_username, db_passward, db_name);
+    $data_to_update = array(
+        'password' => $new_pass
+    );
+    $db->db_update('tbl_users', $data_to_update, "WHERE (id ='" . $user_id . "') AND type = $user_type");
+}
+
+
+
+
+
+function SendEMail($to, $subject, $msg, $from) {
+
     $opt = 1;
 
     //function spamcheck($field)
@@ -16,7 +56,7 @@ function SendEMail($to, $subject, $msg, $from) {
 //	//address using FILTER_SANITIZE_EMAIL
 //	$field=filter_var($field, FILTER_SANITIZE_EMAIL);
 //	
-//	//filter_var() validates the e-mail
+//	//filter_var() validates the e-mail                                
 //	//address using FILTER_VALIDATE_EMAIL
 //	if(filter_var($field, FILTER_VALIDATE_EMAIL))
 //		{
@@ -39,12 +79,9 @@ function SendEMail($to, $subject, $msg, $from) {
     if (!defined('PHP_EOL'))
         define('PHP_EOL', strtoupper(substr(PHP_OS, 0, 3) == 'WIN') ? "\r\n" : "\n");
 
-    
+
     if ($opt == 1) { //Mail function
         // HTML email BOF
-        
-        
-        
 //        $headers = "From: " . trim($from) . PHP_EOL;
         $headers .= "Reply-To: " . trim($from) . PHP_EOL; //ok
         $headers .= "Message-ID: <" . time() . "SolFunction@" . $_SERVER['SERVER_NAME'] . ">" . PHP_EOL;
@@ -57,28 +94,27 @@ function SendEMail($to, $subject, $msg, $from) {
         $to = trim($to);
         $message = trim($msg);
         $subject = trim($subject);
-        
+
 //        print_r($to . "  ");
 //        print_r($subject . "  ");
 //        print_r($message . " aa  ");
 //        print_r($headers. "  aaa ");
 //        
 //        die();
-        
-        
+
+
         mail($to, $subject, $message, $headers);
-        
+
         print_r($to);
         die();
         return 0;
-        
+
         //HTML email EOF
     } else { //SMTP
         //////SMTP Mail BOF //////		
         //if pear is installed on server, this will work(tested)
 //        require_once("Mail.php");
 //        require_once("Mail/mime.php");
-
         $headers = array(
             'From' => $from, //$from should only be the email for smtp like a@a.com
             'Return-Path' => $from, //$from should only be the email for smtp like a@a.com
@@ -187,7 +223,7 @@ function insertData($data, $table) {
         $fld_values = '\'' . implode('\', \'', array_values($data)) . '\'';
         $sql = 'INSERT INTO ' . $table . ' (' . $fld_names . ') VALUES (' . $fld_values . ')';
 
-        $result = mysqli_query($link,$sql) or die(mysqli_error ( $link));
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
         return $result;
     }
     return 0;
@@ -222,7 +258,7 @@ function updateData($data, $table, $parameters = '') {
         }
         $sql = 'UPDATE ' . $table . ' ' . $data . ' ' . $where;
 
-        $result = mysqli_query($link,$sql) or die(mysqli_error ( $link));
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
         return $result;
     }
     return 0;
@@ -246,7 +282,7 @@ function deletedata($table, $parameters = '') {
 
     if (!empty($table)) {
         $sql = 'DELETE FROM ' . $table . ' ' . $where;
-        $result = mysqli_query($link,$sql) or die(mysqli_error ( $link));
+        $result = mysqli_query($link, $sql) or die(mysqli_error($link));
         return $result;
     }
     return 0;
@@ -263,7 +299,7 @@ function getAnyTableWhereData($table, $whereClause) {
     //echo "<br> $table,$whereClause";	
     $query = "select * from $table where 1=1 $whereClause ";
     //echo "<br>$query";
-    $result = mysqli_query($link,$query) or die(mysqli_error ( $link));
+    $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
     if ($row = mysqli_fetch_array($result)) {
         mysqli_free_result($result);
@@ -1073,7 +1109,7 @@ function ShowFixedSizedImage($source, $width = 100, $height = 100) {
 /////////////////////////////////////////////////////////////////////
 function ExportToExcel($query, $excel_file_name, $heading = '') {
     global $link;
-    $tmprst = mysqli_query($link,$query);
+    $tmprst = mysqli_query($link, $query);
     $num_field = mysql_num_fields($tmprst);
 
     if ($heading <> "") {

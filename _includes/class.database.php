@@ -93,7 +93,7 @@ class DBClass {
     }
 
     /* this function will update data to database(s)
-      example : $data_to_insert=array(
+      example : $data_to_update=array(
       'ID'=>'Data of ID',
       'partial_url'=>'Data of partial_url',
       'extention'=>'Data of extention',
@@ -101,13 +101,13 @@ class DBClass {
       );
      */
 
-    public function db_update($table_name, $data_to_insert, $condition = 1) {
+    public function db_update($table_name, $data_to_update, $condition = 1) {
         $db_link = $this->db_link;
 
 
         $sql = "UPDATE `$table_name`";
         $sql.=" SET";
-        foreach ($data_to_insert as $index => $value) {
+        foreach ($data_to_update as $index => $value) {
             $value = str_replace("'", "\'", $value);
             $sql.=" `$index`='$value' ,";
         }

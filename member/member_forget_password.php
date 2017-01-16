@@ -1,5 +1,7 @@
 <?php
 include('../_includes/application-top.php');
+
+
   
 if ((isset($_POST["send"])) AND ( $_POST["send"] == 'Send Password')) {
     $query = "select * from tbl_users where (username='" . mysqli_real_escape_string($link, trim($_POST["username"])) . "' "
