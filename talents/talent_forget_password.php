@@ -23,6 +23,7 @@ include('../_includes/application-top.php');
             if(($_POST['captcha_image'] == $_SESSION['captcha_string'])){
                 if ($row1 == 1) {
                     $to = $data['email'];
+                    
                     $subject = SITE_NAME . ": Forget Password Request";
                     $msg = "Hi " . $data['first_name'] . " " . $data['last_name'] . " <br />" .
                             "Your Username is: " . $data['username'] . "<br> 
@@ -31,8 +32,13 @@ include('../_includes/application-top.php');
                                         <a href='" . SITE_URL . "talents/login.php'>Click here</a> to login to your account.
                                         ";
                     $from = FROM_EMAIL;
-                    SendEMail($to,$subject,$msg,$from);  
+                    
+             
+                    
+                    SendEMail($to,$subject,$msg,$from);
+                    
                     $_SESSION['forget_password_status']='1';
+              
                     header("Location: talent_forget_password.php"); // User Login details have been send to your registered email address.
                     
                     

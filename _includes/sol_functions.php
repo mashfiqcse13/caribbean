@@ -7,6 +7,7 @@
 //	Date: 23-08-2012
 /////////////////////////////////////////////////////////////
 function SendEMail($to, $subject, $msg, $from) {
+    
     $opt = 1;
 
     //function spamcheck($field)
@@ -38,11 +39,14 @@ function SendEMail($to, $subject, $msg, $from) {
     if (!defined('PHP_EOL'))
         define('PHP_EOL', strtoupper(substr(PHP_OS, 0, 3) == 'WIN') ? "\r\n" : "\n");
 
-
+    
     if ($opt == 1) { //Mail function
         // HTML email BOF
-        $headers = "From: " . trim($from) . PHP_EOL;
-        $headers .= "Reply-To: " . trim($from) . PHP_EOL;
+        
+        
+        
+//        $headers = "From: " . trim($from) . PHP_EOL;
+        $headers .= "Reply-To: " . trim($from) . PHP_EOL; //ok
         $headers .= "Message-ID: <" . time() . "SolFunction@" . $_SERVER['SERVER_NAME'] . ">" . PHP_EOL;
         $headers .= 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"] . PHP_EOL;
         $headers .= "X-Mailer: PHP v" . phpversion() . PHP_EOL;
@@ -53,13 +57,27 @@ function SendEMail($to, $subject, $msg, $from) {
         $to = trim($to);
         $message = trim($msg);
         $subject = trim($subject);
-        return mail($to, $subject, $message, $headers);
+        
+//        print_r($to . "  ");
+//        print_r($subject . "  ");
+//        print_r($message . " aa  ");
+//        print_r($headers. "  aaa ");
+//        
+//        die();
+        
+        
+        mail($to, $subject, $message, $headers);
+        
+        print_r($to);
+        die();
+        return 0;
+        
         //HTML email EOF
     } else { //SMTP
         //////SMTP Mail BOF //////		
         //if pear is installed on server, this will work(tested)
-        require_once("Mail.php");
-        require_once("Mail/mime.php");
+//        require_once("Mail.php");
+//        require_once("Mail/mime.php");
 
         $headers = array(
             'From' => $from, //$from should only be the email for smtp like a@a.com

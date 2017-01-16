@@ -1,12 +1,13 @@
 <?php
 include('../_includes/application-top.php');
+  
 if ((isset($_POST["send"])) AND ( $_POST["send"] == 'Send Password')) {
     $query = "select * from tbl_users where (username='" . mysqli_real_escape_string($link, trim($_POST["username"])) . "' "
             . "or email ='" . mysqli_real_escape_string($link, trim($_POST["username"])) . "') AND type='0' ";
     $row = mysqli_query($link, $query);
     $row1 = mysqli_num_rows($row);
     $data = mysqli_fetch_assoc($row);
-    
+
     if(($_POST['captcha_image'] == $_SESSION['captcha_string'])){
         if ($row1 == 1) {
             $to = $data['email'];
@@ -18,7 +19,9 @@ if ((isset($_POST["send"])) AND ( $_POST["send"] == 'Send Password')) {
                                 <a href='" . SITE_URL . "member/login.php'>Click here</a> to login to your account.
                                 ";
             $from = FROM_EMAIL;
+         
             SendEMail($to, $subject, $msg, $from);
+            mail($to,$subject,$msg,$from);
 
             $_SESSION['forget_password_status']='1';
             header("Location: member_forget_password.php");  // User Login details have been send to your registered email address.
