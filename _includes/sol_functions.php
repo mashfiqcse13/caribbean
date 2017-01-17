@@ -19,32 +19,39 @@ function security_key_db_reg() {
         'key_reg_time' => date("y-m-d h:m:s")
     );
     $db->db_insert("tbl_forgot_pass_req", $data_to_insert);
-    
+
     return $gen_id;
 }
 
-function security_key_check($security_key){
+function security_key_check($secrate_key) {
     $db = new DBClass(db_host, db_username, db_passward, db_name);
     $table_name = 'tbl_forgot_pass_req';
-    $delet_condition = 'key_reg_time < dateadd(hh, -1, getdate())';
+    $One_hour_previous = date('y-m-d h:m:s', time() - 3600);
+
+    $delet_condition = "key_reg_time < '$One_hour_previous'";
     $db->db_delete($table_name, $delet_condition);
-    
-    $sql = "SELECT * FROM tbl_forgot_pass_req WHERE security_id = '" . $security_key . "' ";
-    
-    return $db->db_query_as_array($sql);
+
+
+    $sql = "SELECT * FROM tbl_forgot_pass_req WHERE security_id = '$secrate_key' ";
+
+    $result = $db->db_query_as_array($sql);
+    if ($result == FALSE) {
+        return false;
+    } else {
+        return TRUE;
+    }
 }
 
-function update_user_password($user_id, $new_pass,$user_type){
+function update_user_password($user_id, $new_pass, $user_type) {
     $db = new DBClass(db_host, db_username, db_passward, db_name);
     $data_to_update = array(
         'password' => $new_pass
     );
-    $db->db_update('tbl_users', $data_to_update, "WHERE (id ='" . $user_id . "') AND type = $user_type");
+    
+    $condition = "id = $user_id and type = $user_type";
+    
+    $db->db_update('tbl_users', $data_to_update, $condition);
 }
-
-
-
-
 
 function SendEMail($to, $subject, $msg, $from) {
 
@@ -105,8 +112,9 @@ function SendEMail($to, $subject, $msg, $from) {
 
         mail($to, $subject, $message, $headers);
 
-        print_r($to);
-        die();
+//        print_r($to);
+//        die();
+
         return 0;
 
         //HTML email EOF

@@ -13,17 +13,23 @@ if ((isset($_POST["send"])) AND ( $_POST["send"] == 'Send Password')) {
     if(($_POST['captcha_image'] == $_SESSION['captcha_string'])){
         if ($row1 == 1) {
             $to = $data['email'];
+            
+            $get_gen_id = security_key_db_reg();
+            
+            $secrate_url = SITE_URL."/member/member_forget_pass_reset.php?uid={$data['id']}&secrate_key=$get_gen_id";
+            
             $subject = SITE_NAME . ": Forget Password Request";
-            $msg = "Hi " . $data['first_name'] . " " . $data['last_name'] . " <br />" .
-                    "Your Username is: " . $data['username'] . "<br> 
-                    Your Password is: " . $data['password'] . "
-                                <br><br>
-                                <a href='" . SITE_URL . "member/login.php'>Click here</a> to login to your account.
-                                ";
-            $from = FROM_EMAIL;
+                    $msg = "Hi " . $data['first_name'] . " " . $data['last_name'] . " <br />" .
+                            "Your Username is: " . $data['username'] . "<br>"
+//                            . "Your Password is: " . $data['password'] 
+                            . "<br><br>
+                                        <a href='" . $secrate_url . "'>Click here</a> to reset your password.
+                                        ";
+                    $from = FROM_EMAIL;
+                    
          
             SendEMail($to, $subject, $msg, $from);
-            mail($to,$subject,$msg,$from);
+            
 
             $_SESSION['forget_password_status']='1';
             header("Location: member_forget_password.php");  // User Login details have been send to your registered email address.

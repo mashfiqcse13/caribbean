@@ -12,7 +12,7 @@ if (isset($_POST['submit']) && $_POST['submit'] == 'Reset_Password') {
     if(($_POST['captcha_image'] == $_SESSION['captcha_string'])){
     
         if(security_key_check($_POST['secrate_key'])){
-            $user_type =1;
+            $user_type =0;
             update_user_password($_POST['user_id'], $_POST['new_pass'], $user_type);
             $secrate_key_check_result = 1;
         }
