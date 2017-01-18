@@ -105,6 +105,21 @@ include('../_includes/header.php');
             ?>
         </p>
     <?php } ?>
+        
+        
+        <!--anj_code-->
+    <?php
+        if(isset($_GET['pass_reset_status']) && $_GET['pass_reset_status']== '4'){
+           echo '<p id="myElem" class="msg">Your Password Reset Succefully</p>';  
+        } else if(isset($_GET['pass_reset_status']) && $_GET['pass_reset_status']== '1'){
+            echo '<p id="myElem" class="err">The Link is Expired</p>';  
+        }
+    ?>
+        
+        <!--anj_codde_end-->
+        
+        
+        
     <div class="form_class">
         <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="talents_loin">
             <p>
@@ -121,6 +136,16 @@ include('../_includes/header.php');
         <p>Forget Your Password ? <a href="talent_forget_password.php">Click Here</a>.</p>
     </div> 
 </div>
+
+<script>
+    $(document).ready(function () {
+        $("#myElem").show().delay(5000).fadeOut();
+    });
+
+</script>
+
+
+
 <?php
 include('../_includes/footer.php');
 ?>

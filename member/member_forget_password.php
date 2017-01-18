@@ -30,6 +30,10 @@ if ((isset($_POST["send"])) AND ( $_POST["send"] == 'Send Password')) {
          
             SendEMail($to, $subject, $msg, $from);
             
+//              echo $secrate_url;    
+//              die();
+               
+                    
 
             $_SESSION['forget_password_status']='1';
             header("Location: member_forget_password.php");  // User Login details have been send to your registered email address.

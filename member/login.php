@@ -80,6 +80,21 @@ if ((isset($_POST['login'])) AND ( $_POST['login'] == 'Sign In')) {
         echo "<p class='err'>Invalid Login </p>";
     }
     ?>
+    
+         <!--anj_code-->
+    <?php
+        if(isset($_GET['pass_reset_status']) && $_GET['pass_reset_status']== '4'){
+           echo '<p id="myElem" class="msg">Your Password Reset Succefully</p>';  
+        } else if(isset($_GET['pass_reset_status']) && $_GET['pass_reset_status']== '1'){
+            echo '<p id="myElem" class="err">The Link is Expired</p>';  
+        }
+    ?>
+        
+        <!--anj_codde_end-->
+    
+    
+    
+    
     <div class="form_class"><!--DIV START form_class-->
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" id="non_talents_log">
             <p>
@@ -98,6 +113,17 @@ if ((isset($_POST['login'])) AND ( $_POST['login'] == 'Sign In')) {
     <p>Not a member&nbsp;?&nbsp;<a href="registration.php">Click Here</a>&nbsp;to Register.</p>
     <p>Forgot Your Password&nbsp;?&nbsp;<a href="member_forget_password.php">Click Here</a></p>
 </div><!--DIV END content-->
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#myElem").show().delay(5000).fadeOut();
+    });
+
+</script>
+
+
 
 <?php include('../_includes/footer.php'); ?>
 

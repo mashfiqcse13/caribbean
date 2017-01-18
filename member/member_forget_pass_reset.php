@@ -6,30 +6,49 @@ include('../_includes/application-top.php');
 //echo var_dump($data);
 //die();
 
+
   
-if (isset($_POST['submit']) && $_POST['submit'] == 'Reset_Password') {
-    
-    if(($_POST['captcha_image'] == $_SESSION['captcha_string'])){
-    
-        if(security_key_check($_POST['secrate_key'])){
-            $user_type =0;
-            update_user_password($_POST['user_id'], $_POST['new_pass'], $user_type);
-            $secrate_key_check_result = 1;
-        }
-        else{
-            $secrate_key_check_result=2;
+ if(isset($_GET['secrate_key']) && security_key_check($_GET['secrate_key'])){
+        
 
-        }
+        if (isset($_POST['submit']) && ($_POST['submit'] == 'Reset Password')) {
+            
 
-//        echo $_POST['user_id']; 
-//        echo $_POST['secrate_key']; 
-    
+            
+            if($_POST['new_pass'] == $_POST['re_pass']){
+                
+
+                if(($_POST['captcha_image'] == $_SESSION['captcha_string'])){
+                    $user_type =0;
+                    update_user_password($_POST['user_id'], $_POST['new_pass'], $user_type);
+                    
+                    security_key_delete($_POST['secrate_key']);
+                    
+                    $secrate_url = SITE_URL."/member/login.php?pass_reset_status=4";
+                    header("Location: $secrate_url");
+                    
+                }else{
+                    $secrate_url = SITE_URL."/member/member_forget_pass_reset.php?uid={$_GET['uid']}&secrate_key={$_GET['secrate_key']}&pass_reset_status=3";
+                    header("Location: $secrate_url");
+                }
+                
+            }else{
+                $secrate_url = SITE_URL."/member/member_forget_pass_reset.php?uid={$_GET['uid']}&secrate_key={$_GET['secrate_key']}&pass_reset_status=2";
+                header("Location: $secrate_url");
+            }
+            
+        }
+        
+        
     }
-    else{
-        $secrate_key_check_result=3;
+    else {
+
+        $secrate_url = SITE_URL."/member/login.php?pass_reset_status=1";
+        header("Location: $secrate_url");
+        
     }
     
-}
+    
 include('../_includes/header.php');
 ?> 
 <script type="text/javascript">
@@ -43,21 +62,18 @@ include('../_includes/header.php');
     <h1>Reset Your Password</h1>
 
     <?php
-if ($secrate_key_check_result == 1) {
-    echo '<p id="myElem" class="msg">Your Password Reset Succefully</p>';
-    
-} else if($secrate_key_check_result == 2){
-    echo '<p id="myElem" class="err">The link is expired.</p>';
+        if (isset($_GET['pass_reset_status']) && $_GET['pass_reset_status']== '3') {
+            echo '<p id="myElem" class="err">Please Enter the correct Captcha</p>';
 
-}else if($secrate_key_check_result==3){
-    echo '<p id="myElem" class="err">Please Enter the correct Captcha</p>';
-}
+        } else if(isset($_GET['pass_reset_status']) && $_GET['pass_reset_status']== '2'){
+            echo '<p id="myElem" class="err">Password do not match</p>';
+
+        }
     ?>
 
 
-
     <div class="form_class">
-        <form action="<?php echo $_SERVER['PHP_SELF'] ?>" method="post" id="talents_forget_pass">
+        <form action="" method="post" id="talents_forget_pass">
             <table style="margin: 10px auto 0;">
                 <tbody>
                     <tr>
@@ -67,13 +83,13 @@ if ($secrate_key_check_result == 1) {
                     </tr>
                     <tr>
                         <td width="100px"><label for="new_pass" width="100%" style="width: 175px;">Type a new password:</label></td>
-                        <td width="100px"><input name="new_pass" value="" class="required" style="" type="text"></td>
+                        <td width="100px"><input name="new_pass" value="" class="required" style="" type="password"></td>
 
                     </tr>
 
                     <tr>
                         <td width="100px"><label for="re_pass" width="100%" style="width: 175px;">Retype the password:</label></td>
-                        <td width="100px"><input name="re_pass" value="" class="required" style="" type="text"></td>
+                        <td width="100px"><input name="re_pass" value="" class="required" style="" type="password"></td>
 
                     </tr>
 
@@ -116,12 +132,15 @@ if ($secrate_key_check_result == 1) {
                     </tr>
                     <tr>
                         <td width="100px"></td>
-                        <td width="100px"><input name="submit" value="Reset_Password" class="button" style="margin-left: 0px;" type="submit"></td>
+                        <td width="100px"><input name="submit" value="Reset Password" class="button" style="margin-left: 0px;" type="submit"></td>
                     </tr>
                 </tbody>
             </table>
         </form>
     </div>
+    
+
+    
 </div>
 
 <!--anj code-->

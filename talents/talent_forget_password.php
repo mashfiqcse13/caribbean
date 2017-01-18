@@ -19,7 +19,7 @@ include('../_includes/application-top.php');
 //            print_r($_POST['captcha_image']);
 //            echo '</br>';
 //            print_r($_SESSION['captcha_string']);
- 
+            
             
             if(($_POST['captcha_image'] == $_SESSION['captcha_string'])){
                 if ($row1 == 1) {
@@ -43,6 +43,12 @@ include('../_includes/application-top.php');
              
                     
                     SendEMail($to,$subject,$msg,$from);
+                    
+//                   echo $secrate_url;
+////                   
+//                   die();
+                    
+                    
                     
                     $_SESSION['forget_password_status']='1';
               

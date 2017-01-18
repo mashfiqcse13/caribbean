@@ -42,6 +42,15 @@ function security_key_check($secrate_key) {
     }
 }
 
+
+function security_key_delete($security_key){
+    $db = new DBClass(db_host, db_username, db_passward, db_name);
+    $table_name = 'tbl_forgot_pass_req';
+    $delet_condition = "security_id='$security_key'";
+    
+    $db->db_delete($table_name, $delet_condition);
+}
+
 function update_user_password($user_id, $new_pass, $user_type) {
     $db = new DBClass(db_host, db_username, db_passward, db_name);
     $data_to_update = array(
@@ -90,7 +99,7 @@ function SendEMail($to, $subject, $msg, $from) {
     if ($opt == 1) { //Mail function
         // HTML email BOF
 //        $headers = "From: " . trim($from) . PHP_EOL;
-        $headers .= "Reply-To: " . trim($from) . PHP_EOL; //ok
+        $headers = "Reply-To: " . trim($from) . PHP_EOL; //ok
         $headers .= "Message-ID: <" . time() . "SolFunction@" . $_SERVER['SERVER_NAME'] . ">" . PHP_EOL;
         $headers .= 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"] . PHP_EOL;
         $headers .= "X-Mailer: PHP v" . phpversion() . PHP_EOL;
