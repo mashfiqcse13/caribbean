@@ -94,11 +94,14 @@ function SendEMail($to, $subject, $msg, $from) {
 
     if (!defined('PHP_EOL'))
         define('PHP_EOL', strtoupper(substr(PHP_OS, 0, 3) == 'WIN') ? "\r\n" : "\n");
-
+    
+    
+//    die("from: " . trim($from) . PHP_EOL);
 
     if ($opt == 1) { //Mail function
         // HTML email BOF
-//        $headers = "From: " . trim($from) . PHP_EOL;
+//        $headers = "from: " . trim($from) . PHP_EOL;
+//        $headers = "from: anjanx44@advancedpublication.com". "\r\n";
         $headers = "Reply-To: " . trim($from) . PHP_EOL; //ok
         $headers .= "Message-ID: <" . time() . "SolFunction@" . $_SERVER['SERVER_NAME'] . ">" . PHP_EOL;
         $headers .= 'X-Sender-IP: ' . $_SERVER["REMOTE_ADDR"] . PHP_EOL;

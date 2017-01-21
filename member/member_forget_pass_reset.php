@@ -24,16 +24,16 @@ include('../_includes/application-top.php');
                     
                     security_key_delete($_POST['secrate_key']);
                     
-                    $secrate_url = SITE_URL."/member/login.php?pass_reset_status=4";
+                    $secrate_url = SITE_URL."member/login.php?pass_reset_status=4";
                     header("Location: $secrate_url");
                     
                 }else{
-                    $secrate_url = SITE_URL."/member/member_forget_pass_reset.php?uid={$_GET['uid']}&secrate_key={$_GET['secrate_key']}&pass_reset_status=3";
+                    $secrate_url = SITE_URL."member/member_forget_pass_reset.php?uid={$_GET['uid']}&secrate_key={$_GET['secrate_key']}&pass_reset_status=3";
                     header("Location: $secrate_url");
                 }
                 
             }else{
-                $secrate_url = SITE_URL."/member/member_forget_pass_reset.php?uid={$_GET['uid']}&secrate_key={$_GET['secrate_key']}&pass_reset_status=2";
+                $secrate_url = SITE_URL."member/member_forget_pass_reset.php?uid={$_GET['uid']}&secrate_key={$_GET['secrate_key']}&pass_reset_status=2";
                 header("Location: $secrate_url");
             }
             
@@ -43,7 +43,7 @@ include('../_includes/application-top.php');
     }
     else {
 
-        $secrate_url = SITE_URL."/member/login.php?pass_reset_status=1";
+        $secrate_url = SITE_URL."member/login.php?pass_reset_status=1";
         header("Location: $secrate_url");
         
     }

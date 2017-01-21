@@ -16,7 +16,7 @@ if ((isset($_POST["send"])) AND ( $_POST["send"] == 'Send Password')) {
             
             $get_gen_id = security_key_db_reg();
             
-            $secrate_url = SITE_URL."/member/member_forget_pass_reset.php?uid={$data['id']}&secrate_key=$get_gen_id";
+            $secrate_url = SITE_URL."member/member_forget_pass_reset.php?uid={$data['id']}&secrate_key=$get_gen_id";
             
             $subject = SITE_NAME . ": Forget Password Request";
                     $msg = "Hi " . $data['first_name'] . " " . $data['last_name'] . " <br />" .
