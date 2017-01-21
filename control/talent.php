@@ -37,7 +37,7 @@ $rs = $page->paginate();
                     </p>
 
 
-                    <p style="text-align:center; margin-top:-2px;">	<a href="details.php?id=<?php echo $row['id']; ?>" <?php if ($row['new_mac_req'] == 1) { ?> style="color:#FF0000; font-weight:bold;" <?php } ?>> <?php echo $row["username"]; ?></a></p>
+                    <p style="text-align:center; margin-top:-2px;">	<a href="details.php?id=<?php echo $row['id']; ?>" <?php if ($row['new_mac_req'] == 1) { ?>title="this user has multiple accounts issus" style="font-weight:bold;" <?php } ?>> <?php echo $row["username"]; ?><?php if ($row['new_mac_req'] == 1) { ?> <i style="color:#ff0000" class="fa fa-exclamation-triangle" aria-hidden="true"></i> <?php } ?></a></p>
 
                     <p style="text-align:center; margin-top:-2px;"> Joined On : <a href="details.php?id=<?php echo $row['id']; ?>"> <?php echo $row["join_date"]; ?>: Time: <?php echo $row["joining_time"]; ?></a></p>
 
