@@ -10,7 +10,7 @@ if ((mysqli_num_rows($query2) > 0) && ($weq1['type'] == 1) && ($weq1['profile_di
     <div class="bio_div">
 
         <h2>Bio</h2>
-        <p style="color:#000000; font-weight:bold;"><?php echo nl2br(substr($weq1["biography"], 0, 300)); ?></p>
+        <p style="color:#000000; font-weight:bold;"><?php echo nl2br(substr($weq1["biography"], 0, 44)); ?></p>
         <a class="profile_btn" href="view_detailse.php?id=<?php echo $data['id']; ?>">View Details</a>
 
     </div>

@@ -8,28 +8,32 @@
 /////////////////////////////////////////////////////////////
 
 
-function insert_a_new_data(){
+function insert_a_new_data_if_uid_not_exist() {
     $db = new DBClass(db_host, db_username, db_passward, db_name);
-            $data_to_insert = array(
-                'uid' => $_SESSION['talent_id'],
-                'profile_display_status' => 0,
-                'p_photo' => 0,
-                'p_bio' => 0,
-                'p_music' => 0,
-                'p_social' => 0,
-                'p_fans' => 0,
-                'p_video' => 0,
-                'p_comments' => 0,
-                'p_event' => 0,
-                'p_book' => 0,
-                'p_product' => 0
-            );
-            $db->db_insert("tbl_user_profile_settings", $data_to_insert);
+    //echo "SELECT * FROM ` tbl_user_details` WHERE user_id='".$_SESSION['talent_id']."' ";
+    $sql = "SELECT * FROM tbl_user_profile_settings WHERE uid='" . $_SESSION['talent_id'] . "' ";
+    $result = $db->db_query_as_array($sql);
+    //$row=mysqli_fetch_assoc($query);
+    //print_r($row);
+
+    if (empty($result[0])) {
+        $data_to_insert = array(
+            'uid' => $_SESSION['talent_id'],
+            'profile_display_status' => 0,
+            'p_photo' => 0,
+            'p_bio' => 0,
+            'p_music' => 0,
+            'p_social' => 0,
+            'p_fans' => 0,
+            'p_video' => 0,
+            'p_comments' => 0,
+            'p_event' => 0,
+            'p_book' => 0,
+            'p_product' => 0
+        );
+        $db->db_insert("tbl_user_profile_settings", $data_to_insert);
+    }
 }
-
-
-
-
 
 function security_key_db_reg() {
     $gen_id = md5(date("y m d h:m:s"));
@@ -63,12 +67,11 @@ function security_key_check($secrate_key) {
     }
 }
 
-
-function security_key_delete($security_key){
+function security_key_delete($security_key) {
     $db = new DBClass(db_host, db_username, db_passward, db_name);
     $table_name = 'tbl_forgot_pass_req';
     $delet_condition = "security_id='$security_key'";
-    
+
     $db->db_delete($table_name, $delet_condition);
 }
 
@@ -77,9 +80,9 @@ function update_user_password($user_id, $new_pass, $user_type) {
     $data_to_update = array(
         'password' => $new_pass
     );
-    
+
     $condition = "id = $user_id and type = $user_type";
-    
+
     $db->db_update('tbl_users', $data_to_update, $condition);
 }
 
@@ -115,8 +118,8 @@ function SendEMail($to, $subject, $msg, $from) {
 
     if (!defined('PHP_EOL'))
         define('PHP_EOL', strtoupper(substr(PHP_OS, 0, 3) == 'WIN') ? "\r\n" : "\n");
-    
-    
+
+
 //    die("from: " . trim($from) . PHP_EOL);
 
     if ($opt == 1) { //Mail function

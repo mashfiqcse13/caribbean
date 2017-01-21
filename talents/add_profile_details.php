@@ -9,7 +9,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
         "social_link1" => mysqli_real_escape_string( $link ,trim($_POST['social_link1'])),
         "social_link2" => mysqli_real_escape_string( $link ,trim($_POST['social_link2'])),
         "social_link3" => mysqli_real_escape_string( $link ,trim($_POST['social_link3'])),
-        "social_link4" => mysqli_real_escape_string( $link ,trim($_POST['social_link4']))
+        "social_link4" => mysqli_real_escape_string( $link ,trim($_POST['social_link4'])),
+        "profile_display_status" => ($_POST['profile_display_status'])       
     );
 
     $table = "tbl_user_details";
@@ -80,6 +81,19 @@ include('../_includes/header.php');
             								<label for="social_link4">Pinterest Link :</label>
             								<input type="text" name="social_link4" value="<?php echo $row['social_link4']; ?>" />
             								</p>
+
+                                                                        <!--                    <p>
+-->                        <label style="width:290px;">
+                           Publish this option:
+                        </label>
+                        <select name="profile_display_status">
+                          <option <?php if($row["profile_display_status"]=="1"){ echo "selected='selected'"; } ?>  value="1">Yes</option>
+                          <option <?php if($row["profile_display_status"]=="0"){ echo "selected='selected'"; } ?>  value="0">No</option>
+                        </select>
+                    </p>
+                                                                        
+
+
                              <input type="submit" name="submit" value="Update" class="button"></p>
                       </form> 			
             <?php

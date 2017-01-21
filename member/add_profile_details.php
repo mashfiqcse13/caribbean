@@ -74,7 +74,7 @@ include('../_includes/header.php');
     								<label for="social_link4">Pinterest Link :</label>
     								<input type="text" name="social_link4" value="<?php echo $row['social_link4']; ?>" />
     								</p>
-                   <!-- <p>
+<!--                    <p>
                         <label style="width:290px;">
                            Profile can be viewed without login:
                         </label>
