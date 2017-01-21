@@ -25,6 +25,22 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update')) {
 
     $MSG = "Profile Settings Updated Successfully";
 }
+
+        //echo "SELECT * FROM ` tbl_user_details` WHERE user_id='".$_SESSION['talent_id']."' ";
+        $query = mysqli_query($link, "SELECT * FROM tbl_user_profile_settings WHERE uid='" . $_SESSION['talent_id'] . "' ");
+        //$row=mysqli_fetch_assoc($query);
+        //print_r($row);
+
+        if (mysqli_num_rows($query) == 0) {
+            insert_a_new_data();
+            $re_url = SITE_URL."talents/add_profile_settings.php?id={$_SESSION['talent_id']}";
+            header("Location: $re_url");
+        }
+      
+        
+
+
+
 include('../_includes/header.php');
 ?> 
 <script type="text/javascript">
@@ -43,13 +59,10 @@ include('../_includes/header.php');
     ?>
     <p><a href="profile_setup.php<?php echo $user_idd; ?>" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a></p>
 
+
+
     <div class="form_class">
-        <?php
-        //echo "SELECT * FROM ` tbl_user_details` WHERE user_id='".$_SESSION['talent_id']."' ";
-        $query = mysqli_query($link,"SELECT * FROM tbl_user_profile_settings WHERE uid='" . $_SESSION['talent_id'] . "' ");
-        //$row=mysqli_fetch_assoc($query);
-        //print_r($row);
-        ?>
+        
 
         <?php
         while ($row = mysqli_fetch_assoc($query)) {

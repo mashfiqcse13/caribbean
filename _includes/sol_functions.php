@@ -8,6 +8,27 @@
 /////////////////////////////////////////////////////////////
 
 
+function insert_a_new_data(){
+    $db = new DBClass(db_host, db_username, db_passward, db_name);
+            $data_to_insert = array(
+                'uid' => $_SESSION['talent_id'],
+                'profile_display_status' => 0,
+                'p_photo' => 0,
+                'p_bio' => 0,
+                'p_music' => 0,
+                'p_social' => 0,
+                'p_fans' => 0,
+                'p_video' => 0,
+                'p_comments' => 0,
+                'p_event' => 0,
+                'p_book' => 0,
+                'p_product' => 0
+            );
+            $db->db_insert("tbl_user_profile_settings", $data_to_insert);
+}
+
+
+
 
 
 function security_key_db_reg() {
