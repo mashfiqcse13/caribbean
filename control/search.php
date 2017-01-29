@@ -1,7 +1,7 @@
 <?php
 include('include/application_top.php');
 cmslogin();
-session_start();
+//session_start();
 ?>
 
 

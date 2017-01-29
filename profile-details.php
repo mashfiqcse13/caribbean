@@ -1,12 +1,14 @@
 <?php
 include('_includes/application-top.php');
 
+include('_includes/class.Profile_pic.php');
+
 /* USER COMMENT SUBMIT CHECK */
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'submit')) {
     $data = array(
         "profile_id" => $_POST['profile_id'],
         "commenter_id" => $_POST['talent_id'],
-        "comment_text" => mysqli_real_escape_string( $link ,trim($_POST['comment_text'])),
+        "comment_text" => mysqli_real_escape_string($link, trim($_POST['comment_text'])),
         "comment_time" => date('Y-m-d H:i:s')
     );
 
@@ -141,12 +143,12 @@ if ($data['id'] != '') {
         $_SESSION["user_id"] = 0;
         $uid = "";
     }
-    $query211 = mysqli_query($link,"SELECT profile_display_status FROM  tbl_user_profile_settings WHERE uid='" . $data['id'] . "'");
+    $query211 = mysqli_query($link, "SELECT profile_display_status FROM  tbl_user_profile_settings WHERE uid='" . $data['id'] . "'");
     $ror211 = mysqli_fetch_assoc($query211);
 
 
 
-    $query111 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+    $query111 = mysqli_query($link, "SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
     $RESULT = mysqli_fetch_assoc($query111);
     $ror111 = mysqli_num_rows($query111);
 
@@ -163,11 +165,11 @@ if ($data['id'] != '') {
                     $name = ($_GET['username']);
                     echo $name . " " . "is" . ' ' . "currently" . " ";
                     /* ###################GET VALUE FROM tbl_user_online############### */
-                    $SQL_ONLI = mysqli_query($link,"SELECT id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                    $SQL_ONLI = mysqli_query($link, "SELECT id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
                     $SQL_RESULT = mysqli_fetch_array($SQL_ONLI);
                     //print_r($SQL_RESULT);
                     $SQL_QUERY = "SELECT * FROM tbl_user_online WHERE uid='" . $SQL_RESULT['id'] . "'";
-                    $SQL_RESULT1 = mysqli_query($link,$SQL_QUERY);
+                    $SQL_RESULT1 = mysqli_query($link, $SQL_QUERY);
                     $SQL_fetch = mysqli_fetch_array($SQL_RESULT1);
                     //print_r($SQL_fetch);
                     $SQL_ROWS = mysqli_num_rows($SQL_RESULT1);
@@ -285,7 +287,7 @@ if ($data['id'] != '') {
                     <p class="msg">
                         <?php
                         if (isset($_GET['op']) AND ( $_GET['op'] == "suc")) {
-                            $query27 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                            $query27 = mysqli_query($link, "SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
                             $row27 = mysqli_fetch_assoc($query27);
 
                             echo "Congratulations,Now you are connected to " . $row27['first_name'] . " " . $row27['last_name'] . "";
@@ -302,7 +304,7 @@ if ($data['id'] != '') {
                             echo "You Can Not send Request Yourself.";
                         }
                         if (isset($_GET['op']) AND ( $_GET['op'] == "ex")) {
-                            $query26 = mysqli_query($link,"SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                            $query26 = mysqli_query($link, "SELECT * FROM tbl_users WHERE username='" . $_GET['username'] . "'");
                             $row26 = mysqli_fetch_assoc($query26);
                             echo "You are already connected to " . $row26['first_name'] . " " . $row26['last_name'] . "";
                         }
@@ -312,11 +314,11 @@ if ($data['id'] != '') {
 
                 <!-----FRIST-------------------------------------------------------------SATRT-CONTENT-LEFT-DIV-------------------------------------------------------------------------------------->
                 <?php
-                $p_query = mysqli_query($link,"SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                $p_query = mysqli_query($link, "SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
                 $p_result = mysqli_fetch_assoc($p_query);
 //echo $p_result['id']; 
                 if ($p_result['type'] == 1) {
-                    $p_query1 = mysqli_query($link,"SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
+                    $p_query1 = mysqli_query($link, "SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
                     $p_result1 = mysqli_fetch_assoc($p_query1);
 //print_r($p_result1); 
                     ?>
@@ -328,7 +330,7 @@ if ($data['id'] != '') {
 
                             <div class="profile_details_top"><!--START DIV CLASS profile_photo-->
                                 <?php
-                                $query1 = mysqli_query($link,"SELECT id,type FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                                $query1 = mysqli_query($link, "SELECT id,type FROM tbl_users WHERE username='" . $_GET['username'] . "'");
                                 $row = mysqli_fetch_assoc($query1);
                                 //echo $row['type'];
                                 $profile_id = $row['id'];
@@ -336,9 +338,36 @@ if ($data['id'] != '') {
 
                                 $image = "_uploads/user_photo/" . $row['id'] . ".jpg";
                                 //echo $image;
+                                
+//                                
+                                $profile_pic = new Profile_pic($_SESSION["talent_id"], "talent");
+                                $images_details = $profile_pic->get_gallery();
+//                    echo '<pre>';
+//                    print_r($images_details);
+//                    die();
+                                
                                 if (file_exists($image)) {
                                     ?>
-                                    <img src="<?php echo "$image?" . time(); ?> "/>
+                                
+                                   
+                                    <a href="<?php echo "$image?" . time(); ?>" data-lightbox="01" ><img class="slide" src="<?php echo "$image?" . time(); ?>"></a>
+
+
+                                             
+                                             <?php
+                                                $size = count($images_details);
+                                                for($i=1;$i<$size;$i++){?>
+                                                    
+                                                    
+                                    <a href="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>" data-lightbox="01" ><img style="display: none" class="slide" src="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>"></a>
+                                                
+                                                        <?php
+                                                    }
+                                             ?>
+                                    
+                                    
+                                    
+                                    
                                     <?php
                                 } else {
                                     ?>
@@ -449,13 +478,13 @@ if ($data['id'] != '') {
                     ?>
 
                     <div class="profile_page_contnt_left"><!--START DIV CLASS profile_page_contnt_left-->
-                        
+
 
 
                         <div class="profile_details"><!--START DIV CLASS profile_details-->
                             <div class="profile_details_top"><!--START DIV CLASS profile_photo-->
                                 <?php
-                                $query1 = mysqli_query($link,"SELECT id,type FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                                $query1 = mysqli_query($link, "SELECT id,type FROM tbl_users WHERE username='" . $_GET['username'] . "'");
                                 $row = mysqli_fetch_assoc($query1);
                                 //echo $row['type'];
                                 $profile_id = $row['id'];
@@ -463,9 +492,31 @@ if ($data['id'] != '') {
 
                                 $image = "_uploads/user_photo/" . $row['id'] . ".jpg";
                                 //echo $image;
+                                
+                                
+                                 $profile_pic = new Profile_pic($_SESSION["user_id"], "talent");
+                                $images_details = $profile_pic->get_gallery();
+                                
                                 if (file_exists($image)) {
                                     ?>
-                                <img src="<?php echo "$image?" . time(); ?> " />
+                                 <a href="<?php echo "$image?" . time(); ?>" data-lightbox="01"><img class="slide" src="<?php echo "$image?" . time(); ?>"></a>
+
+
+                                             
+                                             <?php
+                                                $size = count($images_details);
+                                                for($i=1;$i<$size;$i++){?>
+                                                    
+                                                    
+                                    <a href="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>" data-lightbox="01" ><img style="display: none" class="slide" src="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>"></a>
+                                                
+                                                        <?php
+                                                    }
+                                             ?>
+                                    
+                                    
+                                    
+                                    
                                     <?php
                                 } else {
                                     ?>
@@ -488,15 +539,15 @@ if ($data['id'] != '') {
 
                 <!----SECOND-------------------------------------------------------------------------------------START-CONTENT-MIDDLE-DIV------------------------------------------------------------------------------------>					
                 <div class="profile_page_contnt_middle"><!--START DIV CLASS profile_page_contnt_middle-->
-                    
-                                      
+
+
 
                     <?php
-                    $p_query = mysqli_query($link,"SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                    $p_query = mysqli_query($link, "SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
                     $p_result = mysqli_fetch_assoc($p_query);
 //echo $p_result['id']; 
                     if ($p_result['type'] == 1) {
-                        $p_query1 = mysqli_query($link,"SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
+                        $p_query1 = mysqli_query($link, "SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
                         $p_result1 = mysqli_fetch_assoc($p_query1);
 //print_r($p_result1); 
                         ?>
@@ -617,23 +668,22 @@ if ($data['id'] != '') {
                             </div><!--END DIV CLASS profile_details-->  
                         </div><!--END DIV CLASS profile_page_contnt_left-->
                     <?php } ?>
-                        
-                        
-                        
-                        
-                <?php
-                    if(isset($_SESSION['user_id'])){
+
+
+
+
+                    <?php
+                    if (isset($_SESSION['user_id'])) {
                         $user_id = $_SESSION['user_id'];
                     }
-                    
-                ?>
-                		
-                    
-                                <?php include 'All_module/user-fav/images-modul.php'; ?>
-                                <?php include 'All_module/user-fav/music-modul.php'; ?>
-                                <?php include 'All_module/user-fav/video-modul.php'; ?>
-  
-                        
+                    ?>
+
+
+                    <?php include 'All_module/user-fav/images-modul.php'; ?>
+                    <?php include 'All_module/user-fav/music-modul.php'; ?>
+                    <?php include 'All_module/user-fav/video-modul.php'; ?>
+
+
 
                 </div><!--END DIV CLASS profile_page_contnt_middle-->
                 <!---------------------------------------------------------------------------------------END-CONTENT-MIDDLE-DIV------------------------------------------------------------------------------------------------------>
@@ -641,11 +691,11 @@ if ($data['id'] != '') {
                 <!--------THIRD---------------------------------------------------------------------------------START-CONTENT-RIGHT-DIV----------------------------------------------------------------------------------------->
                 <div class="profile_page_contnt_right"><!--END DIV CLASS profile_page_contnt_RIGHT-->
                     <?php
-                    $p_query = mysqli_query($link,"SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
+                    $p_query = mysqli_query($link, "SELECT type,id FROM tbl_users WHERE username='" . $_GET['username'] . "'");
                     $p_result = mysqli_fetch_assoc($p_query);
 //echo $p_result['id']; 
                     if ($p_result['type'] == 1) {
-                        $p_query1 = mysqli_query($link,"SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
+                        $p_query1 = mysqli_query($link, "SELECT * FROM tbl_user_profile_settings WHERE uid='" . $p_result['id'] . "'");
                         $p_result1 = mysqli_fetch_assoc($p_query1);
 //print_r($p_result1); 
                         ?>
@@ -772,11 +822,11 @@ if ($data['id'] != '') {
                 </div><!--END DIV CLASS profile_page_contnt_RIGHT-->
                 <!---------------------------------------------------------------------------------------------END-CONTENT-RIGHT-DIV-------------------------------------------------------------------------------->
                 <div style="clear:both"></div> 
-                
-                
-                
-                
-                
+
+
+
+
+
             </div>
         </div>
         <?php

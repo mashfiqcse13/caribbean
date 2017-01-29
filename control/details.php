@@ -118,6 +118,7 @@ if ($query_result_array != false) {
             $status = '';
         }
         $tmp_username = "{$user['first_name']}  {$user['last_name']} ( {$user['username']} )";
+        
         $tmp_user_link = "http://caribbeancirclestars.com/control/details.php?id=" . $user['id'];
         array_push($the_related_users_array, "<a href=\"$tmp_user_link\">$tmp_username</a> $status");
     }

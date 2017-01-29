@@ -120,6 +120,9 @@ include('../_includes/header.php');
                     <p style="margin: 33px 0 0;font-size: 14px;font-weight: bold;">Old Profile Photos:</p>
                     <?php
                     $images_details = $profile_pic->get_gallery();
+//                    echo '<pre>';
+//                    print_r($images_details);
+//                    die();
                     if (!empty($images_details)) {
                         ?>
                         <ul class="grid cs-style-3">
