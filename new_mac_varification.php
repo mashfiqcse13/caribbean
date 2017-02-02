@@ -9,7 +9,7 @@ if (!empty($_POST['banned_user_id']) && !empty($_POST['mac_msg_by_user'])) {
         "mac_msg_by_user" => $_POST['mac_msg_by_user']
     );
     $db->db_update('tbl_users', $data_to_insert, "`id` = $banned_user_id");
-    header("Location: " . SITE_URL . "new_mac_varification.php?banned_user_id=$banned_user_id");
+    header("Location: " . SITE_URL . "member/registration.php");
     die();
 }
 

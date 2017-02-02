@@ -25,7 +25,9 @@ $_SESSION['user_login'] = 0;
   }
   //END
   } */
-$captcha = $_POST['ct_captcha'];
+if (isset($_POST['ct_captcha'])) {
+    $captcha = $_POST['ct_captcha'];
+}
 $errors = "";
 if (isset($captcha) && !empty($captcha)) {
     /* if ($securimage->check($captcha) == false) {
@@ -192,7 +194,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors 
             $table = "tbl_users";
             //echo '<pre>';print_r($data);
             insertData($data, $table);
-                $last_inserted_user_id = $db->auto_increment_id('tbl_users')-1;
+            $last_inserted_user_id = $db->auto_increment_id('tbl_users') - 1;
             header("Location: " . SITE_URL . "new_mac_varification.php?banned_user_id=$last_inserted_user_id");
             die();
         }
@@ -461,7 +463,7 @@ include('../_includes/header.php');
                 }
                 ?>" maxlength="30" class="required" />
                         <?php if (!empty($phoneErr)) { ?>
-                    <label for="phone_no" generated="true" class="error">Please enter valid phone number<?php //echo str_replace($phoneErr,'12','7');     ?>.</label>
+                    <label for="phone_no" generated="true" class="error">Please enter valid phone number<?php //echo str_replace($phoneErr,'12','7');      ?>.</label>
                 <?php } ?>
             </p>
             <p>
@@ -534,15 +536,16 @@ include('../_includes/header.php');
 
 
             <br/>
-
+            
             <p>
-              <!--<img id="siimage" style="border: 1px solid #000; margin-right: 15px" src="./securimage/securimage_show.php?sid=<?php echo md5(uniqid()) ?>" alt="CAPTCHA Image" align="left" />-->
-                <img border="0" id="captcha" src="../_includes/image.php" alt="" align="bottom">
+                <img id="siimage" style="border: 1px solid #000; margin-right: 15px" src="./securimage/securimage_show.php?sid=<?php echo md5(uniqid()) ?>" alt="CAPTCHA Image" align="left" />
+  <!--<img border="0" id="captcha" src="../_includes/image.php" alt="" align="bottom">-->
                 <!--  <object type="application/x-shockwave-flash" data="./securimage/securimage_play.swf?bgcol=#ffffff&amp;icon_file=./securimage/images/audio_icon.png&amp;audio_file=./securimage/securimage_play.php" height="32" width="32">
                   <param name="movie" value="./securimage/securimage_play.swf?bgcol=#ffffff&amp;icon_file=./securimage/images/audio_icon.png&amp;audio_file=./securimage/securimage_play.php" />
                   </object>-->
                 &nbsp;
-                <a href="JavaScript: new_captcha();"><img border="0" alt="" src="../_images/refresh.png" style="vertical-align:top; margin-top:8px; " title="Can't read the image? click here to refresh" /></a><br />
+                <a tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById('siimage').src = './securimage/securimage_show.php?sid=' + Math.random();this.blur();  return false"><img src="./securimage/images/refresh.png" alt="Reload Image" height="32" width="32" onclick="this.blur()" align="bottom" border="0" /></a><br /><br /><br /><br />
+                <!--<a href="JavaScript: new_captcha();"><img border="0" alt="" src="../_images/refresh.png" style="vertical-align:top; margin-top:8px; " title="Can't read the image? click here to refresh" /></a><br />-->
                 <br/>
                 <strong>Enter Code*:</strong><br />
                 <input type="text" name="ct_captcha" id="ct_captcha" size="12" maxlength="8" />

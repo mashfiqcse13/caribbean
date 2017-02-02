@@ -640,7 +640,7 @@ include('../_includes/header.php');
                     <param name="movie" value="./securimage/securimage_play.swf?bgcol=#ffffff&amp;icon_file=./securimage/images/audio_icon.png&amp;audio_file=./securimage/securimage_play.php" />
                 </object>
                 &nbsp;
-                <a tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById('siimage').src = './securimage/securimage_show.php?sid=' + Math.random(); this.blur(); return false"><img src="./securimage/images/refresh.png" alt="Reload Image" height="32" width="32" onclick="this.blur()" align="bottom" border="0" /></a><br />
+                <a tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById('siimage').src = './securimage/securimage_show.php?sid=' + Math.random(); this.blur(); return false"><img src="./securimage/images/refresh.png" alt="Reload Image" height="32" width="32" onclick="this.blur()" align="bottom" border="0" /></a><br /><br />
                 <br/><br/><br/>
                 <strong>Enter Code*:</strong><br />
                 <input type="text" name="ct_captcha" id="ct_captcha" size="12" maxlength="8" />

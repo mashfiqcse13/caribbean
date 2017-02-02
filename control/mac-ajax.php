@@ -32,7 +32,7 @@ UPDATE `tbl_users` SET `allowed_mac`= @number_of_allowed_mac WHERE `mac_address`
         $message = "<h2>Your account is disabled :</h2><hr>We have found that you are using multiple accounts . So , you are disabled . To make a response please login to your account. <a href=\"$login_url\">Click here to login</a>";
     } else {
         $subject = "Your account is enabled  | " . SITE_NAME;
-        $message = "<h2>Your account is enabled :</h2><hr>Your multiple accounts issue is sattled . So , you can login to your accout without any restriction . To login to your account. <a href=\"$login_url\">Click here to login</a>";
+        $message = "<h2>Your account is enabled :</h2><hr>Your multiple accounts issue is settled . So , you can login to your account without any restriction . To login to your account. <a href=\"$login_url\">Click here to login</a>";
     }
     $additional_headers = "From: " . FROM_EMAIL . "\r\n";
     // Always set content-type when sending HTML email
