@@ -7,6 +7,14 @@ cmslogin();
   DELETE USER orders
  * ****************************************************************** */
 
+$query = "SELECT * FROM tbl_users WHERE id='" . $_GET['id'] . "'";
+$query_result = mysqli_query($link, $query);
+    
+$row = mysqli_fetch_array($query_result);
+
+$uid = $row['type'];
+
+
 $query1 = mysqli_query($link,"SELECT tbl_orders.id AS o_id,tbl_orders.*,p.id as prid,p.product_name FROM tbl_orders LEFT OUTER JOIN tbl_products AS p ON
 					   p.id=tbl_orders.p_id WHERE tbl_orders.uid='" . $_GET['id'] . "' ORDER BY tbl_orders.id DESC");
 
@@ -271,6 +279,36 @@ if (mysqli_num_rows($query_profile_events) > 0) {
     }
 }
 
+
+/* * *****************************************************************
+  DELETE USER tbl_profile_images
+ * ****************************************************************** */
+$tbl_profile_images = "SELECT * FROM tbl_profile_images WHERE userid='" . $_GET['id'] . "'";
+
+$query_profile_images = mysqli_query($link,$tbl_profile_images);
+
+if (mysqli_num_rows($query_profile_images) > 0) {
+
+    while ($profile_images_row = mysqli_fetch_array($query_profile_images)) {
+        $profile_images = "../_uploads/profile_images/" . $profile_images_row['id'] . ".jpg";
+        
+        @unlink("../_uploads/profile_images/12.jpg");
+        if (file_exists($profile_images)) {
+            
+            @unlink($profile_images);
+        }
+        $profile_images = "../_uploads/profile_images/croped/" . $profile_images_row['id'] . ".jpg";
+        if (file_exists($profile_images)) {
+            @unlink($profile_images);
+        }
+
+        $delete_profile_images = "DELETE FROM tbl_profile_images WHERE id='" . $profile_images_row['id'] . "'";
+        $delete_profile_images_row = mysqli_query($link,$delete_profile_images);
+    }
+}
+
+
+
 /* * *****************************************************************
   DELETE USER book
  * ****************************************************************** */
@@ -402,7 +440,7 @@ $query_delete_tbl_user_activity = mysqli_query($link,$delete_tbl_user_activity);
  * ****************************************************************** */
 
 
-$query = "DELETE FROM tbl_users WHERE id=" . $_GET[id];
+$query = "DELETE FROM tbl_users WHERE id='" . $_GET['id'] . "'";
 
 $query_row = mysqli_query($link,$query);
 $img_location = "../_uploads/user_photo/" . $_GET['id'] . ".jpg";
@@ -410,5 +448,15 @@ if (file_exists($img_location)) {
     @unlink($img_location);
 }
 
-header('location: caribbean.php?op=del');
+
+
+if($uid == 1 ){
+    header('location: talent.php?op=del');
+}
+else{
+    header('location: member.php?op=del');
+}
+
+
+
 ?>	

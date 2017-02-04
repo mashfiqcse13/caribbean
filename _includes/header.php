@@ -105,7 +105,7 @@
                     <div class="cart"> 
                         <a href="<?php echo SITE_URL ?>shopping_cart.php"><img src="<?php echo SITE_URL ?>_images/cart_icon.png" class="img_3" /></a><a href="<?php echo SITE_URL ?>shopping_cart.php">Shopping cart</a>
                         <?php
-                        if ($identity != '') {
+                        if (isset($identity) && $identity != '') {
                             $query55 = mysqli_query($link,"SELECT * FROM tbl_shopping_cart WHERE uid='" . $identity . "'");
 
                             $rows55 = mysqli_num_rows($query55);

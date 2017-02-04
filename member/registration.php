@@ -14,30 +14,33 @@ $_SESSION['user_login'] = 0;
 //echo yearsDifference('2011-03-12','2008-03-09');
 
 
-/* require_once dirname(__FILE__) . '/securimage/securimage.php';
-  $securimage = new Securimage();
-  $captcha = $_POST['ct_captcha'];
-  $errors  =   "";
-  if(isset($captcha) && !empty($captcha))
-  {
-  if ($securimage->check($captcha) == false) {
-  $errors = 'Incorrect security code entered';
-  }
-  //END
-  } */
+require_once dirname(__FILE__) . '/securimage/securimage.php';
+$securimage = new Securimage();
 if (isset($_POST['ct_captcha'])) {
     $captcha = $_POST['ct_captcha'];
 }
 $errors = "";
 if (isset($captcha) && !empty($captcha)) {
-    /* if ($securimage->check($captcha) == false) {
-      $errors = 'Incorrect security code entered';
-      } */
-    if (empty($_SESSION['security_code1']) || strcasecmp($_SESSION['security_code1'], $captcha) != 0) {
+    if ($securimage->check($captcha) == false) {
         $errors = 'Incorrect security code entered';
     }
     //END
 }
+//if (isset($_POST['ct_captcha'])) {
+//    $captcha = $_POST['ct_captcha'];
+//}
+//$errors = "";
+//if (isset($captcha) && !empty($captcha)) {
+//    /* if ($securimage->check($captcha) == false) {
+//      $errors = 'Incorrect security code entered';
+//      } */
+////    echo $_SESSION['security_code1'];
+////    die();
+//    if (empty($_SESSION['security_code1']) || strcasecmp($_SESSION['security_code1'], $captcha) != 0) {
+//        $errors = 'Incorrect security code entered';
+//    }
+//    //END
+//}
 
 
 if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Register') AND $errors == "") {
@@ -463,7 +466,7 @@ include('../_includes/header.php');
                 }
                 ?>" maxlength="30" class="required" />
                         <?php if (!empty($phoneErr)) { ?>
-                    <label for="phone_no" generated="true" class="error">Please enter valid phone number<?php //echo str_replace($phoneErr,'12','7');      ?>.</label>
+                    <label for="phone_no" generated="true" class="error">Please enter valid phone number<?php //echo str_replace($phoneErr,'12','7');       ?>.</label>
                 <?php } ?>
             </p>
             <p>
@@ -536,7 +539,7 @@ include('../_includes/header.php');
 
 
             <br/>
-            
+
             <p>
                 <img id="siimage" style="border: 1px solid #000; margin-right: 15px" src="./securimage/securimage_show.php?sid=<?php echo md5(uniqid()) ?>" alt="CAPTCHA Image" align="left" />
   <!--<img border="0" id="captcha" src="../_includes/image.php" alt="" align="bottom">-->
@@ -544,7 +547,9 @@ include('../_includes/header.php');
                   <param name="movie" value="./securimage/securimage_play.swf?bgcol=#ffffff&amp;icon_file=./securimage/images/audio_icon.png&amp;audio_file=./securimage/securimage_play.php" />
                   </object>-->
                 &nbsp;
-                <a tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById('siimage').src = './securimage/securimage_show.php?sid=' + Math.random();this.blur();  return false"><img src="./securimage/images/refresh.png" alt="Reload Image" height="32" width="32" onclick="this.blur()" align="bottom" border="0" /></a><br /><br /><br /><br />
+                <a tabindex="-1" style="border-style: none;" href="#" title="Refresh Image" onclick="document.getElementById('siimage').src = './securimage/securimage_show.php?sid=' + Math.random();
+                        this.blur();
+                        return false"><img src="./securimage/images/refresh.png" alt="Reload Image" height="32" width="32" onclick="this.blur()" align="bottom" border="0" /></a><br /><br /><br /><br />
                 <!--<a href="JavaScript: new_captcha();"><img border="0" alt="" src="../_images/refresh.png" style="vertical-align:top; margin-top:8px; " title="Can't read the image? click here to refresh" /></a><br />-->
                 <br/>
                 <strong>Enter Code*:</strong><br />

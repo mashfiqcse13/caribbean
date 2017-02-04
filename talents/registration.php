@@ -11,7 +11,9 @@ $_SESSION['talent_login'] = 0;
 
 require_once dirname(__FILE__) . '/securimage/securimage.php';
 $securimage = new Securimage();
-$captcha = $_POST['ct_captcha'];
+if(isset($_POST['ct_captcha'])){
+    $captcha = $_POST['ct_captcha'];
+}
 $errors = "";
 if (isset($captcha) && !empty($captcha)) {
     if ($securimage->check($captcha) == false) {

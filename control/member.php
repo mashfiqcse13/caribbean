@@ -6,6 +6,11 @@ cmslogin();
 
 <h1> SHOW ALL Basic MEMBER'S </h1>
 <?php
+if (isset($_GET['op']) AND ( $_GET['op'] == "del")) {
+    echo "<p class='err' id='myElem' >Record Deleted Sucessfully</p>";
+}
+?>
+<?php
 //$query = "SELECT * FROM tbl_users ORDER BY id DESC";
 $query = "SELECT * FROM tbl_users WHERE TYPE = '0' ORDER BY id DESC";
 //$query_row = mysqli_query($link,$query);
@@ -79,5 +84,13 @@ $rs = $page->paginate();
     ?>
 </div>
 <div style="clear:both;"></div>
+
+
+<script>
+    $(document).ready(function(){
+           $("#myElem").show().delay(5000).fadeOut();
+        });
+
+</script>
 
 <?php include('include/footer.php'); ?>
