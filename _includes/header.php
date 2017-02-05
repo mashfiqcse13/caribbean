@@ -58,41 +58,25 @@
 
                 <div class="right_head">
                     <?php
-                    
-                    function view1(){
-                    ?>
+                    if (isset($_SESSION['talent_login']) AND ( $_SESSION['talent_login'] == 1) AND ( $_SESSION['is_admin'] != "yes")) {
+                        $identity = $_SESSION['talent_id'];
+                        ?>
                         <a style="float:left; margin-bottom:10px;" href="<?php echo SITE_URL ?>talents/member.php"><img src="<?php echo SITE_URL ?>_images/membr_area.png"/></a>
                         <a style="float:right; margin-bottom:10px; margin-right:2px;" href="<?php echo SITE_URL ?>talents/logout.php"><img src="<?php echo SITE_URL ?>_images/btn_logout.png"/></a>
-                    <?php
-                    }
-                    function view2(){
-                    ?>
-                         <a style="float:left; margin-bottom:10px;" href="<?php echo SITE_URL ?>member/member.php"><img src="<?php echo SITE_URL ?>_images/membr_area.png"/></a>
+                        <?php
+                    } elseif (isset($_SESSION['user_login']) AND ( $_SESSION['user_login'] == 1) AND ( $_SESSION['is_admin'] != "yes")) {
+                        $identity = $_SESSION['user_id'];
+                        ?>
+                        <a style="float:left; margin-bottom:10px;" href="<?php echo SITE_URL ?>member/member.php"><img src="<?php echo SITE_URL ?>_images/membr_area.png"/></a>
                         <a style="float:right; margin-bottom:10px; margin-right:2px;" href="<?php echo SITE_URL ?>member/log-out.php"><img src="<?php echo SITE_URL ?>_images/btn_logout.png"/></a>
-                      
-                    <?php    
-                    }
-                   function view3(){
-                       ?>
-                       <a href="<?php echo SITE_URL ?>talents/login.php"><img src="<?php echo SITE_URL ?>_images/button_1.png"/></a>
-                       <a href="<?php echo SITE_URL ?>member/login.php"><img src="<?php echo SITE_URL ?>_images/button_2.png" class="img_1" /></a>
-                   <?php
-                   }
-                   
-                   $a=(isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 'YES');
-                   $b=(isset($_SESSION['talent_login']) && $_SESSION['talent_login'] == 1);
-                   $c=(isset($_SESSION['user_login']) && $_SESSION['user_login'] == 1);
-                   
-                   if(($b)){
-                       view1();
-                   }
-                   elseif ($c) {
-                       view2();
-                   }
-                   else if( ($a == false && $b == false  && $c == false )  ){
-                       view3();
-                   }
-                   ?>  
+                        <?php
+                    } else {
+                        $identity = "";
+                        ?>
+                        <a href="<?php echo SITE_URL ?>talents/login.php"><img src="<?php echo SITE_URL ?>_images/button_1.png"/></a>
+                        <a href="<?php echo SITE_URL ?>member/login.php"><img src="<?php echo SITE_URL ?>_images/button_2.png" class="img_1" /></a>
+                    <?php } ?>
+
                     <div id="textbox">
                         <form id="form1" name="form1" method="post" action="<?php echo SITE_URL; ?>search.php">
 
@@ -105,9 +89,8 @@
                     <div class="cart"> 
                         <a href="<?php echo SITE_URL ?>shopping_cart.php"><img src="<?php echo SITE_URL ?>_images/cart_icon.png" class="img_3" /></a><a href="<?php echo SITE_URL ?>shopping_cart.php">Shopping cart</a>
                         <?php
-                        if (isset($identity) && $identity != '') {
+                        if ($identity != '') {
                             $query55 = mysqli_query($link,"SELECT * FROM tbl_shopping_cart WHERE uid='" . $identity . "'");
-
                             $rows55 = mysqli_num_rows($query55);
                             echo "(" . $rows55 . ")";
                         }
