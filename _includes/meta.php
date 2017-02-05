@@ -15,4 +15,3 @@
 <link type="text/css" rel="stylesheet" href="<?php echo SITE_URL; ?>_css/jquery.simplyscroll-1.0.4.css" />
 <!--anj link stuly for font-awesome-->
 <link rel="stylesheet" href="<?php echo SITE_URL; ?>_css/font-awesome-4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="<?php echo SITE_URL; ?>/lightbox2-master/dist/css/lightbox.min.css">

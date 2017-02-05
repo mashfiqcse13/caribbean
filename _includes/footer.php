@@ -76,7 +76,5 @@ if ($identity != '') :
     }
 endif;
 ?>
-        
-        <script src="<?php echo SITE_URL; ?>lightbox2-master/dist/js/lightbox-plus-jquery.min.js"> </script>
 </body> 
 </html>
