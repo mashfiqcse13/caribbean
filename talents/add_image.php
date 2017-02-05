@@ -58,6 +58,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Image')) {
             $prod_id = mysqli_insert_id($link);
 
             $upload_file = $_FILES['img_path']['tmp_name'];
+            
             $destination = "../_temp/" . $img_id . ".jpg";
             upload_my_file($upload_file, $destination);
 
@@ -127,6 +128,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Image')) {
             $img_id = mysqli_insert_id($link);
 
             $upload_file = $_FILES['img_path']['tmp_name'];
+            
             $destination = "../_temp/" . $img_id . ".jpg";
             upload_my_file($upload_file, $destination);
 

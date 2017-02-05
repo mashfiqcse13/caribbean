@@ -80,8 +80,10 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
         /* move upload photo in temp folder */
         //get the file ext:
         $filename = $_FILES['mp3_file']['name'];
+        
         $file_ext = ".".pathinfo($filename,PATHINFO_EXTENSION);
-
+//        echo $file_ext;
+//        die();
         //$file_ext = strrchr($filename, '.');
         //check if its allowed or not:
         // $whitelist = array(".mp3"); 
@@ -101,7 +103,9 @@ if ((isset($_POST['submit']))AND ( $_POST['submit'] == 'Add Music')) {
 
 
             $source_path = $_FILES['mp3_file']['tmp_name'];
+            
             $destination = "../_temp/" . $lid . ".mp3";
+       
             upload_my_file($source_path, $destination);
 
 
