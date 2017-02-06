@@ -19,9 +19,9 @@ if ((mysqli_num_rows($query) > 0) && ($weq == 1)) {
                 $img_name = "{$row1["PID"]}.jpg?" . time();
                 if ($row1["Pstatus"] == 33) {
                     ?>
-                    <img src="../_uploads/profile_photo/croped/<?php echo $img_name; ?>" width="100" />
+                    <img src="<?php echo BASE_URL ?>_uploads/profile_photo/croped/<?php echo $img_name; ?>" width="100" />
                 <?php } else { ?>
-                    <img src="../_uploads/profile_photo/thumb/<?php echo $img_name; ?>" width="100"/>
+                    <img src="<?php echo BASE_URL ?>_uploads/profile_photo/thumb/<?php echo $img_name; ?>" width="100"/>
         <?php } ?>
             </a>
         </div>

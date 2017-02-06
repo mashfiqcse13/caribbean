@@ -80,13 +80,13 @@ include('_includes/header.php');
             $img_name = "{$row["id"]}.jpg?" . time();
             if ($row["croped"] == 1) {
                 ?>
-                <a href="../_uploads/profile_photo/croped/<?php echo $img_name; ?>" class="fancybox">
-                    <img src="../_uploads/profile_photo/croped/<?php echo $img_name; ?>" 
+                <a href="<?php echo BASE_URL ?>_uploads/profile_photo/croped/<?php echo $img_name; ?>" class="fancybox">
+                    <img src="<?php echo BASE_URL ?>_uploads/profile_photo/croped/<?php echo $img_name; ?>" 
                          width="100" alt="my_img"/>
                 </a>
             <?php } else { ?>
-                <a href="../_uploads/profile_photo/<?php echo $img_name; ?>" class="fancybox">
-                    <img src="../_uploads/profile_photo/thumb/<?php echo $img_name; ?>" 
+                <a href="<?php echo BASE_URL ?>_uploads/profile_photo/<?php echo $img_name; ?>" class="fancybox">
+                    <img src="<?php echo BASE_URL ?>_uploads/profile_photo/thumb/<?php echo $img_name; ?>" 
                          width="100" alt="my_img"/>
                 </a>
             <?php } ?>

@@ -56,6 +56,10 @@ function show_video($video_type, $video_id) {
 }
 
 function is_favorite($item_id, $item_type) {
+    if (empty($_SESSION['user_id'])) {
+        return FALSE;
+    }
+
     $user_id = $_SESSION['user_id'];
 
     if ($item_type == "photo") {
