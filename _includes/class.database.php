@@ -174,6 +174,9 @@ class DBClass {
         $result = mysqli_query($db_link, $sql);
 
         $i = 0;
+        if($result==FALSE){
+            return FALSE;
+        }
         while ($row = mysqli_fetch_object($result)) {
             $data[$i] = $row;
             $i++;
