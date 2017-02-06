@@ -57,25 +57,37 @@
                 </div>
 
                 <div class="right_head">
-                    <?php
-                    if (isset($_SESSION['talent_login']) AND ( $_SESSION['talent_login'] == 1) AND ( $_SESSION['is_admin'] != "yes")) {
-                        $identity = $_SESSION['talent_id'];
-                        ?>
-                        <a style="float:left; margin-bottom:10px;" href="<?php echo SITE_URL ?>talents/member.php"><img src="<?php echo SITE_URL ?>_images/membr_area.png"/></a>
-                        <a style="float:right; margin-bottom:10px; margin-right:2px;" href="<?php echo SITE_URL ?>talents/logout.php"><img src="<?php echo SITE_URL ?>_images/btn_logout.png"/></a>
-                        <?php
-                    } elseif (isset($_SESSION['user_login']) AND ( $_SESSION['user_login'] == 1) AND ( $_SESSION['is_admin'] != "yes")) {
-                        $identity = $_SESSION['user_id'];
-                        ?>
-                        <a style="float:left; margin-bottom:10px;" href="<?php echo SITE_URL ?>member/member.php"><img src="<?php echo SITE_URL ?>_images/membr_area.png"/></a>
-                        <a style="float:right; margin-bottom:10px; margin-right:2px;" href="<?php echo SITE_URL ?>member/log-out.php"><img src="<?php echo SITE_URL ?>_images/btn_logout.png"/></a>
-                        <?php
-                    } else {
+                    <?php               
+                    if(isset($_SESSION['is_admin']) && $_SESSION['is_admin'] =="yes"){
                         $identity = "";
                         ?>
                         <a href="<?php echo SITE_URL ?>talents/login.php"><img src="<?php echo SITE_URL ?>_images/button_1.png"/></a>
                         <a href="<?php echo SITE_URL ?>member/login.php"><img src="<?php echo SITE_URL ?>_images/button_2.png" class="img_1" /></a>
-                    <?php } ?>
+                    <?php
+                    }
+                    else{
+                        
+                        if (isset($_SESSION['talent_login']) AND ( $_SESSION['talent_login'] == 1) ) {
+                            $identity = $_SESSION['talent_id'];
+                            ?>
+                            <a style="float:left; margin-bottom:10px;" href="<?php echo SITE_URL ?>talents/member.php"><img src="<?php echo SITE_URL ?>_images/membr_area.png"/></a>
+                            <a style="float:right; margin-bottom:10px; margin-right:2px;" href="<?php echo SITE_URL ?>talents/logout.php"><img src="<?php echo SITE_URL ?>_images/btn_logout.png"/></a>
+                        <?php
+                        } elseif (isset($_SESSION['user_login']) AND ( $_SESSION['user_login'] == 1) ) {
+                            $identity = $_SESSION['user_id'];
+                            ?>
+                            <a style="float:left; margin-bottom:10px;" href="<?php echo SITE_URL ?>member/member.php"><img src="<?php echo SITE_URL ?>_images/membr_area.png"/></a>
+                            <a style="float:right; margin-bottom:10px; margin-right:2px;" href="<?php echo SITE_URL ?>member/log-out.php"><img src="<?php echo SITE_URL ?>_images/btn_logout.png"/></a>
+                        <?php
+                        } else {
+                            $identity = "";
+                            ?>
+                            <a href="<?php echo SITE_URL ?>talents/login.php"><img src="<?php echo SITE_URL ?>_images/button_1.png"/></a>
+                            <a href="<?php echo SITE_URL ?>member/login.php"><img src="<?php echo SITE_URL ?>_images/button_2.png" class="img_1" /></a>
+                        <?php }
+                        
+                    }?>
+
 
                     <div id="textbox">
                         <form id="form1" name="form1" method="post" action="<?php echo SITE_URL; ?>search.php">
