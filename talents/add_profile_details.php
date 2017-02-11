@@ -82,8 +82,8 @@ include('../_includes/header.php');
             								<input type="text" name="social_link4" value="<?php echo $row['social_link4']; ?>" />
             								</p>
 
-                                                                        <!--                    <p>
--->                        <label style="width:290px;">
+                    <p>
+                        <label style="width:290px;">
                            Publish this biography :
                         </label>
                         <select name="profile_display_status">

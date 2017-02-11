@@ -74,15 +74,15 @@ include('../_includes/header.php');
     								<label for="social_link4">Pinterest Link :</label>
     								<input type="text" name="social_link4" value="<?php echo $row['social_link4']; ?>" />
     								</p>
-<!--                    <p>
+                    <p>
                         <label style="width:290px;">
-                           Profile can be viewed without login:
+                           Publish this biography :
                         </label>
                         <select name="profile_display_status">
-                          <option <?php /* if($row["profile_display_status"]=="1"){ echo "selected='selected'"; } */ ?>  value="1">Yes</option>
-                          <option <?php /* if($row["profile_display_status"]=="0"){ echo "selected='selected'"; } */ ?>  value="0">No</option>
+                          <option <?php  if($row["profile_display_status"]=="1"){ echo "selected='selected'"; }  ?>  value="1">Yes</option>
+                          <option <?php  if($row["profile_display_status"]=="0"){ echo "selected='selected'"; }  ?>  value="0">No</option>
                         </select>
-                    </p>-->
+                    </p>
 
                      <input type="submit" name="submit" value="Update" class="button"></p>
               </form>
