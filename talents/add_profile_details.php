@@ -84,7 +84,7 @@ include('../_includes/header.php');
 
                                                                         <!--                    <p>
 -->                        <label style="width:290px;">
-                           Publish this option:
+                           Publish this biography :
                         </label>
                         <select name="profile_display_status">
                           <option <?php if($row["profile_display_status"]=="1"){ echo "selected='selected'"; } ?>  value="1">Yes</option>
