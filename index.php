@@ -172,7 +172,7 @@ fwrite($handle, $data);
                         if (file_exists($image)) {
                             ?>
                             <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
-                                <?php /* ?><img src="_uploads/user_photo/<?php echo $row["uid"]; ?>.jpg" height="35" width="35" /><?php echo $row['forum_topic']; ?><?php */ ?>
+                                <?php  ?><img src="_uploads/user_photo/<?php echo $row["uid"]; ?>.jpg" height="35" width="35" /><?php echo $row['forum_topic']; ?><?php  ?>
                                 <img src="<?php echo $image; ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
 
                             </a>

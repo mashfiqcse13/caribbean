@@ -1724,6 +1724,7 @@ border:2px solid #FF0000;
     float:left;
     /*clear:both;*/
     margin:0px 7px 0px 0px;
+    overflow: hidden;
 }
 .home_img a{
     padding:0px;
@@ -1735,6 +1736,7 @@ border:2px solid #FF0000;
     float:right;
     /*clear:both;*/
     margin:0px 0px 0px 0px;
+    overflow: hidden;
 }
 
 .home_left_side_second{

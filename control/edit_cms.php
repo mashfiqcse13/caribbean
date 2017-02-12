@@ -62,6 +62,17 @@ while ($row = mysqli_fetch_array($result)) {
                     }
                     ?> value="0">InActive</option>
                 </select></p>
+                
+               <?php
+                    if(isset($_GET['id']) && $_GET['id'] == 1){
+                ?>
+                <p><label style="vertical-align:top;">Change Home Images</label><a href="change_home_image.php">Click Here</a></p>
+            
+                <?php
+                    }
+               ?>
+                
+                
             <input type="hidden" name="id" value="<?php echo $row['id'] ?>" />
             <input type="submit" name="update" value="update" />
             <input type="button" value="Cancel" onclick='location.href = "cms.php";'>

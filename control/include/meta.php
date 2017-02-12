@@ -1,3 +1,5 @@
+<!--<link type="text/css" rel="stylesheet" href="<?php echo BASE_URL; ?>_css/style.css" />-->
+
 <link type="text/css" rel="stylesheet" href="<?php echo SITE_URL; ?>css/style.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo SITE_URL1; ?>_css/jquery.fancybox-1.3.4.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo SITE_URL1; ?>_css/mediaelementplayer.min.css" />
