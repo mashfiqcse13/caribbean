@@ -197,22 +197,23 @@ if (isset($_POST['submit'])) {
 
         <div class="home_img">
             <!--<a href="artist-directory.php?id=<?php echo "1"; ?>" >-->
-                  <!--<img src="_images/header_img_1.jpg" border="0" />--><img src="../_images/header_img_1.jpg" height="359" />
+                  <!--<img src="_images/header_img_1.jpg" border="0" />--><img src="../_images/header_img_1.jpg?<?php echo time() ?>" height="359" />
             <!--</a>-->
+            
         </div>
         <div class="home_img">
             <!--<a href="artist-directory.php?id=<?php echo "5"; ?>">-->
-            <img src="../_images/header_img_2.jpg"  border="0" height="359"/>
+            <img src="../_images/header_img_2.jpg?<?php echo time() ?>"  border="0" height="359"/>
             <!--</a>-->
         </div>
         <div class="home_img">
             <!--<a href="artist-directory.php?id=<?php echo "7"; ?>">-->
-            <img src="../_images/header_img_3.jpg" border="0" height="359" />
+            <img src="../_images/header_img_3.jpg?<?php echo time() ?>" border="0" height="359" />
             <!--</a>-->
         </div>
         <div class="home_img_4">
             <!--<a href="artist-directory.php?id=<?php echo "2"; ?>">-->
-            <img src="../_images/header_img_4.jpg" border="0" height="359" />
+            <img src="../_images/header_img_4.jpg?<?php echo time() ?>" border="0" height="359" />
             <!--</a>-->
         </div>          
         <div class="clear"></div>
