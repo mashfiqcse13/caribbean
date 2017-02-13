@@ -6,12 +6,12 @@ CheckLoginALL();
 if (isset($_GET['view'])) {
     $view_cnt = $_GET['view'];
     $sql_view_insert = "Update tbl_forum_topics set view_count ='" . $view_cnt . "' where id='" . $_GET['id'] . "'";
-    mysqli_query($link,$sql_view_insert);
+    mysqli_query($link, $sql_view_insert);
 }
 //DATABASE QUERY
 //$query="SELECT tbl_forum_topics.id AS forum_id,tbl_forum_topics.*, tbl_users.* FROM tbl_forum_topics 
 //LEFT JOIN  tbl_users ON tbl_forum_topics.uid=tbl_users.id WHERE tbl_forum_topics.id='".$_GET['id']."'";die;
-$sql = mysqli_query($link,"SELECT tbl_forum_topics.id AS forum_id,tbl_forum_topics.*, tbl_users.* FROM tbl_forum_topics 
+$sql = mysqli_query($link, "SELECT tbl_forum_topics.id AS forum_id,tbl_forum_topics.*, tbl_users.* FROM tbl_forum_topics 
 				 LEFT JOIN  tbl_users ON tbl_forum_topics.uid=tbl_users.id WHERE tbl_forum_topics.id='" . $_GET['id'] . "'");
 $data = mysqli_fetch_assoc($sql);
 // print_r($data);
@@ -19,7 +19,7 @@ $data = mysqli_fetch_assoc($sql);
 $str = "SELECT tbl_forum_reply.*, tbl_forum_reply.uid as reply_uid,tbl_forum_reply.id as reply_id  , tbl_users.* FROM tbl_forum_reply 
 				 LEFT JOIN  tbl_users ON tbl_forum_reply.uid=tbl_users.id WHERE tbl_forum_reply.forum_id='" . $_GET['id'] . "' order by tbl_forum_reply.id desc";
 // echo $str;
-$sql1 = mysqli_query($link,$str);
+$sql1 = mysqli_query($link, $str);
 //$ert=mysqli_fetch_assoc($sql1);
 // print_r($ert);
 include('_includes/header.php');
@@ -104,7 +104,35 @@ include('_includes/header.php');
                     <div class="photo_name">
                         <p><?php echo date('F jS, Y h:i:s', strtotime($data["post_date"])); ?></p>
                         <?php /* ?> <img src="_uploads/user_photo/<?php echo $data["uid"] ?>.jpg"/><?php */ ?>
-                        <img style="margin:10px 0px 0px 15px;" src="_images/star.png"/>
+                        <!--<img style="margin:10px 0px 0px 15px;" src="_images/star.png"/>-->
+
+                        <?php
+                        if ($data['uid'] == 0) {
+                            ?>
+
+                            <?php
+                            if (file_exists("_uploads/admin_avatar/admin_avatar.jpg")) {
+                                ?>
+
+                                <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="_uploads/admin_avatar/admin_avatar.jpg?<?php echo time(); ?>"/>
+
+                            <?php } else {
+                                ?>
+                                <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="_images/star.png?<?php echo time(); ?>"/>
+
+                                <?php
+                            }
+                            ?>
+                        <?php } else {
+                            ?>
+
+                            <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px" src="control/images/dummy.png?<?php echo time(); ?>"/>
+
+
+                        <?php }
+                        ?>
+
+
                     </div>
                     <div class="introduse">
                         <p style="margin-top:-10px;">
@@ -162,8 +190,35 @@ include('_includes/header.php');
                     <td>
                         <div class="total_reply">
                             <div class="reply_photo_name" >
-                                <p><?php //echo date('F jS, Y h:i a', strtotime($row["post_time"]));  ?></p>
-                                <img style="float:left; margin:15px 0px 0px 15px;" src="_images/star.png"/>
+                                <p><?php //echo date('F jS, Y h:i a', strtotime($row["post_time"]));                   ?></p>
+                                <!--<img style="float:left; margin:15px 0px 0px 15px;" src="_images/star.png"/>-->
+                                <?php
+                                if ($row['uid'] == 0) {
+                                    ?>
+
+                                    <?php
+                                    if (file_exists("_uploads/admin_avatar/admin_avatar.jpg")) {
+                                        ?>
+
+                                        <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="_uploads/admin_avatar/admin_avatar.jpg?<?php echo time(); ?>"/>
+
+                                    <?php } else {
+                                        ?>
+                                        <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="_images/star.png?<?php echo time(); ?>"/>
+
+                                        <?php
+                                    }
+                                    ?>
+                                <?php } else {
+                                    ?>
+
+                                    <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px" src="control/images/dummy.png?<?php echo time(); ?>"/>
+
+
+                                <?php }
+                                ?>
+
+
                                 <p style="margin-left:80px; margin-top:30px;"><label>By: </label>
                                     <?php if ($row['uid'] == "0") { ?>
                                         <a href="javascript:void(0)"><?php echo "Admin"; ?></a>

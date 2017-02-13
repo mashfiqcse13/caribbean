@@ -170,25 +170,30 @@ fwrite($handle, $data);
                         
 
                         if ($row['is_admin'] == 'No') {
-                            $image = "_uploads/user_photo/" . $row["uid"] . ".jpg";
-                            
-                            if (file_exists($image)) {
-                                ?>
-                                <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
+//                            $image = "_uploads/user_photo/" . $row["uid"] . ".jpg";
+                      
+                            /*
+//                            if (file_exists($image)) {
+//                                ?>
+                                <a href="view_forum_topic.php?id=//////////////////<?php echo $row["id"]; ?>">
 
-                                    <img src="<?php echo $image . "?" . time(); ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+                                    <img src="//////////////////<?php echo $image . "?" . time(); ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
 
                                 </a>
-                            <?php } else { ?>
+                            //<?php } else { ?>
 
-                                <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
-                                    <img src="control/images/dummy.png?<?php echo time();?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+                                <a href="view_forum_topic.php?id=//////////////////<?php echo $row["id"]; ?>">
+                                    <img src="control/images/dummy.png?//////////////////<?php echo time();?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
 
-
-                                    <?php
-                                }
-                               
-
+                                    //<?php
+//                                }
+                                    ?>
+                            
+                             */      
+                            ?>
+                            <img src="control/images/dummy.png?<?php echo time();?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+                           
+                             <?php
                         }else{
                            $image = "_uploads/admin_avatar/admin_avatar.jpg";
                             

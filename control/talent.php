@@ -15,6 +15,7 @@ if (isset($_GET['op']) AND ( $_GET['op'] == "del")) {
 $query = "SELECT * FROM tbl_users WHERE TYPE = '1' ORDER BY id DESC";
 //$query_row = mysqli_query($link,$query);
 
+
 $page = new PS_Pagination($link, $query, $rows_per_page = 32, $link_page = 200, $append = "");
 $rs = $page->paginate();
 ?>

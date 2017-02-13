@@ -8,12 +8,12 @@ include './include/common_function.php';
 if (isset($_GET['view'])) {
     $view_cnt = $_GET['view'];
     $sql_view_insert = "Update tbl_forum_topics set view_count ='" . $view_cnt . "' where id='" . $_GET['id'] . "'";
-    mysqli_query($link,$sql_view_insert);
+    mysqli_query($link, $sql_view_insert);
 }
 //DATABASE QUERY
 //$query="SELECT tbl_forum_topics.id AS forum_id,tbl_forum_topics.*, tbl_users.* FROM tbl_forum_topics 
 //LEFT JOIN  tbl_users ON tbl_forum_topics.uid=tbl_users.id WHERE tbl_forum_topics.id='".$_GET['id']."'";die;
-$sql = mysqli_query($link,"SELECT tbl_forum_topics.id AS forum_id,tbl_forum_topics.*, tbl_users.* FROM tbl_forum_topics
+$sql = mysqli_query($link, "SELECT tbl_forum_topics.id AS forum_id,tbl_forum_topics.*, tbl_users.* FROM tbl_forum_topics
 				 LEFT JOIN  tbl_users ON tbl_forum_topics.uid=tbl_users.id WHERE tbl_forum_topics.id='" . $_GET['id'] . "'");
 $data = mysqli_fetch_assoc($sql);
 // print_r($data);
@@ -21,7 +21,7 @@ $data = mysqli_fetch_assoc($sql);
 $str = "SELECT tbl_forum_reply.`id` AS reply_id,tbl_forum_reply.*, tbl_forum_reply.uid as reply_uid,tbl_forum_reply.id as reply_id  , tbl_users.* FROM tbl_forum_reply
 				 LEFT JOIN  tbl_users ON tbl_forum_reply.uid=tbl_users.id WHERE tbl_forum_reply.forum_id='" . $_GET['id'] . "' order by tbl_forum_reply.id desc";
 // echo $str;
-$sql1 = mysqli_query($link,$str);
+$sql1 = mysqli_query($link, $str);
 //$ert=mysqli_fetch_assoc($sql1);
 // print_r($ert);
 include('include/header.php');
@@ -455,7 +455,32 @@ define('PAGE_LINK_NO', 50);
                     <div class="photo_name">
                         <p><?php echo date('F jS, Y h:i:s', strtotime($data["post_date"])); ?></p>
                         <?php /* ?> <img src="_uploads/user_photo/<?php echo $data["uid"] ?>.jpg"/><?php */ ?>
-                        <img style="margin:10px 0px 0px 15px;" src="../_images/star.png"/>
+                        <?php
+                        if ($data['uid'] == 0) {
+                            ?>
+
+                            <?php
+                            if (file_exists("../_uploads/admin_avatar/admin_avatar.jpg")) {
+                                ?>
+
+                                <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="../_uploads/admin_avatar/admin_avatar.jpg?<?php echo time(); ?>"/>
+
+                            <?php } else {
+                                ?>
+                                <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="../_images/star.png?<?php echo time(); ?>"/>
+
+                                <?php
+                            }
+                            ?>
+                        <?php } else {
+                            ?>
+
+                            <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px" src="images/dummy.png?<?php echo time(); ?>"/>
+
+
+                        <?php }
+                        ?>
+
                     </div>
                     <div class="introduse">
                         <p style="margin-top:-14px;margin-left:100px;font-weight:bold">
@@ -502,14 +527,39 @@ define('PAGE_LINK_NO', 50);
                     <td>
                         <div class="total_reply">
                             <div class="reply_photo_name" >
-                                <p><?php //echo date('F jS, Y h:i a', strtotime($row["post_time"]));                           ?></p>
-                                <img style="float:left; margin:15px 0px 0px 15px;" src="../_images/star.png"/>
-                                <p style="margin-left:80px; margin-top:30px;"><label>By: </label>
-                                    <!--<a href="profile-details.php?username=<?php /* echo $row['username']; */ ?>">--><?php /* echo $row['username']; */ ?>
+                                <p><?php //echo date('F jS, Y h:i a', strtotime($row["post_time"]));                                  ?></p>
+                                <?php
+                                if ($row['uid'] == 0) {
+                                    ?>
+
+                                    <?php
+                                    if (file_exists("../_uploads/admin_avatar/admin_avatar.jpg")) {
+                                        ?>
+
+                                        <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="../_uploads/admin_avatar/admin_avatar.jpg?<?php echo time(); ?>"/>
+
+                                    <?php } else {
+                                        ?>
+                                        <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="../_images/star.png?<?php echo time(); ?>"/>
+
+                                        <?php
+                                    }
+                                    ?>
+                                <?php } else {
+                                    ?>
+
+                                    <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px" src="images/dummy.png?<?php echo time(); ?>"/>
+
+
+                                <?php }
+                                ?>
+
+                                <p style="margin-left:80px; margin-top:30px;"><label style="width: 2em;">By: </label>
+                                <!--<a href="profile-details.php?username=<?php /* echo $row['username']; */ ?>">--><?php /* echo $row['username']; */ ?>
                                     <a href="javascript:void(0)"><?php echo $username = ($row['uid'] == "0") ? "Admin" : $row['username']; ?>
                                     </a>
                                 <p>
-                                <p style="margin-left:80px;"><label>on:</label><?php echo date('F jS, Y h:i a', strtotime($row["post_time"])); ?></p>
+                                <p style="margin-left:80px;"><label style="width: 2em;" >on:</label><?php echo date('F jS, Y h:i a', strtotime($row["post_time"])); ?></p>
                                 <?php
                                 if ((isset($_SESSION['talent_id'])AND ( ($_SESSION['talent_id'] == $row['uid']) || ($_SESSION['talent_id'] == $data121['uid']))) || (isset($_SESSION['user_id'])AND ( ($_SESSION['user_id'] == $row['uid']) || ($_SESSION['user_id'] == $data121['uid']))) || (isset($_SESSION['cms_login']) && ($_SESSION['cms_login'] != 0))) {
                                     //if(isset($_SESSION['talent_id'])AND($_SESSION['talent_id']==$row['uid']) || (isset($_SESSION['cms_login']) && ($_SESSION['cms_login']!=0))||(isset($_SESSION['user_id'])AND($_SESSION['user_id']==$row['uid']))){
@@ -517,7 +567,7 @@ define('PAGE_LINK_NO', 50);
                                     <a  style="margin-left:80px;" href="<?php echo "javascript:ConfrimREPLY_Delete('http://" . $_SERVER['HTTP_HOST'] . "/control/delete-forum-topic_reply_admin.php?id=" . $row['reply_id'] . "&forum_id=" . $_GET['id'] . "')"; ?>">
                                         <img src="../_images/del.png" title="Delete Topic">
                                     </a>
-                                    <a  style="margin-left:80px;" href="edit-forum-topic-reply-admin.php?t_id=<?php echo $_GET['id']; ?>&rep_id=<?php echo $row['reply_id']; ?>">
+                                    <a  style="margin-left:10px;" href="edit-forum-topic-reply-admin.php?t_id=<?php echo $_GET['id']; ?>&rep_id=<?php echo $row['reply_id']; ?>">
                                         <img src="../_images/Edit.png" title="Edit Topic Reply">
                                     </a>
                                     <?php

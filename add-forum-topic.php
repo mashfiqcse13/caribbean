@@ -11,7 +11,6 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
         $uid = "";
     }
 
-    
     if ((isset($_POST['forum_details'])) && ($_POST['forum_details'] != '')) {
         $data = array(
             "uid" => $uid,
