@@ -12,8 +12,8 @@ $string5 = '.mp3"/><description>Artist Name : ';
 $string6 = '</description></item>';
 
 $tmusic = "SELECT * FROM tbl_site_music WHERE status='1' ORDER BY tbl_site_music.id DESC ";
-$sqlmu = mysqli_query($link,$tmusic);
-$sqlmu1 = mysqli_query($link,$tmusic);
+$sqlmu = mysqli_query($link, $tmusic);
+$sqlmu1 = mysqli_query($link, $tmusic);
 
 while ($row = mysqli_fetch_assoc($sqlmu)) {
     $string.=$string3 . ucfirst($row["name"]);
@@ -59,17 +59,16 @@ fwrite($handle, $data);
             </div>
             <div class="home_img">
                 <a href="artist-directory.php?id=<?php echo "7"; ?>">
-                    <img src="_images/header_img_3.jpg?<?php echo time() ?>" border="0" height="359" />
+                    <img src="_images/header_img_3.jpg?<?php echo time() ?>" border="0" height="359"/>
                 </a>
             </div>
             <div class="home_img_4">
                 <a href="artist-directory.php?id=<?php echo "2"; ?>">
-                    <img src="_images/header_img_4.jpg?<?php echo time() ?>" border="0" height="359" />
+                    <img src="_images/header_img_4.jpg?<?php echo time() ?>" border="0" height="359"/>
                 </a>
             </div>          
             <div class="clear"></div>
         </div>
-
 
         <div class="home_left_side_second">
 
@@ -95,7 +94,7 @@ fwrite($handle, $data);
         <?php
 // $sql1="SELECT * FROM  tbl_users  WHERE  type=1 order by RAND() LIMIT 0, 20 ";
         $sql1 = "SELECT * FROM tbl_featured_artists WHERE  status=1";
-        $result1 = mysqli_query($link,$sql1);
+        $result1 = mysqli_query($link, $sql1);
 //$row1=mysqli_fetch_assoc($result1);
 //print_r($row1);
         ?>
@@ -157,7 +156,7 @@ fwrite($handle, $data);
         </div>
         <?php
         $sql = "SELECT * FROM  tbl_forum_topics order by tbl_forum_topics.id desc LIMIT 0, 4 ";
-        $result = mysqli_query($link,$sql);
+        $result = mysqli_query($link, $sql);
         //$row=mysqli_fetch_assoc($result);
         //print_r($row);
         ?>
@@ -168,201 +167,191 @@ fwrite($handle, $data);
                     ?>
                     <li>
                         <?php
-                        $image = "_uploads/user_photo/" . $row["uid"] . ".jpg";
-                        if (file_exists($image)) {
-                            ?>
-                            <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
-                                <?php  ?><img src="_uploads/user_photo/<?php echo $row["uid"]; ?>.jpg" height="35" width="35" /><?php echo $row['forum_topic']; ?><?php  ?>
-                                <img src="<?php echo $image; ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+                        
 
-                            </a>
-                        <?php } else { ?>
+                        if ($row['is_admin'] == 'No') {
+                            $image = "_uploads/user_photo/" . $row["uid"] . ".jpg";
+                            
+                            if (file_exists($image)) {
+                                ?>
+                                <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
 
-                            <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
-                                <img src="_images/star.png" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+                                    <img src="<?php echo $image . "?" . time(); ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+
+                                </a>
+                            <?php } else { ?>
+
+                                <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
+                                    <img src="control/images/dummy.png?<?php echo time();?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
 
 
-                                <?php
-                            }
-                            ?>
+                                    <?php
+                                }
+                               
 
-                    </li>
-                <?php } ?>
-            </ul>
+                        }else{
+                           $image = "_uploads/admin_avatar/admin_avatar.jpg";
+                            
+                            if (file_exists($image)) {
+                                ?>
+                                <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
+
+                                    <img src="<?php echo $image . "?" . time(); ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+
+                                </a>
+                            <?php } else { ?>
+
+                                <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
+                                    <img src="control/images/dummy.png?<?php echo time();?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+
+
+                                    <?php
+                                }                     
+                        }
+                        ?>
+
+
+                        </li>
+                    <?php } ?>
+                </ul>
+            </div>
+
+            <div class="home_right_side_third">
+                <a href="forum.php">Join the  Forum</a>
+            </div>
+
+            <div class="home_right_side_fourth">
+                <a href="talents/registration.php">
+                    <img src="_images/showcase_img.jpg" />
+                </a>
+            </div>
+            <div style="margin:10px 0px 0px 5px;">
+                <iframe width="322" height="242" src="//www.youtube.com/embed/Ng_xLu7DylE" frameborder="0" allowfullscreen></iframe>
+            </div>
+            <style>
+                aside.items {
+                    border: 3px solid #DDDDDD;
+                    padding: 5px;
+                    margin: 0 0 10px;
+                }
+                .items > img {
+                    width: 100%;
+                }
+                .item_info{
+                    color: #009900;
+                    text-align: right;
+                }
+                .item_info tr td:first-child {
+                    font-weight: bold;
+                    text-align: left;
+                }
+                .home_bottom {
+                    clear: both;
+                    padding: 5px 0 0;
+                }
+                .home_bottom > ul {
+                    padding: 0;
+                    text-align: center;
+                }
+                .home_bottom li {
+                    display: inline-block;
+                    width: 32%;
+                }
+            </style>
+
         </div>
-
-        <div class="home_right_side_third">
-            <a href="forum.php">Join the  Forum</a>
-        </div>
-
-        <div class="home_right_side_fourth">
-            <a href="talents/registration.php">
-                <img src="_images/showcase_img.jpg" />
-            </a>
-        </div>
-        <div style="margin:10px 0px 0px 5px;">
-            <iframe width="322" height="242" src="//www.youtube.com/embed/Ng_xLu7DylE" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <style>
-            aside.items {
-                border: 3px solid #DDDDDD;
-                padding: 5px;
-                margin: 0 0 10px;
-            }
-            .items > img {
-                width: 100%;
-            }
-            .item_info{
-                color: #009900;
-                text-align: right;
-            }
-            .item_info tr td:first-child {
-                font-weight: bold;
-                text-align: left;
-            }
-            .home_bottom {
-                clear: both;
-                padding: 5px 0 0;
-            }
-            .home_bottom > ul {
-                padding: 0;
-                text-align: center;
-            }
-            .home_bottom li {
-                display: inline-block;
-                width: 32%;
-            }
-        </style>
-
-    </div>
-    <div class="home_bottom">
-        <?php
-        $sql = 'SELECT tbl_contact.*,tbl_contactrecords.`page_name` 
+        <div class="home_bottom">
+            <?php
+            $sql = 'SELECT tbl_contact.*,tbl_contactrecords.`page_name` 
                     FROM tbl_contact 
                         JOIN tbl_contactrecords on tbl_contact.id = tbl_contactrecords.`contactid` 
                     where page_name = \'Home\'';
 
-        $result = mysqli_query($link,$sql);
+            $result = mysqli_query($link, $sql);
 
-        if ($result) {
-            ?>
-            <ul>
-                <?php
-                while ($row = mysqli_fetch_array($result)) {
-                    if (!empty($row['file_attached'])) {
-                        ?>
-                        <li>
-                            <aside class="items">
-                                <?php
-                                $stripslash = explode('/', $row['file_attached']);
-                                $file = explode('.', $stripslash['1']);
-
-                                if ($file['1'] == 'mp3' || $file['1'] == 'wav') {
-                                    ?>
-
-                                    <audio width="100%" id="player" src="<?php echo SITE_URL . $row['file_attached']; ?>" type="audio/mp3" controls="controls"></audio>
-                                    <?php
-                                }
-
-                                if ($file['1'] == 'jpg' || $file['1'] == 'jpeg' || $file['1'] == 'png') {
-                                    ?>
-                                    <a href="<?php echo SITE_URL . $row['file_attached']; ?>" class="img_preview">
-                                        <img height="150" src="<?php echo SITE_URL . $row['file_attached']; ?>" />
-                                    </a>
-                                    <?php
-                                }
-
-                                if ($file['1'] == 'mp4') {
-                                    ?> 
-                                    <video width="100%" height="150" controls="">
-                                        <source src="<?php echo SITE_URL . $row['file_attached']; ?>" type="video/mp4">
-                                        Your browser does not support the video tag.
-                                    </video> 
-                                    <?php
-                                }
-                                ?>
-                                <table class="item_info">
-                                    <tr>
-                                        <td>Title</td>
-                                        <td>:</td>
-                                        <td><?php echo $row['title_of_work'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Artist</td>
-                                        <td>:</td>
-                                        <td><?php echo $row['artistbandname'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Genre</td>
-                                        <td>:</td>
-                                        <td><?php echo $row['genre'] ?></td>
-                                    </tr>
-                                </table>
-
-                            </aside>
-
-                        </li><?php }
-                            ?>
-
-                    <?php
-                }
+            if ($result) {
                 ?>
-            </ul>
-        <?php } ?>
-    </div>
+                <ul>
+                    <?php
+                    while ($row = mysqli_fetch_array($result)) {
+                        if (!empty($row['file_attached'])) {
+                            ?>
+                            <li>
+                                <aside class="items">
+                                    <?php
+                                    $stripslash = explode('/', $row['file_attached']);
+                                    $file = explode('.', $stripslash['1']);
 
-    <!--<h1>WELCOME TO CARIBBEAN CIRCLE STARS</h1>-->
-                    <!--<h2><?php // echo GetPageHeading('Home');                         ?></h2>-->
-  <!--<p><?php // echo GetPageText('Home');                         ?></p>-->
+                                    if ($file['1'] == 'mp3' || $file['1'] == 'wav') {
+                                        ?>
+
+                                        <audio width="100%" id="player" src="<?php echo SITE_URL . $row['file_attached']; ?>" type="audio/mp3" controls="controls"></audio>
+                                        <?php
+                                    }
+
+                                    if ($file['1'] == 'jpg' || $file['1'] == 'jpeg' || $file['1'] == 'png') {
+                                        ?>
+                                        <a href="<?php echo SITE_URL . $row['file_attached']; ?>" class="img_preview">
+                                            <img height="150" src="<?php echo SITE_URL . $row['file_attached']; ?>" />
+                                        </a>
+                                        <?php
+                                    }
+
+                                    if ($file['1'] == 'mp4') {
+                                        ?> 
+                                        <video width="100%" height="150" controls="">
+                                            <source src="<?php echo SITE_URL . $row['file_attached']; ?>" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video> 
+                                        <?php
+                                    }
+                                    ?>
+                                    <table class="item_info">
+                                        <tr>
+                                            <td>Title</td>
+                                            <td>:</td>
+                                            <td><?php echo $row['title_of_work'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Artist</td>
+                                            <td>:</td>
+                                            <td><?php echo $row['artistbandname'] ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Genre</td>
+                                            <td>:</td>
+                                            <td><?php echo $row['genre'] ?></td>
+                                        </tr>
+                                    </table>
+
+                                </aside>
+
+                            </li><?php }
+                                ?>
+
+                        <?php
+                    }
+                    ?>
+                </ul>
+            <?php } ?>
+        </div>
+
+        <!--<h1>WELCOME TO CARIBBEAN CIRCLE STARS</h1>-->
+                        <!--<h2><?php // echo GetPageHeading('Home');                          ?></h2>-->
+      <!--<p><?php // echo GetPageText('Home');                          ?></p>-->
 
 
 
 
 
-</div><!--END CLASS content-->
-<script language="javascript" type="text/javascript">
-    $(document).ready(function () {
-        $('.img_preview').fancybox();
-    });
-    $(window).bind('load', function () {
-
-        // $("#music_content").load('music_player.php');
-        $.ajax({
-            type: "POST",
-            url: "music_player.php",
-            async: false,
-            success: function (result) {
-                $("#music_content").html(result);
-            }
+    </div><!--END CLASS content-->
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $('.img_preview').fancybox();
         });
+        $(window).bind('load', function () {
 
-    });
-
-    /*window.onunload=function(){
-     alert("tesj");
-     //your code here
-     }
-     */
-
-    window.onpagehide = function () {
-        // some code here.
-        //alert("tes");
-        $("#music_content").html('Music');
-    };
-    window.onbeforeunload = function () {
-        // alert("tes");
-        $("#music_content").html('Music');
-    };
-
-    window.onbeforeunload = Call;
-    function Call() {
-        //alert("Unload Callled");
-        //  return "You are going to close this window?";
-        $("#music_content").html('Music');
-    }
-    setInterval(function () {
-        if ($("#music_content").html() == "Music")
-        {
+            // $("#music_content").load('music_player.php');
             $.ajax({
                 type: "POST",
                 url: "music_player.php",
@@ -371,10 +360,46 @@ fwrite($handle, $data);
                     $("#music_content").html(result);
                 }
             });
+
+        });
+
+        /*window.onunload=function(){
+         alert("tesj");
+         //your code here
+         }
+         */
+
+        window.onpagehide = function () {
+            // some code here.
+            //alert("tes");
+            $("#music_content").html('Music');
+        };
+        window.onbeforeunload = function () {
+            // alert("tes");
+            $("#music_content").html('Music');
+        };
+
+        window.onbeforeunload = Call;
+        function Call() {
+            //alert("Unload Callled");
+            //  return "You are going to close this window?";
+            $("#music_content").html('Music');
         }
-        //code goes here that will be run every 5 seconds.    
-    }, 5000);
-</script>
-<?php
-include('_includes/footer.php');
-?> 
+        setInterval(function () {
+            if ($("#music_content").html() == "Music")
+            {
+                $.ajax({
+                    type: "POST",
+                    url: "music_player.php",
+                    async: false,
+                    success: function (result) {
+                        $("#music_content").html(result);
+                    }
+                });
+            }
+            //code goes here that will be run every 5 seconds.    
+        }, 5000);
+    </script>
+    <?php
+    include('_includes/footer.php');
+    ?> 

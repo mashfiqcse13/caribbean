@@ -2,7 +2,7 @@
 include('_includes/application-top.php');
 CheckLoginForum();
 //echo $_SESSION['user_id'];
-if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
+if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {   
     if (isset($_SESSION['talent_id']) AND $_SESSION['talent_id'] != '') {
         $uid = $_SESSION['talent_id'];
     } elseif (isset($_SESSION['user_id']) AND $_SESSION['user_id'] != '') {
@@ -11,6 +11,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
         $uid = "";
     }
 
+    
     if ((isset($_POST['forum_details'])) && ($_POST['forum_details'] != '')) {
         $data = array(
             "uid" => $uid,
