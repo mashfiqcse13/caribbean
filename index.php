@@ -202,7 +202,7 @@ fwrite($handle, $data);
                             <?php } else { ?>
 
                                 <a href="view_forum_topic.php?id=<?php echo $row["id"]; ?>">
-                                    <img src="control/images/dummy.png?<?php echo time();?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+                                    <img src="_images/star.png?<?php echo time();?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
 
 
                                     <?php
