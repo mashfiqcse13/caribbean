@@ -3,14 +3,31 @@ include('_includes/application-top.php');
 include_once '_includes/class.database.php';
 $db = new DBClass(db_host, db_username, db_passward, db_name);
 
+
+
 if (!empty($_POST['banned_user_id']) && !empty($_POST['mac_msg_by_user'])) {
     $banned_user_id = $_POST['banned_user_id'];
     $data_to_insert = array(
         "mac_msg_by_user" => $_POST['mac_msg_by_user']
     );
     $db->db_update('tbl_users', $data_to_insert, "`id` = $banned_user_id");
-    header("Location: " . SITE_URL . "member/registration.php");
-    die();
+
+
+    $banned_user_details = $db->db_select_as_array('tbl_users', "`id` = $banned_user_id");
+//
+//    echo '<pre>';
+//    print_r($banned_user_details);
+//    die();
+
+
+    if ($banned_user_details[0]['type'] == 0) {
+        header("Location: " . SITE_URL . "member/login.php");
+        die();
+    } else {
+        header("Location: " . SITE_URL . "talents/login.php");
+        die();
+    }
+//    
 }
 
 
