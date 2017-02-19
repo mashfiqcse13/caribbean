@@ -114,7 +114,13 @@ include('include/header.php');
                     }
                     ?>
                 </div>
+                
+                <p>
+                    <a href="add_admin_avatar.php" class="button">Select Forum Photo</a>
+                </p>
 
+                 <!--<li><a href="add_admin_avatar.php">Add Admin Avatar</a></li>-->                
+                
                 <label style="vertical-align:top;">Details:</label>
                 <textarea name="forum_details" id="editor" class="required"></textarea>
                 <p class="img_warning">Note: Photo should be no longer than 300 height.</p>

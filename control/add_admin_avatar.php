@@ -2,18 +2,20 @@
 include('include/application_top.php');
 cmslogin();
 // Check if image file is a actual image or fake image
-if (isset($_POST["submit"])) {
-    $filename = "../_uploads/admin_avatar/admin_avatar.jpg";
-    if ($_POST['submit'] == "Remove Image") {
+if (isset($_POST['submit']) && $_POST['submit'] == "Upload Image") {
 
-        if (file_exists($filename)) {
-            unlink($filename);
-        }
-        header("Location:" . BASE_URL . "control/add_admin_avatar.php");
-        die();
-    }
     $target_file = "../_uploads/admin_avatar/admin_avatar.jpg";
     move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file);
+    header("Location:" . BASE_URL . "control/add_admin_avatar.php");
+    die();
+}
+
+
+if (isset($_POST['submit']) && $_POST['submit'] == "Remove Image") {
+    $filename = "../_uploads/admin_avatar/admin_avatar.jpg";
+    if (file_exists($filename)) {
+        unlink($filename);
+    }
     header("Location:" . BASE_URL . "control/add_admin_avatar.php");
     die();
 }
@@ -21,7 +23,6 @@ if (isset($_POST["submit"])) {
 <?php include('include/header.php'); ?>
 
 <?php $image = "../_uploads/admin_avatar/admin_avatar.jpg"; ?>
-
 
 
 <style>
@@ -33,6 +34,13 @@ if (isset($_POST["submit"])) {
 </style>
 
 
+<h1>Add Fourm Image</h1>
+
+<p style="text-align:right">
+
+    <a href="add-forum-topic-admin.php" class="button" style="float:left; margin:-5px 0px 0px 0px;">Back</a>
+
+</p>
 
 
 <form action="" method="post" enctype="multipart/form-data">
@@ -72,15 +80,32 @@ if (isset($_POST["submit"])) {
 
         </tr>
 
-        <tr>
-
-            <td></td>
-            <td><input type="submit" value="Remove Image" name="submit"></td>
-
-        </tr>
-
 
     </table>
 </form>
+
+
+
+
+<table>
+
+    <tr>
+
+        <td width="235px"></td>
+
+        <td>
+            <form action="" method="post" enctype="multipart/form-data">
+                <input type="submit" value="Remove Image" name="submit">
+            </form>
+        </td>
+
+    </tr>
+
+</table>
+
+
+
+
+
 
 <?php include('include/footer.php'); ?>

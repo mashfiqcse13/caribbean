@@ -32,8 +32,7 @@
                                         <li><a href="search.php">Search</a></li>
                                         <li><a href="search.php">Home</a></li>
                                         <li><a href="cms.php">CMS</a></li>
-                                        <li><a href="change_password.php">Change Pasword</a></li>
-                                        <li><a href="add_admin_avatar.php">Add Admin Avatar</a></li>
+                                        <li><a href="change_password.php">Change Pasword</a></li>                                   
                                         <li><a href="manage_music.php">Manage Music</a></li>
                                         <li><a href="media.php">Manage Media</a></li>
                                         <li><a href="order_manage.php">Order Manage</a></li>

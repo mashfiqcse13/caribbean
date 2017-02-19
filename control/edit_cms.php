@@ -40,8 +40,17 @@ while ($row = mysqli_fetch_array($result)) {
             <p><label style="vertical-align:top;">CmsText:</label>
                 <textarea name="cms_text" id="txtContent" class="required"><?php echo $row['cms_text']; ?></textarea>
 
+                
                 <script language="javascript" type="text/javascript">
-                    CKEDITOR.replace('txtContent');
+                    CKEDITOR.replace('txtContent',{
+                        
+                        filebrowserBrowseUrl: '<?php echo SITE_URL1?>control/ckfinder/ckfinder.html',
+                        filebrowserImageBrowseUrl: '<?php echo SITE_URL1?>control/ckfinder/ckfinder.html?type=Images',
+                        filebrowserFlashBrowseUrl: '<?php echo SITE_URL1?>control/ckfinder/ckfinder.html?type=Flash',
+                        filebrowserUploadUrl: '<?php echo SITE_URL1?>control/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                        filebrowserImageUploadUrl: '<?php echo SITE_URL1?>control/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                        filebrowserFlashUploadUrl: '<?php echo SITE_URL1?>control/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                    });
                 </script>
             </p>
 

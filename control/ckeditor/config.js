@@ -10,16 +10,14 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// The toolbar groups arrangement, optimized for two toolbar rows.
 	
-	config.filebrowserBrowseUrl = site_url +'control/ckeditor/kcfinder/browse.php?opener=ckeditor&type=files';
-   config.filebrowserImageBrowseUrl = site_url +'control/ckeditor/kcfinder/browse.php?opener=ckeditor&type=images';
-   config.filebrowserFlashBrowseUrl = site_url +'control/ckeditor/kcfinder/browse.php?opener=ckeditor&type=flash';
-   config.filebrowserUploadUrl = site_url + 'control/ckeditor/kcfinder/upload.php?opener=ckeditor&type=files';
-   config.filebrowserImageUploadUrl = site_url +'control/ckeditor/kcfinder/upload.php?opener=ckeditor&type=images';
-   config.filebrowserFlashUploadUrl = site_url + 'control/ckeditor/kcfinder/upload.php?opener=ckeditor&type=flash';
+//	config.filebrowserBrowseUrl = site_url +'control/ckeditor/kcfinder/browse.php?opener=ckeditor&type=files';
+//   config.filebrowserImageBrowseUrl = site_url +'control/ckeditor/kcfinder/browse.php?opener=ckeditor&type=images';
+//   config.filebrowserFlashBrowseUrl = site_url +'control/ckeditor/kcfinder/browse.php?opener=ckeditor&type=flash';
+//   config.filebrowserUploadUrl = site_url + 'control/ckeditor/kcfinder/upload.php?opener=ckeditor&type=files';
+//   config.filebrowserImageUploadUrl = site_url +'control/ckeditor/kcfinder/upload.php?opener=ckeditor&type=images';
+//   config.filebrowserFlashUploadUrl = site_url + 'control/ckeditor/kcfinder/upload.php?opener=ckeditor&type=flash';
 	
-	
-	
-	
+
 	config.toolbarGroups = [
 		{ name: 'clipboard',   groups: [ 'clipboard', 'undo' ] },
 		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },

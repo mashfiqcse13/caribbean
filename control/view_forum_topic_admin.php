@@ -41,9 +41,9 @@ if ((isset($_SESSION['cms_login'])) && ($_SESSION['cms_login'] != 0)) {
     Onlineactivity();
 }
 
-define('SITE_NAME', 'CCS');
-define('FROM_EMAIL', 'donotreply@caribbeancirclestars.com');
-define('TO_ADMIN', 'admin@caribbeancirclestars.com');
+//define('SITE_NAME', 'CCS');
+//define('FROM_EMAIL', 'donotreply@caribbeancirclestars.com');
+//define('TO_ADMIN', 'admin@caribbeancirclestars.com');
 
 
 define('MEMBER_IMAGE_SIZE', 150);
@@ -455,7 +455,7 @@ define('PAGE_LINK_NO', 50);
                     <div class="photo_name">
                         <p><?php echo date('F jS, Y h:i:s', strtotime($data["post_date"])); ?></p>
                         <?php /* ?> <img src="_uploads/user_photo/<?php echo $data["uid"] ?>.jpg"/><?php */ ?>
-                        <?php
+                       <?php
                         if ($data['uid'] == 0) {
                             ?>
 
@@ -465,20 +465,38 @@ define('PAGE_LINK_NO', 50);
 
                                 <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="../_uploads/admin_avatar/admin_avatar.jpg?<?php echo time(); ?>"/>
 
-                            <?php } else {
-                                ?>
+                            <?php } else { ?>
+
                                 <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="../_images/star.png?<?php echo time(); ?>"/>
+
 
                                 <?php
                             }
-                            ?>
-                        <?php } else {
-                            ?>
+                        } else {
+                            if ($data['forum_avatar_setting'] == 1) {
+                                $filename = "../_uploads/user_photo/" . $data["id"] . ".jpg";
+                                if (file_exists($filename)) {
+                                    ?>
+                                    <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="<?php echo "$filename?" . time() ?>"/>
 
-                            <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px" src="images/dummy.png?<?php echo time(); ?>"/>
+                                <?php } else { ?>
+                                    <img style = "margin:10px 0px 0px 15px; width: 31px; height: 30px" src = "images/dummy.png?<?php echo time(); ?>"/>
 
+                                    <?php
+                                }
+                            } else {
+                                $filename = "../_uploads/user_avatar/" . $data["id"] . ".jpg";
+                                if (file_exists($filename)) {
+                                    ?>
+                                    <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="<?php echo "$filename?" . time() ?>"/>
 
-                        <?php }
+                                <?php } else { ?>
+                                    <img style = "margin:10px 0px 0px 15px; width: 31px; height: 30px" src = "images/dummy.png?<?php echo time(); ?>"/>
+
+                                    <?php
+                                }
+                            }
+                        }
                         ?>
 
                     </div>
@@ -538,20 +556,39 @@ define('PAGE_LINK_NO', 50);
 
                                         <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="../_uploads/admin_avatar/admin_avatar.jpg?<?php echo time(); ?>"/>
 
-                                    <?php } else {
-                                        ?>
+                                    <?php } else { ?>
+
                                         <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="../_images/star.png?<?php echo time(); ?>"/>
 
                                         <?php
                                     }
-                                    ?>
-                                <?php } else {
-                                    ?>
+                                } else {
 
-                                    <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px" src="images/dummy.png?<?php echo time(); ?>"/>
+                                    if ($row['forum_avatar_setting'] == 1) {
+                                        $filename = "../_uploads/user_photo/" . $row["id"] . ".jpg";
+                                        if (file_exists($filename)) {
+                                            ?>
+                                            <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="<?php echo "$filename?" . time() ?>"/>
 
+                                        <?php } else { ?>
+                                            <img style = "margin:10px 0px 0px 15px; width: 31px; height: 30px" src = "images/dummy.png?<?php echo time(); ?>"/>
 
-                                <?php }
+                                            <?php
+                                        }
+                                    } else {
+                                        $filename = "../_uploads/user_avatar/" . $row["id"] . ".jpg";
+                                        
+                                        if (file_exists($filename)) {
+                                            ?>
+                                            <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="<?php echo "$filename?" . time() ?>"/>
+
+                                        <?php } else { ?>
+                                            <img style = "margin:10px 0px 0px 15px; width: 31px; height: 30px" src = "images/dummy.png?<?php echo time(); ?>"/>
+
+                                            <?php
+                                        }
+                                    }
+                                }
                                 ?>
 
                                 <p style="margin-left:80px; margin-top:30px;"><label style="width: 2em;">By: </label>

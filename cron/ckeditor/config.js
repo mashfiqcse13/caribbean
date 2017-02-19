@@ -38,6 +38,10 @@ CKEDITOR.editorConfig = function (config) {
     // Make dialogs simpler.
     config.removeDialogTabs = 'image:advanced;link:advanced';
     config.extraPlugins = 'image';
+    
+    
+    config.extraPlugins = 'myplugin,anotherplugin';
+    
 
     //My Plugin Purchased image upload
     config.extraPlugins = 'doksoft_image,wordcount';

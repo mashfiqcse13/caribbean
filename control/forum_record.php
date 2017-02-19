@@ -2,7 +2,6 @@
 include('include/application_top.php');
 cmslogin();
 if (isset($_POST["update"])) {
-
     $data = array(
         "name" => $_POST['name'],
         "heading" => $_POST['heading'],
@@ -35,9 +34,9 @@ if ((isset($_SESSION['cms_login'])) && ($_SESSION['cms_login'] != 0)) {
     Onlineactivity();
 }
 
-define('SITE_NAME', 'CCS');
-define('FROM_EMAIL', 'donotreply@caribbeancirclestars.com');
-define('TO_ADMIN', 'admin@caribbeancirclestars.com');
+//define('SITE_NAME', 'CCS');
+//define('FROM_EMAIL', 'donotreply@caribbeancirclestars.com');
+//define('TO_ADMIN', 'admin@caribbeancirclestars.com');
 
 
 define('MEMBER_IMAGE_SIZE', 150);

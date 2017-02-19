@@ -39,7 +39,9 @@ include('_includes/header.php');
             //echo '<pre>';print_r($_SESSION);
             if ((isset($_SESSION['user_login']) AND ( $_SESSION['user_login'] == 1)) || (isset($_SESSION['talent_login']) AND ( $_SESSION['talent_login'] == 1))) {
                 ?>
-                <p style="text-align:right"><a href="add-forum-topic.php" class="button">Add Topic</a></p>
+                
+                <p style="text-align:right"><a href="add_user_froum_photo.php" class="button">Select Forum Photo</a>
+                    <a href="add-forum-topic.php" class="button">Add Topic</a></p>
                 <?php
             }
             ?>

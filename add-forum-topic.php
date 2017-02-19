@@ -2,7 +2,7 @@
 include('_includes/application-top.php');
 CheckLoginForum();
 //echo $_SESSION['user_id'];
-if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {   
+if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
     if (isset($_SESSION['talent_id']) AND $_SESSION['talent_id'] != '') {
         $uid = $_SESSION['talent_id'];
     } elseif (isset($_SESSION['user_id']) AND $_SESSION['user_id'] != '') {
@@ -14,8 +14,8 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
     if ((isset($_POST['forum_details'])) && ($_POST['forum_details'] != '')) {
         $data = array(
             "uid" => $uid,
-            "forum_topic" => mysqli_real_escape_string( $link ,trim($_POST['forum_topic'])),
-            "forum_details" => mysqli_real_escape_string( $link ,trim($_POST['forum_details'])),
+            "forum_topic" => mysqli_real_escape_string($link, trim($_POST['forum_topic'])),
+            "forum_details" => mysqli_real_escape_string($link, trim($_POST['forum_details'])),
             "view_count" => '0'
         );
         $table = "tbl_forum_topics";
@@ -24,10 +24,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Add Topic')) {
         /* Added Activity Below */
 
         $uname = (GetChatUserName($uid));
-        SaveActivity(11, $uname, mysqli_real_escape_string( $link ,trim($_POST['forum_topic'])), $uid);
+        SaveActivity(11, $uname, mysqli_real_escape_string($link, trim($_POST['forum_topic'])), $uid);
 
         //////////////////////////////////////////////////
-
 
         $MSG = 'Your Topic Added sucessfully.';
     } else {
@@ -85,7 +84,11 @@ include('_includes/header.php');
                     <label for="email">Topic:</label>
                     <input  type="text" name="forum_topic" value="" maxlength="100" class="required" />
                 </p>
-
+                <p>
+                    <label for="email">Add Forum Photo:</label>
+                    <a href="add_user_froum_photo.php" class="button">Select Forum Photo</a>
+                </p>
+                
                 <label style="vertical-align:top;">Details:</label>
                 <textarea name="forum_details" id="editor" class="required"></textarea>
                 <script type="text/javascript">

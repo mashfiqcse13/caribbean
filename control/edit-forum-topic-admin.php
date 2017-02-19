@@ -29,7 +29,7 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Topic')) {
         updateData($data, $table, $parameters);
         ?>
         <script type="text/javascript">
-            window.location = "/control/view_forum_topic_admin.php?id=" + '<?php echo $_POST["top_id"] ?>' + "&op=u";
+            window.location = " <?php echo SITE_URL;?>view_forum_topic_admin.php?id=" + '<?php echo $_POST["top_id"] ?>' + "&op=u";
         </script>
         <?php
         //header("Location:view_forum_topic_admin.php?id=".$_POST["top_id"]."&op=u");
@@ -100,7 +100,15 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'Update Topic')) {
                 // window.onload event handler.
                 // Replace the <textarea id="editor"> with an CKEditor
                 // instance, using default configurations.
-                CKEDITOR.replace('editor');
+                CKEDITOR.replace('editor',{
+                    filebrowserBrowseUrl: '<?php echo SITE_URL1?>control/ckfinder/ckfinder.html',
+                    filebrowserImageBrowseUrl: '<?php echo SITE_URL1?>control/ckfinder/ckfinder.html?type=Images',
+                    filebrowserFlashBrowseUrl: '<?php echo SITE_URL1?>control/ckfinder/ckfinder.html?type=Flash',
+                    filebrowserUploadUrl: '<?php echo SITE_URL1?>control/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+                    filebrowserImageUploadUrl: '<?php echo SITE_URL1?>control/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+                    filebrowserFlashUploadUrl: '<?php echo SITE_URL1?>control/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                });
+                
             </script><br/><br/>
             <input type="hidden" name="media_id" value="<?php echo $media_id ?>"/>
             <input type="submit" name="submit" value="Update Topic" class="button" />   									

@@ -155,7 +155,8 @@ fwrite($handle, $data);
 
         </div>
         <?php
-        $sql = "SELECT * FROM  tbl_forum_topics order by tbl_forum_topics.id desc LIMIT 0, 4 ";
+//        $sql = "SELECT * FROM  tbl_forum_topics order by tbl_forum_topics.id desc LIMIT 0, 4 ";
+        $sql = "SELECT * FROM `tbl_forum_topics` LEFT JOIN `tbl_users` ON tbl_forum_topics.uid = tbl_users.id ORDER BY tbl_forum_topics.id DESC LIMIT 0, 4 ;";
         $result = mysqli_query($link, $sql);
         //$row=mysqli_fetch_assoc($result);
         //print_r($row);
@@ -170,28 +171,39 @@ fwrite($handle, $data);
                         
 
                         if ($row['is_admin'] == 'No') {
-//                            $image = "_uploads/user_photo/" . $row["uid"] . ".jpg";
-                      
-                            /*
-//                            if (file_exists($image)) {
-//                                ?>
-                                <a href="view_forum_topic.php?id=//////////////////<?php echo $row["id"]; ?>">
+//                            echo '<pre>';
+//                            print_r($row);
+//                            die();
+                            if ($row['forum_avatar_setting'] == 1) {
+                                        $filename = "_uploads/user_photo/" . $row["id"] . ".jpg";
+                                        echo $filename;
+                                        die();
+                                        if (file_exists($filename)) {
+                                            ?>
+                                            
+                                            <img src="<?php echo "$filename?" . time() ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
 
-                                    <img src="//////////////////<?php echo $image . "?" . time(); ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+                                        <?php } else { ?>
+                                          
+                                            <img src = "control/images/dummy.png?<?php echo time(); ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
 
-                                </a>
-                            //<?php } else { ?>
+                                            <?php
+                                        }
+                                    } else {
+                                        $filename = "_uploads/user_avatar/" . $row["id"] . ".jpg";
+                                        
+                                        if (file_exists($filename)) {
+                                            ?>
+                                            <img src="<?php echo "$filename?" . time() ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
 
-                                <a href="view_forum_topic.php?id=//////////////////<?php echo $row["id"]; ?>">
-                                    <img src="control/images/dummy.png?//////////////////<?php echo time();?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+                                        <?php } else { ?>
+                                            <img src = "control/images/dummy.png?<?php echo time(); ?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
 
-                                    //<?php
-//                                }
-                                    ?>
-                            
-                             */      
+                                            <?php
+                                        }
+                                    }
                             ?>
-                            <img src="control/images/dummy.png?<?php echo time();?>" height="35" width="35" /><?php echo $row['forum_topic']; ?>
+                            
                            
                              <?php
                         }else{

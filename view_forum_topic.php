@@ -116,20 +116,38 @@ include('_includes/header.php');
 
                                 <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="_uploads/admin_avatar/admin_avatar.jpg?<?php echo time(); ?>"/>
 
-                            <?php } else {
-                                ?>
+                            <?php } else { ?>
+
                                 <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="_images/star.png?<?php echo time(); ?>"/>
+
 
                                 <?php
                             }
-                            ?>
-                        <?php } else {
-                            ?>
+                        } else {
+                            if ($data['forum_avatar_setting'] == 1) {
+                                $filename = "_uploads/user_photo/" . $data["id"] . ".jpg";
+                                if (file_exists($filename)) {
+                                    ?>
+                                    <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="<?php echo "$filename?" . time() ?>"/>
 
-                            <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px" src="control/images/dummy.png?<?php echo time(); ?>"/>
+                                <?php } else { ?>
+                                    <img style = "margin:10px 0px 0px 15px; width: 31px; height: 30px" src = "control/images/dummy.png?<?php echo time(); ?>"/>
 
+                                    <?php
+                                }
+                            } else {
+                                $filename = "_uploads/user_avatar/" . $data["id"] . ".jpg";
+                                if (file_exists($filename)) {
+                                    ?>
+                                    <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="<?php echo "$filename?" . time() ?>"/>
 
-                        <?php }
+                                <?php } else { ?>
+                                    <img style = "margin:10px 0px 0px 15px; width: 31px; height: 30px" src = "control/images/dummy.png?<?php echo time(); ?>"/>
+
+                                    <?php
+                                }
+                            }
+                        }
                         ?>
 
 
@@ -190,7 +208,7 @@ include('_includes/header.php');
                     <td>
                         <div class="total_reply">
                             <div class="reply_photo_name" >
-                                <p><?php //echo date('F jS, Y h:i a', strtotime($row["post_time"]));                   ?></p>
+                                <p><?php //echo date('F jS, Y h:i a', strtotime($row["post_time"]));                                ?></p>
                                 <!--<img style="float:left; margin:15px 0px 0px 15px;" src="_images/star.png"/>-->
                                 <?php
                                 if ($row['uid'] == 0) {
@@ -202,22 +220,42 @@ include('_includes/header.php');
 
                                         <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="_uploads/admin_avatar/admin_avatar.jpg?<?php echo time(); ?>"/>
 
-                                    <?php } else {
-                                        ?>
+                                    <?php } else { ?>
+
                                         <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="_images/star.png?<?php echo time(); ?>"/>
+
 
                                         <?php
                                     }
-                                    ?>
-                                <?php } else {
-                                    ?>
+                                } else {
+//                                    echo '<pre>';
+//                                    print_r($row);
+                                    if ($row['forum_avatar_setting'] == 1) {
+                                        $filename = "_uploads/user_photo/" . $row["uid"] . ".jpg";
+                                        if (file_exists($filename)) {
+                                            ?>
+                                            <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="<?php echo "$filename?" . time() ?>"/>
 
-                                    <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px" src="control/images/dummy.png?<?php echo time(); ?>"/>
+                                        <?php } else { ?>
+                                            <img style = "margin:10px 0px 0px 15px; width: 31px; height: 30px" src = "control/images/dummy.png?<?php echo time(); ?>"/>
 
+                                            <?php
+                                        }
+                                    } else {
+                                        $filename = "_uploads/user_avatar/" . $row["uid"] . ".jpg";
+                                        
+                                        if (file_exists($filename)) {
+                                            ?>
+                                            <img style="margin:10px 0px 0px 15px; width: 31px; height: 30px;" src="<?php echo "$filename?" . time() ?>"/>
 
-                                <?php }
+                                        <?php } else { ?>
+                                            <img style = "margin:10px 0px 0px 15px; width: 31px; height: 30px" src = "control/images/dummy.png?<?php echo time(); ?>"/>
+
+                                            <?php
+                                        }
+                                    }
+                                }
                                 ?>
-
 
                                 <p style="margin-left:80px; margin-top:30px;"><label>By: </label>
                                     <?php if ($row['uid'] == "0") { ?>
