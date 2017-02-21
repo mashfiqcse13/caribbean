@@ -14,33 +14,9 @@ if ((isset($_POST['submit'])) AND ( $_POST['submit'] == 'submit')) {
 
     insertData($data, "tbl_profile_comments");
 }
+
 include('_includes/header.php');
 ?>
-
-<style type="text/css">
-
-    .slider {
-        width: 70%;
-        margin: 0 auto;
-        /*margin-left: 10px;*/
-    }
-
-    .slick-slide {
-        margin: 0px 20px;
-    }
-
-    .slick-slide img {
-        width: 100%;
-    }
-
-        .slick-prev:before,
-        .slick-next:before {
-            color: black;
-        }
-</style>
-
-
-
 <script type="text/javascript">
 
     /*$(document).ready(function() {
@@ -48,8 +24,6 @@ include('_includes/header.php');
      $('a#audio').fancybox();
      
      });*/
-
-
 
     function get_videopath(id)
     {
@@ -364,38 +338,36 @@ if ($data['id'] != '') {
 
                                 $image = "_uploads/user_photo/" . $row['id'] . ".jpg";
                                 //echo $image;
+                                
 //                                
                                 $profile_pic = new Profile_pic($_SESSION["talent_id"], "talent");
                                 $images_details = $profile_pic->get_gallery();
-                                ?>
-
-                                <section class="center slider">
-
-                                    <?php
-                                    if (file_exists($image)) {
-                                        ?>
-
-                                        <div>
-                                            <a target="_blank" href="<?php echo "$image?" . time(); ?>" data-lightbox="01" ><img class="slide" src="<?php echo "$image?" . time(); ?>"></a>
-                                        </div>
+//                    echo '<pre>';
+//                    print_r($images_details);
+//                    die();
+                                
+                                if (file_exists($image)) {
+                                    ?>
+                                
+                                   
+                                    <a href="<?php echo "$image?" . time(); ?>" data-lightbox="01" ><img class="slide" src="<?php echo "$image?" . time(); ?>"></a>
 
 
-                                        <?php
-                                        $size = count($images_details);
-                                        for ($i = 1; $i < $size; $i++) {
-                                            ?>
-
-                                            <div>
-                                                <a target="_blank" href="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>" data-lightbox="01" ><img class="slide" src="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>"></a>
-                                            </div>
-
-                                            <?php
-                                        }
-                                        ?>
-
-
-                                    </section>       
-
+                                             
+                                             <?php
+                                                $size = count($images_details);
+                                                for($i=1;$i<$size;$i++){?>
+                                                    
+                                                    
+                                    <a href="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>" data-lightbox="01" ><img style="display: none" class="slide" src="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>"></a>
+                                                
+                                                        <?php
+                                                    }
+                                             ?>
+                                    
+                                    
+                                    
+                                    
                                     <?php
                                 } else {
                                     ?>
@@ -520,38 +492,31 @@ if ($data['id'] != '') {
 
                                 $image = "_uploads/user_photo/" . $row['id'] . ".jpg";
                                 //echo $image;
-
-
-                                $profile_pic = new Profile_pic($_SESSION["user_id"], "talent");
+                                
+                                
+                                 $profile_pic = new Profile_pic($_SESSION["user_id"], "talent");
                                 $images_details = $profile_pic->get_gallery();
-                                ?>
-
-                                <section class="center slider">
-
-                                    <?php
-                                    if (file_exists($image)) {
-                                        ?>
-                                        <div>
-                                            <a target="_blank" href="<?php echo "$image?" . time(); ?>" data-lightbox="01"><img class="slide" src="<?php echo "$image?" . time(); ?>"></a>
-                                        </div>
+                                
+                                if (file_exists($image)) {
+                                    ?>
+                                 <a href="<?php echo "$image?" . time(); ?>" data-lightbox="01"><img class="slide" src="<?php echo "$image?" . time(); ?>"></a>
 
 
-                                        <?php
-                                        $size = count($images_details);
-                                        for ($i = 1; $i < $size; $i++) {
-                                            ?>
-
-                                            <div>
-                                                <a target="_blank" href="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>" data-lightbox="01" ><img class="slide" src="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>"></a>
-                                            </div>
-                                            <?php
-                                        }
-                                        ?>
-
-
-                                    </section>
-
-
+                                             
+                                             <?php
+                                                $size = count($images_details);
+                                                for($i=1;$i<$size;$i++){?>
+                                                    
+                                                    
+                                    <a href="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>" data-lightbox="01" ><img style="display: none" class="slide" src="<?php echo $images_details[$i]['file_url'] . "?" . time(); ?>"></a>
+                                                
+                                                        <?php
+                                                    }
+                                             ?>
+                                    
+                                    
+                                    
+                                    
                                     <?php
                                 } else {
                                     ?>
@@ -878,50 +843,5 @@ if ($data['id'] != '') {
 } else {
     echo "<p class='err' align='center'><strong>User Not Found</strong></p>";
 }
-?>
-
-
-<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="<?php echo SITE_URL; ?>_includes/slick/slick.js"></script>
-
-<script type="text/javascript">
-                    $(document).on('ready', function () {
-                        $('.center').slick({
-                            centerMode: true,
-                            centerPadding: '5px',
-                            slidesToShow: 1,
-                            responsive: [
-                                {
-                                    breakpoint: 768,
-                                    settings: {
-                                        arrows: false,
-                                        centerMode: true,
-                                        centerPadding: '5px',
-                                        slidesToShow: 3
-                                    }
-                                },
-                                {
-                                    breakpoint: 480,
-                                    settings: {
-                                        arrows: false,
-                                        centerMode: true,
-                                        centerPadding: '5px',
-                                        slidesToShow: 1
-                                    }
-                                }
-                            ]
-                        });
-
-                        $(".lazy").slick({
-                            lazyLoad: 'ondemand', // ondemand progressive anticipated
-                            infinite: true
-                        });
-                    });
-</script>
-
-
-
-
-<?php
 include('_includes/footer.php');
 ?>

@@ -175,9 +175,7 @@ fwrite($handle, $data);
 //                            print_r($row);
 //                            die();
                             if ($row['forum_avatar_setting'] == 1) {
-                                        $filename = "_uploads/user_photo/" . $row["id"] . ".jpg";
-                                        echo $filename;
-                                        die();
+                                        $filename = "_uploads/user_photo/" . $row["id"] . ".jpg";                                        
                                         if (file_exists($filename)) {
                                             ?>
                                             

@@ -250,7 +250,6 @@ include('../_includes/header.php');
                                             $(".fancybox").fancybox();
                                         }
 
-
                                         function crop_img(Url, photo_id) //confarming property delete
                                         {
                                             var target_selector_to_update = 'body';
